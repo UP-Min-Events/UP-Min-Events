@@ -13,6 +13,7 @@
     "@types/react": "18.0.32",
     "@types/react-dom": "18.0.11",
     "firebase": "^9.19.1",
+    "firebase-react-hooks": "^0.8.0",
     "next": "13.2.4",
     "next-auth": "^4.22.0",
     "qrcode": "^1.5.1",
