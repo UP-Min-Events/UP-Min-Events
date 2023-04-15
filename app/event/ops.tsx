@@ -1,8 +1,9 @@
 'use client'
 
+import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import { useState, useEffect } from 'react'
-import { app, db } from '../../firebaseConfig'
+import { app, auth, db } from '../../firebaseConfig'
 import { collection, doc, getDoc, addDoc, getDocs, updateDoc } from 'firebase/firestore'
 
 const inter = Inter({ subsets: ['latin']})
@@ -18,14 +19,14 @@ interface Event {
 
 export default function Ops() {
 
-    const dbInstance = collection(db, 'events') 
+    const dbInstance = collection(db, 'events')
+    const user = auth.currentUser
 
     const [events, setEvents] = useState<Event[]>([])
     const [eventName, setEventName] = useState<string>('')
     const [eventDesc, setEventDesc] = useState<string>('')
     const [eventDate, setEventDate] = useState<string>('')
     const [eventTime, setEventTime] = useState<string>('')
-    const [attendeeName, setAttendeeName] = useState<string>('')
     const [eventAttending, setEventAttending] = useState<string>('')
 
     const updateFeed = () => {
@@ -33,6 +34,11 @@ export default function Ops() {
     }
     
     const createEvent = async () => {
+        if (!user){
+            window.alert('You must be logged in to create an event!')
+            return
+        }
+
         const docRef = await addDoc(dbInstance, {
             name: eventName,
             desc: eventDesc,
@@ -65,8 +71,14 @@ export default function Ops() {
     }    
 
     const attendEvent = async () => {
+
+        if (!user){
+            window.alert('You must be logged in to attend an event!')
+            return
+        }
+
         const eventId = eventAttending
-        const attendee = attendeeName
+        const attendee = user.displayName
 
         const eventRef = doc(db, 'events', eventId)
         const eventDoc = await getDoc(eventRef)
@@ -74,6 +86,11 @@ export default function Ops() {
         if (eventDoc.exists()) {
 
             const attendees = eventDoc.data().attendees
+            if (attendees.includes(attendee)){
+                window.alert('You are already attending this event!')
+                setEventAttending('')
+                return
+            }
             attendees.push(attendee)
 
             await updateDoc(eventRef, {
@@ -81,10 +98,9 @@ export default function Ops() {
             })
             
         } else {
-            window.alert('No such document!')
+            window.alert('No such event!')
         }
 
-        setAttendeeName('')
         setEventAttending('')
         getEvents()
     }
@@ -95,7 +111,7 @@ export default function Ops() {
 
     return(
         <div className={inter.className}>
-            <button onClick={updateFeed}>Refresh</button>
+            { user && <div>User: {user.displayName}</div> }
             <div>
                 <input 
                     type="text" 
@@ -128,6 +144,10 @@ export default function Ops() {
                         <p>Event Description: {event.desc}</p>
                         <p>Date: {event.date}</p>
                         <p>Time: {event.time}</p>
+                        <div>
+                            <p>QR: </p>
+                            <Image src={`https://api.qrserver.com/v1/create-qr-code/?data=${event.id}&size=200x200`} width={100} height={100} alt={`${event.name} QR`} />
+                        </div>
                         { event.attendees && event.attendees.length > 0 && (
                             <div>
                                 <h4>Attendees</h4>
@@ -136,16 +156,12 @@ export default function Ops() {
                                 ))}
                             </div>
                         )}
+
                     </div>
                 ))}
             </div>
             <div>
                 <h2>Attendee</h2>
-                <input 
-                    type="text"
-                    value={attendeeName}
-                    onChange={(e) => setAttendeeName(e.target.value)}
-                />
                 <input 
                     type="text"
                     placeholder="Event ID"

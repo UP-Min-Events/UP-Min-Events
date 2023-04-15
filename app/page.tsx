@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from './page.module.css'
+import Link from 'next/link'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -46,32 +47,20 @@ export default function Home() {
       </div>
 
       <div className={styles.grid}>
-        <a
-          href="https://beta.nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
+        <Link 
+          href="/auth"
           className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
         >
-          <h2 className={inter.className}>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
+          <h2 className={inter.className}>Auth <span>-&gt;</span></h2>
+          <p className={inter.className}>Sign in Out</p>
+        </Link>
+        <Link 
+          href="/event"
           className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
         >
-          <h2 className={inter.className}>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>Explore the Next.js 13 playground.</p>
-        </a>
-
+          <h2 className={inter.className}>Event <span>-&gt;</span></h2>
+          <p className={inter.className}>Attend and Create an Event</p>
+        </Link>
         <a
           href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
           className={styles.card}
