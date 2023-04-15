@@ -47,7 +47,7 @@ export default function Ops(){
                     <div>Welcome: {user.displayName}</div>
                     <div>Email: {user.email}</div>
                     <div>UID: {user.uid}</div>
-                    <Image src={pic} alt={`${user.displayName}'s photo`} width='100' height='100' />
+                    <Image src={pic!} alt={`${user.displayName}'s photo`} width='100' height='100' />
                 </div>
             }
         </div>
