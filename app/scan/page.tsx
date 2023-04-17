@@ -1,14 +1,18 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react';
-
+import { BrowserQRCodeReader } from '@zxing/library';
+ 
 export default function Scan() {
   const [cameraStream, setCameraStream] = useState(null);
+  const [videoDevices, setVideoDevices] = useState([]); 
   const videoRef = useRef();
+  const qrCodeReader = new BrowserQRCodeReader();
 
   const getVideoSources = async () => {
     const devices = await navigator.mediaDevices.enumerateDevices();
     const videoDevices = devices.filter(device => device.kind === 'videoinput');
+    setVideoDevices(videoDevices);
     return videoDevices;
   };
 
@@ -27,7 +31,24 @@ export default function Scan() {
   useEffect(() => {
     if (cameraStream && videoRef.current) {
       videoRef.current.srcObject = cameraStream;
+
+      // Start scanning QR code
+      qrCodeReader
+        .decodeFromVideoDevice(videoDevices[0].deviceId, videoRef.current)
+        .then(result => {
+          console.log('QR Code Result:', result.text);
+          // Stop scanning and release camera after a successful scan
+          qrCodeReader.reset();
+        })
+        .catch(err => {
+          console.error('Error scanning QR Code:', err);
+        });
     }
+
+    return () => {
+      // Clean up on unmount
+      qrCodeReader.reset();
+    };
   }, [cameraStream]);
 
   return (
