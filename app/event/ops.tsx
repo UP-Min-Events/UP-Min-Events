@@ -4,9 +4,9 @@ import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import { useState, useEffect } from 'react'
 import { app, auth, db } from '../../firebaseConfig'
-import { collection, doc, getDoc, addDoc, getDocs, updateDoc } from 'firebase/firestore'
+import { collection, doc, getDoc, addDoc, getDocs, updateDoc, deleteDoc } from 'firebase/firestore'
 
-const inter = Inter({ subsets: ['latin']})
+const inter = Inter({ subsets: ['latin'] })
 
 interface Event {
     name: string;
@@ -28,9 +28,11 @@ export default function Ops() {
     const [eventDate, setEventDate] = useState<string>('')
     const [eventTime, setEventTime] = useState<string>('')
     const [eventAttending, setEventAttending] = useState<string>('')
-    
+    const [editing, setEditing] = useState(false);
+    const [editedEvent, setEditedEvent] = useState({ name: "", desc: "" });
+
     const createEvent = async () => {
-        if (user === null){
+        if (user === null) {
             window.alert('You must be logged in to create an event!')
             return
         }
@@ -53,7 +55,7 @@ export default function Ops() {
     const updateFeed = () => {
         getEvents()
     }
-    
+
 
     const getEvents = async () => {
         const querySnapshot = await getDocs(dbInstance)
@@ -69,11 +71,11 @@ export default function Ops() {
             })
         })
         setEvents(events)
-    }    
+    }
 
     const attendEvent = async () => {
 
-        if (!user){
+        if (!user) {
             window.alert('You must be logged in to attend an event!')
             return
         }
@@ -87,7 +89,7 @@ export default function Ops() {
         if (eventDoc.exists()) {
 
             const attendees = eventDoc.data().attendees
-            if (attendees.includes(attendee)){
+            if (attendees.includes(attendee)) {
                 window.alert('You are already attending this event!')
                 setEventAttending('')
                 return
@@ -97,7 +99,7 @@ export default function Ops() {
             await updateDoc(eventRef, {
                 attendees: attendees
             })
-            
+
         } else {
             window.alert('No such event!')
         }
@@ -106,33 +108,51 @@ export default function Ops() {
         getEvents()
     }
 
+    const deleteEvent = async (eventID: string): Promise<void> => {
+        const eventRef = doc(db, 'events', eventID)
+        await deleteDoc(eventRef)
+        getEvents()
+    }
+
+    const updateEvent = async (eventID: string) => {
+        const eventRef = doc(db, 'events', eventID);
+      
+        await updateDoc(eventRef, {
+          name: editedEvent.name,
+          desc: editedEvent.desc
+        });
+
+        setEditing(false);
+        getEvents();
+    }
+
     useEffect(() => {
         getEvents()
     }, [])
 
-    return(
+    return (
         <div className={inter.className}>
-            { user && <div>User: {user.displayName}</div> }
+            {user && <div>User: {user.displayName}</div>}
             <div>
-                <input 
-                    type="text" 
+                <input
+                    type="text"
                     value={eventName}
                     onChange={(e) => setEventName(e.target.value)}
                 />
-                <input 
+                <input
                     type="text"
                     value={eventDesc}
                     onChange={(e) => setEventDesc(e.target.value)}
                 />
-                <input 
-                    type="date" 
+                <input
+                    type="date"
                     value={eventDate}
                     onChange={(e) => setEventDate(e.target.value)}
                 />
-                <input 
+                <input
                     type="time"
                     value={eventTime}
-                    onChange={(e) => setEventTime(e.target.value)} 
+                    onChange={(e) => setEventTime(e.target.value)}
                 />
                 <button onClick={createEvent}>Create New Event</button>
             </div>
@@ -140,16 +160,42 @@ export default function Ops() {
                 <h1>Events</h1>
                 {events.map((event) => (
                     <div key={event.id}>
-                        <h3>{event.name}</h3>
+                        {editing ? (
+                            <div>
+                                <input
+                                    type="text"
+                                    value={editedEvent.name}
+                                    onChange={(e) =>
+                                        setEditedEvent({ ...editedEvent, name: e.target.value })
+                                    }
+                                />
+                                <input
+                                    type="text"
+                                    value={editedEvent.desc}
+                                    onChange={(e) =>
+                                        setEditedEvent({ ...editedEvent, desc: e.target.value })
+                                    }
+                                />
+                            </div>
+                        ) : (
+                            <div>
+                                <h3>{event.name}</h3>
+                                <p>Event Description: {event.desc}</p>
+                            </div>
+                        )}
                         <p>Event ID: {event.id}</p>
-                        <p>Event Description: {event.desc}</p>
                         <p>Date: {event.date}</p>
                         <p>Time: {event.time}</p>
                         <div>
                             <p>QR: </p>
-                            <Image src={`https://api.qrserver.com/v1/create-qr-code/?data=${event.id}&size=200x200`} width={100} height={100} alt={`${event.name} QR`} />
+                            <Image
+                                src={`https://api.qrserver.com/v1/create-qr-code/?data=${event.id}&size=200x200`}
+                                width={100}
+                                height={100}
+                                alt={`${event.name} QR`}
+                            />
                         </div>
-                        { event.attendees && event.attendees.length > 0 && (
+                        {event.attendees && event.attendees.length > 0 && (
                             <div>
                                 <h4>Attendees</h4>
                                 {event.attendees.map((attendee) => (
@@ -157,21 +203,32 @@ export default function Ops() {
                                 ))}
                             </div>
                         )}
+                        <button type="button" onClick={() => deleteEvent(event.id)}>
+                            Delete
+                        </button>
 
+                        {!editing ? (
+                            <button type="button" onClick={() => setEditing(true)}>
+                                Edit
+                            </button>
+                        ) : (
+                            <button type="button" onClick={() => updateEvent(event.id)}>
+                                Save
+                            </button>)}
                     </div>
                 ))}
             </div>
             <div>
                 <h2>Attendee</h2>
-                <input 
+                <input
                     type="text"
                     placeholder="Event ID"
-                    value={eventAttending} 
+                    value={eventAttending}
                     onChange={(e) => setEventAttending(e.target.value)}
                 />
                 <button onClick={attendEvent}>Attend</button>
             </div>
-            
+
         </div>
     )
 }
