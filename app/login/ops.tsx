@@ -14,6 +14,7 @@ import upLogo from '../../public/uplogo.png'
 import { Button } from '@mui/material'
 import { Container } from '@mui/material'
 import { Divider } from '@mui/material'
+import { sizing } from '@mui/system';
 
 const inter = Inter({ subsets: ['latin']})
 
@@ -47,12 +48,11 @@ export default function Ops(){
     }, [user])
     
     return (
-        <Container maxWidth={false} style={{ minHeight: '100vh' }}
+        <Container maxWidth={false}
             sx={{ 
-                width: '50%',
                 my: 'auto',
                 mx: 'auto',
-                boxShadow: '2'
+                minHeight: '100vh'
             }}
         >
 
@@ -60,12 +60,14 @@ export default function Ops(){
                 <Image className={styles.logo}
                     src={upLogo}
                     alt="UPMin Logo"
+                    width={175}
+                    height={142.5}
+                    
                 />
-
                 <h1> Events </h1>
                 <h3> Know what's happening. </h3>
 
-                <Divider variant="middle" sx={{ width: '50%', mx: 'auto' }} />
+                <Divider variant="middle" sx={{ width: '75%', mx: 'auto' }} />
             </div>
 
             <div className={`${inter.className} ${styles.loginBody}`}>

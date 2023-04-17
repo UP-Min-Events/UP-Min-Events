@@ -49,18 +49,6 @@ body {
   color: black;
 }
 
-h1 {
-  text-align: center;
-  padding-top: 5px;
-  position: flex;
-}
-
-h3 {
-  color: #a70000;
-  text-align: center;
-  position: flex;
-}
-
 body {
   background: var(--background-white);
 }
