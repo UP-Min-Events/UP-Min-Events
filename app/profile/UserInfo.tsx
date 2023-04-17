@@ -13,7 +13,7 @@ export default function UserInfo(){
             {user && (
                 <div>
                     <h1>{user.displayName}</h1>
-                    <Image src={user?.photoURL!} alt={user.displayName} width="200" height="200"/>
+                    <Image src={user?.photoURL!} alt={user?.displayName!} width="200" height="200"/>
                 </div>
             )}
         </>
