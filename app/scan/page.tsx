@@ -33,19 +33,18 @@ export default function Scan() {
       videoRef.current.srcObject = cameraStream;
 
       // Start scanning QR code
-      qrCodeReader
-        .decodeFromVideoDevice(
-          cameraStream.getVideoTracks()[0].getSettings().deviceId || null, 
-          videoRef.current,
-          {}
-        ).then(result => {
+      qrCodeReader.decodeFromVideoDevice(
+        cameraStream.getVideoTracks()[0].getSettings().deviceId || null, 
+        videoRef.current,
+        (result, error) => {
           console.log('QR Code Result:', result.text);
-          // Stop scanning and release camera after a successful scan
-          qrCodeReader.reset();
-        })
-        .catch(err => {
-          console.error('Error scanning QR Code:', err);
-        });
+          // handle error if exists
+          if (error) {
+            console.error('QR Code Error:', error);
+          }
+        }
+      );
+      
     }
 
     return () => {
