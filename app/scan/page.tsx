@@ -37,7 +37,7 @@ export default function Scan() {
         cameraStream.getVideoTracks()[0].getSettings().deviceId || null, 
         videoRef.current,
         (result, error) => {
-          console.log('QR Code Result:', result.getResult());
+          console.log('QR Code Result:', result);
           // handle error if exists
           if (error) {
             console.error('QR Code Error:', error);
