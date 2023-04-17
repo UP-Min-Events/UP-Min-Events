@@ -4,9 +4,9 @@ import { useState, useEffect, useRef } from 'react';
 import { BrowserQRCodeReader } from '@zxing/library';
  
 export default function Scan() {
-  const [cameraStream, setCameraStream] = useState(null);
+  const [cameraStream, setCameraStream] = useState<MediaStream | null></MediaStream>(null);
   const [videoDevices, setVideoDevices] = useState<MediaDeviceInfo[]>([]); 
-  const videoRef = useRef();
+  const videoRef = useRef<HTMLVideoElement>(null);
   const qrCodeReader = new BrowserQRCodeReader();
 
   const getVideoSources = async () => {
