@@ -10,6 +10,11 @@ import { auth } from '../../firebaseConfig'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { useAuthState } from 'react-firebase-hooks/auth'
 
+import upLogo from '../../public/uplogo.png'
+import { Button } from '@mui/material'
+import { Container } from '@mui/material'
+import { Divider } from '@mui/material'
+
 const inter = Inter({ subsets: ['latin']})
 
 export default function Ops(){
@@ -42,8 +47,32 @@ export default function Ops(){
     }, [user])
     
     return (
-        <div className={inter.className}>
-            <button className={`${inter.className} ${styles.button}`} onClick={SignIn}>log in as attendee</button>
-        </div>
+        <Container maxWidth={false} style={{ minHeight: '100vh' }}
+            sx={{ 
+                width: '50%',
+                my: 'auto',
+                mx: 'auto',
+                boxShadow: '2'
+            }}
+        >
+
+            <div className={styles.loginHeader}>
+                <Image className={styles.logo}
+                    src={upLogo}
+                    alt="UPMin Logo"
+                />
+
+                <h1> Events </h1>
+                <h3> Know what's happening. </h3>
+
+                <Divider variant="middle" sx={{ width: '50%', mx: 'auto' }} />
+            </div>
+
+            <div className={`${inter.className} ${styles.loginBody}`}>
+                <h5> Log in as: </h5>
+                <Button variant="text" className={`${inter.className} ${styles.button}`} onClick={SignIn}>Attendee</Button>
+            </div>
+
+        </Container>
     )
 }
