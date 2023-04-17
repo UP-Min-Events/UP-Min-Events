@@ -1,7 +1,9 @@
 'use client'
 
+import styles from './page.module.css'
 import { Inter } from 'next/font/google'
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 
 import { auth } from '../../firebaseConfig'
@@ -14,6 +16,7 @@ export default function Ops(){
     
     const [user] = useAuthState(auth)
     const pic = user?.photoURL
+    const router = useRouter()
 
     const SignIn = () => {
 
@@ -32,24 +35,15 @@ export default function Ops(){
             })
     }
 
-    const SignOut = () => {
-        auth.signOut()
-    }
+    useEffect(() => {
+        if(user) {
+            router.push('/')
+        }
+    }, [user])
     
     return (
         <div className={inter.className}>
-            <button onClick={SignIn}>Sign In with Google</button>
-
-            <button onClick={SignOut}>Sign Out</button>
-            {user ? <div>In</div> : <div>Out</div>}
-            {user && 
-                <div>
-                    <div>Welcome: {user.displayName}</div>
-                    <div>Email: {user.email}</div>
-                    <div>UID: {user.uid}</div>
-                    <Image src={pic!} alt={`${user.displayName}'s photo`} width='100' height='100' />
-                </div>
-            }
+            <button className={`${inter.className} ${styles.button}`} onClick={SignIn}>log in as attendee</button>
         </div>
     )
 }
