@@ -26,27 +26,6 @@ export default function Feed() {
     const updateFeed = () => {
         getEvents()
     }
-    
-    const createEvent = async () => {
-        if (!user){
-            window.alert('You must be logged in to create an event!')
-            return
-        }
-
-        const docRef = await addDoc(dbInstance, {
-            name: eventName,
-            desc: eventDesc,
-            date: eventDate,
-            time: eventTime,
-            attendees: [],
-        })
-
-        setEventName('')
-        setEventDesc('')
-        setEventDate('')
-        setEventTime('')
-        getEvents()
-    }
 
     const getEvents = async () => {
         const querySnapshot = await getDocs(dbInstance)
