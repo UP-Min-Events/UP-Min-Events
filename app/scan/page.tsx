@@ -35,7 +35,7 @@ export default function Scan() {
       // Start scanning QR code
       qrCodeReader
         .decodeFromVideoDevice(
-          cameraStream.getVideoTracks()[0].getSettings().deviceId, 
+          cameraStream.getVideoTracks()[0].getSettings().deviceId || null, 
           videoRef.current,
           {}
         ).then(result => {
