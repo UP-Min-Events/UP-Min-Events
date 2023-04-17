@@ -5,7 +5,7 @@ import { BrowserQRCodeReader } from '@zxing/library';
  
 export default function Scan() {
   const [cameraStream, setCameraStream] = useState(null);
-  const [videoDevices, setVideoDevices] = useState([]); 
+  const [videoDevices, setVideoDevices] = useState<MediaDeviceInfo[]>([]); 
   const videoRef = useRef();
   const qrCodeReader = new BrowserQRCodeReader();
 
