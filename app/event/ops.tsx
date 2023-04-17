@@ -28,13 +28,9 @@ export default function Ops() {
     const [eventDate, setEventDate] = useState<string>('')
     const [eventTime, setEventTime] = useState<string>('')
     const [eventAttending, setEventAttending] = useState<string>('')
-
-    const updateFeed = () => {
-        getEvents()
-    }
     
     const createEvent = async () => {
-        if (!user){
+        if (user === null){
             window.alert('You must be logged in to create an event!')
             return
         }
@@ -53,6 +49,11 @@ export default function Ops() {
         setEventTime('')
         getEvents()
     }
+
+    const updateFeed = () => {
+        getEvents()
+    }
+    
 
     const getEvents = async () => {
         const querySnapshot = await getDocs(dbInstance)
