@@ -19,21 +19,21 @@ export default function Ops(){
     const router = useRouter()
 
     const SignIn = () => {
-
-        const provider = new GoogleAuthProvider()
+        const provider = new GoogleAuthProvider();
+        provider.setCustomParameters({ hd: "up.edu.ph" });
         
         signInWithPopup(auth, provider)
-            .then((result) => {
-                const credential = GoogleAuthProvider.credentialFromResult(result)
-                const token = credential?.accessToken
-                const user = result.user
-            }).catch((error) => {
-                const errorCode = error.code
-                const errorMessage = error.message
-                const email = error.email
-                const credential = GoogleAuthProvider.credentialFromError(error)
-            })
-    }
+          .then((result) => {
+            const credential = GoogleAuthProvider.credentialFromResult(result);
+            const token = credential?.accessToken;
+            const user = result.user;
+          }).catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            const email = error.email;
+            const credential = GoogleAuthProvider.credentialFromError(error);
+          });
+      }
 
     useEffect(() => {
         if(user) {
