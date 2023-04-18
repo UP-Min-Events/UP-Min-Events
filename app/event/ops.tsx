@@ -114,18 +114,6 @@ export default function Ops() {
         getEvents()
     }
 
-    const updateEvent = async (eventID: string) => {
-        const eventRef = doc(db, 'events', eventID);
-      
-        await updateDoc(eventRef, {
-          name: editedEvent.name,
-          desc: editedEvent.desc
-        });
-
-        setEditing(false);
-        getEvents();
-    }
-
     useEffect(() => {
         getEvents()
     }, [])
@@ -155,68 +143,6 @@ export default function Ops() {
                     onChange={(e) => setEventTime(e.target.value)}
                 />
                 <button onClick={createEvent}>Create New Event</button>
-            </div>
-            <div>
-                <h1>Events</h1>
-                {events.map((event) => (
-                    <div key={event.id}>
-                        {editing ? (
-                            <div>
-                                <input
-                                    type="text"
-                                    value={editedEvent.name}
-                                    onChange={(e) =>
-                                        setEditedEvent({ ...editedEvent, name: e.target.value })
-                                    }
-                                />
-                                <input
-                                    type="text"
-                                    value={editedEvent.desc}
-                                    onChange={(e) =>
-                                        setEditedEvent({ ...editedEvent, desc: e.target.value })
-                                    }
-                                />
-                            </div>
-                        ) : (
-                            <div>
-                                <h3>{event.name}</h3>
-                                <p>Event Description: {event.desc}</p>
-                            </div>
-                        )}
-                        <p>Event ID: {event.id}</p>
-                        <p>Date: {event.date}</p>
-                        <p>Time: {event.time}</p>
-                        <div>
-                            <p>QR: </p>
-                            <Image
-                                src={`https://api.qrserver.com/v1/create-qr-code/?data=${event.id}&size=200x200`}
-                                width={100}
-                                height={100}
-                                alt={`${event.name} QR`}
-                            />
-                        </div>
-                        {event.attendees && event.attendees.length > 0 && (
-                            <div>
-                                <h4>Attendees</h4>
-                                {event.attendees.map((attendee) => (
-                                    <p key={attendee}>{attendee}</p>
-                                ))}
-                            </div>
-                        )}
-                        <button type="button" onClick={() => deleteEvent(event.id)}>
-                            Delete
-                        </button>
-
-                        {!editing ? (
-                            <button type="button" onClick={() => setEditing(true)}>
-                                Edit
-                            </button>
-                        ) : (
-                            <button type="button" onClick={() => updateEvent(event.id)}>
-                                Save
-                            </button>)}
-                    </div>
-                ))}
             </div>
             <div>
                 <h2>Attendee</h2>

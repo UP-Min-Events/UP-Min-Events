@@ -22,7 +22,6 @@ interface Event {
 export default function Feed() {
 
     const dbInstance = collection(db, 'events')
-
     const [events, setEvents] = useState<Event[]>([])
 
     const getEvents = async () => {
@@ -50,26 +49,15 @@ export default function Feed() {
             <div>
                 <h1>Live Events</h1>
                 {events.map((event) => (
-                    <div key={event.id}>
-                        <h3>{event.name}</h3>
-                        <p>Event ID: {event.id}</p>
-                        <p>Event Description: {event.desc}</p>
-                        <p>Date: {event.date}</p>
-                        <p>Time: {event.time}</p>
-                        <div>
-                            <p>QR: </p>
-                            <Image src={`https://api.qrserver.com/v1/create-qr-code/?data=${event.id}&size=200x200`} width={100} height={100} alt={`${event.name} QR`} />
-                        </div>
-                        { event.attendees && event.attendees.length > 0 && (
-                            <div>
-                                <h4>Attendees</h4>
-                                {event.attendees.map((attendee) => (
-                                    <p key={attendee}>{attendee}</p>
-                                ))}
-                            </div>
-                        )}
-
-                    </div>
+                    <Event 
+                        key={event.id} 
+                        id={event.id} 
+                        title={event.name} 
+                        desc={event.desc} 
+                        date={event.date} 
+                        time={event.time} 
+                        attendees={event.attendees}
+                    />
                 ))}
             </div>
         </div>

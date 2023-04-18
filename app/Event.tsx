@@ -1,9 +1,12 @@
 import Link from 'next/link'
+import styles from './page.module.css'
 
-export default function Event(props : Event){
+export default function Event({ id, title, date, time }){
     return (
-        <Link href={`/`}>
-            <h1>Title</h1>
+        <Link className={styles.event} href={`/${id}`}>
+            <h2>{title}</h2>
+            <p>{date}</p>
+            <p>{time}</p>
         </Link>
     )
 }
