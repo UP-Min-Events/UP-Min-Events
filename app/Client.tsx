@@ -47,6 +47,9 @@ export default function Client() {
                     </Container>
 
                     <Feed />
+                    <Link href="/scan">
+                        <h2>Scan</h2>
+                    </Link>
                 </Container>
             )}
         </>
