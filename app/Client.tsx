@@ -11,7 +11,9 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import Link from 'next/link'
 
 import PersonIcon from '@mui/icons-material/Person';
-import { Button, Container } from '@mui/material'
+import CropFreeIcon from '@mui/icons-material/CropFree';
+import { Button, Container, IconButton, Box } from '@mui/material'
+import { Just_Me_Again_Down_Here } from 'next/font/google';
 
 export default function Client() {
 
@@ -56,9 +58,35 @@ export default function Client() {
                     <Suspense fallback={<p>Loading pa oy..</p>}>
                         <Feed />
                     </Suspense>
-                    <Link href="/scan">
-                        <h2>Scan</h2>
-                    </Link>
+                    
+                    <Box
+                        sx={{
+                            backgroundColor: '#a70000',
+                            display: 'fixed',
+                            bottom: '2em',
+                            width: '6em',
+                            height: '6em',
+                            borderRadius: '1.5em',
+                            boxShadow: '0 0 5px 0 rgba(0,0,0,0.5)',
+                            mx: 'auto',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <Link href="/scan">
+                            <IconButton size="large"                                
+                                sx={{
+                                    position: 'relative',
+                                    fontWeight: 'bold',
+                                    scale: '275%',
+                                    color: 'white',
+                                }}
+                            > 
+                                <CropFreeIcon sx={{ textAlign: 'center', display: 'flex' }}/> 
+                            </IconButton>
+                        </Link>
+                    </Box>
+
                 </Container>
             )}
         </>
