@@ -1,6 +1,5 @@
 import styles from "./page.module.css";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 import Feed from "./Feed";
 
 import { auth } from "../firebaseConfig";
