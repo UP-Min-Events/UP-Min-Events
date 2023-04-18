@@ -30,10 +30,10 @@ export default function Scan() {
     };
 
     useEffect(() => {
-        getVideoSources().then(videoDevices => {
-            if (videoDevices.length > 0) {
+        getBackFacingVideoDeviceId().then(deviceId => {
+            if (deviceId) {
                 window.navigator.mediaDevices
-                    .getUserMedia({ video: { deviceId: videoDevices[0].deviceId } })
+                    .getUserMedia({ video: { deviceId  } })
                     .then(stream => {
                         setCameraStream(stream);
                     });
