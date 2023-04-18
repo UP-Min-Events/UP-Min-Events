@@ -11,10 +11,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import Link from 'next/link'
 
 import PersonIcon from '@mui/icons-material/Person';
-import { Grid } from '@mui/material'
-import { Button } from '@mui/material'
-import { Container } from '@mui/material'
-import { red } from '@mui/material/colors';
+import { Button, Container } from '@mui/material'
 
 export default function Client() {
 
@@ -41,7 +38,18 @@ export default function Client() {
                 >
                     <Container sx={{ mt: '4em', display: 'flex', justifyContent: 'space-between' }}>
 
-                        <Link href="/profile"><Button variant="text" startIcon={<PersonIcon sx = {{ color: '#a70000' }}/>} className={styles.profileButton}> {user.displayName} </Button> </Link>
+                        <Link href="/profile"> 
+                            <Button variant="text" startIcon={<PersonIcon sx = {{ color: '#a70000' }}/>}
+                                sx={{
+                                    color: 'black',
+                                    fontWeight: 'bold',
+                                    top: '50%',
+                                    transform: 'translateY(-50%)',
+                                }}> 
+                                {user.displayName} 
+                            </Button> 
+                        </Link>
+
                         <SignOut />
 
                     </Container>

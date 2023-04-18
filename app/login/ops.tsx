@@ -10,13 +10,9 @@ import { auth } from '../../firebaseConfig'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { useAuthState } from 'react-firebase-hooks/auth'
 
-import { Stack } from '@mui/material'
+
+import { Stack, Button, Container, Divider } from '@mui/material'
 import upLogo from '../../public/uplogo.png'
-import { Box } from '@mui/material'
-import { Button } from '@mui/material'
-import { Container } from '@mui/material'
-import { Divider } from '@mui/material'
-import { sizing } from '@mui/system';
 
 const inter = Inter({ subsets: ['latin']})
 
@@ -76,8 +72,28 @@ export default function Ops(){
             <Stack spacing={1} className={`${inter.className} ${styles.loginBody}`} sx={{ display: 'flex', alignItems: 'center' }}>
 
                 <p> Log in as: </p>
-                <Button variant="text" className={`${inter.className} ${styles.loginButton}`} onClick={SignIn}>Attendee</Button>
-                <Button variant="text" className={`${inter.className} ${styles.loginButton}`} onClick={SignIn}>Organizer</Button> 
+                <Button variant="text" className={inter.className} onClick={SignIn} 
+                    sx={{
+                        display: 'flex',
+                        backgroundColor: '#a70000',
+                        color: '#fff',
+                        fontWeight: 'bold',
+                        width: '12em',
+                        borderRadius: '1em'
+                    }}>
+                    Attendee
+                </Button>
+                <Button variant="text" className={inter.className} onClick={SignIn}
+                    sx={{
+                        display: 'flex',
+                        backgroundColor: '#a70000',
+                        color: '#fff',
+                        fontWeight: 'bold',
+                        width: '12em',
+                        borderRadius: '1em'
+                    }}>
+                    Organizer
+                </Button> 
                 
             </Stack>
 

@@ -7,8 +7,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Inter } from 'next/font/google'
 
-import { IconButton } from '@mui/material'
-import { Container } from '@mui/material'
+import { IconButton, Container } from '@mui/material'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const inter = Inter({ subsets: ['latin']})
@@ -24,7 +23,17 @@ export default function UserInfo(){
                     <Container sx={{ display: 'flex', position: 'relative', mt: '4em', justifyContent: 'center', padding: '0.5em' }}>
 
                         <Link href="/"> 
-                            <IconButton size="large" className={styles.backButton}> <ArrowBackIcon /> </IconButton> 
+                            <IconButton size="large"
+                                sx={{
+                                    position: 'absolute',
+                                    left: '2rem',
+                                    color: '#a70000',
+                                    fontWeight: 'bold',
+                                    top: '50%',
+                                    transform: 'translateY(-50%)',
+                                }}> 
+                                <ArrowBackIcon /> 
+                            </IconButton> 
                         </Link> 
 
                         <div className={`${inter.className} ${styles.settings}`}> Settings </div>
