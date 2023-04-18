@@ -14,12 +14,3 @@
   text-align: center;
   margin-top: 1em;
 }
-
-.backButton {
-  color: #a70000;
-  font-weight: bold;
-  position: absolute;
-  left: 2rem;
-  top: 50%;
-  transform: translateY(-50%);
-}
