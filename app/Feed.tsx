@@ -52,11 +52,9 @@ export default function Feed() {
                     <Event 
                         key={event.id} 
                         id={event.id} 
-                        title={event.name} 
-                        desc={event.desc} 
+                        name={event.name} 
                         date={event.date} 
                         time={event.time} 
-                        attendees={event.attendees}
                     />
                 ))}
             </div>
