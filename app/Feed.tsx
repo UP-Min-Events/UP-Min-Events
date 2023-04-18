@@ -3,6 +3,8 @@
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import { useState, useEffect } from 'react'
+import Event from './Event'
+
 import { app, auth, db } from '../firebaseConfig'
 import { collection, doc, getDoc, getDocs, updateDoc } from 'firebase/firestore'
 
@@ -22,10 +24,6 @@ export default function Feed() {
     const dbInstance = collection(db, 'events')
 
     const [events, setEvents] = useState<Event[]>([])
-
-    const updateFeed = () => {
-        getEvents()
-    }
 
     const getEvents = async () => {
         const querySnapshot = await getDocs(dbInstance)
