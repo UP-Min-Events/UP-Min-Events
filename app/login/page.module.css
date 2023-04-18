@@ -23,8 +23,8 @@
     padding: 1em;
 }
 
-.button {
-    background-color: var(--accent-maroon);
+.loginButton {
+    background-color: #a70000;
     color: #fff;
     font-weight: bold;
 
@@ -32,7 +32,6 @@
     margin-right: auto;
     margin-top: 0.5em;
 
-    display: flex;
     width: 12em;
     border-radius: 1em;
 }

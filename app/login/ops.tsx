@@ -11,6 +11,7 @@ import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { useAuthState } from 'react-firebase-hooks/auth'
 
 import upLogo from '../../public/uplogo.png'
+import { Box } from '@mui/material'
 import { Button } from '@mui/material'
 import { Container } from '@mui/material'
 import { Divider } from '@mui/material'
@@ -57,13 +58,14 @@ export default function Ops(){
         >
 
             <div className={styles.loginHeader}>
+
                 <Image className={styles.logo}
                     src={upLogo}
                     alt="UPMin Logo"
                     width={175}
                     height={142.5}
-                    
                 />
+
                 <h1> Events </h1>
                 <h3> Know what's happening. </h3>
 
@@ -71,8 +73,10 @@ export default function Ops(){
             </div>
 
             <div className={`${inter.className} ${styles.loginBody}`}>
+
                 <h5> Log in as: </h5>
-                <Button variant="text" className={`${inter.className} ${styles.button}`} onClick={SignIn}>Attendee</Button>
+                <Button variant="text" className={`${inter.className} ${styles.loginButton}`} onClick={SignIn}>Attendee</Button>
+                
             </div>
 
         </Container>
