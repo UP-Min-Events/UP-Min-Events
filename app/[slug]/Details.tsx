@@ -7,11 +7,16 @@ import { db } from '../../firebaseConfig'
 import { collection, doc, getDoc, addDoc, getDocs, updateDoc, deleteDoc } from 'firebase/firestore'
 import Link from 'next/link'
 
-export default function Details({ id }){
+interface EditedEvent {
+    name: string;
+    desc: string;
+}
+
+export default function Details({ id } : { id: string }){
 
     const [editing, setEditing] = useState(false);
     const [data, setData] = useState<any>(null)
-    const [editedEvent, setEditedEvent] = useState({ name: "", desc: "" });
+    const [editedEvent, setEditedEvent] = useState<EditedEvent>({ name: "", desc: "" });
     const router = useRouter()
     
     const getDetails = async () => {
@@ -24,7 +29,7 @@ export default function Details({ id }){
         }
     }
 
-    const updateEvent = async (eventID: string) => {
+    const updateEvent = async () => {
         const eventRef = doc(db, 'events', id);
       
         await updateDoc(eventRef, {
@@ -36,7 +41,7 @@ export default function Details({ id }){
         getDetails();
     }
 
-    const deleteEvent = async (eventID: string): Promise<void> => {
+    const deleteEvent = async () : Promise<void> => {
         const eventRef = doc(db, 'events', id)
         await deleteDoc(eventRef)
         router.push("/")
@@ -89,11 +94,11 @@ export default function Details({ id }){
                 <button type="button" onClick={() => setEditing(true)}>
                     Edit
                 </button>) : (
-                <button type="button" onClick={() => updateEvent(event.id)}>
+                <button type="button" onClick={updateEvent}>
                     Save
                 </button>)
             }
-            <button onClick={(id) => deleteEvent(id)}>Delete</button>
+            <button onClick={deleteEvent}>Delete</button>
         </div>
     )
 }
