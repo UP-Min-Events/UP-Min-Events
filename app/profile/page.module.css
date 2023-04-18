@@ -1,0 +1,25 @@
+.img {
+  border-radius: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.settings {
+  font-weight: bold;  
+  text-align: center;
+  scale: 1.35;
+}
+
+.username {
+  text-align: center;
+  margin-top: 1em;
+}
+
+.backButton {
+  color: #a70000;
+  font-weight: bold;
+  position: absolute;
+  left: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+}

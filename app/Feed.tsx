@@ -48,7 +48,7 @@ export default function Feed() {
     return(
         <div className={inter.className}>
             <div>
-                <h1>Events</h1>
+                <h1>Live Events</h1>
                 {events.map((event) => (
                     <div key={event.id}>
                         <h3>{event.name}</h3>

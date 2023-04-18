@@ -4,7 +4,7 @@
     text-align: center;
 }
 
-.loginHeader h3 {
+.loginHeader p {
     margin-bottom: 1em;
     color: #a70000;
 }
@@ -23,8 +23,12 @@
     padding: 1em;
 }
 
-.button {
-    background-color: var(--accent-maroon);
+.loginBody p {
+    scale: 0.8;
+}
+
+.loginButton {
+    background-color: #a70000;
     color: #fff;
     font-weight: bold;
 
@@ -32,7 +36,6 @@
     margin-right: auto;
     margin-top: 0.5em;
 
-    display: flex;
     width: 12em;
     border-radius: 1em;
 }
