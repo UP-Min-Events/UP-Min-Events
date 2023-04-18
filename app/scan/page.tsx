@@ -5,44 +5,33 @@ import { BrowserQRCodeReader } from '@zxing/library';
 
 export default function Scan() {
     const [cameraStream, setCameraStream] = useState<MediaStream | null>(null);
-    const [videoDevices, setVideoDevices] = useState<MediaDeviceInfo[]>([]);
+    const [isCameraReady, setIsCameraReady] = useState(false);
     const videoRef = useRef<HTMLVideoElement>(null);
     const qrCodeReader = new BrowserQRCodeReader();
 
     const getVideoSources = async () => {
         const devices = await navigator.mediaDevices.enumerateDevices();
-        const videoDevices = devices.filter(device => device.kind === 'videoinput')
+        let videoDevice = devices.find(device => device.kind === 'videoinput' && (device as any).facingMode === 'environment')
+        if (!videoDevice) videoDevice = devices.find(device => device.kind === 'videoinput')
 
-        setVideoDevices(videoDevices);
-        return videoDevices;
-    };
-
-    const getBackFacingVideoDeviceId = async () => {
-        const videoDevices = await getVideoSources();
-        for (const device of videoDevices) {
-            const stream = await navigator.mediaDevices.getUserMedia({ video: { deviceId: device.deviceId } });
-            const trackSettings = stream.getVideoTracks()[0].getSettings();
-            if (trackSettings.facingMode === 'environment') {
-                return device.deviceId;
-            }
-        }
-        return null;
-    };
+        return videoDevice?.deviceId;
+    }
 
     useEffect(() => {
-        getBackFacingVideoDeviceId().then(deviceId => {
+        getVideoSources().then(deviceId => {
             if (deviceId) {
-                window.navigator.mediaDevices
-                    .getUserMedia({ video: { deviceId  } })
-                    .then(stream => {
-                        setCameraStream(stream);
-                    });
+                window.navigator.mediaDevices.getUserMedia({ video: { deviceId: deviceId } }).then(stream => {
+                    setCameraStream(stream);
+                    setIsCameraReady(true);
+                }).catch(error => {
+                    console.error('Camera Error:', error);
+                });
             }
-        });
+        })
     }, []);
 
     useEffect(() => {
-        if (cameraStream && videoRef.current) {
+        if (cameraStream && videoRef.current && isCameraReady) {
             videoRef.current.srcObject = cameraStream;
 
             // Start scanning QR code
@@ -64,7 +53,7 @@ export default function Scan() {
             // Clean up on unmount
             qrCodeReader.reset();
         };
-    }, [cameraStream]);
+    }, [cameraStream, isCameraReady]);
 
     return (
         <div>
