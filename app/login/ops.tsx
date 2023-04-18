@@ -10,6 +10,7 @@ import { auth } from '../../firebaseConfig'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { useAuthState } from 'react-firebase-hooks/auth'
 
+import { Stack } from '@mui/material'
 import upLogo from '../../public/uplogo.png'
 import { Box } from '@mui/material'
 import { Button } from '@mui/material'
@@ -67,17 +68,18 @@ export default function Ops(){
                 />
 
                 <h1> Events </h1>
-                <h3> Know what's happening. </h3>
+                <p> Know what's happening. </p>
 
                 <Divider variant="middle" sx={{ width: '75%', mx: 'auto' }} />
             </div>
 
-            <div className={`${inter.className} ${styles.loginBody}`}>
+            <Stack spacing={1} className={`${inter.className} ${styles.loginBody}`} sx={{ display: 'flex', alignItems: 'center' }}>
 
-                <h5> Log in as: </h5>
+                <p> Log in as: </p>
                 <Button variant="text" className={`${inter.className} ${styles.loginButton}`} onClick={SignIn}>Attendee</Button>
+                <Button variant="text" className={`${inter.className} ${styles.loginButton}`} onClick={SignIn}>Organizer</Button> 
                 
-            </div>
+            </Stack>
 
         </Container>
     )
