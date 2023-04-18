@@ -11,7 +11,7 @@ interface Props {
 export default function Event({ id, name, date, time } : Props){
     return (
         <Link className={styles.event} href={`/${id}`}>
-            <h2>{title}</h2>
+            <h2>{name}</h2>
             <p>{date}</p>
             <p>{time}</p>
         </Link>
