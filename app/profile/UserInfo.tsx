@@ -30,7 +30,7 @@ export default function UserInfo(){
                         <div className={`${inter.className} ${styles.settings}`}> Settings </div>
                     </Container>
 
-                    <Container maxWidth={false} 
+                    <Container maxWidth={false}
                         sx={{ 
                             mx:'auto', 
                             mt: '2em', 
