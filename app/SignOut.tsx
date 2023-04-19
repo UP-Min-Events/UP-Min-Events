@@ -17,7 +17,7 @@ export default function SignOut(){
 
     return (
         <div>
-            <IconButton aria-label="signOut" size="medium" onClick={SignOut}> <LogoutIcon sx={{ color: '#a70000', scale: '150%' }} /> </IconButton>
+            <IconButton aria-label="signOut" size="medium" onClick={SignOut}> <LogoutIcon sx={{ color: '#a70000', scale: '125%' }} /> </IconButton>
         </div>
     )
 }

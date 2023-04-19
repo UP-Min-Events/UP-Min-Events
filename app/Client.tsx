@@ -41,15 +41,13 @@ export default function Client() {
                 >   
 
                     <Suspense fallback={<p>Loading pa ang profile oy..</p>}>
-                        <Container sx={{ mt: '4em', display: 'flex', justifyContent: 'space-between' }}>
+                        <Container sx={{ mt: '4em', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                             <Link href="/profile"> 
                                 <Button variant="text" startIcon={<PersonIcon sx = {{ color: '#a70000', scale: '150%' }}/>}
                                     sx={{
                                         color: 'black',
                                         fontWeight: 'bold',
-                                        top: '50%',
-                                        transform: 'translateY(-50%)',
-                                        fontSize: '20px'
+                                        fontSize: '18px'
                                     }}> 
                                     {user.displayName} 
                                 </Button> 
@@ -62,34 +60,37 @@ export default function Client() {
                         <Feed />
                     </Suspense>
                     
-                    <Box
-                        sx={{
-                            backgroundColor: '#a70000',
-                            display: 'flex',
-                            position: 'fixed',
-                            bottom: '2.5em',
-                            width: '6em',
-                            height: '6em',
-                            borderRadius: '1.75em',
-                            boxShadow: '0 0 5px 0 rgba(0,0,0,0.5)',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <Link href="/scan">
-                            <IconButton size="large"                                
-                                sx={{
-                                    position: 'relative',
-                                    display: 'flex',
-                                    fontWeight: 'bold',
-                                    scale: '275%',
-                                    color: 'white',
-                                }}
-                            > 
-                                <CropFreeIcon sx={{ textAlign: 'center', display: 'flex' }}/> 
-                            </IconButton>
-                        </Link>
-                    </Box>
+                    <Container sx={{ justifyContent: 'center', display: 'flex' }}>
+                        <Box
+                            sx={{
+                                backgroundColor: '#a70000',
+                                display: 'flex',
+                                position: 'fixed',
+                                bottom: '2.5em',
+                                width: '6em',
+                                height: '6em',
+                                borderRadius: '1.75em',
+                                boxShadow: '0 0 5px 0 rgba(0,0,0,0.5)',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                            }}
+                        >
+                            <Link href="/scan">
+                                <IconButton size="large"                                
+                                    sx={{
+                                        position: 'relative',
+                                        display: 'flex',
+                                        fontWeight: 'bold',
+                                        scale: '275%',
+                                        color: 'white',
+                                    }}
+                                > 
+                                    <CropFreeIcon sx={{ textAlign: 'center', display: 'flex' }}/> 
+                                </IconButton>
+                            </Link>
+                        </Box>
+                    </Container>
+
                 </Container>
             )}
         </>
