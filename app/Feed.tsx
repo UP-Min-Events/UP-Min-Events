@@ -53,6 +53,7 @@ export default function Feed() {
                 {events.map((event) => (
                     <Event 
                         key={event.id} 
+                        id={event.id}
                         name={event.name} 
                         date={event.date} 
                         time={event.time} 

@@ -90,7 +90,6 @@ export default function Client() {
                             </IconButton>
                         </Link>
                     </Box>
-v
                 </Container>
             )}
         </>

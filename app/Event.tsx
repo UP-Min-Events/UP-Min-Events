@@ -5,15 +5,15 @@ import { Box, IconButton } from '@mui/material'
 import ArrowForwardIcon from '@mui/icons-material/ArrowBack';
 
 interface Props {
-    key: string,
+    id: string,
     name: string,
     date: string,
     time: string
 }
 
-export default function Event({ key, name, date, time } : Props){
+export default function Event({ id, name, date, time } : Props){
     return (
-        <Link className={styles.event} href={`/${key}`}>
+        <Link className={styles.event} href={`/${id}`}>
             <Box
                 sx={{
                     width: '100%',
