@@ -8,6 +8,8 @@ import Event from './Event'
 import { app, auth, db } from '../firebaseConfig'
 import { collection, doc, getDoc, getDocs, updateDoc } from 'firebase/firestore'
 
+import { Stack, Container } from '@mui/material'
+
 const inter = Inter({ subsets: ['latin']})
 
 interface Event {
@@ -45,19 +47,18 @@ export default function Feed() {
     }, [])
 
     return(
-        <div className={inter.className}>
-            <div>
-                <h1>Live Events</h1>
+        <Container className={inter.className} sx={{ pt: '1.5em', overflow: 'hidden' }}>
+            <h1>Live Events</h1>    
+            <Stack sx={{ justifyContent: 'center', alignItems: 'center', width: '80%', mx: 'auto', display: 'flex' }}>
                 {events.map((event) => (
                     <Event 
                         key={event.id} 
-                        id={event.id} 
                         name={event.name} 
                         date={event.date} 
                         time={event.time} 
                     />
                 ))}
-            </div>
-        </div>
+            </Stack>
+        </Container>
     )
 }

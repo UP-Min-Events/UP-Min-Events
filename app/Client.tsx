@@ -34,20 +34,22 @@ export default function Client() {
                     sx={{ 
                         my: 'auto',
                         mx: 'auto',
-                        minHeight: '100vh',
-                        display: 'grid'
+                        height: '100vh',
+                        alignItems: 'center',
+                        justifyContent: 'center',
                     }}
                 >   
 
                     <Suspense fallback={<p>Loading pa ang profile oy..</p>}>
                         <Container sx={{ mt: '4em', display: 'flex', justifyContent: 'space-between' }}>
                             <Link href="/profile"> 
-                                <Button variant="text" startIcon={<PersonIcon sx = {{ color: '#a70000' }}/>}
+                                <Button variant="text" startIcon={<PersonIcon sx = {{ color: '#a70000', scale: '150%' }}/>}
                                     sx={{
                                         color: 'black',
                                         fontWeight: 'bold',
                                         top: '50%',
                                         transform: 'translateY(-50%)',
+                                        fontSize: '20px'
                                     }}> 
                                     {user.displayName} 
                                 </Button> 
@@ -55,6 +57,7 @@ export default function Client() {
                             <SignOut />
                         </Container>
                     </Suspense>
+
                     <Suspense fallback={<p>Loading pa oy..</p>}>
                         <Feed />
                     </Suspense>
@@ -62,13 +65,13 @@ export default function Client() {
                     <Box
                         sx={{
                             backgroundColor: '#a70000',
-                            display: 'fixed',
-                            bottom: '2em',
+                            display: 'flex',
+                            position: 'fixed',
+                            bottom: '2.5em',
                             width: '6em',
                             height: '6em',
-                            borderRadius: '1.5em',
+                            borderRadius: '1.75em',
                             boxShadow: '0 0 5px 0 rgba(0,0,0,0.5)',
-                            mx: 'auto',
                             justifyContent: 'center',
                             alignItems: 'center',
                         }}
@@ -77,6 +80,7 @@ export default function Client() {
                             <IconButton size="large"                                
                                 sx={{
                                     position: 'relative',
+                                    display: 'flex',
                                     fontWeight: 'bold',
                                     scale: '275%',
                                     color: 'white',
@@ -86,7 +90,7 @@ export default function Client() {
                             </IconButton>
                         </Link>
                     </Box>
-
+v
                 </Container>
             )}
         </>
