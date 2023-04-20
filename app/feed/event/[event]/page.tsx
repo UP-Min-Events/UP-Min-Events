@@ -14,11 +14,11 @@ export async function generateStaticParams(){
 }
 
 export default async function Page({ params } : {
-    params: { slug: string }
+    params: { event: string }
 }){
 
-    const { slug } = params
-    const docRef = doc(db, 'events', slug)
+    const { event } = params
+    const docRef = doc(db, 'events', event)
     const docSnap = await getDoc(docRef)
     const data = docSnap.data()
     
@@ -31,7 +31,7 @@ export default async function Page({ params } : {
             <p>{data?.time}</p>
             <p>{data?.attendees}</p>
             <p>{data?.id}</p>
-            <Image src={`https://api.qrserver.com/v1/create-qr-code/?data=${slug}&size=200x200`} alt="qr" width={200} height={200} />
+            <Image src={`https://api.qrserver.com/v1/create-qr-code/?data=${event}&size=200x200`} alt="qr" width={200} height={200} />
         </div>
     )
 }
