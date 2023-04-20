@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { db } from '../../firebaseConfig'
+import { db } from '../../../firebaseConfig'
 import { collection, doc, getDoc, addDoc, getDocs, updateDoc, deleteDoc } from 'firebase/firestore'
 import Link from 'next/link'
 
