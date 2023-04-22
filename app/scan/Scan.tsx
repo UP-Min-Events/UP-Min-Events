@@ -33,7 +33,11 @@ export default function Scan(){
     // }, []);
 
     useEffect(() => {
-        navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: 'environment'} } }).then(stream => {
+        navigator.mediaDevices.getUserMedia({ 
+            video: { 
+                facingMode: { exact: 'environment'}
+            }}).then(stream => {
+            
             setCameraStream(stream);
             setIsCameraReady(true);
         }).catch(error => {
@@ -50,10 +54,8 @@ export default function Scan(){
                 cameraStream.getVideoTracks()[0].getSettings().deviceId || null,
                 videoRef.current,
                 (result, error) => {
-                    
-                    // handle error if exists
-                    if (error) {
-                        console.error('QR Code Error:', error);
+                    if (result) {
+                        window.alert(result.getText());
                     }
                 }
             );
