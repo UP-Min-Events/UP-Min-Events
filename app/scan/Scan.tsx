@@ -10,25 +10,35 @@ export default function Scan(){
     const videoRef = useRef<HTMLVideoElement>(null);
     const qrCodeReader = new BrowserQRCodeReader();
 
-    const getVideoSources = async () => {
-        const devices = await navigator.mediaDevices.enumerateDevices();
-        let videoDevice = devices.find(device => device.kind === 'videoinput' && (device as any).facingMode?.ideal === 'environment')
-        if (!videoDevice) videoDevice = devices.find(device => device.kind === 'videoinput')
+    // const getVideoSources = async () => {
+    //     const devices = await navigator.mediaDevices.enumerateDevices();
+    //     console.log('Devices:', devices)
+    //     let videoDevice = devices.find(device => device.kind === 'videoinput' && (device as any).facingMode?.ideal === 'environment')
+    //     if (!videoDevice) videoDevice = devices.find(device => device.kind === 'videoinput')
 
-        return videoDevice?.deviceId;
-    }
+    //     return videoDevice?.deviceId;
+    // }
+
+    // useEffect(() => {
+    //     getVideoSources().then(deviceId => {
+    //         if (deviceId) {
+    //             window.navigator.mediaDevices.getUserMedia({ video: { deviceId: deviceId } }).then(stream => {
+    //                 setCameraStream(stream);
+    //                 setIsCameraReady(true);
+    //             }).catch(error => {
+    //                 console.error('Camera Error:', error);
+    //             });
+    //         }
+    //     })
+    // }, []);
 
     useEffect(() => {
-        getVideoSources().then(deviceId => {
-            if (deviceId) {
-                window.navigator.mediaDevices.getUserMedia({ video: { deviceId: deviceId } }).then(stream => {
-                    setCameraStream(stream);
-                    setIsCameraReady(true);
-                }).catch(error => {
-                    console.error('Camera Error:', error);
-                });
-            }
-        })
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: 'environment'} } }).then(stream => {
+            setCameraStream(stream);
+            setIsCameraReady(true);
+        }).catch(error => {
+            console.error('Camera Error:', error);
+        });
     }, []);
 
     useEffect(() => {
@@ -40,7 +50,7 @@ export default function Scan(){
                 cameraStream.getVideoTracks()[0].getSettings().deviceId || null,
                 videoRef.current,
                 (result, error) => {
-                    console.log('QR Code Result:', result);
+                    
                     // handle error if exists
                     if (error) {
                         console.error('QR Code Error:', error);
