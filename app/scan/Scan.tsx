@@ -1,36 +1,50 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react';
+import { useRouter } from 'next/navigation';
+
 import { BrowserQRCodeReader } from '@zxing/library';
+import { auth, db } from '../../firebaseConfig';
+import { doc, getDoc, updateDoc} from 'firebase/firestore';
 
 export default function Scan(){
+
+    const user = auth.currentUser
 
     const [cameraStream, setCameraStream] = useState<MediaStream | null>(null);
     const [isCameraReady, setIsCameraReady] = useState(false);
     const videoRef = useRef<HTMLVideoElement>(null);
     const qrCodeReader = new BrowserQRCodeReader();
 
-    // const getVideoSources = async () => {
-    //     const devices = await navigator.mediaDevices.enumerateDevices();
-    //     console.log('Devices:', devices)
-    //     let videoDevice = devices.find(device => device.kind === 'videoinput' && (device as any).facingMode?.ideal === 'environment')
-    //     if (!videoDevice) videoDevice = devices.find(device => device.kind === 'videoinput')
+    const router = useRouter()
 
-    //     return videoDevice?.deviceId;
-    // }
+    const processAttendance = async (eventId) => {
 
-    // useEffect(() => {
-    //     getVideoSources().then(deviceId => {
-    //         if (deviceId) {
-    //             window.navigator.mediaDevices.getUserMedia({ video: { deviceId: deviceId } }).then(stream => {
-    //                 setCameraStream(stream);
-    //                 setIsCameraReady(true);
-    //             }).catch(error => {
-    //                 console.error('Camera Error:', error);
-    //             });
-    //         }
-    //     })
-    // }, []);
+        const attendee = user.displayName
+        const eventRef = doc(db, 'events', eventId)
+        const eventDoc = await getDoc(eventRef)
+
+        if (eventDoc.exists()) {
+            const attendees = eventDoc.data().attendees
+
+            if (attendees.includes(attendee)) {
+                window.alert('You are already attending this event!')
+                return
+            }
+
+            attendees.push(attendee)
+
+            await updateDoc(eventRef, {
+                attendees: attendees
+            })
+
+            window.alert('Attendance recorded!')
+
+            router.push(`/event/${eventId}`)
+        } else {
+            window.alert('No such event!')
+        }
+    }
 
     useEffect(() => {
         navigator.mediaDevices.getUserMedia({ 
@@ -41,8 +55,23 @@ export default function Scan(){
             setCameraStream(stream);
             setIsCameraReady(true);
         }).catch(error => {
-            console.error('Camera Error:', error);
+            navigator.mediaDevices.getUserMedia({
+                video: true
+            }).then(stream => {
+                    setCameraStream(stream);
+                    setIsCameraReady(true);
+                }).catch(error => {
+                    console.error('Camera Error:', error);
+                }
+            )
         });
+
+        return () => {
+            if (cameraStream) {
+                cameraStream.getTracks().forEach(track => track.stop());
+            }
+        }
+
     }, []);
 
     useEffect(() => {
@@ -55,16 +84,21 @@ export default function Scan(){
                 videoRef.current,
                 (result, error) => {
                     if (result) {
-                        window.alert(result.getText());
+                        processAttendance(result.getText());
                     }
                 }
             );
 
         }
 
+        console.log("Camera Stream Check: ", cameraStream)
+
         return () => {
             // Clean up on unmount
             qrCodeReader.reset();
+            if (cameraStream) {
+                cameraStream.getTracks().forEach(track => track.stop());
+            }
         };
     }, [cameraStream, isCameraReady]);
 
