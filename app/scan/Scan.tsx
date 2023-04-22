@@ -12,7 +12,7 @@ export default function Scan(){
 
     const getVideoSources = async () => {
         const devices = await navigator.mediaDevices.enumerateDevices();
-        let videoDevice = devices.find(device => device.kind === 'videoinput' && (device as any).facingMode === 'environment')
+        let videoDevice = devices.find(device => device.kind === 'videoinput' && (device as any).facingMode === { exact: 'environment'})
         if (!videoDevice) videoDevice = devices.find(device => device.kind === 'videoinput')
 
         return videoDevice?.deviceId;
