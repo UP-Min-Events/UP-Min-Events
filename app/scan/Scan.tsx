@@ -18,7 +18,7 @@ export default function Scan(){
 
     const router = useRouter()
 
-    const processAttendance = async (eventId) => {
+    const processAttendance = async (eventId: string) => {
 
         const attendee = user.displayName
         const eventRef = doc(db, 'events', eventId)
