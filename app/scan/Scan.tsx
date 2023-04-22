@@ -20,7 +20,7 @@ export default function Scan(){
 
     const processAttendance = async (eventId: string) => {
 
-        const attendee = user.displayName
+        const attendee = user?.displayName
         const eventRef = doc(db, 'events', eventId)
         const eventDoc = await getDoc(eventRef)
 
