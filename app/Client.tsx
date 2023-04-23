@@ -66,9 +66,9 @@ export default function Client() {
                                 backgroundColor: '#a70000',
                                 display: 'flex',
                                 position: 'fixed',
-                                bottom: '2.5em',
-                                width: '6em',
-                                height: '6em',
+                                bottom: '3em',
+                                width: '5em',
+                                height: '5em',
                                 borderRadius: '1.75em',
                                 boxShadow: '0 0 5px 0 rgba(0,0,0,0.5)',
                                 justifyContent: 'center',
@@ -81,7 +81,7 @@ export default function Client() {
                                         position: 'relative',
                                         display: 'flex',
                                         fontWeight: 'bold',
-                                        scale: '275%',
+                                        scale: '250%',
                                         color: 'white',
                                     }}
                                 > 

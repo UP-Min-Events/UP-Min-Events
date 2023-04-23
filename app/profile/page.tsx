@@ -1,10 +1,11 @@
 import UserInfo from './UserInfo'
-import Client from '../Client'
+import UserDetails from './UserDetails'
 
 export default function Profile() {
     return (
         <div>
             <UserInfo />
+            <UserDetails/>
         </div>
     )
 }
