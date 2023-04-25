@@ -4,6 +4,8 @@ import { Inter } from 'next/font/google'
 import { useState } from 'react'
 import { auth, db } from '../../firebaseConfig'
 import { collection, addDoc } from 'firebase/firestore'
+import Page1 from './Page1'
+import Page2 from './Page2'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,13 +22,17 @@ export default function Ops() {
 
     const dbInstance = collection(db, 'events')
     const user = auth.currentUser
+  
 
-    const [eventName, setEventName] = useState<string>('')
-    const [eventHost, setEventHost] = useState<string>('')
-    const [eventDesc, setEventDesc] = useState<string>('')
-    const [eventDate, setEventDate] = useState<string>('')
-    const [eventTime, setEventTime] = useState<string>('')
-    const [eventVenue, setEventVenue] = useState<string>('')
+    const [page, setPage] = useState<number>(1)
+
+    const nextPage = () => {
+        setPage(page + 1)
+    }
+
+    const prevPage = () => {
+        setPage(page - 1)
+    }
 
     const createEvent = async () => {
         if (user === null) {
@@ -51,73 +57,11 @@ export default function Ops() {
     return (
         <div className={inter.className}>
             <div>
-                <div>
-                    <p>Title</p>
-                    <input
-                        type="text"
-                        value={eventName}
-                        onChange={(e) => setEventName(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <p>Host</p>
-                    <input
-                        type="text"
-                        value={eventHost}
-                        onChange={(e) => setEventHost(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <p>Description</p>
-                    <input
-                        type="text"
-                        value={eventDesc}
-                        onChange={(e) => setEventDesc(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <p>Date</p>
-                    <input
-                        type="date"
-                        value={eventDate}
-                        onChange={(e) => setEventDate(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <p>Time</p>
-                    <input
-                        type="time"
-                        value={eventTime}
-                        onChange={(e) => setEventTime(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <p>Venue</p>
-                    <input 
-                        type="text"
-                        value={eventVenue}
-                        onChange={(e) => setEventVenue(e.target.value)} 
-                    />
-                </div>
-                <div>
-                    <p>Population Limit</p>
-                    <input type="range" />
-                </div>
-                <div>
-                    <p>Visibility</p>
-                    <select name="" id="">
-                        <option value="public">Public</option>
-                        <option value="private">Private</option>
-                    </select>
-                </div>
-                <div>
-                    <p>Restrictions</p>
-                    <input type="text" />
-                </div>
-                <button onClick={createEvent}>Finish</button>
+                {page === 1 ? <Page1 /> : <Page2 />}
             </div>
-            
-
+            <button onClick={prevPage}>Back</button>
+            <button onClick={nextPage}>Next</button>
+            <button onClick={createEvent}>Finish</button>
         </div>
     )
 }
