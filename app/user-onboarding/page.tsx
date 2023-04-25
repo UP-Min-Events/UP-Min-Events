@@ -1,6 +1,17 @@
+'use client'
+
+import '../globals.css'
+import { Inter } from 'next/font/google'
+import { Button } from '@mui/material'
+
+const inter = Inter({ subsets: ['latin']})
+
 export default function Page() {
     return (
-        <div>
+        <div id="form">
+
+            <h2> Let's get to know you.</h2>
+
             <div>
                 <p>First Name</p>
                 <input type="text" />
@@ -13,8 +24,8 @@ export default function Page() {
                 <p>Student Number</p>
                 <input type="text" />
             </div>
-            <div>
-                <p>Year Level</p>
+            <p>Year Level</p>
+            <div id="inputDropdown">
                 <select>
                     <option value="">1</option>
                     <option value="">2</option>
@@ -22,8 +33,8 @@ export default function Page() {
                     <option value="">4</option>
                 </select>
             </div>
-            <div>
-                <p>College/Department</p>
+            <p>College/Department</p>
+            <div id="inputDropdown">
                 <select>
                     <option value="">College of Science and Mathematics</option>
                     <option value="">College of Humanities and Social Sciences</option>
@@ -31,8 +42,8 @@ export default function Page() {
                     <option value="">Department of Human Kinetics</option>
                 </select>
             </div>
-            <div>
-                <p>Degree Program</p>
+            <p>Degree Program</p>
+            <div id="inputDropdown">
                 <select>
                     <option value="">BS in Computer Science</option>
                     <option value="">BS in Applied Mathematics</option>
@@ -41,12 +52,19 @@ export default function Page() {
                 </select>
             </div>
             <div>
-                <input type="checkbox" name="" id="" />
-                <p>I agree with the Terms and Conditions</p>
+                <input type="checkbox" name="" id="" /> I agree with the Terms and Conditions
             </div>
-            <div>
-                <input type="button" value="Finish" />
-            </div>
+            <Button variant="text" className={inter.className} // onClick={}
+                    sx={{
+                        mx: 'auto',
+                        backgroundColor: '#a70000',
+                        color: '#fff',
+                        fontWeight: 'bold',
+                        width: '12em',
+                        borderRadius: '1em',
+                    }}>
+                    Finish
+                </Button> 
         </div>
     )
 }
