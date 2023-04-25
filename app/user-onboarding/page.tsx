@@ -4,11 +4,29 @@ import '../globals.css'
 import { Inter } from 'next/font/google'
 import { Button } from '@mui/material'
 
+import { IconButton, Container } from '@mui/material'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import Link from 'next/link'
+
+
 const inter = Inter({ subsets: ['latin']})
 
 export default function Page() {
     return (
         <div id="form">
+
+                <Link href="/"> 
+                    <IconButton size="large"
+                        sx={{
+                            position: 'absolute',
+                            left: '2rem',
+                            color: '#a70000',
+                            fontWeight: 'bold',
+                            transform: 'translateY(-50%)',
+                        }}> 
+                        <ArrowBackIcon /> 
+                    </IconButton> 
+                </Link> 
 
             <h2> Let's get to know you.</h2>
 
@@ -51,8 +69,8 @@ export default function Page() {
                     <option value="">BS in Food Technology</option>
                 </select>
             </div>
-            <div>
-                <input type="checkbox" name="" id="" /> I agree with the Terms and Conditions
+            <div id="terms">
+                <input type="checkbox" name="" id="" /> I agree with the Terms and Conditions.
             </div>
             <Button variant="text" className={inter.className} // onClick={}
                     sx={{
@@ -62,6 +80,7 @@ export default function Page() {
                         fontWeight: 'bold',
                         width: '12em',
                         borderRadius: '1em',
+                        mt: '3em'
                     }}>
                     Finish
                 </Button> 
