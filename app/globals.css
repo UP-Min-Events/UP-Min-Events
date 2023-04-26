@@ -64,4 +64,83 @@ a {
   }
 }
 
+#form {
+  padding: 3em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: flex-start;
+}
 
+#form h2 {
+  margin-top: 1.5em;
+  margin-bottom: 1em;
+}
+
+#form p {
+  font-weight: bold;
+  color: black;
+}
+
+#form input {
+  color: black;
+  background-color: white;
+  margin-top: 0.25em;
+  margin-bottom: 0.75em;
+  padding: 0.5em;
+  border: 1px solid lightgray;
+  border-radius: 0.85em;
+  font-size: 1em;
+  width: 100%;
+}
+
+#form input #desc {
+  height: 5em;
+}
+
+#form #inputDropdown {
+  color: black;
+  background-color: white;
+  margin-top: 0.25em;
+  margin-bottom: 0.75em;
+  padding: 0.5em;
+  border: 1px solid gray;
+  border-radius: 0.85em;
+  width: 100%;
+}
+
+#form #inputDropdown select {
+  background-color: white;
+  color: black;
+  border: none;
+  width: 100%;
+  font-size: 1em;
+}
+
+#form #inputDropdown select::active {
+  background-color: white;
+  color: black;
+  border: none;
+}
+
+#form #inputDropdown option {
+  position: relative;
+  color: black;
+  background-color: white;
+  margin-top: 0.25em;
+  margin-bottom: 0.75em;
+  padding: 0.5em;
+  border: 1px solid gray;
+  border-radius: 0.85em;
+  font-size: 1em;
+}
+
+#form #terms {
+  font-size: 0.75em;
+  width: 100%;
+}
+
+#form #terms input {
+  width: 1em;
+  cursor: pointer;
+}

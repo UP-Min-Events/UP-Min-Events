@@ -41,7 +41,7 @@ export default function Client() {
                 >   
 
                     <Suspense fallback={<p>Loading pa ang profile oy..</p>}>
-                        <Container sx={{ mt: '4em', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <Container sx={{ mt: '2em', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                             <Link href="/profile"> 
                                 <Button variant="text" startIcon={<PersonIcon sx = {{ color: '#a70000', scale: '150%' }}/>}
                                     sx={{
