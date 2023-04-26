@@ -60,7 +60,7 @@ export default function Ops() {
                 <h2> Create Event</h2>
                 <div id="page1" style={{ display: currentPage === 1 ? 'block' : 'none' }}>
                     <div>
-                        <p>Title</p>
+                        <p>Title</p>    
                         <input
                             type="text"
                             value={eventName}
@@ -78,22 +78,27 @@ export default function Ops() {
                     <div>
                         <p>Description</p>
                         <input
+                            id="desc"
                             type="text"
                             value={eventDesc}
                             onChange={(e) => setEventDesc(e.target.value)}
                         />
                     </div>
-                    <Button variant="text" className={inter.className} onClick={nextPage}
-                    sx={{
-                        backgroundColor: '#a70000',
-                        color: '#fff',
-                        fontWeight: 'bold',
-                        width: '12em',
-                        borderRadius: '1em',
-                        mt: '3em'
-                    }}>
-                    Finish
-                    </Button> 
+                    <div>
+                        <Button variant="text" className={inter.className} onClick={nextPage}
+                        sx={{
+                            position: 'fixed',
+                            bottom: '3rem',
+                            backgroundColor: '#a70000',
+                            color: '#fff',
+                            fontWeight: 'bold',
+                            width: '12em',
+                            borderRadius: '1em',    
+                            mx: 'auto',
+                        }}>
+                        Next
+                        </Button> 
+                    </div>  
                 </div>
                 <div id="page2" style={{ display: currentPage === 2 ? 'block' : 'none' }}>
                     <div>

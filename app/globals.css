@@ -94,6 +94,10 @@ a {
   width: 100%;
 }
 
+#form input #desc {
+  height: 5em;
+}
+
 #form #inputDropdown {
   color: black;
   background-color: white;
