@@ -59,28 +59,7 @@ export default function Ops() {
         <div className={inter.className}>
             <div >
                 <h2> Create Event</h2>
-                {page === 1 ? <Page1 nextPage={nextPage} /> : <Page2 />}
-            </div>
-            <div>
-                <button onClick={prevPage}>Back</button>
-                <Button 
-                    variant="text" 
-                    className={inter.className} 
-                    onClick={nextPage}
-                    sx={{
-                        position: 'fixed',
-                        bottom: '3rem',
-                        backgroundColor: '#a70000',
-                        color: '#fff',
-                        fontWeight: 'bold',
-                        width: '12em',
-                        borderRadius: '1em',    
-                        mx: 'auto',
-                    }}
-                >
-                    Next
-                </Button> 
-                <button onClick={createEvent}>Finish</button>
+                {page === 1 ? <Page1 nextPage={nextPage} /> : <Page2 createEvent={createEvent} prevPage={prevPage}/>}
             </div>
         </div>
     )

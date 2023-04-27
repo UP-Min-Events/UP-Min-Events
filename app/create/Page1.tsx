@@ -1,8 +1,12 @@
 'use client'
 
 import { useState } from 'react'
+import { Button } from '@mui/material'
+import { Inter } from 'next/font/google'
 
-export default function Page1(){
+const inter = Inter({ subsets: ['latin'] })
+
+export default function Page1({ nextPage }){
     
     const [eventName, setEventName] = useState<string>('')
     const [eventHost, setEventHost] = useState<string>('')
@@ -35,6 +39,23 @@ export default function Page1(){
                     onChange={(e) => setEventDesc(e.target.value)}
                 />
             </div>
+            <Button 
+                    variant="text" 
+                    className={inter.className} 
+                    onClick={nextPage}
+                    sx={{
+                        position: 'fixed',
+                        bottom: '3rem',
+                        backgroundColor: '#a70000',
+                        color: '#fff',
+                        fontWeight: 'bold',
+                        width: '12em',
+                        borderRadius: '1em',    
+                        mx: 'auto',
+                    }}
+                >
+                    Next
+                </Button> 
         </div>
     )
 }

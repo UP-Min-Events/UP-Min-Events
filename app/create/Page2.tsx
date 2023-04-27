@@ -1,15 +1,28 @@
 'use client'
 
 import { useState } from 'react'
+import { Button } from '@mui/material'
+import { Inter } from 'next/font/google'
 
-export default function Page2(){
+const inter = Inter({ subsets: ['latin'] })
+
+export default function Page2({ createEvent, prevPage }){
       
     const [eventDate, setEventDate] = useState<string>('')
     const [eventTime, setEventTime] = useState<string>('')
     const [eventVenue, setEventVenue] = useState<string>('')
 
+    const finish = () => {
+        createEvent()
+    }
+
+    const back = () => {
+        prevPage()
+    }
+
     return(
         <div>
+            <button onClick={back}>Back</button>
             <h1>Page 2</h1>
             <div>
                 <p>Date</p>
@@ -50,6 +63,23 @@ export default function Page2(){
                 <p>Restrictions</p>
                 <input type="text" />
             </div>
+            <Button 
+                    variant="text" 
+                    className={inter.className} 
+                    onClick={finish}
+                    sx={{
+                        position: 'fixed',
+                        bottom: '3rem',
+                        backgroundColor: '#a70000',
+                        color: '#fff',
+                        fontWeight: 'bold',
+                        width: '12em',
+                        borderRadius: '1em',    
+                        mx: 'auto',
+                    }}
+                >
+                    Finish
+                </Button> 
         </div>
     )
 }
