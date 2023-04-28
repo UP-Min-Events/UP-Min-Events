@@ -1,8 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import { Button } from '@mui/material'
 import { Inter } from 'next/font/google'
+
+import { IconButton } from '@mui/material'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,9 +23,25 @@ export default function Page2({ createEvent, prevPage }){
     }
 
     return(
-        <div>
-            <button onClick={back}>Back</button>
-            <h1>Page 2</h1>
+        <div id="form">
+            <div id="formHeader">
+                <IconButton size="large" onClick={back}
+                        sx={{
+                            scale: '1.4',
+                            position: 'relative',
+                            left: '0',
+                            color: '#a70000',
+                            fontWeight: 'bold',
+                            padding: '0',
+                            mb: '1em',
+                        }}> 
+                        <ArrowBackIcon /> 
+                </IconButton> 
+                <h1>Create Event</h1>
+                <div id="progressBar">
+                    <div id="progress"> </div> <div id="progress"> </div> 
+                </div>   
+            </div>
             <div>
                 <p>Date</p>
                 <input
@@ -63,23 +81,7 @@ export default function Page2({ createEvent, prevPage }){
                 <p>Restrictions</p>
                 <input type="text" />
             </div>
-            <Button 
-                    variant="text" 
-                    className={inter.className} 
-                    onClick={finish}
-                    sx={{
-                        position: 'fixed',
-                        bottom: '3rem',
-                        backgroundColor: '#a70000',
-                        color: '#fff',
-                        fontWeight: 'bold',
-                        width: '12em',
-                        borderRadius: '1em',    
-                        mx: 'auto',
-                    }}
-                >
-                    Finish
-                </Button> 
+            <button id="formButton" className={inter.className} onClick={finish}>Finish</button>
         </div>
     )
 }

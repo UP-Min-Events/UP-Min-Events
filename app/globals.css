@@ -68,13 +68,36 @@ a {
   padding: 3em;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-content: flex-start;
+  align-content: space-between;
+  height: 100vh;
 }
 
-#form h2 {
-  margin-top: 1.5em;
-  margin-bottom: 1em;
+#form #formHeader {
+  margin-bottom: 1rem;
+}
+
+#form #formHeader h1 {
+  margin-bottom: 1rem;
+}
+
+#form #formHeader #progressBar {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+#form #formHeader #progress {
+  width: 48%;
+  height: 0.25em;
+  background-color: #a70000;
+  border-radius: 0.5rem;
+}
+
+#form #formHeader #progress1 {
+  width: 48%;
+  height: 0.25em;
+  background-color: lightgray;
+  border-radius: 0.5rem;
 }
 
 #form p {
@@ -94,8 +117,33 @@ a {
   width: 100%;
 }
 
-#form input #desc {
-  height: 5em;
+#form select {
+  color: black;
+  background-color: white;
+  margin-top: 0.25em;
+  margin-bottom: 0.75em;
+  padding: 0.5em;
+  border: 1px solid lightgray;
+  border-radius: 0.85em;
+  font-size: 1em;
+  width: 100%;
+}
+
+#form select option {
+  position: relative;
+  color: black;
+  background-color: white;
+  margin-top: 0.25em;
+  margin-bottom: 0.75em;
+  padding: 0.5em;
+  border: 1px solid gray;
+  border-radius: 0.85em;
+  font-size: 1em;
+  overflow-x: hidden;
+}
+
+#form #desc input {
+  height: 20rem;
 }
 
 #form #inputDropdown {
@@ -135,12 +183,18 @@ a {
   font-size: 1em;
 }
 
-#form #terms {
-  font-size: 0.75em;
+#form #formButton {
+  font-size: 1em;
+  position: relative;
+  bottom: 0;
+  background-color: #a70000;
+  color: white;
+  font-weight: bold;
+  height: 3.5em;
   width: 100%;
+  border-radius: 1em;
+  margin-left: auto;
+  margin-right: auto;
+  border: none;
 }
 
-#form #terms input {
-  width: 1em;
-  cursor: pointer;
-}

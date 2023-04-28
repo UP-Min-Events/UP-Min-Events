@@ -58,7 +58,6 @@ export default function Ops() {
     return (
         <div className={inter.className}>
             <div >
-                <h2> Create Event</h2>
                 {page === 1 ? <Page1 nextPage={nextPage} /> : <Page2 createEvent={createEvent} prevPage={prevPage}/>}
             </div>
         </div>

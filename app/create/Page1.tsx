@@ -1,8 +1,11 @@
 'use client'
 
 import { useState } from 'react'
-import { Button } from '@mui/material'
 import { Inter } from 'next/font/google'
+
+import { IconButton } from '@mui/material'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import Link from 'next/link'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -13,8 +16,27 @@ export default function Page1({ nextPage }){
     const [eventDesc, setEventDesc] = useState<string>('')
     
     return(
-        <div>
-            <h1>Page 1</h1>       
+        <div id="form">
+            <div id="formHeader">
+                <IconButton size="large"
+                        sx={{
+                            scale: '1.4',
+                            position: 'relative',
+                            left: '0',
+                            color: '#a70000',
+                            fontWeight: 'bold',
+                            padding: '0',
+                            mb: '1em',
+                        }}> 
+                        <Link href="\">
+                            <ArrowBackIcon /> 
+                        </Link>
+                </IconButton> 
+                <h1>Create Event</h1>
+                <div id="progressBar">
+                    <div id="progress"> </div> <div id="progress1"> </div> 
+                </div>   
+            </div>    
             <div>
                 <p>Title</p>
                 <input
@@ -31,7 +53,7 @@ export default function Page1({ nextPage }){
                     onChange={(e) => setEventHost(e.target.value)}
                 />
             </div>
-            <div>
+            <div id="desc">
                 <p>Description</p>
                 <input
                     type="text"
@@ -39,23 +61,8 @@ export default function Page1({ nextPage }){
                     onChange={(e) => setEventDesc(e.target.value)}
                 />
             </div>
-            <Button 
-                    variant="text" 
-                    className={inter.className} 
-                    onClick={nextPage}
-                    sx={{
-                        position: 'fixed',
-                        bottom: '3rem',
-                        backgroundColor: '#a70000',
-                        color: '#fff',
-                        fontWeight: 'bold',
-                        width: '12em',
-                        borderRadius: '1em',    
-                        mx: 'auto',
-                    }}
-                >
-                    Next
-                </Button> 
+
+            <button id="formButton" className={inter.className} onClick={nextPage}>Next</button>
         </div>
     )
 }
