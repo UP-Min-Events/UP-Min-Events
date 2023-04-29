@@ -19,7 +19,6 @@ const inter = Inter({ subsets: ['latin']})
 export default function Ops(){
     
     const [user] = useAuthState(auth)
-    const pic = user?.photoURL
     const router = useRouter()
 
     const SignIn = () => {
@@ -63,8 +62,8 @@ export default function Ops(){
                     height={142.5}
                 />
 
-                <h1> Events </h1>
-                <p> Know what's happening. </p>
+                <h1>Events</h1>
+                <p>Know what's happening.</p>
 
                 <Divider variant="middle" sx={{ width: '75%', mx: 'auto' }} />
             </div>

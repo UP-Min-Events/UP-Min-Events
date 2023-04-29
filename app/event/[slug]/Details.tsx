@@ -1,13 +1,12 @@
 'use client'
 
 import Image from 'next/image'
-import Link from 'next/link'
 import { Inter } from 'next/font/google'
 
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { db } from '../../../firebaseConfig'
-import { collection, doc, getDoc, addDoc, getDocs, updateDoc, deleteDoc } from 'firebase/firestore'
+import { doc, getDoc, updateDoc, deleteDoc } from 'firebase/firestore'
 
 const inter = Inter({ subsets: ['latin']})
 
