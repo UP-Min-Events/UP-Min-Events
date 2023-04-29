@@ -1,5 +1,4 @@
 import Scan from './Scan'
-import Attend from './Attend'
 import Link from 'next/link'
 
 export default function Page() {
@@ -10,7 +9,6 @@ export default function Page() {
                 Home
             </Link>
             <Scan />
-            <Attend />
         </div>
     );
 }

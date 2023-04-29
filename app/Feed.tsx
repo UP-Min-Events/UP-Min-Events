@@ -1,12 +1,11 @@
 'use client'
 
-import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import { useState, useEffect } from 'react'
 import Event from './Event'
 
-import { app, auth, db } from '../firebaseConfig'
-import { collection, doc, getDoc, getDocs, updateDoc } from 'firebase/firestore'
+import { db } from '../firebaseConfig'
+import { collection, getDocs } from 'firebase/firestore'
 
 import { Stack, Container } from '@mui/material'
 

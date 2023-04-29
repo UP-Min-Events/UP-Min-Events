@@ -7,18 +7,7 @@ import { collection, addDoc } from 'firebase/firestore'
 import Page1 from './Page1'
 import Page2 from './Page2'
 
-import { Button } from '@mui/material'
-
 const inter = Inter({ subsets: ['latin'] })
-
-interface Event {
-    name: string;
-    desc: string;
-    date: string;
-    time: string;
-    attendees: string[];
-    id: string;
-}
 
 export default function Ops() {
 

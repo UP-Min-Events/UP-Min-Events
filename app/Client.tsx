@@ -12,8 +12,7 @@ import Link from 'next/link'
 
 import PersonIcon from '@mui/icons-material/Person';
 import CropFreeIcon from '@mui/icons-material/CropFree';
-import { Button, Container, IconButton, Box } from '@mui/material'
-import { Just_Me_Again_Down_Here } from 'next/font/google';
+import { Button, Container, IconButton, Box, Skeleton } from '@mui/material'
 
 export default function Client() {
 
@@ -40,7 +39,7 @@ export default function Client() {
                     }}
                 >   
 
-                    <Suspense fallback={<p>Loading pa ang profile oy..</p>}>
+                    <Suspense fallback={<Skeleton />}>
                         <Container sx={{ mt: '2em', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                             <Link href="/profile"> 
                                 <Button variant="text" startIcon={<PersonIcon sx = {{ color: '#a70000', scale: '150%' }}/>}
