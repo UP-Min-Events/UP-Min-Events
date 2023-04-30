@@ -2,7 +2,6 @@ import Link from 'next/link'
 import styles from './page.module.css'
 
 import { Box } from '@mui/material'
-import ArrowForwardIcon from '@mui/icons-material/ArrowBack';
 
 interface Props {
     id: string,

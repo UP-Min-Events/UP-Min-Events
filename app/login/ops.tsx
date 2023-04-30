@@ -7,9 +7,10 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 
-import { auth } from '../../firebaseConfig'
+import { auth, db } from '../../firebaseConfig'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { useAuthState } from 'react-firebase-hooks/auth'
+import { collection, getDocs, addDoc } from "firebase/firestore";
 
 import { Stack, Button, Container, Divider } from '@mui/material'
 import upLogo from '../../public/uplogo.png'
@@ -20,28 +21,57 @@ export default function Ops(){
     
     const [user] = useAuthState(auth)
     const router = useRouter()
-    const { updateUserType } = useUserTypeContext()
+    const { userType, updateUserType } = useUserTypeContext()
+
+    const getAttendees = async (attendeesdb) => {
+        const attendees = await getDocs(attendeesdb)
+        const userExists = attendees.docs.some(doc => doc.data().uid === user.uid)
+        if (!attendees.docs || attendees.docs.length === 0 || !userExists) {
+            await addDoc(attendeesdb, {
+                uid: user.uid,
+                events: []
+            })
+            router.push('/user-onboarding')
+        } else {
+            router.push('/')
+        } 
+    }
+    
+    const getOrganizers = async (organizersdb) => {
+        const organizers = await getDocs(organizersdb)
+        if (!organizers || organizers.docs.length === 0 || !organizers.docs) {
+            await addDoc(organizersdb, {
+                uid: user.uid,
+                events: []
+            })
+        }
+
+        router.push('/')
+    }
 
     const SignIn = () => {
         const provider = new GoogleAuthProvider();
         provider.setCustomParameters({ hd: "up.edu.ph" });
         
         signInWithPopup(auth, provider)
-          .then((result) => {
-            const credential = GoogleAuthProvider.credentialFromResult(result); // This gives you a Google Access Token. You can use it to access the Google API.
-            const token = credential?.accessToken; // The signed-in user info.
-            const user = result.user; 
-          }).catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            const email = error.email;
-            const credential = GoogleAuthProvider.credentialFromError(error);
-          });
-      }
+    }
 
     useEffect(() => {
+
         if(user) {
-            router.push('/')
+            if (userType === 'attendee') {
+
+                const attendeesdb = collection(db, 'attendees')
+                getAttendees(attendeesdb)
+                
+            } else if (userType === 'organizer') {
+
+                const organizersdb = collection(db, 'organizers')
+                getOrganizers(organizersdb)
+
+            } else {
+                router.push('/') 
+            }
         }
     }, [user])
     
@@ -64,7 +94,7 @@ export default function Ops(){
                 />
 
                 <h1>Events</h1>
-                <p>Know what's happening.</p>
+                <p>Know what&apos;s happening.</p>
 
                 <Divider variant="middle" sx={{ width: '75%', mx: 'auto' }} />
             </div>
@@ -73,8 +103,8 @@ export default function Ops(){
 
                 <p> Log in as: </p>
                 <Button variant="text" className={inter.className} onClick={() => {
-                    SignIn()
                     updateUserType('attendee')
+                    SignIn()
                 }} 
                     sx={{
                         display: 'flex',
@@ -87,8 +117,8 @@ export default function Ops(){
                     Attendee
                 </Button>
                 <Button variant="text" className={inter.className} onClick={() => {
-                    SignIn()
                     updateUserType('organizer')
+                    SignIn()
                 }}
                     sx={{
                         display: 'flex',

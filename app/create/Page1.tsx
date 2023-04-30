@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { Button } from '@mui/material'
 import { Inter } from 'next/font/google'
 
 import { IconButton } from '@mui/material'
@@ -9,11 +9,25 @@ import Link from 'next/link'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Page1({ nextPage }){
-    
-    const [eventName, setEventName] = useState<string>('')
-    const [eventHost, setEventHost] = useState<string>('')
-    const [eventDesc, setEventDesc] = useState<string>('')
+interface Props {
+    nextPage: () => void,
+    eventName: string,
+    eventHost: string,
+    eventDesc: string,
+    handleEventNameChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    handleEventHostChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    handleEventDescChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+}
+
+export default function Page1({ 
+    nextPage, 
+    eventName,
+    eventHost,
+    eventDesc,
+    handleEventNameChange, 
+    handleEventHostChange, 
+    handleEventDescChange 
+} : Props) {
     
     return(
         <div id="form">
@@ -42,7 +56,7 @@ export default function Page1({ nextPage }){
                 <input
                     type="text"
                     value={eventName}
-                    onChange={(e) => setEventName(e.target.value)}
+                    onChange={handleEventNameChange}
                 />
             </div>
             <div>
@@ -50,7 +64,7 @@ export default function Page1({ nextPage }){
                 <input
                     type="text"
                     value={eventHost}
-                    onChange={(e) => setEventHost(e.target.value)}
+                    onChange={handleEventHostChange}
                 />
             </div>
             <div id="desc">
@@ -58,7 +72,7 @@ export default function Page1({ nextPage }){
                 <input
                     type="text"
                     value={eventDesc}
-                    onChange={(e) => setEventDesc(e.target.value)}
+                    onChange={handleEventDescChange}
                 />
             </div>
 
