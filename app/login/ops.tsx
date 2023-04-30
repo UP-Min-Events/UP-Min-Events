@@ -2,14 +2,14 @@
 
 import styles from './page.module.css'
 import { Inter } from 'next/font/google'
-import { useState, useEffect } from 'react'
+import { useUserTypeContext } from '../UserTypeProvider'
+import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 
 import { auth } from '../../firebaseConfig'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { useAuthState } from 'react-firebase-hooks/auth'
-
 
 import { Stack, Button, Container, Divider } from '@mui/material'
 import upLogo from '../../public/uplogo.png'
@@ -20,6 +20,7 @@ export default function Ops(){
     
     const [user] = useAuthState(auth)
     const router = useRouter()
+    const { updateUserType } = useUserTypeContext()
 
     const SignIn = () => {
         const provider = new GoogleAuthProvider();
@@ -27,9 +28,9 @@ export default function Ops(){
         
         signInWithPopup(auth, provider)
           .then((result) => {
-            const credential = GoogleAuthProvider.credentialFromResult(result);
-            const token = credential?.accessToken;
-            const user = result.user;
+            const credential = GoogleAuthProvider.credentialFromResult(result); // This gives you a Google Access Token. You can use it to access the Google API.
+            const token = credential?.accessToken; // The signed-in user info.
+            const user = result.user; 
           }).catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
@@ -71,7 +72,10 @@ export default function Ops(){
             <Stack spacing={1} className={`${inter.className} ${styles.loginBody}`} sx={{ display: 'flex', alignItems: 'center' }}>
 
                 <p> Log in as: </p>
-                <Button variant="text" className={inter.className} onClick={SignIn} 
+                <Button variant="text" className={inter.className} onClick={() => {
+                    SignIn()
+                    updateUserType('attendee')
+                }} 
                     sx={{
                         display: 'flex',
                         backgroundColor: '#a70000',
@@ -82,7 +86,10 @@ export default function Ops(){
                     }}>
                     Attendee
                 </Button>
-                <Button variant="text" className={inter.className} onClick={SignIn}
+                <Button variant="text" className={inter.className} onClick={() => {
+                    SignIn()
+                    updateUserType('organizer')
+                }}
                     sx={{
                         display: 'flex',
                         backgroundColor: '#a70000',
@@ -93,7 +100,6 @@ export default function Ops(){
                     }}>
                     Organizer
                 </Button> 
-                
             </Stack>
 
         </Container>
