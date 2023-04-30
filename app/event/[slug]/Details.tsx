@@ -5,6 +5,7 @@ import { Inter } from 'next/font/google'
 
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import { useUserTypeContext } from '../../UserTypeProvider'
 import { db } from '../../../firebaseConfig'
 import { doc, getDoc, updateDoc, deleteDoc } from 'firebase/firestore'
 
@@ -17,8 +18,9 @@ interface EditedEvent {
 
 export default function Details({ id } : { id: string }){
 
+    const { userType } = useUserTypeContext()
     const [editing, setEditing] = useState(false);
-    const [data, setData] = useState<any>(null)
+    const [data, setData] = useState<unknown>(null)
     const [editedEvent, setEditedEvent] = useState<EditedEvent>({ name: "", desc: "" });
     const router = useRouter()
     
@@ -93,15 +95,18 @@ export default function Details({ id } : { id: string }){
                 priority
             />
 
-            {!editing ? (
-                <button type="button" onClick={() => setEditing(true)}>
-                    Edit
-                </button>) : (
-                <button type="button" onClick={updateEvent}>
-                    Save
-                </button>)
-            }
-            <button onClick={deleteEvent}>Delete</button>
+            { userType === 'organizer' && <div>
+                {!editing ? (
+                    <button type="button" onClick={() => setEditing(true)}>
+                        Edit
+                    </button>) : (
+                    <button type="button" onClick={updateEvent}>
+                        Save
+                    </button>)
+                }
+                <button onClick={deleteEvent}>Delete</button>
+            </div>}
+
         </div>
     )
 }

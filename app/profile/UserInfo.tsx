@@ -49,7 +49,7 @@ export default function UserInfo(){
                         }}
                     
                     >
-                        <Image className={styles.img} src={user?.photoURL!} alt={user?.displayName!} width="100" height="100" />
+                        <Image className={styles.img} src={user?.photoURL} alt={user?.displayName} width="100" height="100" />
 
                         <h2 className={`${inter.className} ${styles.username}`}> {user.displayName} </h2>
                     </Container>

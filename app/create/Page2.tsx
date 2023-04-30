@@ -1,17 +1,32 @@
 'use client'
 
-import { useState } from 'react'
 import { Button } from '@mui/material'
 import { Inter } from 'next/font/google'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Page2({ createEvent, prevPage }){
-      
-    const [eventDate, setEventDate] = useState<string>('')
-    const [eventTime, setEventTime] = useState<string>('')
-    const [eventVenue, setEventVenue] = useState<string>('')
+interface Props {
+    createEvent: () => void,
+    prevPage: () => void,
+    eventDate: string,
+    eventTime: string,
+    eventVenue: string,
+    handleEventDateChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    handleEventTimeChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    handleEventVenueChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+}
 
+export default function Page2({ 
+    createEvent, 
+    prevPage,
+    eventDate,
+    eventTime,
+    eventVenue,
+    handleEventDateChange,
+    handleEventTimeChange,
+    handleEventVenueChange,
+} : Props ) {
+    
     const finish = () => {
         createEvent()
     }
@@ -29,7 +44,7 @@ export default function Page2({ createEvent, prevPage }){
                 <input
                     type="date"
                     value={eventDate}
-                    onChange={(e) => setEventDate(e.target.value)}
+                    onChange={handleEventDateChange}
                 />
             </div>
             <div>
@@ -37,7 +52,7 @@ export default function Page2({ createEvent, prevPage }){
                 <input
                     type="time"
                     value={eventTime}
-                    onChange={(e) => setEventTime(e.target.value)}
+                    onChange={handleEventTimeChange}
                 />
             </div>
             <div>
@@ -45,7 +60,7 @@ export default function Page2({ createEvent, prevPage }){
                 <input 
                     type="text"
                     value={eventVenue}
-                    onChange={(e) => setEventVenue(e.target.value)} 
+                    onChange={handleEventVenueChange} 
                 />
             </div>
             <div>
