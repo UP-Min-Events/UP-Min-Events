@@ -50,90 +50,79 @@ export default function Page() {
     return (
         <div id="form">
 
-            <Link href="/"> 
-                <IconButton size="large"
-                    sx={{
-                        position: 'absolute',
-                        left: '2rem',
-                        color: '#a70000',
-                        fontWeight: 'bold',
-                        transform: 'translateY(-50%)',
-                    }}> 
-                    <ArrowBackIcon /> 
-                </IconButton> 
-            </Link> 
+                <Link href="/"> 
+                    <IconButton size="large"
+                        sx={{
+                            position: 'fixed',
+                            left: '2rem',
+                            color: '#a70000',
+                            fontWeight: 'bold',
+                            transform: 'translateY(-50%)',
+                        }}> 
+                        <ArrowBackIcon /> 
+                    </IconButton> 
+                </Link> 
 
-            <h2>Let&apos;s get to know you.</h2>
+            <h2> Let's get to know you.</h2>
 
             <div>
                 <p>First Name</p>
-                <input 
-                    type="text"
-                    value={firstName}
-                    onChange={e => setFirstName(e.target.value)} 
-                />
+                <input type="text" />
             </div>
             <div>
                 <p>Last Name</p>
-                <input 
-                    type="text"
-                    value={lastName}
-                    onChange={e => setLastName(e.target.value)}     
-                />
+                <input type="text" />
             </div>
             <div>
                 <p>Student Number</p>
-                <input 
-                    type="text" 
-                    value={studentNumber}
-                    onChange={e => setStudentNumber(e.target.value)}
-                />
+                <input type="text" />
             </div>
+            <p>Year Level</p>
             <div id="inputDropdown">
-                <p>Year Level</p>   
-                <select value={yearLevel} onChange={e => setYearLevel(e.target.value)} >
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
+                <select>
+                    <option value="" selected disabled hidden></option>
+                    <option value="">1</option>
+                    <option value="">2</option>
+                    <option value="">3</option>
+                    <option value="">4</option>
                 </select>
             </div>
+            <p>College/Department</p>
             <div id="inputDropdown">
-                <p>College/Department</p>
-                <select value={college} onChange={e => setCollege(e.target.value)} >
-                    <option value="csm">College of Science and Mathematics</option>
-                    <option value="chss">College of Humanities and Social Sciences</option>
-                    <option value="som">School of Management</option>
+                <select>
+                    <option value="" selected disabled hidden></option>
+                    <option value="">College of Science and Mathematics</option>
+                    <option value="">College of Humanities and Social Sciences</option>
+                    <option value="">School of Management</option>
+                    <option value="">Department of Human Kinetics</option>
                 </select>
             </div>
+            <p>Degree Program</p>
             <div id="inputDropdown">
-                <p>Degree Program</p>
-                <select value={program} onChange={e => setProgram(e.target.value)} >
-                    <option value="cs">BS in Computer Science</option>
-                    <option value="amat">BS in Applied Mathematics</option>
-                    <option value="bio">BS in Biology</option>
-                    <option value="ft">BS in Food Technology</option>
+                <select>
+                    <option value="" selected disabled hidden></option>
+                    <option value="">BS in Computer Science</option>
+                    <option value="">BS in Applied Mathematics</option>
+                    <option value="">BS in Biology</option>
+                    <option value="">BS in Food Technology</option>
                 </select>
             </div>
             <div id="terms">
-                <input type="checkbox" name="" id="" /> I agree with the Terms and Conditions.
+                I agree with the Terms and Conditions.
             </div>
-            <Button 
-                variant="text"  
-                className={inter.className} 
-                sx={{
-                    mx: 'auto',
-                    backgroundColor: '#a70000',
-                    color: '#fff',
-                    fontWeight: 'bold',
-                    width: '12em',
-                    borderRadius: '1em',
-                    mt: '3em'
-                }}
-                onClick={updateInfo}
-            >
-                Finish
-            </Button> 
+            <Button variant="text" className={inter.className}
+                    sx={{
+                        mx: 'auto',
+                        backgroundColor: '#a70000',
+                        color: '#fff',
+                        fontWeight: 'bold',
+                        width: '100%',
+                        height: '3.5em',
+                        borderRadius: '1em',
+                        mt: 'auto'
+                    }}>
+                    <Link href="/"> Finish </Link>
+                </Button> 
         </div>
     )
 }
