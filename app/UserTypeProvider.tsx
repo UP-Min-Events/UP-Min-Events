@@ -23,7 +23,7 @@ export const UserTypeProvider = ({ children } : {
         setUserType(localStorage.getItem('userType'))
     }, [])
 
-    const updateUserType = (type) => {
+    const updateUserType = (type: string): void => {
         localStorage.setItem('userType', type)
         setUserType(type)
     }
