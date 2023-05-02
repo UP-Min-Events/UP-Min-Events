@@ -17,7 +17,7 @@ export const UserTypeProvider = ({ children } : {
     children: React.ReactNode
 }) => {
 
-    const [userType, setUserType] = useState(null);
+    const [userType, setUserType] = useState<string | null>(null);
 
     useEffect(() => {
         setUserType(localStorage.getItem('userType'))
