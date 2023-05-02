@@ -65,7 +65,7 @@ export default function Ops() {
             date: eventDate,
             time: eventTime,
             attendees: [],
-            owner: user.uid
+            owner: user?.uid
         })
 
         const id = ref.id

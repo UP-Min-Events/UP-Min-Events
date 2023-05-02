@@ -54,16 +54,13 @@ export default function Scan(){
             
             setCameraStream(stream);
             setIsCameraReady(true);
-        }).catch(error => {
+        }).catch(() => {
             navigator.mediaDevices.getUserMedia({
                 video: true
             }).then(stream => {
-                    setCameraStream(stream);
-                    setIsCameraReady(true);
-                }).catch(error => {
-                    console.error('Camera Error:', error);
-                }
-            )
+                setCameraStream(stream);
+                setIsCameraReady(true);
+            })
         });
 
         return () => {
@@ -78,7 +75,6 @@ export default function Scan(){
         if (cameraStream && videoRef.current && isCameraReady) {
             videoRef.current.srcObject = cameraStream;
 
-            // Start scanning QR code
             qrCodeReader.decodeFromVideoDevice(
                 cameraStream.getVideoTracks()[0].getSettings().deviceId || null,
                 videoRef.current,
@@ -91,10 +87,7 @@ export default function Scan(){
 
         }
 
-        console.log("Camera Stream Check: ", cameraStream)
-
         return () => {
-            // Clean up on unmount
             qrCodeReader.reset();
             if (cameraStream) {
                 cameraStream.getTracks().forEach(track => track.stop());

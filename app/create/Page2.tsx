@@ -1,6 +1,5 @@
 'use client'
 
-import { Button } from '@mui/material'
 import { Inter } from 'next/font/google'
 
 import { IconButton } from '@mui/material'

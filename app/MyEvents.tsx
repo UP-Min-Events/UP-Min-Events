@@ -31,7 +31,7 @@ export default function MyEvents() {
         const events: Event[] = []
 
         querySnapshot.forEach((doc) => {
-            doc.data().owner === user.uid ? events.push({
+            doc.data().owner === user?.uid ? events.push({
                 name: doc.data().name,
                 desc: doc.data().desc,
                 date: doc.data().date,
