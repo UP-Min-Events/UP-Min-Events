@@ -14,6 +14,10 @@ const inter = Inter({ subsets: ['latin']})
 interface Data {
     name: string;
     desc: string;
+    date: string;
+    time: string;
+    attendees: string[];
+    id: string;
 }
 
 export default function Details({ id } : { id: string }){
@@ -29,7 +33,7 @@ export default function Details({ id } : { id: string }){
         const docSnap = await getDoc(docRef)
         
         if (docSnap.exists()) {
-            setData(docSnap.data())
+            setData(docSnap.data() as Data)
         } else {
             window.alert('No such document!')
         }
