@@ -27,6 +27,7 @@ export default function Details({ id } : { id: string }){
     const getDetails = async () => {
         const docRef = doc(db, 'events', id)
         const docSnap = await getDoc(docRef)
+        
         if (docSnap.exists()) {
             setData(docSnap.data())
         } else {

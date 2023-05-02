@@ -10,7 +10,7 @@ import Image from 'next/image'
 import { auth, db } from '../../firebaseConfig'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { useAuthState } from 'react-firebase-hooks/auth'
-import { collection, getDocs, addDoc } from "firebase/firestore";
+import { collection, getDocs, doc, setDoc } from "firebase/firestore";
 
 import { Stack, Button, Container, Divider } from '@mui/material'
 import upLogo from '../../public/uplogo.png'
@@ -27,10 +27,8 @@ export default function Ops(){
         const attendees = await getDocs(attendeesdb)
         const userExists = attendees.docs.some(doc => doc.data().uid === user.uid)
         if (!attendees.docs || attendees.docs.length === 0 || !userExists) {
-            await addDoc(attendeesdb, {
-                uid: user.uid,
-                events: []
-            })
+            const docRef = doc(db, 'attendees', user.uid)
+            await setDoc(docRef, { events: [] })
             router.push('/user-onboarding')
         } else {
             router.push('/')
@@ -40,10 +38,9 @@ export default function Ops(){
     const getOrganizers = async (organizersdb) => {
         const organizers = await getDocs(organizersdb)
         if (!organizers || organizers.docs.length === 0 || !organizers.docs) {
-            await addDoc(organizersdb, {
-                uid: user.uid,
-                events: []
-            })
+            const docRef = doc(db, 'organizers', user.uid)
+            await setDoc(docRef, { events: [] })
+            //router.push('/user-onboarding')
         }
 
         router.push('/')

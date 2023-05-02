@@ -29,9 +29,8 @@ export default function OnboardingForm() {
     const [program, setProgram] = useState('')
 
     const updateInfo = async () => {
-        const q = query(collection(db, 'attendees'), where('uid', '==', user?.uid), limit(1))
-        const querySnapshot = await getDocs(q)
-        const ref = doc(db, 'attendees', querySnapshot.docs[0].id)
+
+        const ref = doc(db, 'attendees', user.uid)
 
         await updateDoc(ref, {
             firstName: firstName,
@@ -90,30 +89,30 @@ export default function OnboardingForm() {
             <div id="inputDropdown">
                 <select value={yearLevel} onChange={(e) => setYearLevel(e.target.value)} >
                     <option value="" selected disabled hidden></option>
-                    <option value="">1</option>
-                    <option value="">2</option>
-                    <option value="">3</option>
-                    <option value="">4</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
                 </select>
             </div>
             <p>College/Department</p>
             <div id="inputDropdown">
                 <select value={college} onChange={(e) => setCollege(e.target.value)}>
                     <option value="" selected disabled hidden></option>
-                    <option value="">College of Science and Mathematics</option>
-                    <option value="">College of Humanities and Social Sciences</option>
-                    <option value="">School of Management</option>
-                    <option value="">Department of Human Kinetics</option>
+                    <option value="csm">College of Science and Mathematics</option>
+                    <option value="chss">College of Humanities and Social Sciences</option>
+                    <option value="som">School of Management</option>
+                    <option value="dhk">Department of Human Kinetics</option>
                 </select>
             </div>
             <p>Degree Program</p>
             <div id="inputDropdown">
                 <select value={program} onChange={(e) => setProgram(e.target.value)}>
                     <option value="" selected disabled hidden></option>
-                    <option value="">BS in Computer Science</option>
-                    <option value="">BS in Applied Mathematics</option>
-                    <option value="">BS in Biology</option>
-                    <option value="">BS in Food Technology</option>
+                    <option value="Computer Science">BS in Computer Science</option>
+                    <option value="Applied Mathematics">BS in Applied Mathematics</option>
+                    <option value="Biology">BS in Biology</option>
+                    <option value="Food Technology">BS in Food Technology</option>
                 </select>
             </div>
             <div id="terms">

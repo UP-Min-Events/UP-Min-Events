@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 
 import { auth, db } from '../../../firebaseConfig'
+import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { useAuthState } from 'react-firebase-hooks/auth'
 
 export default function DegreeProgram(){
@@ -12,11 +13,27 @@ export default function DegreeProgram(){
     const id = user?.uid
 
     const [toggle, setToggle] = useState(false)
-    const [input, setInput] = useState('CS')
+    const [input, setInput] = useState<string>('CS')
 
+    const getDetail = async () => {
+        const docRef = doc(db, 'attendees', id)
+        const docSnap = await getDoc(docRef)
+        
+        if (docSnap.exists()) {
+            setInput(docSnap.data()?.program)
+        } 
 
-    useEffect (() => {
+    }
 
+    const updateDetail = async () => {
+        const docRef = doc(db, 'attendees', id)
+        await updateDoc(docRef, {
+            program: input
+        })
+    }
+
+    useEffect(() => {
+        getDetail()
     }, [])
  
     return (
@@ -28,13 +45,19 @@ export default function DegreeProgram(){
             <div>
                 { toggle ?
                     <div>
-                        <input type='text' value={input} onChange={e => setInput(e.target.value)} placeholder={input} />
-                        <button onClick={
-                            () => setToggle(false)
-                        }>Save</button> 
+                        <select value={input} onChange={e => setInput(e.target.value)} placeholder={input}>
+                            <option value='Computer Science'>Computer Science</option>
+                            <option value='Applied Mathematics'>Applied Mathematics</option>
+                            <option value='Biology'>Biology</option>
+                            <option value='Food Technology'>Food Technology</option>
+                        </select>
+                        <button onClick={() => {
+                            updateDetail()
+                            setToggle(false)
+                        }}>Save</button> 
                     </div> 
                     : 
-                    <p onClick={e => setToggle(true)}>{input}</p> 
+                    <p onClick={() => setToggle(true)}>{input}</p> 
                 }
             </div>
         </div>
