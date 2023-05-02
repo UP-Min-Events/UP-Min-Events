@@ -11,7 +11,7 @@ import { doc, getDoc, updateDoc, deleteDoc } from 'firebase/firestore'
 
 const inter = Inter({ subsets: ['latin']})
 
-interface EditedEvent {
+interface Data {
     name: string;
     desc: string;
 }
@@ -20,8 +20,8 @@ export default function Details({ id } : { id: string }){
 
     const { userType } = useUserTypeContext()
     const [editing, setEditing] = useState(false);
-    const [data, setData] = useState<unknown>(null)
-    const [editedEvent, setEditedEvent] = useState<EditedEvent>({ name: "", desc: "" });
+    const [data, setData] = useState<Data>({ name: "", desc: "" })
+    const [editedEvent, setEditedEvent] = useState<Data>({ name: "", desc: "" });
     const router = useRouter()
     
     const getDetails = async () => {
