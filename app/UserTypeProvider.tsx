@@ -29,7 +29,7 @@ export const UserTypeProvider = ({ children } : {
     }
 
     return (
-        <UserTypeContext.Provider value={{ userType, updateUserType }}>
+        <UserTypeContext.Provider value={{ userType: userType || '', updateUserType }}>
             {children}
         </UserTypeContext.Provider>
     )
