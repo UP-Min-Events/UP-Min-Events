@@ -78,7 +78,7 @@ export default function Scan(){
             qrCodeReader.decodeFromVideoDevice(
                 cameraStream.getVideoTracks()[0].getSettings().deviceId || null,
                 videoRef.current,
-                (result, error) => {
+                (result) => {
                     if (result) {
                         processAttendance(result.getText());
                     }

@@ -1,3 +1,5 @@
+import DegreeProgram from './DegreeProgram'
+
 export default function Page(){
-    return <h1>Degree Program</h1>
+    return <DegreeProgram />
 }
