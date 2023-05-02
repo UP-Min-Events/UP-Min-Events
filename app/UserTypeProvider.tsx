@@ -9,7 +9,8 @@ interface UserTypeContextType {
 
 export const UserTypeContext = createContext<UserTypeContextType>({
     userType: '',
-    updateUserType: null
+    // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
+    updateUserType: (type: string) => {},
 });
 
 export const UserTypeProvider = ({ children } : {
