@@ -25,7 +25,7 @@ export default function Ops(){
 
     const getAttendees = async (attendeesdb) => {
         const attendees = await getDocs(attendeesdb)
-        const userExists = attendees.docs.some(doc => doc.data().uid === user.uid)
+        const userExists = attendees.docs.some(doc => doc.id === user.uid)
         if (!attendees.docs || attendees.docs.length === 0 || !userExists) {
             const docRef = doc(db, 'attendees', user.uid)
             await setDoc(docRef, { events: [] })

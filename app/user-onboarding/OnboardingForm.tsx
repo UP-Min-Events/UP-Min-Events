@@ -8,7 +8,7 @@ import { useState } from 'react'
 
 import { auth, db } from '../../firebaseConfig'
 import { useAuthState } from 'react-firebase-hooks/auth'
-import { doc, updateDoc, query, collection, where, limit, getDocs } from 'firebase/firestore'
+import { doc, updateDoc } from 'firebase/firestore'
 
 import { Button } from '@mui/material'
 import { IconButton } from '@mui/material'

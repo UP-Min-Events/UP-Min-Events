@@ -8,7 +8,7 @@ interface UserTypeContextType {
 }
 
 export const UserTypeContext = createContext<UserTypeContextType>({
-    userType: null,
+    userType: '',
     updateUserType: null
 });
 
