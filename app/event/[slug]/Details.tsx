@@ -24,8 +24,8 @@ export default function Details({ id } : { id: string }){
 
     const { userType } = useUserTypeContext()
     const [editing, setEditing] = useState(false);
-    const [data, setData] = useState<Data>({ name: "", desc: "" })
-    const [editedEvent, setEditedEvent] = useState<Data>({ name: "", desc: "" });
+    const [data, setData] = useState<Data>({ name: "", desc: "", date: "", time: "", attendees: [], id: "" })
+    const [editedEvent, setEditedEvent] = useState<Data>({ name: "", desc: "", date: "", time: "", attendees: [], id: "" });
     const router = useRouter()
     
     const getDetails = async () => {
