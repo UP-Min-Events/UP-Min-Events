@@ -1,0 +1,159 @@
+.form {
+    padding: 3em;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-content: space-between;
+    height: 100vh;
+  }
+  
+  .form .formHeader {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+  
+  .form h2 {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .form #formHeader #progressBar {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .form #formHeader #progress {
+    width: 48%;
+    height: 0.25em;
+    background-color: #a70000;
+    border-radius: 0.5rem;
+  }
+  
+  .form #formHeader #progress1 {
+    width: 48%;
+    height: 0.25em;
+    background-color: lightgray;
+    border-radius: 0.5rem;
+  }
+  
+  .form p {
+    font-weight: bold;
+    color: black;
+  }
+  
+  .form input[type='text'] {
+    color: black;
+    background-color: white;
+    margin-top: 0.25em;
+    margin-bottom: 0.75em;
+    padding: 0.5em;
+    border: 1px solid lightgray;
+    border-radius: 0.85em;
+    font-size: 1em;
+    width: 100%;
+  }
+  
+  .form select {
+    color: black;
+    background-color: white;
+    margin-top: 0.25em;
+    margin-bottom: 0.75em;
+    padding: 0.5em;
+    border: 1px solid lightgray;
+    border-radius: 0.85em;
+    font-size: 1em;
+    width: 100%;
+  }
+  
+  .form select option {
+    position: relative;
+    width: 2em;
+    color: black;
+    background-color: white;
+    margin-top: 0.25em;
+    margin-bottom: 0.75em;
+    padding: 0.5em;
+    border: 1px solid gray;
+    border-radius: 0.85em;
+    font-size: 0.75em;
+    overflow-x: hidden;
+  }
+  
+  .form #desc input {
+    height: 20rem;
+  }
+  
+  .form #inputDropdown {
+    display: flex;
+    color: black;
+    background-color: white;
+    margin-top: 0.25em;
+    margin-bottom: 0.75em;
+    padding: 0;
+    border: 1px solid lightgray;
+    border-radius: 0.85em;
+    font-size: 1em;
+    width: 100%;
+  }
+  
+  .form #inputDropdown select {
+    background-color: white;
+    color: black;
+    border: none;
+    margin: 0;  
+  }
+  
+  .form #inputDropdown select::active {
+    background-color: white;
+    color: black;
+    border: none;
+  }
+  
+  .form #inputDropdown option {
+    position: relative;
+    color: black;
+    background-color: white;
+    margin-top: 0.25em;
+    margin-bottom: 0.75em;
+    padding: 0.5em;
+    border: 1px solid gray;
+    border-radius: 0.85em;
+    font-size: 1em;
+  }
+  
+  .form #formButton {
+    font-size: 1em;
+    position: relative;
+    bottom: 0;
+    background-color: #a70000;
+    color: white;
+    font-weight: bold;
+    height: 3.5em;
+    width: 100%;
+    border-radius: 1em;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    border: none;
+  }
+  
+  .form #terms {
+    display: flex;
+    align-content: flex-start;
+    flex-direction: row;
+    font-size: 0.75em;
+  }
+
+  .form #terms input[type='checkbox'] {
+    margin-right: 0.5em;
+    position: relative;
+    cursor: pointer;
+  }
+  
+  
