@@ -1,6 +1,6 @@
 'use client'
 
-import '../globals.css'
+import styles from './page.module.css'
 import Link from 'next/link'
 import { Inter } from 'next/font/google'
 import { useRouter } from 'next/navigation'
@@ -45,21 +45,23 @@ export default function OnboardingForm() {
     }
 
     return (
-        <div className={inter.className}>
-            <Link href="/"> 
-                <IconButton size="large"
-                    sx={{
-                        position: 'fixed',
-                        left: '2rem',
-                        color: '#a70000',
-                        fontWeight: 'bold',
-                        transform: 'translateY(-50%)',
-                    }}> 
-                    <ArrowBackIcon /> 
-                </IconButton> 
-            </Link>
+        <div className={`${inter.className} ${styles.form}`}>
+            <div id="formHeader">
+                <Link href="/"> 
+                    <IconButton size="large"
+                        sx={{
+                            color: '#a70000',
+                            fontWeight: 'bold',
+                            padding: '0',
+                            top: '0',
+                            
+                        }}> 
+                        <ArrowBackIcon /> 
+                    </IconButton> 
+                </Link>
 
-            <h2>Let&apos;s get to know you.</h2>
+                <h2>Let&apos;s get to know you.</h2>
+            </div>
 
             <div>
                 <p>First Name</p>
@@ -115,8 +117,8 @@ export default function OnboardingForm() {
                     <option value="Food Technology">BS in Food Technology</option>
                 </select>
             </div>
-            <div id="terms">
-                I agree with the Terms and Conditions.
+            <div id={styles.terms}>
+                <input type="checkbox" /> I agree with the Terms and Conditions. 
             </div>
             <Button 
                 variant="text" 

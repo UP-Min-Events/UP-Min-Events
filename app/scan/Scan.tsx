@@ -1,11 +1,14 @@
 'use client'
 
+import styles from './page.module.css'
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { BrowserQRCodeReader } from '@zxing/library';
 import { auth, db } from '../../firebaseConfig';
 import { doc, getDoc, updateDoc} from 'firebase/firestore';
+
+import { Container } from '@mui/material'
 
 export default function Scan(){
 
@@ -96,11 +99,25 @@ export default function Scan(){
     }, [cameraStream, isCameraReady]);
 
     return (
-        <div>
-            <h1>Scan</h1>
-            {cameraStream && (
-                <video autoPlay={true} ref={videoRef} style={{ width: '50%' }} />
-            )}
-        </div>
+        <Container maxWidth={false}
+            sx={{ 
+                my: 'auto',
+                mx: 'auto',
+                height: '100vh',
+                alignItems: 'center',
+                justifyContent: 'center',
+            }}
+            className={styles.container}
+        >   
+            <h1>Scan a QR Code</h1>
+            <h5>Log your attendance.</h5>
+            
+            <div id={styles.videoContainer}>
+                {cameraStream && (
+                    <video autoPlay={true} ref={videoRef} />
+                )}
+                <h5>Position carefully. </h5>
+            </div>
+        </Container>
     )
 }

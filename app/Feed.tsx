@@ -48,7 +48,7 @@ export default function Feed() {
     return(
         <Container className={inter.className} sx={{ pt: '1.5em', overflow: 'hidden' }}>
             <h1>Live Events</h1>    
-            <Stack sx={{ justifyContent: 'center', alignItems: 'center', width: '80%', mx: 'auto', display: 'flex' }}>
+            <Stack sx={{ justifyContent: 'center', alignItems: 'center', width: '80%', mx: 'auto', display: 'flex', my: '0.75em' }}>
                 {events.map((event) => (
                     <Event 
                         key={event.id} 

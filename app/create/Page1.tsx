@@ -1,3 +1,4 @@
+import styles from './page.module.css'
 import { Inter } from 'next/font/google'
 import Link from 'next/link'
 
@@ -27,8 +28,8 @@ export default function Page1({
 } : Props) {
     
     return(
-        <div id="form">
-            <div id="formHeader">
+        <div className={`${inter.className} ${styles.form}`}>
+            <div id={styles.formHeader}>
                 <IconButton size="large"
                         sx={{
                             scale: '1.4',
@@ -44,8 +45,8 @@ export default function Page1({
                         </Link>
                 </IconButton> 
                 <h1>Create Event</h1>
-                <div id="progressBar">
-                    <div id="progress"> </div> <div id="progress1"> </div> 
+                <div id={styles.progressBar}>
+                    <div id={styles.progress}> </div> <div id={styles.progress1}> </div> 
                 </div>   
             </div>    
             <div>
@@ -73,7 +74,7 @@ export default function Page1({
                 />
             </div>
 
-            <button id="formButton" className={inter.className} onClick={nextPage}>Next</button>
+            <button id={styles.formButton} className={`${inter.className} ${stlyes.formButton}`} onClick={nextPage}>Next</button>
         </div>
     )
 }

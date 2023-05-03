@@ -1,3 +1,4 @@
+import styles from './page.module.css'
 import { Inter } from 'next/font/google'
 
 import { IconButton } from '@mui/material'
@@ -36,8 +37,8 @@ export default function Page2({
     }
 
     return(
-        <div id="form">
-            <div id="formHeader">
+        <div className={`${inter.className} ${styles.form}`}>
+            <div id={styles.formHeader}>
                 <IconButton size="large" onClick={back}
                         sx={{
                             scale: '1.4',
@@ -51,8 +52,8 @@ export default function Page2({
                         <ArrowBackIcon /> 
                 </IconButton> 
                 <h1>Create Event</h1>
-                <div id="progressBar">
-                    <div id="progress"> </div> <div id="progress"> </div> 
+                <div id={styles.progressBar}>
+                    <div id={styles.progress}> </div> <div id={styles.progress}> </div> 
                 </div>   
             </div>
             <div>
@@ -81,7 +82,9 @@ export default function Page2({
             </div>
             <div>
                 <p>Population Limit</p>
-                <input type="range" />
+                <input
+                    type="number"
+                />
             </div>
             <div>
                 <p>Visibility</p>
@@ -94,7 +97,7 @@ export default function Page2({
                 <p>Restrictions</p>
                 <input type="text" />
             </div>
-            <button id="formButton" className={inter.className} onClick={finish}>Finish</button>
+            <button className={`${inter.className} ${styles.formButton}`} onClick={finish}>Finish</button>
         </div>
     )
 }
