@@ -8,7 +8,9 @@ import { BrowserQRCodeReader } from '@zxing/library';
 import { auth, db } from '../../firebaseConfig';
 import { doc, getDoc, updateDoc} from 'firebase/firestore';
 
-import { Container } from '@mui/material'
+import { Container, IconButton } from '@mui/material'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import Link from 'next/link'    
 
 export default function Scan(){
 
@@ -101,22 +103,40 @@ export default function Scan(){
     return (
         <Container maxWidth={false}
             sx={{ 
+                display: 'flex',
                 my: 'auto',
                 mx: 'auto',
                 height: '100vh',
                 alignItems: 'center',
-                justifyContent: 'center',
+                justifyContent: 'center', 
             }}
             className={styles.container}
-        >   
-            <h1>Scan a QR Code</h1>
-            <h5>Log your attendance.</h5>
-            
-            <div id={styles.videoContainer}>
-                {cameraStream && (
-                    <video autoPlay={true} ref={videoRef} />
-                )}
-                <h5>Position carefully. </h5>
+        >                  
+            <div id={styles.backButton}>
+                <IconButton size="large"
+                    sx={{
+                        scale: '1.4',
+                        left: '0',
+                        color: 'white',
+                        fontWeight: 'bold',
+                        padding: '0',
+                        mb: '1em',
+                    }}> 
+                    <Link href="/">
+                        <ArrowBackIcon /> 
+                    </Link>
+                </IconButton> 
+            </div>
+            <div id={styles.scanBody}>
+                <h1>Scan a QR Code</h1>
+                <h5>Log your attendance.</h5>
+                
+                <div id={styles.videoContainer}>
+                    {cameraStream && (
+                        <video autoPlay={true} ref={videoRef} />
+                    )}
+                    <h5>Position carefully. </h5>
+                </div>
             </div>
         </Container>
     )

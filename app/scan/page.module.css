@@ -1,26 +1,46 @@
 .container {
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
     height: 100vh;
     background-color: #3D1414;
-    opacity: 0.9;
+    opacity: 1;
     color: white;
 }
 
-#videoContainer {
-    text-align: center;
-    height: auto;
-}
-
-#videoContainer video {
-    height: auto;
-    margin-top: 2em;
-    margin-bottom: 0.5em;
+#backButton {
+    position: absolute;
+    top: 0;
+    padding-top: 3em;
+    height: 5em;
+    margin-bottom: auto;
     width: 80%;
 }
 
-#videoContainer h5 {
+#scanBody {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    text-align: center;
+    bottom: 5rem;
+}
+
+#scanBody #videoContainer {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    height: auto;
+    width: 80%;
+    margin-top: 2.5em;
+}
+
+#scanBody #videoContainer video {
+    height: auto;
+    width: 100%;
+}
+
+#scanBody #videoContainer h5 {
+    margin-top: 1em;
     text-align: left;
 }

@@ -5,9 +5,6 @@ export default function Page() {
 
     return (
         <div>
-            <Link href="/">
-                Home
-            </Link>
             <Scan />
         </div>
     );
