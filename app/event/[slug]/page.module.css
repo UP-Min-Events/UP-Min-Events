@@ -5,3 +5,65 @@
     height: 100vh;
     width: 100vh;
 }
+
+#backButton {
+    position: absolute;
+    top: 0;
+    padding-top: 3em;
+    height: 5em;
+    margin-bottom: auto;
+    width: 80%;
+}
+
+#header {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    padding-top: 5em;
+    margin-bottom: 2em;
+}
+
+#header #divider {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    height: 0.25em;
+    background-color: #a70000;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+#schedule {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin-bottom: 2em;
+}
+
+#schedule h3 {
+    display: flex;
+    align-items: center;
+    text-align: left;
+}
+
+#schedule #container {
+    height: auto;
+    text-align: center;
+    position: relative;
+    margin-top: 0.25em;
+    padding: 2em;
+    border-radius: 1em;
+    box-shadow: 0 0 0.25em 0.1em rgba(0, 0, 0, 0.25);
+}
+
+#schedule .scheduleItem {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75em;
+}

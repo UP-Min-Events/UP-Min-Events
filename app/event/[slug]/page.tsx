@@ -9,7 +9,6 @@ export default function Page({
     
     return (
         <div>
-            <Link href="/">Home</Link>
             <Details id={params.slug}/>
         </div>
     )
