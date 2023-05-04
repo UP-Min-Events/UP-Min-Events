@@ -16,7 +16,7 @@ export default function DegreeProgram(){
     const [input, setInput] = useState<string>('CS')
 
     const getDetail = async () => {
-        const docRef = doc(db, 'attendees', id)
+        const docRef = doc(db, 'attendees', `${id}`)
         const docSnap = await getDoc(docRef)
         
         if (docSnap.exists()) {
@@ -26,7 +26,7 @@ export default function DegreeProgram(){
     }
 
     const updateDetail = async () => {
-        const docRef = doc(db, 'attendees', id)
+        const docRef = doc(db, 'attendees', `${id}`)
         await updateDoc(docRef, {
             program: input
         })

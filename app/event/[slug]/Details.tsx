@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from './page.module.css'
 
@@ -17,6 +16,10 @@ import Link from 'next/link'
 
 const inter = Inter({ subsets: ['latin']})
 
+interface Props {
+    id: string,
+}
+
 interface Data {
     name: string;
     desc: string;
@@ -26,7 +29,7 @@ interface Data {
     id: string;
 }
 
-export default function Details({ id } : { id: string }){
+export default function Details({ id } : Props){
 
     const { userType } = useUserTypeContext()
     const [editing, setEditing] = useState(false);
@@ -80,19 +83,19 @@ export default function Details({ id } : { id: string }){
             className={`${inter.className} ${styles.container}`}
         >    
             <div id={styles.backButton}>
-                <IconButton size="large"
-                    sx={{
-                        scale: '1.4',
-                        left: '0',
-                        color: '#a70000',
-                        fontWeight: 'bold',
-                        padding: '0',
-                        mb: '1em',
-                    }}> 
-                    <Link href="/">
-                        <ArrowBackIcon /> 
-                    </Link>
-                </IconButton> 
+                <Link href="/">
+                    <IconButton size="large"
+                        sx={{
+                            scale: '1.4',
+                            left: '0',
+                            color: '#a70000',
+                            fontWeight: 'bold',
+                            padding: '0',
+                            mb: '1em',
+                        }}>             
+                            <ArrowBackIcon /> 
+                    </IconButton> 
+                </Link>
             </div>
             
             { editing ? (
@@ -137,25 +140,19 @@ export default function Details({ id } : { id: string }){
                     </div> */}
                 </div> 
             </div>
-            <Image 
-                src={`https://api.qrserver.com/v1/create-qr-code/?data=${id}&size=200x200`} 
-                alt={data?.name} 
-                width="200" 
-                height="200" 
-                priority
-            />
-
-            { userType === 'organizer' && <div>
-                {!editing ? (
-                    <button type="button" onClick={() => setEditing(true)}>
-                        Edit
-                    </button>) : (
-                    <button type="button" onClick={updateEvent}>
-                        Save
-                    </button>)
-                }
-                <button onClick={deleteEvent}>Delete</button>
-            </div>}
+            { userType === 'organizer' && 
+                <div>
+                    {!editing ? (
+                        <button type="button" onClick={() => setEditing(true)}>
+                            Edit
+                        </button>) : (
+                        <button type="button" onClick={updateEvent}>
+                            Save
+                        </button>)
+                    }
+                    <button onClick={deleteEvent}>Delete</button>
+                </div>
+            }
 
         </Container>
     )

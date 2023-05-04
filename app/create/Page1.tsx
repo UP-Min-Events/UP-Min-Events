@@ -74,7 +74,7 @@ export default function Page1({
                 />
             </div>
 
-            <button id={styles.formButton} className={`${inter.className} ${stlyes.formButton}`} onClick={nextPage}>Next</button>
+            <button id={styles.formButton} className={`${inter.className} ${styles.formButton}`} onClick={nextPage}>Next</button>
         </div>
     )
 }

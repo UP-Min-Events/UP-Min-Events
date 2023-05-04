@@ -1,5 +1,4 @@
-import Link from 'next/link'
-import Details from './Details'
+import EventClient from './EventClient'
 
 export default function Page({ 
     params,
@@ -9,7 +8,7 @@ export default function Page({
     
     return (
         <div>
-            <Details id={params.slug}/>
+            <EventClient id={params.slug} />
         </div>
     )
 }
