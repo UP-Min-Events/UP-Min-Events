@@ -1,13 +1,12 @@
 'use client'
 
+import styles from './page.module.css'
 import { Inter } from 'next/font/google'
 import { useState, useEffect } from 'react'
 import Event from './Event'
 
 import { db } from '../firebaseConfig'
 import { collection, getDocs } from 'firebase/firestore'
-
-import { Stack, Container } from '@mui/material'
 
 const inter = Inter({ subsets: ['latin']})
 
@@ -46,9 +45,9 @@ export default function Feed() {
     }, [])
 
     return(
-        <Container className={inter.className} sx={{ pt: '1.5em', overflow: 'hidden' }}>
+        <div>
             <h1>Live Events</h1>    
-            <Stack sx={{ justifyContent: 'center', alignItems: 'center', width: '80%', mx: 'auto', display: 'flex', my: '0.75em' }}>
+            <div className={`${inter.className} ${styles.eventsContainer}`}>
                 {events.map((event) => (
                     <Event 
                         key={event.id} 
@@ -58,7 +57,7 @@ export default function Feed() {
                         time={event.time} 
                     />
                 ))}
-            </Stack>
-        </Container>
+            </div>
+        </div>
     )
 }

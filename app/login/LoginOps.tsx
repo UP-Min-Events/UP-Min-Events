@@ -13,7 +13,6 @@ import { useAuthState } from 'react-firebase-hooks/auth'
 import { collection, getDocs, doc, setDoc } from 'firebase/firestore'
 import { CollectionReference } from 'firebase/firestore'
 
-import { Stack, Button, Container, Divider } from '@mui/material'
 import upLogo from '../../public/uplogo.png'
 
 const inter = Inter({ subsets: ['latin']})
@@ -74,64 +73,30 @@ export default function LoginOps(){
     }, [user])
     
     return (
-        <Container maxWidth={false}
-            sx={{ 
-                my: 'auto',
-                mx: 'auto',
-                minHeight: '100vh'
-            }}
-        >
+        <div className={styles.container}>
 
-            <div className={styles.loginHeader}>
-
-                <Image className={styles.logo}
-                    src={upLogo}
-                    alt="UPMin Logo"
-                    width={175}
-                    height={142.5}
-                />
-
-                <h1>Events</h1>
-                <p>Know what&apos;s happening.</p>
-
-                <Divider variant="middle" sx={{ width: '75%', mx: 'auto' }} />
+            <div className={`${styles.loginHeader} ${inter.className}`}>
+                <Image className={styles.logo} src={upLogo} alt="UPMin Logo" width={175} height={142.5} />
+                    <h1>Events</h1>
+                    <p>Know what&apos;s happening.</p>
             </div>
 
-            <Stack spacing={1} className={`${inter.className} ${styles.loginBody}`} sx={{ display: 'flex', pos: 'relative', alignItems: 'center', mt: '2.5em' }}>
-
+            <div className={`${inter.className} ${styles.loginBody}`}>
                 <p> Log in as: </p>
-                <Button variant="text" className={inter.className} onClick={() => {
+                <button className={`${inter.className} ${styles.buttonM}`} onClick={() => {
                     updateUserType('attendee')
                     SignIn()
-                }} 
-                    sx={{
-                        display: 'flex',
-                        backgroundColor: '#a70000',
-                        color: '#fff',
-                        fontWeight: 'bold',
-                        width: '60%',
-                        borderRadius: '1em',
-                        height: '3em'
-                    }}>
+                }}> 
                     Attendee
-                </Button>
-                <Button variant="text" className={inter.className} onClick={() => {
+                </button>
+                <button className={`${inter.className} ${styles.buttonM}`} onClick={() => {
                     updateUserType('organizer')
                     SignIn()
-                }}
-                    sx={{
-                        display: 'flex',
-                        backgroundColor: '#a70000',
-                        color: '#fff',
-                        fontWeight: 'bold',
-                        width: '60%',
-                        borderRadius: '1em',
-                        height: '3em'
-                    }}>
+                }}> 
                     Organizer
-                </Button> 
-            </Stack>
+                </button>
+            </div>
 
-        </Container>
+        </div>
     )
 }

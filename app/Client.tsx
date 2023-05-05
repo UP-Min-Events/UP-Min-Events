@@ -1,5 +1,8 @@
 'use client'
 
+import styles from './page.module.css'
+import { Inter } from 'next/font/google'
+
 import SignOut from './SignOut'
 import ScanButton from './ScanButton'
 import CreateButton from './CreateButton'
@@ -15,6 +18,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 
 import PersonIcon from '@mui/icons-material/Person';
 import { Button, Container, Skeleton } from '@mui/material'
+
+const inter = Inter({ subsets: ['latin']})
 
 export default function Client() {
 
@@ -32,18 +37,10 @@ export default function Client() {
     return (
         <>
             {user && (
-                <Container maxWidth={false}
-                    sx={{ 
-                        my: 'auto',
-                        mx: 'auto',
-                        height: '100vh',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                    }}
-                >   
+                <div className={`${inter.className} ${styles.container}`}>
 
                     <Suspense fallback={<Skeleton />}>
-                        <Container sx={{ mt: '2em', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div className={styles.nav}>
                             <Link href="/profile"> 
                                 <Button variant="text" startIcon={<PersonIcon sx = {{ color: '#a70000', scale: '150%' }}/>}
                                     sx={{
@@ -55,7 +52,7 @@ export default function Client() {
                                 </Button> 
                             </Link>
                             <SignOut />
-                        </Container>
+                        </div>
                     </Suspense>
 
                     <Suspense fallback={<Skeleton variant="rectangular" />}>
@@ -70,7 +67,7 @@ export default function Client() {
                         }
                     </Suspense>
 
-                </Container>
+                </div>
             )}
         </>
     );

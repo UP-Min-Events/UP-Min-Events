@@ -101,18 +101,8 @@ export default function Scan(){
     }, [cameraStream, isCameraReady]);
 
     return (
-        <Container maxWidth={false}
-            sx={{ 
-                display: 'flex',
-                my: 'auto',
-                mx: 'auto',
-                height: '100vh',
-                alignItems: 'center',
-                justifyContent: 'center', 
-            }}
-            className={styles.container}
-        >                  
-            <div id={styles.backButton}>
+        <div className={styles.container}>                  
+            <div className={styles.nav}>
                 <IconButton size="large"
                     sx={{
                         scale: '1.4',
@@ -127,6 +117,7 @@ export default function Scan(){
                     </Link>
                 </IconButton> 
             </div>
+
             <div id={styles.scanBody}>
                 <h1>Scan a QR Code</h1>
                 <h5>Log your attendance.</h5>
@@ -138,6 +129,7 @@ export default function Scan(){
                     <h5>Position carefully. </h5>
                 </div>
             </div>
-        </Container>
+
+        </div>
     )
 }
