@@ -7,8 +7,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Inter } from 'next/font/google'
 
-import { IconButton, Container } from '@mui/material'
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { IconButton, Container, Avatar } from '@mui/material'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 
 const inter = Inter({ subsets: ['latin']})
 
@@ -49,8 +50,7 @@ export default function UserInfo(){
                         }}
                     
                     >
-                        <Image className={styles.img} src={user?.photoURL!} alt={user?.displayName!} width="100" height="100" />
-
+                        <Image className={styles.img} src={user?.photoURL ?? ''} alt={user?.displayName || `User Avatar`} width="100" height="100" />
                         <h2 className={`${inter.className} ${styles.username}`}> {user.displayName} </h2>
                     </Container>
                 </div>
