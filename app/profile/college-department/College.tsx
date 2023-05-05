@@ -7,7 +7,7 @@ import { auth, db } from '../../../firebaseConfig'
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { useAuthState } from 'react-firebase-hooks/auth'
 
-export default function DegreeProgram(){
+export default function College(){
 
     const [user] = useAuthState(auth)
     const id = user?.uid
@@ -20,7 +20,7 @@ export default function DegreeProgram(){
         const docSnap = await getDoc(docRef)
         
         if (docSnap.exists()) {
-            setInput(docSnap.data()?.program)
+            setInput(docSnap.data()?.college)
         } 
 
     }
@@ -28,7 +28,7 @@ export default function DegreeProgram(){
     const updateDetail = async () => {
         const docRef = doc(db, 'attendees', `${id}`)
         await updateDoc(docRef, {
-            program: input
+            college: input
         })
     }
 
@@ -46,10 +46,10 @@ export default function DegreeProgram(){
                 { toggle ?
                     <div>
                         <select value={input} onChange={e => setInput(e.target.value)} placeholder={input}>
-                            <option value='cs'>Computer Science</option>
-                            <option value='amat'>Applied Mathematics</option>
-                            <option value='bio'>Biology</option>
-                            <option value='ft'>Food Technology</option>
+                            <option value='csm'>College of Science and Mathematics</option>
+                            <option value='chss'>College of Humanities and Social Sciences</option>
+                            <option value='som'>School of Management</option>
+                            <option value='dhk'>Department of Human Kinetics</option>
                         </select>
                         <button onClick={() => {
                             updateDetail()
@@ -57,7 +57,14 @@ export default function DegreeProgram(){
                         }}>Save</button> 
                     </div> 
                     : 
-                    <p onClick={() => setToggle(true)}>{input}</p> 
+                    <p onClick={() => setToggle(true)}>
+                        {
+                            input === 'csm' ? 'College of Science and Mathematics' :
+                            input === 'chss' ? 'College of Humanities and Social Sciences' :
+                            input === 'som' ? 'School of Management' :
+                            input === 'dhk' ? 'Department of Human Kinetics' : 'No Data Available'
+                        }
+                    </p> 
                 }
             </div>
         </div>

@@ -17,7 +17,7 @@ import { auth } from "../firebaseConfig";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 import PersonIcon from '@mui/icons-material/Person';
-import { Button, Container, Skeleton } from '@mui/material'
+import { Button, Skeleton } from '@mui/material'
 
 const inter = Inter({ subsets: ['latin']})
 
@@ -39,7 +39,7 @@ export default function Client() {
             {user && (
                 <div className={`${inter.className} ${styles.container}`}>
 
-                    <Suspense fallback={<Skeleton />}>
+                    <Suspense fallback={<Skeleton animation="wave" />}>
                         <div className={styles.nav}>
                             <Link href="/profile"> 
                                 <Button variant="text" startIcon={<PersonIcon sx = {{ color: '#a70000', scale: '150%' }}/>}
@@ -55,7 +55,7 @@ export default function Client() {
                         </div>
                     </Suspense>
 
-                    <Suspense fallback={<Skeleton variant="rectangular" />}>
+                    <Suspense fallback={<Skeleton variant="rectangular" height={600} width={150} />}>
                         {
                             userType === 'attendee' ? <Feed /> : <MyEvents />
                         }   

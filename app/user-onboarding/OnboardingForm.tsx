@@ -91,10 +91,10 @@ export default function OnboardingForm() {
             <div id="inputDropdown">
                 <select value={yearLevel} onChange={(e) => setYearLevel(e.target.value)} >
                     <option value="" selected disabled hidden></option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
+                    <option value="1">1st Year</option>
+                    <option value="2">2nd Year</option>
+                    <option value="3">3rd Year</option>
+                    <option value="4">4th Year</option>
                 </select>
             </div>
             <p>College/Department</p>
@@ -104,17 +104,50 @@ export default function OnboardingForm() {
                     <option value="csm">College of Science and Mathematics</option>
                     <option value="chss">College of Humanities and Social Sciences</option>
                     <option value="som">School of Management</option>
-                    <option value="dhk">Department of Human Kinetics</option>
                 </select>
             </div>
             <p>Degree Program</p>
             <div id="inputDropdown">
                 <select value={program} onChange={(e) => setProgram(e.target.value)}>
                     <option value="" selected disabled hidden></option>
-                    <option value="Computer Science">BS in Computer Science</option>
-                    <option value="Applied Mathematics">BS in Applied Mathematics</option>
-                    <option value="Biology">BS in Biology</option>
-                    <option value="Food Technology">BS in Food Technology</option>
+                    {
+                        college === 'csm' ? 
+                        <>
+                            <option value="cs">BS in Computer Science</option>
+                            <option value="amat">BS in Applied Mathematics</option>
+                            <option value="Bio">BS in Biology</option>
+                            <option value="ft">BS in Food Technology</option>
+                        </>
+
+                        : college === 'chss' ? 
+                        <>
+                            <option value="bae">BA in English</option>
+                            <option value="bacma">BA in Communications and Media Arts</option>
+                            <option value="anthro">BA in Anthropology</option>
+                            <option value="bsa">BS in Architecture</option>
+                            <option value="bss">Bachelor of Sports Science</option>
+                        </>
+
+                        : college === 'som' ?
+                        <>
+                            <option value="abe">BS in Agribusiness Economics</option>
+                        </>
+
+                        : 
+                        <>
+                            <option value="cs">BS in Computer Science</option>
+                            <option value="amat">BS in Applied Mathematics</option>
+                            <option value="Bio">BS in Biology</option>
+                            <option value="ft">BS in Food Technology</option>
+                            <option value="bae">BA in English</option>
+                            <option value="bacma">BA in Communications and Media Arts</option>
+                            <option value="anthro">BA in Anthropology</option>
+                            <option value="bsa">BS in Architecture</option>
+                            <option value="bss">Bachelor of Sports Science</option>
+                            <option value="abe">BS in Agribusiness Economics</option>
+                        </>
+                    }
+                    
                 </select>
             </div>
             <div id={styles.terms}>

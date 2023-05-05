@@ -5,6 +5,7 @@ export default function UserDetails(){
         <div>
             <div>
                 <Link href="/profile/student-number">Student Number</Link>
+                <Link href="/profile/year-level">Year Level</Link>
                 <Link href="/profile/degree-program">Degree Program</Link>
                 <Link href="/profile/college-department">College/Department</Link>
             </div>

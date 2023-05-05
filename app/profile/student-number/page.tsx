@@ -1,3 +1,5 @@
-export default function Page() {
-    return <h1>Student Number</h1>
+import StudentNum from './StudentNum'
+
+export default function Page(){
+    return <StudentNum />
 }
