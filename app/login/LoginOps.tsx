@@ -10,24 +10,25 @@ import Image from 'next/image'
 import { auth, db } from '../../firebaseConfig'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { useAuthState } from 'react-firebase-hooks/auth'
-import { collection, getDocs, doc, setDoc } from "firebase/firestore";
+import { collection, getDocs, doc, setDoc } from 'firebase/firestore'
+import { CollectionReference } from 'firebase/firestore'
 
 import { Stack, Button, Container, Divider } from '@mui/material'
 import upLogo from '../../public/uplogo.png'
 
 const inter = Inter({ subsets: ['latin']})
 
-export default function Ops(){
+export default function LoginOps(){
     
     const [user] = useAuthState(auth)
     const router = useRouter()
     const { userType, updateUserType } = useUserTypeContext()
 
-    const getAttendees = async (attendeesdb) => {
+    const getAttendees = async (attendeesdb : CollectionReference) => {
         const attendees = await getDocs(attendeesdb)
-        const userExists = attendees.docs.some(doc => doc.id === user.uid)
+        const userExists = attendees.docs.some(doc => doc.id === user?.uid)
         if (!attendees.docs || attendees.docs.length === 0 || !userExists) {
-            const docRef = doc(db, 'attendees', user.uid)
+            const docRef = doc(db, 'attendees', `${user?.uid}`)
             await setDoc(docRef, { events: [] })
             router.push('/user-onboarding')
         } else {
@@ -35,10 +36,10 @@ export default function Ops(){
         } 
     }
     
-    const getOrganizers = async (organizersdb) => {
+    const getOrganizers = async (organizersdb : CollectionReference) => {
         const organizers = await getDocs(organizersdb)
         if (!organizers || organizers.docs.length === 0 || !organizers.docs) {
-            const docRef = doc(db, 'organizers', user.uid)
+            const docRef = doc(db, 'organizers', `${user?.uid}`)
             await setDoc(docRef, { events: [] })
             //router.push('/user-onboarding')
         }

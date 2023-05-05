@@ -1,9 +1,9 @@
-import Ops from './ops'
+import LoginOps from './LoginOps'
 
 export const metadata = {
     title: 'Login',
 }
 
 export default function Auth(){
-    return <Ops />
+    return <LoginOps />
 }
