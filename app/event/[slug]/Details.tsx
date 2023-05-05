@@ -11,7 +11,8 @@ import { doc, getDoc, updateDoc, deleteDoc } from 'firebase/firestore'
 
 import { Container, IconButton } from '@mui/material'
 import EventNoteIcon from '@mui/icons-material/EventNote';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import InfoIcon from '@mui/icons-material/Info';
 import Link from 'next/link' 
 
 const inter = Inter({ subsets: ['latin']})
@@ -83,17 +84,17 @@ export default function Details({ id } : Props){
             className={`${inter.className} ${styles.container}`}
         >    
             <div id={styles.backButton}>
-                <Link href="/">
+                <Link href="/">    
                     <IconButton size="large"
                         sx={{
                             scale: '1.4',
-                            left: '0',
+                            left: '0',  
                             color: '#a70000',
                             fontWeight: 'bold',
                             padding: '0',
                             mb: '1em',
-                        }}>             
-                            <ArrowBackIcon /> 
+                        }}>       
+                                <ArrowBackIcon /> 
                     </IconButton> 
                 </Link>
             </div>
@@ -132,6 +133,9 @@ export default function Details({ id } : Props){
                     <div className={styles.scheduleItem}>
                         <b>Time</b> {data?.time}
                     </div>
+                    <div className={styles.scheduleItem}>
+                        <b>Venue</b> 
+                    </div>
                     {/* <div className={styles.scheduleItem}>
                         <p>{data?.attendees}</p>
                     </div>
@@ -140,6 +144,22 @@ export default function Details({ id } : Props){
                     </div> */}
                 </div> 
             </div>
+            <div id={styles.info}>
+                <h3> <EventNoteIcon /> About this Event </h3>
+                <div id={styles.container}>
+                    <div className={styles.scheduleItem}>   
+                        <b>Hosted by</b> Host
+                    </div>
+                    <p> {data.desc} </p>
+                </div>
+            </div>
+            { userType === 'organizer' && 
+                <div id={styles.stats}>
+                    <h3> <InfoIcon /> Statistics </h3>
+                    <div id={styles.container}>
+                    </div>
+                </div>
+            }
             { userType === 'organizer' && 
                 <div>
                     {!editing ? (

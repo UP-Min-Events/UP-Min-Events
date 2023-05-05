@@ -2,9 +2,11 @@
 
 import Details from './Details'
 import QR from './QR'
+import styles from './page.module.css'
 
 import { useUserTypeContext } from '../../UserTypeProvider'
 import { useState } from 'react'
+import { Button } from '@mui/material'
 
 export default function EventClient({ id } : { id: string }) {
 
@@ -27,10 +29,23 @@ export default function EventClient({ id } : { id: string }) {
                     handleShowDetails={handleShowDetails} 
                 /> 
                 : 
-                <div>
+                <div id={styles.qrButton}>
                     <Details id={id} />
                     { userType === 'organizer' && 
-                        <button onClick={handleShowQR}>Show QR</button>
+                        <Button variant="text" 
+                        sx={{
+                            mx: 'auto',
+                            backgroundColor: '#a70000',
+                            color: '#fff',
+                            fontWeight: 'bold',
+                            width: '80%',
+                            height: '3.5em',
+                            borderRadius: '1em',
+                        }}
+                        onClick={handleShowQR}
+                    >
+                        Show QR
+                        </Button> 
                     }
                 </div>
             }
