@@ -7,8 +7,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Inter } from 'next/font/google'
 
-import { IconButton, Container, Avatar } from '@mui/material'
-import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import { IconButton, Container } from '@mui/material'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 
 const inter = Inter({ subsets: ['latin']})
