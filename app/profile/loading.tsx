@@ -1,7 +1,5 @@
+import CircleLoading from "../loadingui/CircleLoading";
+
 export default function Loading() {
-    return (
-        <div>
-            <h1>Loading...</h1>
-        </div>
-    )
+    return <CircleLoading />
 }

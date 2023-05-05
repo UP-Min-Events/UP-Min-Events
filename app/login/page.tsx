@@ -1,9 +1,9 @@
 import Ops from './ops'
 
 export const metadata = {
-    title: 'UPMin Events',
+    title: 'Login',
 }
 
 export default function Auth(){
-    return <Ops />;
+    return <Ops />
 }

@@ -1,9 +1,9 @@
 import Ops from './ops'
 
+export const metadata = {
+    title: "Create New Event",
+}
+
 export default function Create() {
-    return (
-        <div>
-            <Ops />
-        </div>
-    )
+    return <Ops />
 }

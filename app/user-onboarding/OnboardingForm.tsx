@@ -30,7 +30,7 @@ export default function OnboardingForm() {
 
     const updateInfo = async () => {
 
-        const ref = doc(db, 'attendees', user.uid)
+        const ref = doc(db, 'attendees', `${user?.uid}`)
 
         await updateDoc(ref, {
             firstName: firstName,

@@ -1,18 +1,10 @@
-'use client'
+import ProfileClient from './ProfileClient'
 
-import UserInfo from './UserInfo'
-import UserDetails from './UserDetails'
-import OrganizerDetails from './OrganizerDetails'
-import { useUserTypeContext } from '../UserTypeProvider'
+export const metadata = {
+    title: 'Profile',
+    description: 'Profile page',
+}
 
 export default function Profile() {
-
-    const { userType } = useUserTypeContext()
-
-    return (
-        <div>
-            <UserInfo />
-            { userType === 'attendee' ? <UserDetails/> : <OrganizerDetails />}
-        </div>
-    )
+    return <ProfileClient />
 }

@@ -1,11 +1,5 @@
-'use client'
-
-import { CircularProgress } from '@mui/material'
+import CircleLoading from './loadingui/CircleLoading'
 
 export default function Loading() {
-    return (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-            <CircularProgress />
-        </div>
-    )
+    return <CircleLoading />
 }

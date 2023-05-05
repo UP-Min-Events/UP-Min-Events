@@ -6,9 +6,5 @@ export default function Page({
     params: { slug: string }
  }) {
     
-    return (
-        <div>
-            <EventClient id={params.slug} />
-        </div>
-    )
+    return <EventClient id={params.slug} />
 }

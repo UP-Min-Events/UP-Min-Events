@@ -82,30 +82,28 @@ export default function Ops() {
 
     return (
         <div className={inter.className}>
-            <div >
-                {page === 1 ? 
-                    <Page1 
-                        nextPage={nextPage}
-                        eventName={eventName}
-                        eventHost={eventHost}
-                        eventDesc={eventDesc}
-                        handleEventNameChange={handleEventNameChange}
-                        handleEventHostChange={handleEventHostChange}
-                        handleEventDescChange={handleEventDescChange}
-                    /> 
-                    : 
-                    <Page2 
-                        createEvent={createEvent} 
-                        prevPage={prevPage}
-                        eventDate={eventDate}
-                        eventTime={eventTime}
-                        eventVenue={eventVenue}
-                        handleEventDateChange={handleEventDateChange}
-                        handleEventTimeChange={handleEventTimeChange}
-                        handleEventVenueChange={handleEventVenueChange}
-                    />
-                }
-            </div>
+            {page === 1 ? 
+                <Page1 
+                    nextPage={nextPage}
+                    eventName={eventName}
+                    eventHost={eventHost}
+                    eventDesc={eventDesc}
+                    handleEventNameChange={handleEventNameChange}
+                    handleEventHostChange={handleEventHostChange}
+                    handleEventDescChange={handleEventDescChange}
+                /> 
+                : 
+                <Page2 
+                    createEvent={createEvent} 
+                    prevPage={prevPage}
+                    eventDate={eventDate}
+                    eventTime={eventTime}
+                    eventVenue={eventVenue}
+                    handleEventDateChange={handleEventDateChange}
+                    handleEventTimeChange={handleEventTimeChange}
+                    handleEventVenueChange={handleEventVenueChange}
+                />
+            }
         </div>
     )
 }
