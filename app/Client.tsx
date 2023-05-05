@@ -61,7 +61,7 @@ export default function Client() {
                     <Suspense fallback={<Skeleton variant="rectangular" />}>
                         {
                             userType === 'attendee' ? <Feed /> : <MyEvents />
-                        }
+                        }   
                     </Suspense>
                     
                     <Suspense fallback={<Skeleton />}>

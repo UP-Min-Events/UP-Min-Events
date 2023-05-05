@@ -96,7 +96,7 @@ export default function Ops(){
                 <Divider variant="middle" sx={{ width: '75%', mx: 'auto' }} />
             </div>
 
-            <Stack spacing={1} className={`${inter.className} ${styles.loginBody}`} sx={{ display: 'flex', alignItems: 'center' }}>
+            <Stack spacing={1} className={`${inter.className} ${styles.loginBody}`} sx={{ display: 'flex', pos: 'relative', alignItems: 'center', mt: '2.5em' }}>
 
                 <p> Log in as: </p>
                 <Button variant="text" className={inter.className} onClick={() => {
@@ -108,8 +108,9 @@ export default function Ops(){
                         backgroundColor: '#a70000',
                         color: '#fff',
                         fontWeight: 'bold',
-                        width: '12em',
-                        borderRadius: '1em'
+                        width: '60%',
+                        borderRadius: '1em',
+                        height: '3em'
                     }}>
                     Attendee
                 </Button>
@@ -122,8 +123,9 @@ export default function Ops(){
                         backgroundColor: '#a70000',
                         color: '#fff',
                         fontWeight: 'bold',
-                        width: '12em',
-                        borderRadius: '1em'
+                        width: '60%',
+                        borderRadius: '1em',
+                        height: '3em'
                     }}>
                     Organizer
                 </Button> 
