@@ -1,18 +1,19 @@
 .form {
-    padding: 3em;
-    display: flex;
-    position: relative;
-    flex-direction: column;
-    align-content: space-between;
-    height: 100vh;
+  margin: auto auto auto auto;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 3em;
   }
   
-  .form .formHeader {
+  .form .header {
     display: flex;
     position: relative;
     flex-direction: column;
-    margin-top: 1em;
     margin-bottom: 1em;
+    width: 100%;
   }
   
   .form h2 {
@@ -20,34 +21,12 @@
     margin-bottom: 1rem;
   }
   
-  .form #formHeader #progressBar {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-  }
-  
-  .form #formHeader #progress {
-    width: 48%;
-    height: 0.25em;
-    background-color: #a70000;
-    border-radius: 0.5rem;
-  }
-  
-  .form #formHeader #progress1 {
-    width: 48%;
-    height: 0.25em;
-    background-color: lightgray;
-    border-radius: 0.5rem;
-  }
-  
   .form p {
     font-weight: bold;
     color: black;
   }
   
-  .form input[type='text'] {
+  .formBody input[type='text'] {
     color: black;
     background-color: white;
     margin-top: 0.25em;
@@ -89,33 +68,33 @@
     height: 20rem;
   }
   
-  .form #inputDropdown {
+  #inputDropdown {
     display: flex;
     color: black;
     background-color: white;
     margin-top: 0.25em;
     margin-bottom: 0.75em;
-    padding: 0;
+    padding: 0 1em 0 0;
     border: 1px solid lightgray;
     border-radius: 0.85em;
     font-size: 1em;
     width: 100%;
   }
   
-  .form #inputDropdown select {
+  #inputDropdown select {
     background-color: white;
     color: black;
     border: none;
     margin: 0;  
   }
   
-  .form #inputDropdown select::active {
+  #inputDropdown select::active {
     background-color: white;
     color: black;
     border: none;
   }
   
-  .form #inputDropdown option {
+  #inputDropdown option {
     position: relative;
     color: black;
     background-color: white;
@@ -127,33 +106,33 @@
     font-size: 1em;
   }
   
-  .form #formButton {
-    font-size: 1em;
-    position: relative;
-    bottom: 0;
-    background-color: #a70000;
-    color: white;
-    font-weight: bold;
-    height: 3.5em;
-    width: 100%;
-    border-radius: 1em;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: auto;
-    border: none;
-  }
-  
   .form #terms {
     display: flex;
-    align-content: flex-start;
+    position: relative;
+    justify-content: flex-start;
     flex-direction: row;
     font-size: 0.75em;
+    width: 100%;
   }
 
   .form #terms input[type='checkbox'] {
     margin-right: 0.5em;
     position: relative;
     cursor: pointer;
+  }
+
+  .buttonL {
+    display: flex;
+    background-color: #a70000;
+    color: white;
+    font-weight: bold;
+    width: 100%;
+    border-radius: 1em;
+    height: 3.5em;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    margin-top: auto;
   }
   
   

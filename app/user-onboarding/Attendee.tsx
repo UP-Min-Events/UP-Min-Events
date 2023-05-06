@@ -1,3 +1,4 @@
+import styles from './page.module.css'
 
 interface Props {
     firstName: string;
@@ -29,7 +30,7 @@ export default function Attendee({
     setProgram
 } : Props ){
     return (
-        <>
+        <div className={styles.formBody}>
             <div>
                 <p>First Name</p>
                 <input 
@@ -117,6 +118,6 @@ export default function Attendee({
                     
                 </select>
             </div>
-        </>
+        </div>
     )
 }
