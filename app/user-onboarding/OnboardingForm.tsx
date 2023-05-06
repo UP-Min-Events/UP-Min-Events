@@ -15,6 +15,7 @@ import { doc, updateDoc } from 'firebase/firestore'
 import { Button } from '@mui/material'
 import { IconButton } from '@mui/material'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import Organizer from './Organizer'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -30,19 +31,32 @@ export default function OnboardingForm() {
     const [yearLevel, setYearLevel] = useState('')
     const [college, setCollege] = useState('')
     const [program, setProgram] = useState('')
+    const [affiliatedOrganization, setAffiliatedOrganization] = useState<string[]>([])
 
     const updateInfo = async () => {
+        if (userType === 'attendees') {
 
-        const ref = doc(db, 'attendees', `${user?.uid}`)
+            const ref = doc(db, 'attendees', `${user?.uid}`)
 
-        await updateDoc(ref, {
-            firstName: firstName,
-            lastName: lastName,
-            studentNumber: studentNumber,
-            yearLevel: yearLevel,
-            college: college,
-            program: program,
-        })
+            await updateDoc(ref, {
+                firstName: firstName,
+                lastName: lastName,
+                studentNumber: studentNumber,
+                yearLevel: yearLevel,
+                college: college,
+                program: program,
+            })
+        } else {
+
+            const ref = doc(db, 'organizers', `${user?.uid}`)
+
+            await updateDoc(ref, {
+                firstName: firstName,
+                lastName: lastName,
+                college: college,
+                affiliatedOrganization: affiliatedOrganization,
+            })
+        }
 
         router.push('/')
     }
@@ -50,24 +64,23 @@ export default function OnboardingForm() {
     return (
         <div className={`${inter.className} ${styles.form}`}>
             <div id="formHeader">
-                <Link href="/"> 
+                <Link href="/">
                     <IconButton size="large"
                         sx={{
                             color: '#a70000',
                             fontWeight: 'bold',
                             padding: '0',
                             top: '0',
-                            
-                        }}> 
-                        <ArrowBackIcon /> 
-                    </IconButton> 
+                        }}>
+                        <ArrowBackIcon />
+                    </IconButton>
                 </Link>
 
                 <h2>Let&apos;s get to know you.</h2>
             </div>
 
-            { userType === 'attendee' ?
-                <Attendee 
+            {userType === 'attendee' ?
+                <Attendee
                     firstName={firstName} setFirstName={setFirstName}
                     lastName={lastName} setLastName={setLastName}
                     studentNumber={studentNumber} setStudentNumber={setStudentNumber}
@@ -76,17 +89,25 @@ export default function OnboardingForm() {
                     program={program} setProgram={setProgram}
                 />
                 :
-                <>
-                    <div>User Onboarding Form for Organizer.</div>
-                </>
+                <Organizer
+                    firstName={firstName}
+                    setFirstName={setFirstName}
+                    lastName={lastName}
+                    setLastName={setLastName}
+                    college={college}
+                    setCollege={setCollege}
+                    affiliatedOrganization={affiliatedOrganization}
+                    setAffiliatedOrganization={setAffiliatedOrganization}
+                />
+
             }
 
-            
+
             <div id={styles.terms}>
-                <input type="checkbox" /> I agree with the Terms and Conditions. 
+                <input type="checkbox" /> I agree with the Terms and Conditions.
             </div>
-            <Button 
-                variant="text" 
+            <Button
+                variant="text"
                 className={inter.className}
                 sx={{
                     mx: 'auto',
@@ -99,15 +120,25 @@ export default function OnboardingForm() {
                     mt: 'auto'
                 }}
                 onClick={() => {
-                    if (firstName && lastName && studentNumber && yearLevel && college && program) {
-                        updateInfo()
+                    const requiredFieldsAttendee = [firstName, lastName, studentNumber, yearLevel, college, program];
+                    const requiredFieldsOrganizer = [firstName, lastName, college];
+
+                    if (
+                        userType === 'attendee' && requiredFieldsAttendee.every(field => field.trim() !== '')
+                    ) {
+                        updateInfo();
+                    } else if (
+                        userType === 'organizer' && requiredFieldsOrganizer.every(field => field.trim() !== '') &&
+                        affiliatedOrganization.length > 0
+                    ) {
+                        updateInfo();
                     } else {
-                        alert('Please fill in all the fields.')
+                        alert('Please fill in all the fields.');
                     }
                 }}
             >
                 Finish
-            </Button> 
+            </Button>
         </div>
     )
 }
