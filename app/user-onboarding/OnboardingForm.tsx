@@ -8,12 +8,12 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useUserTypeContext } from '../UserTypeProvider'
 
+import { Button } from '@mui/material'
+import { IconButton } from '@mui/material'
 import { auth, db } from '../../firebaseConfig'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { doc, updateDoc } from 'firebase/firestore'
 
-import { Button } from '@mui/material'
-import { IconButton } from '@mui/material'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Organizer from './Organizer'
 
@@ -75,7 +75,6 @@ export default function OnboardingForm() {
                         <ArrowBackIcon />
                     </IconButton>
                 </Link>
-
                 <h2>Let&apos;s get to know you.</h2>
             </div>
 
