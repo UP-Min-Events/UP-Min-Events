@@ -34,6 +34,7 @@
 
 .event {
   display: flex;
+  flex-direction: row;
   align-items: flex-start;
   width: 100%;
   height: auto;
@@ -49,6 +50,24 @@
   margin-bottom: 0.75em;
 }
 
+.eventDetails {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.eventAction {
+  display: flex;
+  position: relative;
+  width: 50%;
+  align-items: center;
+  align-content: center;
+  justify-content: flex-end;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-right: 1em;
+}
+
 .auth-wrap {
   display: flex;
   flex-direction: column;
@@ -56,9 +75,28 @@
 }
 
 .button {
-  background-color: var(--accent-maroon);
-  border-radius: 8px;
-  height: 40px;
-  width: 10rem;
+  width: 100%;
+  display: flex;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  bottom: 3em;
+}
+
+.buttonL {
+  display: flex;
+  background-color: #a70000;
+  color: white;
+  font-weight: bold;
+  width: 80vw;
+  border-radius: 1.75em;
+  height: 4em;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  box-shadow: 0 0 5px 0 rgba(0,0,0,0.5);
+  gap: 0.75em;
 }
 

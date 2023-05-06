@@ -1,5 +1,6 @@
 'use client'
 
+import styles from './page.module.css'
 import { Inter } from 'next/font/google'
 import { useState, useEffect } from 'react'
 import Event from './Event'
@@ -49,11 +50,9 @@ export default function MyEvents() {
     }, [])
 
     return (
-        <div className={inter.className} >
-            <div>
-                <h1>Your Events</h1>
-            </div>
-            <div>
+        <div>
+            <h1>Live Events</h1>
+            <div className={`${inter.className} ${styles.eventsContainer}`}>
             {events.map((event) => (
                 <Event
                     key={event.id}

@@ -9,7 +9,6 @@ import { useUserTypeContext } from '../../UserTypeProvider'
 import { db } from '../../../firebaseConfig'
 import { doc, getDoc, updateDoc, deleteDoc } from 'firebase/firestore'
 
-import { Container } from '@mui/material'
 import EventNoteIcon from '@mui/icons-material/EventNote';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import InfoIcon from '@mui/icons-material/Info';
