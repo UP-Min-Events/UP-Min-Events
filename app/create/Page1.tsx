@@ -2,7 +2,6 @@ import styles from './page.module.css'
 import { Inter } from 'next/font/google'
 import Link from 'next/link'
 
-import { IconButton } from '@mui/material'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -28,53 +27,51 @@ export default function Page1({
 } : Props) {
     
     return(
-        <div className={`${inter.className} ${styles.form}`}>
-            <div id={styles.formHeader}>
-                <IconButton size="large"
-                        sx={{
-                            scale: '1.4',
-                            position: 'relative',
-                            left: '0',
-                            color: '#a70000',
-                            fontWeight: 'bold',
-                            padding: '0',
-                            mb: '1em',
-                        }}> 
-                        <Link href="\">
-                            <ArrowBackIcon /> 
-                        </Link>
-                </IconButton> 
+        <div className={`${inter.className} ${styles.container}`}>
+            <div className={styles.nav}>
+                <Link href="\">
+                    <ArrowBackIcon sx={{ color: '#a70000', scale: '125%', p:'0' }}/>
+                </Link>
+            </div>
+
+            <div className={styles.header}>
                 <h1>Create Event</h1>
                 <div id={styles.progressBar}>
                     <div id={styles.progress}> </div> <div id={styles.progress1}> </div> 
                 </div>   
-            </div>    
-            <div>
-                <p>Title</p>
-                <input
-                    type="text"
-                    value={eventName}
-                    onChange={handleEventNameChange}
-                />
-            </div>
-            <div>
-                <p>Host</p>
-                <input
-                    type="text"
-                    value={eventHost}
-                    onChange={handleEventHostChange}
-                />
-            </div>
-            <div id="desc">
-                <p>Description</p>
-                <input
-                    type="text"
-                    value={eventDesc}
-                    onChange={handleEventDescChange}
-                />
+            </div>   
+
+            <div className={styles.formBody}>
+                <div className={styles.formItem}>
+                    <p>Title</p>
+                    <input
+                        type="text"
+                        value={eventName}
+                        onChange={handleEventNameChange}
+                    />
+                </div>
+                <div className={styles.formItem}>
+                    <p>Host</p>
+                    <input
+                        type="text"
+                        value={eventHost}
+                        onChange={handleEventHostChange}
+                    />
+                </div>
+                <div className={styles.formItem}>
+                    <p>Description</p>
+                    <input
+                        type="text"
+                        value={eventDesc}
+                        onChange={handleEventDescChange}
+                    />
+                </div>
             </div>
 
-            <button id={styles.formButton} className={`${inter.className} ${styles.formButton}`} onClick={nextPage}>Next</button>
+            <div className={styles.button}>
+                <button className={`${inter.className} ${styles.buttonM}`} onClick={nextPage}><h2>Next</h2></button>
+            </div>
+
         </div>
     )
 }

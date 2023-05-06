@@ -1,7 +1,6 @@
 import styles from './page.module.css'
 import { Inter } from 'next/font/google'
 
-import { IconButton } from '@mui/material'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -37,67 +36,67 @@ export default function Page2({
     }
 
     return(
-        <div className={`${inter.className} ${styles.form}`}>
-            <div id={styles.formHeader}>
-                <IconButton size="large" onClick={back}
-                        sx={{
-                            scale: '1.4',
-                            position: 'relative',
-                            left: '0',
-                            color: '#a70000',
-                            fontWeight: 'bold',
-                            padding: '0',
-                            mb: '1em',
-                        }}> 
-                        <ArrowBackIcon /> 
-                </IconButton> 
+        <div className={`${inter.className} ${styles.container}`}>
+            <div className={styles.nav}>
+                <ArrowBackIcon onClick={back} sx={{ color: '#a70000', scale: '125%', p:'0' }}/>
+            </div>
+
+            <div className={styles.header}>
                 <h1>Create Event</h1>
                 <div id={styles.progressBar}>
                     <div id={styles.progress}> </div> <div id={styles.progress}> </div> 
                 </div>   
+            </div>   
+
+            <div className={styles.formBody}>
+                <div className={styles.formItem}>
+                    <p>Date</p>
+                    <input
+                        type="date"
+                        value={eventDate}
+                        onChange={handleEventDateChange}
+                    />
+                </div>
+                <div className={styles.formItem}>
+                    <p>Time</p>
+                    <input
+                        type="time"
+                        value={eventTime}
+                        onChange={handleEventTimeChange}
+                    />
+                </div>
+                <div className={styles.formItem}>
+                    <p>Venue</p>
+                    <input 
+                        type="text"
+                        value={eventVenue}
+                        onChange={handleEventVenueChange} 
+                    />
+                </div>
+                <div className={styles.formItem}>
+                    <p>Population Limit</p>
+                    <input
+                        type="number"
+                    />
+                </div>
+                <div className={styles.formItem}>
+                    <p>Visibility</p>
+                    <select name="" id="">
+                        <option value="" selected disabled hidden></option>
+                        <option value="public">Public</option>
+                        <option value="private">Private</option>
+                    </select>
+                </div>
+                <div className={styles.formItem}>
+                    <p>Restrictions</p>
+                    <input type="text" />
+                </div>
             </div>
-            <div>
-                <p>Date</p>
-                <input
-                    type="date"
-                    value={eventDate}
-                    onChange={handleEventDateChange}
-                />
+
+            <div className={styles.button}>
+                <button className={`${inter.className} ${styles.buttonM}`} onClick={finish}><h2>Finish</h2></button>
             </div>
-            <div>
-                <p>Time</p>
-                <input
-                    type="time"
-                    value={eventTime}
-                    onChange={handleEventTimeChange}
-                />
-            </div>
-            <div>
-                <p>Venue</p>
-                <input 
-                    type="text"
-                    value={eventVenue}
-                    onChange={handleEventVenueChange} 
-                />
-            </div>
-            <div>
-                <p>Population Limit</p>
-                <input
-                    type="number"
-                />
-            </div>
-            <div>
-                <p>Visibility</p>
-                <select name="" id="">
-                    <option value="public">Public</option>
-                    <option value="private">Private</option>
-                </select>
-            </div>
-            <div>
-                <p>Restrictions</p>
-                <input type="text" />
-            </div>
-            <button className={`${inter.className} ${styles.formButton}`} onClick={finish}>Finish</button>
+
         </div>
     )
 }

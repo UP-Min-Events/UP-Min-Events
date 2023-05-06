@@ -1,53 +1,83 @@
-.form {
-    padding: 3em;
-    display: flex;
-    position: relative;
-    flex-direction: column;
-    align-content: space-between;
-    height: 100vh;
+.container {
+  margin: auto auto auto auto;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 1em;
+  padding-right: 1em;
   }
   
-  .form .formHeader {
+  .nav {
     display: flex;
-    position: relative;
-    flex-direction: column;
-    margin-top: 1em;
-    margin-bottom: 1em;
-  }
-  
-  .form h2 {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-  }
-  
-  .form #formHeader #progressBar {
-    display: flex;
-    justify-content: space-between;
     flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    margin-top: 3em; 
+    margin-bottom: 1.5em;
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    position: relative;
+    margin-bottom: 2em;
+  }
+  
+  .header h2 {
     margin-top: 1rem;
     margin-bottom: 1rem;
   }
   
-  .form #formHeader #progress {
-    width: 48%;
-    height: 0.25em;
-    background-color: #a70000;
-    border-radius: 0.5rem;
+    #progressBar {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    #progress {
+      width: 48%;
+      height: 0.25em;
+      background-color: #a70000;
+      border-radius: 0.5rem;
+    }
+    
+    #progress1 {
+      width: 48%;
+      height: 0.25em;
+      background-color: lightgray;
+      border-radius: 0.5rem;
+    }
+  
+  .formBody {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    position: relative;
+    width: 100%;
+    align-items: center;
+  }
+
+  .formItem {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    position: relative;
   }
   
-  .form #formHeader #progress1 {
-    width: 48%;
-    height: 0.25em;
-    background-color: lightgray;
-    border-radius: 0.5rem;
-  }
-  
-  .form p {
+  .formBody p {
     font-weight: bold;
     color: black;
   }
   
-  .form input {
+  .formBody input {
     color: black;
     background-color: white;
     margin-top: 0.25em;
@@ -59,7 +89,7 @@
     width: 100%;
   }
   
-  .form select {
+  .formBody select {
     color: black;
     background-color: white;
     margin-top: 0.25em;
@@ -71,7 +101,7 @@
     width: 100%;
   }
   
-  .form select option {
+  .formBody select option {
     position: relative;
     color: black;
     background-color: white;
@@ -84,11 +114,11 @@
     overflow-x: hidden;
   }
   
-  .form #desc input {
+  .formBody #desc input {
     height: 20rem;
   }
   
-  .form #inputDropdown {
+  .formBody #inputDropdown {
     display: flex;
     color: black;
     background-color: white;
@@ -101,20 +131,20 @@
     width: 100%;
   }
   
-  .form #inputDropdown select {
+  .formBody #inputDropdown select {
     background-color: white;
     color: black;
     border: none;
     margin: 0;  
   }
   
-  .form #inputDropdown select::active {
+  .formBody #inputDropdown select::active {
     background-color: white;
     color: black;
     border: none;
   }
   
-  .form #inputDropdown option {
+  .formBody #inputDropdown option {
     position: relative;
     color: black;
     background-color: white;
@@ -126,20 +156,31 @@
     font-size: 1em;
   }
   
-  .form .formButton {
-    font-size: 1em;
-    position: relative;
-    bottom: 0;
+  
+.button {
+  width: 100%;
+  display: flex;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  bottom: 3em;
+}
+
+  .buttonM {
+    display: flex;
     background-color: #a70000;
     color: white;
     font-weight: bold;
-    height: 3.5em;
-    width: 100%;
+    width: 60%;
     border-radius: 1em;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: auto;
+    height: 3em;
+    align-items: center;
+    justify-content: center;
     border: none;
+    box-shadow: 0 0 5px 0 rgba(0,0,0,0.5);
+    gap: 0.75em;
   }
   
   .form #terms {
@@ -147,38 +188,5 @@
     align-content: flex-start;
     flex-direction: row;
     font-size: 0.75em;
-  }
-  
-  .form #terms input[type='checkbox'] {
-    position: relative;
-    cursor: pointer;
-  }
-  
-  .form #terms input[type='checkbox']:before {
-    content: "";
-    display: block;
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    top: 0;
-    left: 0;
-    border: 2px solid #555555;
-    border-radius: 3px;
-    background-color: white;
-  }
-  
-  .form #terms input[type='checkbox']:checked:after {
-    content: "";
-    display: block;
-    width: 5px;
-    height: 10px;
-    border: solid black;
-    border-width: 0 2px 2px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-    position: absolute;
-    top: 2px;
-    left: 6px;
   }
   

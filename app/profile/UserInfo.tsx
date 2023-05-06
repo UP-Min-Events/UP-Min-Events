@@ -23,7 +23,7 @@ export default function UserInfo(){
 
                     <div className={styles.nav}>
                         <Link href="/"> 
-                            <ArrowBackIcon sx={{ scale: '125%', color: '#a70000', padding: '0' }} /> 
+                            <ArrowBackIcon sx={{ scale: '125%', color: '#a70000', p: '0' }} /> 
                         </Link> 
                     </div>
 
