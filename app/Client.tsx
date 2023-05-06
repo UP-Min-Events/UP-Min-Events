@@ -41,7 +41,7 @@ export default function Client() {
 
                     <Suspense fallback={<Skeleton animation="wave" />}>
                         <div className={styles.nav}>
-                            <Link href="/profile"> 
+                            <Link href="/settings"> 
                                 <Button variant="text" startIcon={<PersonIcon sx = {{ color: '#a70000', scale: '150%' }}/>}
                                     sx={{
                                         color: 'black',

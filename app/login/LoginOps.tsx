@@ -5,15 +5,12 @@ import { Inter } from 'next/font/google'
 import { useUserTypeContext } from '../UserTypeProvider'
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import Image from 'next/image'
 
 import { auth, db } from '../../firebaseConfig'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { collection, getDocs, doc, setDoc } from 'firebase/firestore'
 import { CollectionReference } from 'firebase/firestore'
-
-import upLogo from '../../public/uplogo.png'
 
 const inter = Inter({ subsets: ['latin']})
 
@@ -54,7 +51,6 @@ export default function LoginOps(){
     }
 
     useEffect(() => {
-
         if(user) {
             if (userType === 'attendee') {
 
@@ -73,30 +69,20 @@ export default function LoginOps(){
     }, [user])
     
     return (
-        <div className={styles.container}>
-
-            <div className={`${styles.loginHeader} ${inter.className}`}>
-                <Image className={styles.logo} src={upLogo} alt="UPMin Logo" width={175} height={142.5} />
-                    <h1>Events</h1>
-                    <p>Know what&apos;s happening.</p>
-            </div>
-
-            <div className={`${inter.className} ${styles.loginBody}`}>
-                <p> Log in as: </p>
-                <button className={`${inter.className} ${styles.buttonM}`} onClick={() => {
-                    updateUserType('attendee')
-                    SignIn()
-                }}> 
-                    Attendee
-                </button>
-                <button className={`${inter.className} ${styles.buttonM}`} onClick={() => {
-                    updateUserType('organizer')
-                    SignIn()
-                }}> 
-                    Organizer
-                </button>
-            </div>
-
-        </div>
+        <>
+            <button className={`${inter.className} ${styles.buttonM}`} onClick={() => {
+                updateUserType('attendee')
+                SignIn()
+            }}> 
+                Attendee
+            </button>
+            <button className={`${inter.className} ${styles.buttonM}`} onClick={() => {
+                updateUserType('organizer')
+                SignIn()
+            }}> 
+                Organizer
+            </button>
+        </>
+                
     )
 }

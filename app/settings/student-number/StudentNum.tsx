@@ -1,63 +1,57 @@
 'use client'
 
-import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { useState, useEffect } from 'react'
 
 import { auth, db } from '../../../firebaseConfig'
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { useAuthState } from 'react-firebase-hooks/auth'
 
-export default function DegreeProgram(){
+export default function StudentNum() {
 
     const [user] = useAuthState(auth)
     const id = user?.uid
 
     const [toggle, setToggle] = useState(false)
-    const [input, setInput] = useState<string>('CS')
+    const [input, setInput] = useState<string>('')
 
     const getDetail = async () => {
         const docRef = doc(db, 'attendees', `${id}`)
         const docSnap = await getDoc(docRef)
-        
-        if (docSnap.exists()) {
-            setInput(docSnap.data()?.program)
-        } 
 
+        if (docSnap.exists()) {
+            setInput(docSnap.data()?.studentNumber)
+        }
     }
 
     const updateDetail = async () => {
         const docRef = doc(db, 'attendees', `${id}`)
         await updateDoc(docRef, {
-            program: input
+            studentNumber: input
         })
     }
 
     useEffect(() => {
         getDetail()
     }, [])
- 
+
     return (
         <div>
             <div>
-                <Link href='/profile'>Back</Link>
-                <h1>Degree Program</h1>
+                <Link href='/settings'>Back</Link>
+                <h1>Student Number</h1>
             </div>
             <div>
                 { toggle ?
                     <div>
-                        <select value={input} onChange={e => setInput(e.target.value)} placeholder={input}>
-                            <option value='cs'>Computer Science</option>
-                            <option value='amat'>Applied Mathematics</option>
-                            <option value='bio'>Biology</option>
-                            <option value='ft'>Food Technology</option>
-                        </select>
+                        <input value={input} onChange={e => setInput(e.target.value)} placeholder={input} />
                         <button onClick={() => {
                             updateDetail()
                             setToggle(false)
-                        }}>Save</button> 
-                    </div> 
-                    : 
-                    <p onClick={() => setToggle(true)}>{input}</p> 
+                        }}>Save</button>
+                    </div>
+                    :
+                    <p onClick={() => setToggle(true)}>{input}</p>
                 }
             </div>
         </div>

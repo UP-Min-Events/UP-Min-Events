@@ -7,7 +7,7 @@ import { auth, db } from '../../../firebaseConfig'
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { useAuthState } from 'react-firebase-hooks/auth'
 
-export default function StudentNum() {
+export default function YearLevel(){
 
     const [user] = useAuthState(auth)
     const id = user?.uid
@@ -20,14 +20,14 @@ export default function StudentNum() {
         const docSnap = await getDoc(docRef)
 
         if (docSnap.exists()) {
-            setInput(docSnap.data()?.studentNumber)
+            setInput(docSnap.data()?.yearLevel)
         }
     }
 
     const updateDetail = async () => {
         const docRef = doc(db, 'attendees', `${id}`)
         await updateDoc(docRef, {
-            studentNumber: input
+            yearLevel: input
         })
     }
 
@@ -38,20 +38,32 @@ export default function StudentNum() {
     return (
         <div>
             <div>
-                <Link href='/profile'>Back</Link>
-                <h1>Student Number</h1>
+                <Link href='/settings'>Back</Link>
+                <h1>Year Level</h1>
             </div>
             <div>
                 { toggle ?
                     <div>
-                        <input value={input} onChange={e => setInput(e.target.value)} placeholder={input} />
+                        <select value={input} onChange={e => setInput(e.target.value)} placeholder={input}>
+                            <option value='1'>1st Year</option>
+                            <option value='2'>2nd Year</option>
+                            <option value='3'>3rd Year</option>
+                            <option value='4'>4th Year</option>
+                        </select>
                         <button onClick={() => {
                             updateDetail()
                             setToggle(false)
                         }}>Save</button>
                     </div>
                     :
-                    <p onClick={() => setToggle(true)}>{input}</p>
+                    <p onClick={() => setToggle(true)}>
+                        {
+                            input === '1' ? '1st Year' :
+                            input === '2' ? '2nd Year' :
+                            input === '3' ? '3rd Year' :
+                            input === '4' ? '4th Year' : 'No Data on Year Level'
+                        }
+                    </p>
                 }
             </div>
         </div>

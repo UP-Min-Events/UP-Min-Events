@@ -8,7 +8,7 @@ import { BrowserQRCodeReader } from '@zxing/library';
 import { auth, db } from '../../firebaseConfig';
 import { doc, getDoc, updateDoc} from 'firebase/firestore';
 
-import { Container, IconButton } from '@mui/material'
+import { IconButton } from '@mui/material'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import Link from 'next/link'    
 

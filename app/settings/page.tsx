@@ -1,4 +1,4 @@
-import ProfileClient from './ProfileClient'
+import SettingsClient from './SettingsClient'
 
 export const metadata = {
     title: 'Profile',
@@ -6,5 +6,5 @@ export const metadata = {
 }
 
 export default function Profile() {
-    return <ProfileClient />
+    return <SettingsClient />
 }
