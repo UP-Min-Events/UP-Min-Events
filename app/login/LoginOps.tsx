@@ -34,13 +34,14 @@ export default function LoginOps(){
     
     const getOrganizers = async (organizersdb : CollectionReference) => {
         const organizers = await getDocs(organizersdb)
-        if (!organizers || organizers.docs.length === 0 || !organizers.docs) {
+        const userExists = organizers.docs.some(doc => doc.id === user?.uid)
+        if (!organizers.docs || organizers.docs.length === 0 || !userExists) {
             const docRef = doc(db, 'organizers', `${user?.uid}`)
             await setDoc(docRef, { events: [] })
-            //router.push('/user-onboarding')
+            router.push('/user-onboarding')
+        } else {
+            router.push('/')
         }
-
-        router.push('/')
     }
 
     const SignIn = () => {

@@ -2,6 +2,7 @@
 
 import styles from './page.module.css'
 import Link from 'next/link'
+import Attendee from './Attendee'
 import { Inter } from 'next/font/google'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -66,95 +67,14 @@ export default function OnboardingForm() {
             </div>
 
             { userType === 'attendee' ?
-                <>
-                    <div>
-                        <p>First Name</p>
-                        <input 
-                            type="text" 
-                            value={firstName}
-                            onChange={(e) => setFirstName(e.target.value)}
-                        />
-                    </div>
-                    <div>
-                        <p>Last Name</p>
-                        <input 
-                            type="text"
-                            value={lastName}
-                            onChange={(e) => setLastName(e.target.value)} 
-                        />
-                    </div>
-                    <div>
-                        <p>Student Number</p>
-                        <input 
-                            type="text"
-                            value={studentNumber}
-                            onChange={(e) => setStudentNumber(e.target.value)}
-                        />
-                    </div>
-                    <p>Year Level</p>
-                    <div id="inputDropdown">
-                        <select value={yearLevel} onChange={(e) => setYearLevel(e.target.value)} >
-                            <option value="" selected disabled hidden></option>
-                            <option value="1">1st Year</option>
-                            <option value="2">2nd Year</option>
-                            <option value="3">3rd Year</option>
-                            <option value="4">4th Year</option>
-                        </select>
-                    </div>
-                    <p>College/Department</p>
-                    <div id="inputDropdown">
-                        <select value={college} onChange={(e) => setCollege(e.target.value)}>
-                            <option value="" selected disabled hidden></option>
-                            <option value="csm">College of Science and Mathematics</option>
-                            <option value="chss">College of Humanities and Social Sciences</option>
-                            <option value="som">School of Management</option>
-                        </select>
-                    </div>
-                    <p>Degree Program</p>
-                    <div id="inputDropdown">
-                        <select value={program} onChange={(e) => setProgram(e.target.value)}>
-                            <option value="" selected disabled hidden></option>
-                            {
-                                college === 'csm' ? 
-                                <>
-                                    <option value="cs">BS in Computer Science</option>
-                                    <option value="amat">BS in Applied Mathematics</option>
-                                    <option value="Bio">BS in Biology</option>
-                                    <option value="ft">BS in Food Technology</option>
-                                </>
-
-                                : college === 'chss' ? 
-                                <>
-                                    <option value="bae">BA in English</option>
-                                    <option value="bacma">BA in Communications and Media Arts</option>
-                                    <option value="anthro">BA in Anthropology</option>
-                                    <option value="bsa">BS in Architecture</option>
-                                    <option value="bss">Bachelor of Sports Science</option>
-                                </>
-
-                                : college === 'som' ?
-                                <>
-                                    <option value="abe">BS in Agribusiness Economics</option>
-                                </>
-
-                                : 
-                                <>
-                                    <option value="cs">BS in Computer Science</option>
-                                    <option value="amat">BS in Applied Mathematics</option>
-                                    <option value="Bio">BS in Biology</option>
-                                    <option value="ft">BS in Food Technology</option>
-                                    <option value="bae">BA in English</option>
-                                    <option value="bacma">BA in Communications and Media Arts</option>
-                                    <option value="anthro">BA in Anthropology</option>
-                                    <option value="bsa">BS in Architecture</option>
-                                    <option value="bss">Bachelor of Sports Science</option>
-                                    <option value="abe">BS in Agribusiness Economics</option>
-                                </>
-                            }
-                            
-                        </select>
-                    </div>
-                </>
+                <Attendee 
+                    firstName={firstName} setFirstName={setFirstName}
+                    lastName={lastName} setLastName={setLastName}
+                    studentNumber={studentNumber} setStudentNumber={setStudentNumber}
+                    yearLevel={yearLevel} setYearLevel={setYearLevel}
+                    college={college} setCollege={setCollege}
+                    program={program} setProgram={setProgram}
+                />
                 :
                 <>
                     <div>User Onboarding Form for Organizer.</div>
