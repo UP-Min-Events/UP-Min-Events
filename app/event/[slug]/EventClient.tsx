@@ -6,7 +6,7 @@ import styles from './page.module.css'
 
 import { useUserTypeContext } from '../../UserTypeProvider'
 import { useState } from 'react'
-import { Button } from '@mui/material'
+import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
 
 export default function EventClient({ id } : { id: string }) {
 
@@ -29,23 +29,14 @@ export default function EventClient({ id } : { id: string }) {
                     handleShowDetails={handleShowDetails} 
                 /> 
                 : 
-                <div id={styles.qrButton}>
+                <div>
                     <Details id={id} />
                     { userType === 'organizer' && 
-                        <Button variant="text" 
-                        sx={{
-                            mx: 'auto',
-                            backgroundColor: '#a70000',
-                            color: '#fff',
-                            fontWeight: 'bold',
-                            width: '80%',
-                            height: '3.5em',
-                            borderRadius: '1em',
-                        }}
-                        onClick={handleShowQR}
-                    >
-                        Show QR
-                        </Button> 
+                        <div className={styles.button}>
+                            <button className={styles.buttonL} onClick={handleShowQR}>
+                                <QrCodeScannerIcon /> <h2> Show QR </h2>
+                            </button> 
+                        </div>
                     }
                 </div>
             }

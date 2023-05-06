@@ -105,15 +105,15 @@ export default function Details({ id } : Props){
             )}
             <div id={styles.schedule}>
                 <h3> <EventNoteIcon /> Schedule </h3>
-                <div id={styles.container}>
-                    <div className={styles.scheduleItem}>
+                <div className={styles.infoContainer}>
+                    <div className={styles.infoItem}>
                         <b>Date</b> {data?.date}
                     </div>
-                    <div className={styles.scheduleItem}>
+                    <div className={styles.infoItem}>
                         <b>Time</b> {data?.time}
                     </div>
-                    <div className={styles.scheduleItem}>
-                        <b>Venue</b> 
+                    <div className={styles.infoItem}>
+                        <b>Venue</b> Location
                     </div>
                     {/* <div className={styles.scheduleItem}>
                         <p>{data?.attendees}</p>
@@ -125,17 +125,24 @@ export default function Details({ id } : Props){
             </div>
             <div id={styles.info}>
                 <h3> <EventNoteIcon /> About this Event </h3>
-                <div id={styles.container}>
-                    <div className={styles.scheduleItem}>   
-                        <b>Hosted by</b> Host
-                    </div>
-                    <p> {data.desc} </p>
+                <div className={styles.infoContainer}>
+                    <b>Hosted by</b> Host
+                    <p> "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." </p>.
                 </div>
             </div>
             { userType === 'organizer' && 
                 <div id={styles.stats}>
                     <h3> <InfoIcon /> Statistics </h3>
-                    <div id={styles.container}>
+                    <div className={styles.infoContainer}>
+                        <div className={styles.infoItem}>
+                            <b>Attendees</b> {data?.attendees.length}
+                        </div>
+                        <div className={styles.infoItem}>
+                            <b>Time</b> {data?.time}
+                        </div>
+                        <div className={styles.infoItem}>
+                            <b>Visibility</b> Visibility
+                        </div>
                     </div>
                 </div>
             }

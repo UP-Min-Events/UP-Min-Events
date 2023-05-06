@@ -7,6 +7,7 @@
     justify-content: flex-start;
     padding-left: 1em;
     padding-right: 1em;
+    overflow-y: scroll;
   }
 
 .loading-container {
@@ -58,7 +59,8 @@
     text-align: left;
 }
 
-#schedule #container {
+.infoContainer {
+    width: 100%;
     height: auto;
     text-align: center;
     position: relative;
@@ -68,7 +70,7 @@
     box-shadow: 0 0 0.25em 0.1em rgba(0, 0, 0, 0.25);
 }
 
-#schedule .scheduleItem {
+.infoItem {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -81,6 +83,10 @@
     flex-direction: column;
     width: 80%;
     margin-bottom: 2em;
+}
+
+#info p {
+    text-align: justify;
 }
 
 #info h3 {
@@ -115,3 +121,29 @@
 #info p {
     margin-top: 0.75em;
 }
+
+.button {
+    width: 100%;
+    display: flex;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    bottom: 3em;
+}
+
+.buttonL {
+    display: flex;
+    background-color: #a70000;
+    color: white;
+    font-weight: bold;
+    width: 80vw;
+    border-radius: 1.75em;
+    height: 4em;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    box-shadow: 0 0 5px 0 rgba(0,0,0,0.5);
+    gap: 0.75em;
+  }
