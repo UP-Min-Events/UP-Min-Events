@@ -9,7 +9,7 @@ import { useUserTypeContext } from '../../UserTypeProvider'
 import { db } from '../../../firebaseConfig'
 import { doc, getDoc, updateDoc, deleteDoc } from 'firebase/firestore'
 
-import { Container, IconButton } from '@mui/material'
+import { Container } from '@mui/material'
 import EventNoteIcon from '@mui/icons-material/EventNote';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import InfoIcon from '@mui/icons-material/Info';
@@ -72,30 +72,10 @@ export default function Details({ id } : Props){
     }, [])
 
     return (
-        <Container maxWidth={false}
-            sx={{ 
-                display: 'flex',
-                flexDirection: 'column',
-                my: 'auto',
-                mx: 'auto',
-                height: '100vh',
-                alignItems: 'center',
-            }}
-            className={`${inter.className} ${styles.container}`}
-        >    
+        <div className={`${inter.className} ${styles.container}`}>    
             <div id={styles.backButton}>
-                <Link href="/">    
-                    <IconButton size="large"
-                        sx={{
-                            scale: '1.4',
-                            left: '0',  
-                            color: '#a70000',
-                            fontWeight: 'bold',
-                            padding: '0',
-                            mb: '1em',
-                        }}>       
-                                <ArrowBackIcon /> 
-                    </IconButton> 
+                <Link href="/">        
+                    <ArrowBackIcon sx={{ scale: '125%', left: '0', color: '#a70000', fontWeight: 'bold', padding: '0', mb: '1em' }} /> 
                 </Link>
             </div>
             
@@ -174,6 +154,6 @@ export default function Details({ id } : Props){
                 </div>
             }
 
-        </Container>
+        </div>
     )
 }

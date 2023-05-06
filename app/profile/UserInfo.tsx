@@ -1,13 +1,13 @@
 'use client'
 
 import styles from './page.module.css'
+import { Inter } from 'next/font/google'
+
 import { auth } from "../../firebaseConfig";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Image from 'next/image'
 import Link from 'next/link'
-import { Inter } from 'next/font/google'
 
-import { IconButton, Container } from '@mui/material'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 
 const inter = Inter({ subsets: ['latin']})
@@ -19,39 +19,21 @@ export default function UserInfo(){
     return (
         <>
             {user && (
-                <div>
-                    <Container sx={{ display: 'flex', position: 'relative', mt: '4em', justifyContent: 'center', padding: '0.5em' }}>
+                <div className={`${inter.className} ${styles.infoContainer}`}>
 
+                    <div className={styles.nav}>
                         <Link href="/"> 
-                            <IconButton size="large"
-                                sx={{
-                                    position: 'absolute',
-                                    left: '2rem',
-                                    color: '#a70000',
-                                    fontWeight: 'bold',
-                                    top: '50%',
-                                    transform: 'translateY(-50%)',
-                                }}> 
-                                <ArrowBackIcon /> 
-                            </IconButton> 
+                            <ArrowBackIcon sx={{ scale: '125%', color: '#a70000', padding: '0' }} /> 
                         </Link> 
+                    </div>
 
-                        <div className={`${inter.className} ${styles.settings}`}> Settings </div>
-                    </Container>
-
-                    <Container maxWidth={false}
-                        sx={{ 
-                            mx:'auto', 
-                            mt: '2em', 
-                            display: 'flex', 
-                            flexDirection: 'column', 
-                            justifyContent: 'center'
-                        }}
-                    
-                    >
+                    <div className={styles.header}>
+                        <h2> Settings </h2>
                         <Image className={styles.img} src={user?.photoURL ?? ''} alt={user?.displayName || `User Avatar`} width="100" height="100" />
-                        <h2 className={`${inter.className} ${styles.username}`}> {user.displayName} </h2>
-                    </Container>
+                        <h2> {user.displayName} </h2>
+                        <p> {user.email} </p>
+                        <p> student-number </p>
+                    </div>
                 </div>
             )}
         </>
