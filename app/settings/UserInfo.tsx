@@ -36,7 +36,14 @@ export default function UserInfo(){
             if (docSnap.exists()) {
                 setUserDetails(docSnap.data() as userDetails)
             }
+        } else {
+            const docSnap = await getDoc(doc(db, 'organizers', `${user?.uid}`))
+            
+            if (docSnap.exists()) {
+                setUserDetails(docSnap.data() as userDetails)
+            }
         }
+    
     }
 
     useEffect(() => {

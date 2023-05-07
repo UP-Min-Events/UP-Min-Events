@@ -155,10 +155,10 @@
     border: none;
     box-shadow: 0 0 5px 0 rgba(0,0,0,0.5);
     gap: 0.75em;
-  }
+}
 
-  #QR {
+.qrcodecontainer {
     display: flex;
     position: relative;
-    margin-top: 4rem;
-  }
+    margin-top: 2rem;
+}
