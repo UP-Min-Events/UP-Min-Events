@@ -12,6 +12,7 @@ import { doc, getDoc, updateDoc, deleteDoc } from 'firebase/firestore'
 import EventNoteIcon from '@mui/icons-material/EventNote';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import InfoIcon from '@mui/icons-material/Info';
+import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import Link from 'next/link' 
 
 const inter = Inter({ subsets: ['latin']})
@@ -72,9 +73,9 @@ export default function Details({ id } : Props){
 
     return (
         <div className={`${inter.className} ${styles.container}`}>    
-            <div id={styles.backButton}>
+            <div className={styles.nav}>
                 <Link href="/">        
-                    <ArrowBackIcon sx={{ scale: '125%', left: '0', color: '#a70000', fontWeight: 'bold', padding: '0', mb: '1em' }} /> 
+                    <ArrowBackIcon sx={{ scale: '150%', color: '#a70000', p: '0' }}/> 
                 </Link>
             </div>
             
@@ -124,7 +125,7 @@ export default function Details({ id } : Props){
                 </div> 
             </div>
             <div id={styles.info}>
-                <h3> <EventNoteIcon /> About this Event </h3>
+                <h3> <InfoIcon /> About this Event </h3>
                 <div className={styles.infoContainer}>
                     <b>Hosted by</b> Host
                     <p> &quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&quot; </p>
@@ -132,7 +133,7 @@ export default function Details({ id } : Props){
             </div>
             { userType === 'organizer' && 
                 <div id={styles.stats}>
-                    <h3> <InfoIcon /> Statistics </h3>
+                    <h3> <QueryStatsIcon /> Statistics </h3>
                     <div className={styles.infoContainer}>
                         <div className={styles.infoItem}>
                             <b>Attendees</b> {data?.attendees.length}

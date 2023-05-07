@@ -30,7 +30,7 @@ export default function Page1({
         <div className={`${inter.className} ${styles.container}`}>
             <div className={styles.nav}>
                 <Link href="\">
-                    <ArrowBackIcon sx={{ color: '#a70000', scale: '125%', p:'0' }}/>
+                    <ArrowBackIcon sx={{ color: '#a70000', scale: '150%', p:'0' }}/>
                 </Link>
             </div>
 
@@ -69,7 +69,7 @@ export default function Page1({
             </div>
 
             <div className={styles.button}>
-                <button className={`${inter.className} ${styles.buttonM}`} onClick={nextPage}><h2>Next</h2></button>
+                <button className={`${inter.className} ${styles.buttonM}`} onClick={nextPage}>NEXT</button>
             </div>
 
         </div>

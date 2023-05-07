@@ -38,7 +38,7 @@ export default function Page2({
     return(
         <div className={`${inter.className} ${styles.container}`}>
             <div className={styles.nav}>
-                <ArrowBackIcon onClick={back} sx={{ color: '#a70000', scale: '125%', p:'0' }}/>
+                <ArrowBackIcon onClick={back} sx={{ color: '#a70000', scale: '150%', p:'0' }}/>
             </div>
 
             <div className={styles.header}>
@@ -94,7 +94,7 @@ export default function Page2({
             </div>
 
             <div className={styles.button}>
-                <button className={`${inter.className} ${styles.buttonM}`} onClick={finish}><h2>Finish</h2></button>
+                <button className={`${inter.className} ${styles.buttonM}`} onClick={finish}>FINISH</button>
             </div>
 
         </div>

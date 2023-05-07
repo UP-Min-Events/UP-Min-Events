@@ -15,7 +15,7 @@ export default function Event({ id, name, date, time } : Props){
         <Link className={styles.event} href={`/event/${id}`}>
             <div className={styles.eventDetails}>
                 <h2>{name}</h2>
-                <p>{date},{time}</p>
+                <p>{date}, {time}</p>
                 <p>Venue</p>
             </div>
 

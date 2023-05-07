@@ -63,7 +63,7 @@ export default function OnboardingForm() {
 
     return (
         <div className={`${inter.className} ${styles.form}`}>
-            <div id="formHeader">
+            <div className={styles.header}>
                 <Link href="/">
                     <IconButton size="large"
                         sx={{
