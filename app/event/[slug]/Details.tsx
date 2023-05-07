@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { Inter } from 'next/font/google'
 
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 import { useUserTypeContext } from '../../UserTypeProvider'
 import { db } from '../../../firebaseConfig'
 import { doc, getDoc, updateDoc, deleteDoc } from 'firebase/firestore'
@@ -44,9 +44,7 @@ export default function Details({ id } : Props){
         const docRef = doc(db, 'events', id)
         const docSnap = await getDoc(docRef)
         
-        if (docSnap.exists()) {
-            setData(docSnap.data() as Data)
-        } 
+        setData(docSnap.data() as Data)
     }
 
     const updateEvent = async () => {
@@ -108,7 +106,10 @@ export default function Details({ id } : Props){
                 <h3> <EventNoteIcon /> Schedule </h3>
                 <div className={styles.infoContainer}>
                     <div className={styles.infoItem}>
-                        <b>Date</b> {data?.date}
+                        <b>Date</b> 
+                        <Suspense fallback={<p>Loading</p>}>
+                        {data?.date}
+                        </Suspense>
                     </div>
                     <div className={styles.infoItem}>
                         <b>Time</b> {data?.time}
@@ -121,7 +122,7 @@ export default function Details({ id } : Props){
             <div id={styles.info}>
                 <h3> <InfoIcon /> About this Event </h3>
                 <div className={styles.infoContainer}>
-                    <b>Hosted by</b> Host
+                    <b>Hosted by</b> {data?.host}
                     <p> {data?.desc} </p>
                 </div>
             </div>
