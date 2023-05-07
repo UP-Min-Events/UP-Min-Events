@@ -1,4 +1,8 @@
 import { useState } from 'react';
+import styles from './page.module.css'
+import { Inter } from 'next/font/google'
+
+const inter = Inter({ subsets: ['latin'] })
 
 interface Props {
   firstName: string;
@@ -44,7 +48,7 @@ export default function Organizer({
   };
 
   return (
-    <>
+    <div className={`${inter.className} ${styles.formBody}`}>
       <div>
         <p>First Name</p>
         <input
@@ -98,6 +102,6 @@ export default function Organizer({
           <button onClick={handleAddOrganization}>Add Organization</button>
         </div>
       </div>
-    </>
+    </div>
   );
 }
