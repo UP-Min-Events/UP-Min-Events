@@ -7,6 +7,7 @@
   justify-content: flex-start;
   padding-left: 1em;
   padding-right: 1em;
+  margin-bottom: 3em;
   }
   
   .nav {
@@ -160,12 +161,13 @@
 .button {
   width: 100%;
   display: flex;
-  position: fixed;
+  position: relative;
+  margin-top: auto;
   justify-content: center;
   align-items: center;
   margin-left: auto;
   margin-right: auto;
-  bottom: 3em;
+  margin-bottom: 3em;
 }
 
   .buttonM {
