@@ -97,6 +97,7 @@ export default function Page2({
                 <button className={`${inter.className} ${styles.buttonM}`} onClick={finish}>FINISH</button>
             </div>
 
+
         </div>
     )
 }

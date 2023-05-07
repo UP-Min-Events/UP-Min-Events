@@ -72,6 +72,8 @@ export default function Page1({
                 <button className={`${inter.className} ${styles.buttonM}`} onClick={nextPage}>NEXT</button>
             </div>
 
+
+
         </div>
     )
 }
