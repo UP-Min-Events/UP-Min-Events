@@ -21,6 +21,12 @@
   padding-right: 1em;
 }
 
+.header {
+  width: 100%;
+  text-align: left;
+}
+
+
 .eventsContainer {
   display: flex;
   flex-direction: column;

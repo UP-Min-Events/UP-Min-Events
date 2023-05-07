@@ -101,7 +101,6 @@ export default function Details({ id } : Props){
                     <h1>{data?.name}</h1>
                     <p>Status: Status</p>
                     <div id={styles.divider}> </div>
-                    <p>{data?.desc}</p>
                 </div>
             )}
 
@@ -123,7 +122,7 @@ export default function Details({ id } : Props){
                 <h3> <InfoIcon /> About this Event </h3>
                 <div className={styles.infoContainer}>
                     <b>Hosted by</b> Host
-                    <p> &quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&quot; </p>
+                    <p> {data?.desc} </p>
                 </div>
             </div>
             { userType === 'organizer' && 

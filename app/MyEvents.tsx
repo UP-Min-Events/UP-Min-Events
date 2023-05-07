@@ -53,7 +53,7 @@ export default function MyEvents() {
 
     return (
         <div>
-            <h1>Live Events</h1>
+            <h1>Your Events</h1>
             <div className={`${inter.className} ${styles.eventsContainer}`}>
             {events.map((event) => (
                 <Event

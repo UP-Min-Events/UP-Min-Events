@@ -30,12 +30,16 @@
   }
 
 #header {
+    margin-top: 1em;
     display: flex;
     flex-direction: column;
     width: 100%;
     text-align: center;
     position: relative;
-    margin-bottom: 2em;
+}
+
+#header h1 {
+    margin-bottom: 0.25em;
 }
 
 #header #divider {
@@ -129,12 +133,13 @@
 .button {
     width: 100%;
     display: flex;
-    position: fixed;
+    position: relative;
     justify-content: center;
     align-items: center;
     margin-left: auto;
     margin-right: auto;
-    bottom: 3em;
+    margin-top: auto;
+    margin-bottom: 3em;
 }
 
 .buttonL {
