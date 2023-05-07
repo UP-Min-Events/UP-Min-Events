@@ -8,15 +8,16 @@ interface Props {
     name: string,
     date: string,
     time: string
+    venue: string
 }
 
-export default function Event({ id, name, date, time } : Props){
+export default function Event({ id, name, date, time, venue } : Props){
     return (
         <Link className={styles.event} href={`/event/${id}`}>
             <div className={styles.eventDetails}>
                 <h2>{name}</h2>
                 <p>{date}, {time}</p>
-                <p>Venue</p>
+                <p>{venue}</p>
             </div>
 
             <div className={styles.eventAction}>

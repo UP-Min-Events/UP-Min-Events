@@ -11,9 +11,11 @@ interface Props {
     eventDate: string,
     eventTime: string,
     eventVenue: string,
+    eventVisibility: string,
     handleEventDateChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     handleEventTimeChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     handleEventVenueChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    handleEventVisibilityChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
 }
 
 export default function Page2({ 
@@ -22,9 +24,11 @@ export default function Page2({
     eventDate,
     eventTime,
     eventVenue,
+    eventVisibility,
     handleEventDateChange,
     handleEventTimeChange,
     handleEventVenueChange,
+    handleEventVisibilityChange,
 } : Props ) {
     
     const finish = () => {
@@ -81,7 +85,7 @@ export default function Page2({
                 </div>
                 <div className={styles.formItem}>
                     <p>Visibility</p>
-                    <select name="" id="">
+                    <select value={eventVisibility} onChange={handleEventVisibilityChange}>
                         <option value="" selected disabled hidden></option>
                         <option value="public">Public</option>
                         <option value="private">Private</option>

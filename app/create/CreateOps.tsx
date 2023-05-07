@@ -24,6 +24,7 @@ export default function Ops() {
     const [eventDate, setEventDate] = useState<string>('')
     const [eventTime, setEventTime] = useState<string>('')
     const [eventVenue, setEventVenue] = useState<string>('')
+    const [eventVisibility, setEventVisibility] = useState<string>('')
 
     const handleEventNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEventName(e.target.value)
@@ -49,6 +50,10 @@ export default function Ops() {
         setEventVenue(e.target.value)
     }
 
+    const handleEventVisibilityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setEventVisibility(e.target.value)
+    }
+
     const prevPage = () => {
         setPage(page - 1)
     }
@@ -64,6 +69,8 @@ export default function Ops() {
             desc: eventDesc,
             date: eventDate,
             time: eventTime,
+            venue: eventVenue,
+            visibility: eventVisibility,
             attendees: [],
             owner: user?.uid
         })
@@ -76,6 +83,7 @@ export default function Ops() {
         setEventDate('')
         setEventTime('')
         setEventVenue('')
+        setEventVisibility('')
 
         router.push(`/event/${id}`)
     }
@@ -99,9 +107,11 @@ export default function Ops() {
                     eventDate={eventDate}
                     eventTime={eventTime}
                     eventVenue={eventVenue}
+                    eventVisibility={eventVisibility}
                     handleEventDateChange={handleEventDateChange}
                     handleEventTimeChange={handleEventTimeChange}
                     handleEventVenueChange={handleEventVenueChange}
+                    handleEventVisibilityChange={handleEventVisibilityChange}
                 />
             }
         </div>

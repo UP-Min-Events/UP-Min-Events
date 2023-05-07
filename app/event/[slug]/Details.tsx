@@ -1,7 +1,8 @@
 'use client'
 
-import { Inter } from 'next/font/google'
 import styles from './page.module.css'
+import Link from 'next/link' 
+import { Inter } from 'next/font/google'
 
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
@@ -13,7 +14,6 @@ import EventNoteIcon from '@mui/icons-material/EventNote';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import InfoIcon from '@mui/icons-material/Info';
 import QueryStatsIcon from '@mui/icons-material/QueryStats';
-import Link from 'next/link' 
 
 const inter = Inter({ subsets: ['latin']})
 
@@ -26,7 +26,9 @@ interface Data {
     desc: string;
     date: string;
     time: string;
+    venue: string;
     attendees: string[];
+    visibility: string;
     id: string;
 }
 
@@ -34,8 +36,8 @@ export default function Details({ id } : Props){
 
     const { userType } = useUserTypeContext()
     const [editing, setEditing] = useState(false);
-    const [data, setData] = useState<Data>({ name: "", desc: "", date: "", time: "", attendees: [], id: "" })
-    const [editedEvent, setEditedEvent] = useState<Data>({ name: "", desc: "", date: "", time: "", attendees: [], id: "" });
+    const [data, setData] = useState<Data>({ name: "", desc: "", date: "", time: "", venue: "", visibility: "", attendees: [], id: "" })
+    const [editedEvent, setEditedEvent] = useState<Data>({ name: "", desc: "", date: "", time: "", venue: "", visibility: "", attendees: [], id: "" });
     const router = useRouter()
     
     const getDetails = async () => {
@@ -44,9 +46,7 @@ export default function Details({ id } : Props){
         
         if (docSnap.exists()) {
             setData(docSnap.data() as Data)
-        } else {
-            window.alert('No such document!')
-        }
+        } 
     }
 
     const updateEvent = async () => {
@@ -104,6 +104,7 @@ export default function Details({ id } : Props){
                     <p>{data?.desc}</p>
                 </div>
             )}
+
             <div id={styles.schedule}>
                 <h3> <EventNoteIcon /> Schedule </h3>
                 <div className={styles.infoContainer}>
@@ -114,14 +115,8 @@ export default function Details({ id } : Props){
                         <b>Time</b> {data?.time}
                     </div>
                     <div className={styles.infoItem}>
-                        <b>Venue</b> Location
+                        <b>Venue</b> {data?.venue}
                     </div>
-                    {/* <div className={styles.scheduleItem}>
-                        <p>{data?.attendees}</p>
-                    </div>
-                    <div className={styles.scheduleItem}>
-                        <p>{data?.id}</p>
-                    </div> */}
                 </div> 
             </div>
             <div id={styles.info}>
@@ -142,7 +137,7 @@ export default function Details({ id } : Props){
                             <b>Time</b> {data?.time}
                         </div>
                         <div className={styles.infoItem}>
-                            <b>Visibility</b> Visibility
+                            <b>Visibility</b> {data?.visibility}
                         </div>
                     </div>
                 </div>

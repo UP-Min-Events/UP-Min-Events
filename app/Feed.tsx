@@ -15,6 +15,7 @@ interface Event {
     desc: string;
     date: string;
     time: string;
+    venue: string;
     attendees: string[];
     id: string;
 }
@@ -33,6 +34,7 @@ export default function Feed() {
                 desc: doc.data().desc,
                 date: doc.data().date,
                 time: doc.data().time,
+                venue: doc.data().venue,
                 attendees: doc.data().attendees,
                 id: doc.id
             })
@@ -54,7 +56,8 @@ export default function Feed() {
                         id={event.id}
                         name={event.name} 
                         date={event.date} 
-                        time={event.time} 
+                        time={event.time}
+                        venue={event.venue} 
                     />
                 ))}
             </div>
