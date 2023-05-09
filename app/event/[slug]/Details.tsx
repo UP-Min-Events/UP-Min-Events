@@ -27,8 +27,9 @@ interface Data {
     date: string;
     time: string;
     venue: string;
-    attendees: string[];
+    host: string;
     visibility: string;
+    attendees: string[];
     id: string;
 }
 
@@ -36,8 +37,8 @@ export default function Details({ id } : Props){
 
     const { userType } = useUserTypeContext()
     const [editing, setEditing] = useState(false);
-    const [data, setData] = useState<Data>({ name: "", desc: "", date: "", time: "", venue: "", visibility: "", attendees: [], id: "" })
-    const [editedEvent, setEditedEvent] = useState<Data>({ name: "", desc: "", date: "", time: "", venue: "", visibility: "", attendees: [], id: "" });
+    const [data, setData] = useState<Data>({ name: "", desc: "", date: "", time: "", venue: "", host: "" ,visibility: "", attendees: [], id: "" })
+    const [editedEvent, setEditedEvent] = useState<Data>({ name: "", desc: "", date: "", time: "", venue: "", host: "", visibility: "", attendees: [], id: "" });
     const router = useRouter()
     
     const getDetails = async () => {
