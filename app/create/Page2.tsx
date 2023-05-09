@@ -15,7 +15,7 @@ interface Props {
     handleEventDateChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     handleEventTimeChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     handleEventVenueChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
-    handleEventVisibilityChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    handleEventVisibilityChange: (e: React.ChangeEvent<HTMLSelectElement>) => void,
 }
 
 export default function Page2({ 

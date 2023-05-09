@@ -70,8 +70,8 @@ export default function Client() {
                     <Suspense fallback={<Skeleton animation="wave" />}>
                         <div className={styles.nav}>
                             <Header 
-                                firstName={data.firstName}
-                                lastName={data.lastName}
+                                firstName={data?.firstName}
+                                lastName={data?.lastName}
                             />
                             <SignOut />
                         </div>
