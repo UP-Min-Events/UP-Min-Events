@@ -1,7 +1,8 @@
 'use client'
 
-import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { useState, useEffect } from 'react'
+import { useUserTypeContext } from '../../UserTypeProvider'
 
 import { auth, db } from '../../../firebaseConfig'
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
@@ -11,14 +12,24 @@ export default function College(){
 
     const [user] = useAuthState(auth)
     const id = user?.uid
+    const { userType } = useUserTypeContext()
+
+    let collection 
+    
+    if (userType === 'attendee') {
+        collection = 'attendees'
+    } else if (userType === 'organizer') {
+        collection = 'organizers'
+    }
 
     const [toggle, setToggle] = useState(false)
     const [input, setInput] = useState<string>('CS')
 
+
     const getDetail = async () => {
-        const docRef = doc(db, 'attendees', `${id}`)
+        const docRef = doc(db, `${collection}`, `${id}`)
         const docSnap = await getDoc(docRef)
-        
+
         if (docSnap.exists()) {
             setInput(docSnap.data()?.college)
         } 
@@ -26,7 +37,7 @@ export default function College(){
     }
 
     const updateDetail = async () => {
-        const docRef = doc(db, 'attendees', `${id}`)
+        const docRef = doc(db, `${collection}`, `${id}`)
         await updateDoc(docRef, {
             college: input
         })

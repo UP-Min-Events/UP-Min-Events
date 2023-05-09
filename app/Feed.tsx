@@ -29,6 +29,7 @@ export default function Feed() {
         const querySnapshot = await getDocs(dbInstance)
         const events: Event[] = []
         querySnapshot.forEach((doc) => {
+            if (doc.data().visibility === 'Private') return
             events.push({
                 name: doc.data().name,
                 desc: doc.data().desc,
@@ -40,6 +41,7 @@ export default function Feed() {
             })
         })
         setEvents(events)
+        console.log(events)
     }    
 
     useEffect(() => {

@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
+import { useUserTypeContext } from '../../UserTypeProvider'
 
 import { auth, db } from '../../../firebaseConfig'
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
@@ -16,22 +17,37 @@ export default function Name() {
 
     const [user] = useAuthState(auth)
     const id = user?.uid
+    const { userType } = useUserTypeContext()
 
     const [toggleFirst, setToggleFirst] = useState(false)
     const [toggleLast, setToggleLast] = useState(false)
     const [input, setInput] = useState<Name>({ firstName: '', lastName: '' })
 
     const getDetail = async () => {
-        const docSnap = await getDoc(doc(db, 'attendees', `${id}`))
+        let collection
+
+        if (userType === 'attendee') {
+            collection = 'attendees'
+        } else if (userType === 'organizer') {
+            collection = 'organizers'
+        }
+
+        const docSnap = await getDoc(doc(db, `${collection}`, `${id}`))
 
         if (docSnap.exists()) {
             setInput(docSnap.data() as Name)
         }
-
     }
 
     const updateDetail = async () => {
-        const docRef = doc(db, 'attendees', `${id}`)
+        let collection
+        if (userType === 'attendee') {
+            collection = 'attendees'
+        } else if (userType === 'organizer') {
+            collection = 'organizers'
+        }
+
+        const docRef = doc(db, `${collection}`, `${id}`)
         await updateDoc(docRef, {
             firstName: input.firstName,
             lastName: input.lastName

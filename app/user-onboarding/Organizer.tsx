@@ -25,6 +25,7 @@ export default function Organizer({
   setCollege,
   setAffiliatedOrganization,
 }: Props) {
+  
   const [newOrganization, setNewOrganization] = useState('');
 
   const handleOrganizationChange = (index: number, value: string) => {

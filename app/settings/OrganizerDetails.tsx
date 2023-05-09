@@ -11,8 +11,22 @@ export default function OrganizerDetails() {
         <div className={`${inter.className} ${styles.infoContainer}`}>
             <div className={styles.infoBox}>
                 <div className={styles.item}>
-                    <Link href="/profile/organization">Organization</Link>
-                    <ArrowForwardIosIcon sx={{ color: '#a70000', scale: '0.75' }}/>
+                    Name
+                    <Link href="/settings/name">
+                        <ArrowForwardIosIcon sx={{ color: '#a70000', scale: '0.75' }}/>
+                    </Link>
+                </div>
+                <div className={styles.item}>
+                    College
+                    <Link href="/settings/college">
+                        <ArrowForwardIosIcon sx={{ color: '#a70000', scale: '0.75' }}/>
+                    </Link>
+                </div>
+                <div className={styles.item}>
+                    Affliated Organization
+                    <Link href="/settings/organization">
+                        <ArrowForwardIosIcon sx={{ color: '#a70000', scale: '0.75' }}/>
+                    </Link>
                 </div>
             </div>
         </div>
