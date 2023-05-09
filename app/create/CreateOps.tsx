@@ -50,7 +50,7 @@ export default function Ops() {
         setEventVenue(e.target.value)
     }
 
-    const handleEventVisibilityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleEventVisibilityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setEventVisibility(e.target.value)
     }
 
