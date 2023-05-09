@@ -8,6 +8,8 @@ import { useUserTypeContext } from '../../UserTypeProvider'
 import { useState } from 'react'
 import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
 
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+
 export default function EventClient({ id } : { id: string }) {
 
     const { userType } = useUserTypeContext()
@@ -24,10 +26,14 @@ export default function EventClient({ id } : { id: string }) {
     return (
         <div>
             { showQR ? 
-                <QR 
-                    id={id} 
-                    handleShowDetails={handleShowDetails} 
-                /> 
+                <>
+                    <div className={styles.nav}>
+                        <ArrowBackIcon onClick={handleShowDetails} sx={{ color: '#a70000', scale: '150%' }} />
+                    </div>
+                    <QR 
+                        id={id} 
+                    /> 
+                </>
                 : 
                 <div>
                     <Details id={id} />
