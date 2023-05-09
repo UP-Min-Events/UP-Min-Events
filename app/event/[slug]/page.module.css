@@ -1,13 +1,11 @@
 .container {
     margin: auto auto auto auto;
-    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     padding-left: 1em;
     padding-right: 1em;
-    overflow-y: scroll;
   }
 
 .loading-container {
@@ -29,7 +27,7 @@
     padding-right: 1em;
   }
 
-#header {
+.header {
     margin-top: 1em;
     display: flex;
     flex-direction: column;
@@ -38,11 +36,13 @@
     position: relative;
 }
 
-#header h1 {
+.eventNameContainer {
     margin-bottom: 0.25em;
+    display: flex;
+    justify-content: center;
 }
 
-#header #divider {
+.divider {
     display: flex;
     margin-left: auto;
     margin-right: auto;
@@ -54,14 +54,14 @@
     margin-bottom: 1.5rem;
   }
 
-#schedule {
+.schedule {
     display: flex;
     flex-direction: column;
     width: 80%;
     margin-bottom: 2em;
 }
 
-#schedule h3 {
+.schedule h3 {
     display: flex;
     align-items: center;
     text-align: left;
@@ -86,18 +86,26 @@
     margin-bottom: 0.75em;
 }
 
-#info {
+.infoLabel {
+    font-weight: 700;
+}
+
+.infoData {
+    display: flex;
+}
+
+.info {
     display: flex;
     flex-direction: column;
     width: 80%;
     margin-bottom: 2em;
 }
 
-#info p {
+.info p {
     text-align: justify;
 }
 
-#info h3 {
+.info h3 {
     display: flex;
     align-items: center;
     text-align: left;
@@ -116,7 +124,7 @@
     text-align: left;
 }
 
-#info #container {
+.info #container {
     height: auto;
     text-align: center;
     position: relative;
@@ -126,7 +134,7 @@
     box-shadow: 0 0 0.25em 0.1em rgba(0, 0, 0, 0.25);
 }
 
-#info p {
+.info p {
     margin-top: 0.75em;
 }
 

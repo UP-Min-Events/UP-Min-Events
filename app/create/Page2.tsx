@@ -87,8 +87,8 @@ export default function Page2({
                     <p>Visibility</p>
                     <select value={eventVisibility} onChange={handleEventVisibilityChange}>
                         <option value="" selected disabled hidden></option>
-                        <option value="public">Public</option>
-                        <option value="private">Private</option>
+                        <option value="Public">Public</option>
+                        <option value="Private">Private</option>
                     </select>
                 </div>
                 <div className={styles.formItem}>
