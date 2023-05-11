@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useUserTypeContext } from '../../UserTypeProvider'
 import { db } from '../../../firebaseConfig'
-import { doc, getDoc, updateDoc, deleteDoc } from 'firebase/firestore'
+import { doc, getDoc, deleteDoc } from 'firebase/firestore'
 
 import { Skeleton } from '@mui/material'
 import EventNoteIcon from '@mui/icons-material/EventNote';
@@ -34,30 +34,10 @@ interface Data {
     attendees: string[];
 }
 
-interface Editing {
-    name: boolean;
-    desc: boolean;
-    date: boolean;
-    time: boolean;
-    venue: boolean;
-    host: boolean;
-    visibility: boolean;
-}
-
 export default function Details({ id } : Props){
 
     const { userType } = useUserTypeContext()
     const router = useRouter()
-
-    const [editing, setEditing] = useState<Editing>({
-        name: false,
-        desc: false,
-        date: false,
-        time: false,
-        venue: false,
-        host: false,
-        visibility: false,
-    });
 
     const [data, setData] = useState<Data>({ 
         id: "", 
@@ -77,17 +57,6 @@ export default function Details({ id } : Props){
         const docSnap = await getDoc(docRef)
         
         setData(docSnap.data() as Data)
-    }
-
-    const updateEvent = async (field : string) => {
-        const eventRef = doc(db, 'events', id);
-      
-        await updateDoc(eventRef, {
-          [field]: data[field as keyof Data],
-        });
-
-        setEditing({...editing, [field]: false});
-        getDetails();
     }
 
     const deleteEvent = async () : Promise<void> => {
@@ -110,45 +79,17 @@ export default function Details({ id } : Props){
         
             <div className={styles.header}>
                 <div className={styles.eventNameContainer}>
-                    { !editing.name ? 
+                    { data?.name === '' ?
+                        <Skeleton animation='wave' width={220} height={70} />
+                        :
                         <>
-                            { data?.name === '' ?
-                                <Skeleton animation='wave' width={220} height={70} />
-                                :
-                                <>
-                                    <h1>{data?.name}</h1>
-                                    { userType === 'organizer' &&
-                                        <button onClick={() => {
-                                            setEditing({...editing, name: true})
-                                        }}>
-                                            Edit Icon
-                                        </button>
-                                    }
-                                </>
-                            }
-                        </>
-                        : 
-                        <>
-                            <input 
-                                type="text" 
-                                value={data?.name} 
-                                placeholder={data?.name}
-                                onChange={(e) => {
-                                    setData({...data, name: e.target.value})
-                                }} 
-                            />
-                            <button onClick={() =>{
-                                updateEvent('name')
-                            }}>
-                                Save Icon
-                            </button>
+                            <h1>{data?.name}</h1>
                         </>
                     }
                 </div>
                 <p>Status: Status</p>
                 <div className={styles.divider}></div>
             </div>
-    
             <div className={styles.schedule}>
                 <h3> <EventNoteIcon /> Schedule </h3>
                 <div className={styles.infoContainer}>
@@ -158,34 +99,7 @@ export default function Details({ id } : Props){
                             <Skeleton animation='wave' width={110} />
                             :
                             <div className={styles.infoData}>
-                                { !editing.date ?
-                                    <>
-                                        <p>{data?.date}</p>
-                                        { userType === 'organizer' && 
-                                            <button onClick={() => {
-                                                setEditing({...editing, date: true})
-                                            }}>
-                                                Edit Icon
-                                            </button>
-                                        }
-                                    </>
-                                    :
-                                    <>
-                                        <input
-                                            type="date"
-                                            value={data?.date}
-                                            placeholder={data?.date}
-                                            onChange={(e) => {
-                                                setData({...data, date: e.target.value})
-                                            }}
-                                        />
-                                        <button onClick={() =>{
-                                            updateEvent('date')
-                                        }}>
-                                            Save Icon
-                                        </button>
-                                    </>
-                                }
+                                <p>{data?.date}</p>
                             </div>
                         }
                     </div>
@@ -195,34 +109,7 @@ export default function Details({ id } : Props){
                             <Skeleton animation='wave' width={110} />
                             :
                             <div className={styles.infoData}>
-                                { !editing.time ?
-                                    <>
-                                        <p>{data?.time}</p>
-                                        { userType === 'organizer' && 
-                                            <button onClick={() => {
-                                                setEditing({...editing, time: true})
-                                            }}>
-                                                Edit Icon
-                                            </button>
-                                        }
-                                    </>
-                                    :
-                                    <>
-                                        <input
-                                            type="time"
-                                            value={data?.time}
-                                            placeholder={data?.time}
-                                            onChange={(e) => {
-                                                setData({...data, time: e.target.value})
-                                            }}
-                                        />
-                                        <button onClick={() =>{
-                                            updateEvent('time')
-                                        }}>
-                                            Save Icon
-                                        </button>
-                                    </>
-                                }
+                                <p>{data?.time}</p>
                             </div>
                         }
                     </div>
@@ -232,34 +119,7 @@ export default function Details({ id } : Props){
                             <Skeleton animation='wave' width={110} />
                             :
                             <div className={styles.infoData}>
-                                { !editing.venue ?
-                                    <>
-                                        <p>{data?.venue}</p>
-                                        { userType === 'organizer' && 
-                                            <button onClick={() => {
-                                                setEditing({...editing, venue: true})
-                                            }}>
-                                                Edit Icon
-                                            </button>
-                                        }
-                                    </>
-                                    :
-                                    <>
-                                        <input
-                                            type="text"
-                                            value={data?.venue}
-                                            placeholder={data?.venue}
-                                            onChange={(e) => {
-                                                setData({...data, venue: e.target.value})
-                                            }}
-                                        />
-                                        <button onClick={() =>{
-                                            updateEvent('venue')
-                                        }}>
-                                            Save Icon
-                                        </button>
-                                    </>
-                                }
+                                <p>{data?.venue}</p>
                             </div>
                         }
                     </div>
@@ -274,77 +134,19 @@ export default function Details({ id } : Props){
                             <Skeleton animation='wave' width={110} />
                             :
                             <div className={styles.infoData}>
-                                { !editing.host ?
-                                    <>
-                                        <p>{data?.host}</p>
-                                        { userType === 'organizer' && 
-                                            <button onClick={() => {
-                                                setEditing({...editing, host: true})
-                                            }}>
-                                                Edit Icon
-                                            </button>
-                                        }
-                                    </>
-                                    :
-                                    <>
-                                        <input
-                                            type="text"
-                                            value={data?.host}
-                                            placeholder={data?.host}
-                                            onChange={(e) => {
-                                                setData({...data, host: e.target.value})
-                                            }}
-                                        />
-                                        <button onClick={() =>{
-                                            updateEvent('host')
-                                        }}>
-                                            Save Icon
-                                        </button>
-                                    </>
-                                }
+                                <p>{data?.host}</p>
                             </div>
                         }
                     </div>
                     <div>
                         <div className={styles.infoItem}>
                             <p className={styles.infoLabel}>Description</p>
-                            { !editing.desc ?
-                                <>
-                                    { userType === 'organizer' &&
-                                        <button onClick={() =>  {
-                                            setEditing({...editing, desc: true})
-                                        }}>
-                                            Edit Icon
-                                        </button>
-                                    }
-                                </>
-                                : 
-                                <>
-                                    <button onClick={() => {
-                                        updateEvent('desc')
-                                    }}>Save Icon</button>    
-                                </>
-                            }
                         </div>
                         { data?.desc === '' ?
                             <Skeleton animation='wave' width={220} height={300} />
                             :
                             <div>
-                                { !editing.desc ?
-                                    <>
-                                        <p>{data?.desc}</p>
-                                    </>
-                                    :
-                                    <>
-                                        <textarea
-                                            value={data?.desc}
-                                            placeholder={data?.desc}
-                                            onChange={(e) => {
-                                                setData({...data, desc: e.target.value})
-                                            }}
-                                        />
-                                    </>
-                                }
+                                <p>{data?.desc}</p>
                             </div>
                         }
                     </div>
@@ -363,33 +165,7 @@ export default function Details({ id } : Props){
                         <div className={styles.infoItem}>
                             <p className={styles.infoLabel}>Visibility</p>
                             <div className={styles.infoData}>
-                                { !editing.visibility ?
-                                    <>
-                                        <p>{data?.visibility}</p>
-                                        <button onClick={() => {
-                                            setEditing({...editing, visibility: true})
-                                        }}>
-                                            Edit Icon
-                                        </button>
-                                    </>
-                                    :
-                                    <>
-                                        <select
-                                            value={data?.visibility}
-                                            onChange={(e) => {
-                                                setData({...data, visibility: e.target.value})
-                                            }}
-                                        >
-                                            <option value="Public">Public</option>
-                                            <option value="Private">Private</option>
-                                        </select>
-                                        <button onClick={() =>{
-                                            updateEvent('visibility')
-                                        }}>
-                                            Save Icon
-                                        </button>
-                                    </>
-                                }
+                                <p>{data?.visibility}</p>
                             </div>
                         </div>
                     </div>

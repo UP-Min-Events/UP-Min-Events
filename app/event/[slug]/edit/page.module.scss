@@ -1,21 +1,26 @@
+.label, .input {
+    display: flex;
+    align-items: center;
+}
+
 .page {
     height: 100vh;
     padding: 2rem;
 
     .navigation-wrapper {
-        height: 1.5rem;
+        height: 2rem;
         margin-bottom: 1rem;
     }
 
     .form-wrapper {
-        height: calc(100vh - 6.5rem);
+        height: calc(100vh - 7rem);
         display: flex;
         flex-direction: column;
         gap: 1rem;
 
         .section{
             padding: 1rem;
-            border: 1px solid #ccc;
+            border: 1px solid #aaa;
             border-radius: 0.75rem;
 
             .item-wrapper {
@@ -26,6 +31,10 @@
                 .label {
                     width: 35%;
                     margin-right: 0.5rem;
+
+                    p {
+                        font-weight: 600;
+                    }
                 }
     
                 .input {
@@ -37,6 +46,7 @@
                         background: transparent;
                         border: 0;
                         color: #000;
+                        font-size: 1rem;
                     }
                 }
             }
@@ -47,17 +57,24 @@
 
                 .label {
                     height: 2rem;
+                    
+                    p {
+                        font-weight: 600;
+                    }
                 }
 
                 .input {
+                    height: 10rem;
+
                     textarea {
                         width: 100%;
-                        height: 10rem;
+                        height: 100%;
                         background: transparent;
-                        border: 1px solid #ccc;
+                        border: 1px solid #aaa;
                         border-radius: 0.5rem;
                         color: #000;
                         padding: 0.5rem;
+                        font-size: 1rem;
                     }
                 }
             }
@@ -76,6 +93,38 @@
 
                 font-size: 1rem;
             }
+        }
+    }
+}
+
+.sk-wrapper {
+    height: 100vh;
+    padding: 2rem;
+
+    .sk-navigation-wrapper {
+        height: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .sk-form-wrapper {
+        height: calc(100vh - 7rem);
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        .sk-top-section {
+            height: 18.125rem;
+            width: 100%;
+        }
+
+        .sk-bottom-section {
+            height: 10rem;
+            width: 100%;
+        }
+
+        .sk-save-wrapper {
+            margin-top: auto;
+            height: 3rem;
         }
     }
 }

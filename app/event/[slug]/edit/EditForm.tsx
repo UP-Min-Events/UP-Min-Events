@@ -7,6 +7,8 @@ import { useState, useEffect } from 'react'
 import { db } from '../../../../firebaseConfig'
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
 
+import { Skeleton } from '@mui/material'
+
 const inter = Inter({ subsets: ['latin'] })
 
 interface Event {
@@ -21,6 +23,7 @@ interface Event {
 
 export default function EditForm({ id } : { id : string }){
 
+    const [loading, setLoading] = useState<boolean>(true)
     const [data, setData] = useState<Event>({
         name: '',
         host: '',
@@ -34,6 +37,7 @@ export default function EditForm({ id } : { id : string }){
     const getDetails = async () => {
         const docSnap = await getDoc(doc(db, 'events', id))
         setData(docSnap.data() as Event)
+        setLoading(false)
     }
 
     const updateDetails = async () => {
@@ -65,11 +69,17 @@ export default function EditForm({ id } : { id : string }){
                         <p>Title</p>
                     </div>
                     <div className={styles.input}>
-                        <input 
-                            type="text" 
-                            placeholder={data.name}
-                            value={data.name}
-                            onChange={(e) => setData({ ...data, name: e.target.value })} />
+                        { loading ?  
+                            <Skeleton variant='text' width='100%' height='100%' animation='wave' />
+                            :
+                            <input 
+                                className={inter.className}
+                                type="text" 
+                                placeholder={data.name}
+                                value={data.name}
+                                onChange={(e) => setData({ ...data, name: e.target.value })} 
+                            />
+                        }
                     </div>
                 </div>
                 <div className={styles['item-wrapper']}>
@@ -77,12 +87,17 @@ export default function EditForm({ id } : { id : string }){
                         <p>Host</p>
                     </div>
                     <div className={styles.input}>
-                        <input 
-                            type="text" 
-                            placeholder={data.host}
-                            value={data.host} 
-                            onChange={(e) => setData({ ...data, host: e.target.value })}
-                        />
+                        { loading ? 
+                            <Skeleton variant='text' width='100%' height='100%' animation='wave' />  
+                            :
+                            <input 
+                                className={inter.className}
+                                type="text" 
+                                placeholder={data.host}
+                                value={data.host} 
+                                onChange={(e) => setData({ ...data, host: e.target.value })}
+                            />
+                        }
                     </div>
                 </div>
                 <div className={styles['desc-wrapper']}>
@@ -90,11 +105,16 @@ export default function EditForm({ id } : { id : string }){
                         <p>Description</p>
                     </div>
                     <div className={styles.input}>
-                        <textarea 
-                            placeholder={data.desc}
-                            value={data.desc}
-                            onChange={(e) => setData({ ...data, desc: e.target.value })}
-                        />
+                        { loading ? 
+                            <Skeleton variant='rounded' width='100%' height='100%' animation='wave' />
+                            :
+                            <textarea 
+                                className={inter.className}
+                                placeholder={data.desc}
+                                value={data.desc}
+                                onChange={(e) => setData({ ...data, desc: e.target.value })}
+                            />
+                        }
                     </div>
                 </div>
             </section>
@@ -104,11 +124,16 @@ export default function EditForm({ id } : { id : string }){
                         <p>Date</p>
                     </div>
                     <div className={styles.input}>
-                        <input 
-                            type='date' 
-                            value={data.date} 
-                            onChange={(e) => setData({ ...data, date: e.target.value })} 
-                        />
+                        { loading ? 
+                            <Skeleton variant='text' width='100%' height='100%' animation='wave' />
+                            :
+                            <input 
+                                className={inter.className}
+                                type='date' 
+                                value={data.date} 
+                                onChange={(e) => setData({ ...data, date: e.target.value })} 
+                            />
+                        }
                     </div>
                 </div>
                 <div className={styles['item-wrapper']}>
@@ -116,11 +141,16 @@ export default function EditForm({ id } : { id : string }){
                         <p>Time</p>
                     </div>
                     <div className={styles.input}>
-                        <input 
-                            type='time' 
-                            value={data.time}
-                            onChange={(e) => setData({ ...data, time: e.target.value })} 
-                        />
+                        { loading ? 
+                            <Skeleton variant='text' width='100%' height='100%' animation='wave' />
+                            :
+                            <input 
+                                className={inter.className}
+                                type='time' 
+                                value={data.time}
+                                onChange={(e) => setData({ ...data, time: e.target.value })} 
+                            />
+                        }
                     </div>
                 </div>
                 <div className={styles['item-wrapper']}>
@@ -128,12 +158,17 @@ export default function EditForm({ id } : { id : string }){
                         <p>Venue</p>
                     </div>
                     <div className={styles.input}>
-                        <input 
-                            type="text" 
-                            placeholder={data.venue}
-                            value={data.venue}
-                            onChange={(e) => setData({ ...data, venue: e.target.value })} 
-                        />
+                        { loading ? 
+                            <Skeleton variant='text' width='100%' height='100%' animation='wave' />
+                            :
+                            <input 
+                                className={inter.className}
+                                type="text" 
+                                placeholder={data.venue}
+                                value={data.venue}
+                                onChange={(e) => setData({ ...data, venue: e.target.value })} 
+                            />
+                        }
                     </div>
                 </div>
                 <div className={styles['item-wrapper']}>
@@ -141,13 +176,18 @@ export default function EditForm({ id } : { id : string }){
                         <p>Visibility</p>
                     </div>
                     <div className={styles.input}>
-                        <select 
-                            value={data.visibility}
-                            onChange={(e) => setData({ ...data, visibility: e.target.value })}    
-                        >
-                            <option value="Public" selected>Public</option>
-                            <option value="Private">Private</option>
-                        </select>
+                        { loading ? 
+                            <Skeleton variant='text' width='100%' height='100%' animation='wave' />
+                            :
+                            <select 
+                                className={inter.className}
+                                value={data.visibility}
+                                onChange={(e) => setData({ ...data, visibility: e.target.value })}    
+                            >
+                                <option value="Public" selected>Public</option>
+                                <option value="Private">Private</option>
+                            </select>
+                        }
                     </div>
                 </div>
             </section>
