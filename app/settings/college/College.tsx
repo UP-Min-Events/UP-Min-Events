@@ -14,7 +14,7 @@ export default function College(){
     const id = user?.uid
     const { userType } = useUserTypeContext()
 
-    let collection 
+    let collection: string 
     
     if (userType === 'attendee') {
         collection = 'attendees'
