@@ -1,0 +1,81 @@
+.page {
+    height: 100vh;
+    padding: 2rem;
+
+    .navigation-wrapper {
+        height: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .form-wrapper {
+        height: calc(100vh - 6.5rem);
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        .section{
+            padding: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 0.75rem;
+
+            .item-wrapper {
+                display: flex;
+                height: 2rem;
+                font-size: 1rem;
+    
+                .label {
+                    width: 35%;
+                    margin-right: 0.5rem;
+                }
+    
+                .input {
+                    width: calc(65% - 0.5rem);
+    
+                    input, select {
+                        height: 1.5rem;
+                        width: 100%;
+                        background: transparent;
+                        border: 0;
+                        color: #000;
+                    }
+                }
+            }
+
+            .desc-wrapper {
+                display: flex;
+                flex-direction: column;
+
+                .label {
+                    height: 2rem;
+                }
+
+                .input {
+                    textarea {
+                        width: 100%;
+                        height: 10rem;
+                        background: transparent;
+                        border: 1px solid #ccc;
+                        border-radius: 0.5rem;
+                        color: #000;
+                        padding: 0.5rem;
+                    }
+                }
+            }
+        }
+
+        .save-wrapper {
+            margin-top: auto;
+
+            button {
+                width: 100%;
+                height: 3rem;
+                border: 0;
+                border-radius: 1rem;
+                background: #a70000;
+                cursor: pointer;
+
+                font-size: 1rem;
+            }
+        }
+    }
+}

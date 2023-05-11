@@ -397,6 +397,7 @@ export default function Details({ id } : Props){
             }
             { userType === 'organizer' && 
                 <div>
+                    <Link href={`/event/${id}/edit`}>Edit</Link>
                     <button onClick={deleteEvent}>Delete</button>
                 </div>
             }
