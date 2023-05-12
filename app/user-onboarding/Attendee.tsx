@@ -31,7 +31,7 @@ export default function Attendee({
 } : Props ){
     return (
         <div className={styles.formBody}>
-            <div>
+            <div className={styles.formItem}>
                 <p>First Name</p>
                 <input 
                     type="text" 
@@ -39,7 +39,7 @@ export default function Attendee({
                     onChange={(e) => setFirstName(e.target.value)}
                 />
             </div>
-            <div>
+            <div className={styles.formItem}>
                 <p>Last Name</p>
                 <input 
                     type="text"
@@ -47,7 +47,7 @@ export default function Attendee({
                     onChange={(e) => setLastName(e.target.value)} 
                 />
             </div>
-            <div>
+            <div className={styles.formItem}>
                 <p>Student Number</p>
                 <input 
                     type="text"
@@ -55,8 +55,8 @@ export default function Attendee({
                     onChange={(e) => setStudentNumber(e.target.value)}
                 />
             </div>
-            <p>Year Level</p>
-            <div id="inputDropdown">
+            <div className={styles.formItem}>
+                <p>Year Level</p>
                 <select value={yearLevel} onChange={(e) => setYearLevel(e.target.value)} >
                     <option value="" selected disabled hidden></option>
                     <option value="1">1st Year</option>
@@ -65,8 +65,8 @@ export default function Attendee({
                     <option value="4">4th Year</option>
                 </select>
             </div>
-            <p>College/Department</p>
-            <div id="inputDropdown">
+            <div className={styles.formItem}>
+                <p>College/Department</p>
                 <select value={college} onChange={(e) => setCollege(e.target.value)}>
                     <option value="" selected disabled hidden></option>
                     <option value="csm">College of Science and Mathematics</option>
@@ -74,8 +74,8 @@ export default function Attendee({
                     <option value="som">School of Management</option>
                 </select>
             </div>
-            <p>Degree Program</p>
-            <div id="inputDropdown">
+            <div className={styles.formItem}>
+                <p>Degree Program</p>
                 <select value={program} onChange={(e) => setProgram(e.target.value)}>
                     <option value="" selected disabled hidden></option>
                     {
@@ -117,6 +117,9 @@ export default function Attendee({
                     }
                     
                 </select>
+            </div>
+            <div id={styles.terms}>
+                <input type="checkbox" /> I agree with the Terms and Conditions.
             </div>
         </div>
     )

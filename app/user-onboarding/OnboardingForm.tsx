@@ -8,8 +8,6 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useUserTypeContext } from '../UserTypeProvider'
 
-import { Button } from '@mui/material'
-import { IconButton } from '@mui/material'
 import { auth, db } from '../../firebaseConfig'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { doc, updateDoc } from 'firebase/firestore'
@@ -63,18 +61,13 @@ export default function OnboardingForm() {
 
     return (
         <div className={`${inter.className} ${styles.form}`}>
-            <div className={styles.header}>
+            <div className={styles.nav}>
                 <Link href="/">
-                    <IconButton size="large"
-                        sx={{
-                            color: '#a70000',
-                            fontWeight: 'bold',
-                            padding: '0',
-                            top: '0',
-                        }}>
-                        <ArrowBackIcon />
-                    </IconButton>
+                    <ArrowBackIcon sx={{ color: '#a70000', scale: '150%', p: '0', }}/>
                 </Link>
+            </div>
+
+            <div className={styles.header}>
                 <h2>Let&apos;s get to know you.</h2>
             </div>
 
@@ -101,23 +94,7 @@ export default function OnboardingForm() {
 
             }
 
-
-            <div id={styles.terms}>
-                <input type="checkbox" /> I agree with the Terms and Conditions.
-            </div>
-            <Button
-                variant="text"
-                className={inter.className}
-                sx={{
-                    mx: 'auto',
-                    backgroundColor: '#a70000',
-                    color: '#fff',
-                    fontWeight: 'bold',
-                    width: '100%',
-                    height: '3.5em',
-                    borderRadius: '1em',
-                    mt: 'auto'
-                }}
+            <button className={styles.buttonL} 
                 onClick={() => {
                     const requiredFieldsAttendee = [firstName, lastName, studentNumber, yearLevel, college, program];
                     const requiredFieldsOrganizer = [firstName, lastName, college];
@@ -137,7 +114,8 @@ export default function OnboardingForm() {
                 }}
             >
                 Finish
-            </Button>
+            </button>
+
         </div>
     )
 }
