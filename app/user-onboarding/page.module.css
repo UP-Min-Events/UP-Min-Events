@@ -5,22 +5,46 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding: 3em;
+  padding-left: 1em;
+  padding-right: 1em;
   }
-  
-  .form .header {
-    display: flex;
-    position: relative;
-    flex-direction: column;
-    margin-bottom: 1em;
-    width: 100%;
-  }
-  
-  .form h2 {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-  }
-  
+
+.nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  margin-top: 3em; 
+  margin-bottom: 2.5em;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  position: relative;
+  margin-bottom: 2em;
+}
+
+.formBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  position: relative;
+  width: 100%;
+  align-items: center;
+}
+
+.formItem {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  position: relative;
+}
+
   .form p {
     font-weight: bold;
     color: black;
@@ -112,7 +136,7 @@
     justify-content: flex-start;
     flex-direction: row;
     font-size: 0.75em;
-    width: 100%;
+    width: 80%;
   }
 
   .form #terms input[type='checkbox'] {
@@ -126,13 +150,15 @@
     background-color: #a70000;
     color: white;
     font-weight: bold;
-    width: 100%;
+    width: 80%;
     border-radius: 1em;
     height: 3.5em;
     align-items: center;
     justify-content: center;
     border: none;
+    bottom: 3em;
     margin-top: auto;
+    margin-bottom: 3em;
   }
   
   
