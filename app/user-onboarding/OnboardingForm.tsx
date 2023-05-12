@@ -34,7 +34,7 @@ export default function OnboardingForm() {
     const [affiliatedOrganization, setAffiliatedOrganization] = useState<string[]>([])
 
     const updateInfo = async () => {
-        if (userType === 'attendees') {
+        if (userType === 'attendee') {
 
             const ref = doc(db, 'attendees', `${user?.uid}`)
 
@@ -89,14 +89,10 @@ export default function OnboardingForm() {
                 />
                 :
                 <Organizer
-                    firstName={firstName}
-                    setFirstName={setFirstName}
-                    lastName={lastName}
-                    setLastName={setLastName}
-                    college={college}
-                    setCollege={setCollege}
-                    affiliatedOrganization={affiliatedOrganization}
-                    setAffiliatedOrganization={setAffiliatedOrganization}
+                    firstName={firstName} setFirstName={setFirstName}
+                    lastName={lastName} setLastName={setLastName}
+                    college={college} setCollege={setCollege}
+                    affiliatedOrganization={affiliatedOrganization} setAffiliatedOrganization={setAffiliatedOrganization}
                 />
 
             }
@@ -121,7 +117,7 @@ export default function OnboardingForm() {
                 onClick={() => {
                     const requiredFieldsAttendee = [firstName, lastName, studentNumber, yearLevel, college, program];
                     const requiredFieldsOrganizer = [firstName, lastName, college];
-
+                    
                     if (
                         userType === 'attendee' && requiredFieldsAttendee.every(field => field.trim() !== '')
                     ) {
