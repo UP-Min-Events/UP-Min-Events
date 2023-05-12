@@ -28,9 +28,6 @@ export default function QR({ id } : Props) {
             { 
                 width: 250,
                 margin: 2,
-                color: {
-                    dark: '#A70000',
-                }
             }
         )
     }

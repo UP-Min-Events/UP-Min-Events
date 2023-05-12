@@ -15,7 +15,7 @@ export default function Header({ firstName, lastName } : { firstName: string, la
                 { firstName === "" ? 
                     <Skeleton animation='wave' width={110} />
                     :
-                    (lastName + ", " + firstName[0] + '.')
+                    (lastName + ", " + firstName + '.')
                 }
             </Button> 
         </Link>

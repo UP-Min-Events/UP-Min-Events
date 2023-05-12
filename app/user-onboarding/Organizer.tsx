@@ -50,7 +50,7 @@ export default function Organizer({
 
   return (
     <div className={`${inter.className} ${styles.formBody}`}>
-      <div>
+      <div className={styles.formItem}>
         <p>First Name</p>
         <input
           type="text"
@@ -58,7 +58,7 @@ export default function Organizer({
           onChange={(e) => setFirstName(e.target.value)}
         />
       </div>
-      <div>
+      <div className={styles.formItem}>
         <p>Last Name</p>
         <input
           type="text"
@@ -66,8 +66,8 @@ export default function Organizer({
           onChange={(e) => setLastName(e.target.value)}
         />
       </div>
-      <p>College/Department</p>
-      <div id="inputDropdown">
+      <div className={styles.formItem}>
+        <p>College/Department</p>
         <select
           value={college}
           onChange={(e) => setCollege(e.target.value)}
@@ -80,8 +80,8 @@ export default function Organizer({
           <option value="som">School of Management</option>
         </select>
       </div>
-      <p>Affiliated Organizations</p>
-      <div>
+      <div className={styles.formItem}>
+        <p>Affiliated Organizations</p>
         {affiliatedOrganization.map((org, index) => (
           <div key={index}>
             <input
