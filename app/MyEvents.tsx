@@ -1,6 +1,6 @@
 'use client'
 
-import styles from './page.module.css'
+import styles from './page.module.scss'
 import { Inter } from 'next/font/google'
 import { useState, useEffect } from 'react'
 import Event from './Event'

@@ -1,5 +1,5 @@
-import CircleLoading from './loadingui/CircleLoading'
+import IndexSkeleton from './loadingui/IndexSkeleton'
 
 export default function Loading() {
-    return <CircleLoading />
+    return <IndexSkeleton />
 }

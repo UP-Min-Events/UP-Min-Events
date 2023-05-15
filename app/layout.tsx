@@ -1,4 +1,4 @@
-import './globals.css'
+import './globals.scss'
 import { Inter } from 'next/font/google'
 import { UserTypeProvider } from './UserTypeProvider'
 
@@ -17,9 +17,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <UserTypeProvider>
-          {children}
-        </UserTypeProvider>
+        <div className='app-wrapper'>
+          <UserTypeProvider>
+            {children}
+          </UserTypeProvider>
+        </div>
       </body>
     </html>
   )

@@ -1,24 +1,23 @@
 'use client'
 
-import styles from './page.module.css'
+import styles from './page.module.scss'
 import { Inter } from 'next/font/google'
+import Image from 'next/image'
+import Link from 'next/link'
 
-import SignOut from './SignOut'
 import ScanButton from './ScanButton'
 import CreateButton from './CreateButton'
-import Feed from "./Feed";
-import MyEvents from "./MyEvents"
-import Header from './Header'
+import Feed from "./Feed"
 
 import { useUserTypeContext } from "./UserTypeProvider"
 import { useRouter } from "next/navigation"
-import { useState, useEffect, Suspense } from "react"
+import { useState, useEffect } from "react"
 
 import { db, auth } from "../firebaseConfig"
 import { doc, getDoc} from 'firebase/firestore'
 import { useAuthState } from "react-firebase-hooks/auth"
 
-import { Skeleton } from '@mui/material'
+import { Skeleton } from "@mui/material"
 
 const inter = Inter({ subsets: ['latin']})
 
@@ -33,6 +32,8 @@ export default function Client() {
     const [user, loading] = useAuthState(auth)
     const { userType } = useUserTypeContext()
     const router = useRouter()
+
+    const name = data.lastName + ", " + data.firstName
 
     const getDetail = async ({ collection } : { collection: string}) => {        
         const docRef = doc(db, `${collection}`, `${user?.uid}`)
@@ -50,7 +51,8 @@ export default function Client() {
 
     useEffect(() => {
         if (!user) return
-        let collection
+
+        let collection: string
         
         if (userType === 'attendee') {
             collection = 'attendees'
@@ -66,24 +68,26 @@ export default function Client() {
         <>
             {user && (
                 <div className={`${inter.className} ${styles.container}`}>
-
-                    <Suspense fallback={<Skeleton animation="wave" />}>
-                        <div className={styles.nav}>
-                            <Header 
-                                firstName={data?.firstName}
-                                lastName={data?.lastName}
-                            />
-                            <SignOut />
+                    <Link href='/settings' className={styles.nav}>
+                        <div className={styles['photo-wrapper']}>
+                            <Image className={styles['profile-photo']} src={user?.photoURL} width={56} height={56} alt='Profile Photo'/>
                         </div>
-                    </Suspense>
-
-                    <Suspense fallback={<Skeleton variant="rectangular" height={600} width={150} />}>
-                        { userType === 'attendee' ? <Feed /> : <MyEvents /> }   
-                    </Suspense>
-
-                    <Suspense fallback={<Skeleton />}>
-                        { userType === 'attendee' ? <ScanButton /> : <CreateButton /> }
-                    </Suspense>
+                        <div className={styles['info-wrapper']}>
+                            { data.firstName === '' ?
+                                <>
+                                    <Skeleton variant='text' animation='wave' width='100%' height='2.25rem' />
+                                    <Skeleton variant='text' animation='wave' width='100%' height='1.25rem' />
+                                </>
+                                :
+                                <>
+                                    <h1 className={styles['profile-name']}>{name}</h1>
+                                    <p className={styles['profile-type']}>he/him</p>
+                                </>    
+                            }
+                        </div>
+                    </Link>
+                    <Feed />  
+                    { userType === 'attendee' ? <ScanButton /> : <CreateButton /> }
 
                 </div>
             )}
