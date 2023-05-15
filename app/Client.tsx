@@ -9,7 +9,7 @@ import ScanButton from './ScanButton'
 import CreateButton from './CreateButton'
 import Feed from "./Feed"
 
-import { useUserTypeContext } from "./UserTypeProvider"
+import { useUserTypeContext } from "./providers/UserTypeProvider"
 import { useRouter } from "next/navigation"
 import { useState, useEffect } from "react"
 

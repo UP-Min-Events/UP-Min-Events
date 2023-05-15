@@ -1,6 +1,6 @@
 import './globals.scss'
 import { Inter } from 'next/font/google'
-import { UserTypeProvider } from './UserTypeProvider'
+import { UserTypeProvider } from './providers/UserTypeProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 

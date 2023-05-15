@@ -4,7 +4,7 @@ import Event from './Event'
 import styles from './page.module.scss'
 import { Inter } from 'next/font/google'
 import { useState, useEffect } from 'react'
-import { useUserTypeContext } from './UserTypeProvider'
+import { useUserTypeContext } from './providers/UserTypeProvider'
 
 import { db, auth } from '../firebaseConfig'
 import { collection, getDocs } from 'firebase/firestore'
