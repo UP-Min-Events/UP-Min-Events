@@ -70,7 +70,7 @@ export default function Client() {
                 <div className={`${inter.className} ${styles.container}`}>
                     <Link href='/settings' className={styles.nav}>
                         <div className={styles['photo-wrapper']}>
-                            <Image className={styles['profile-photo']} src={user?.photoURL} width={56} height={56} alt='Profile Photo'/>
+                            <Image className={styles['profile-photo']} src={user?.photoURL ?? ''} width={56} height={56} alt='Profile Photo'/>
                         </div>
                         <div className={styles['info-wrapper']}>
                             { data.firstName === '' ?
