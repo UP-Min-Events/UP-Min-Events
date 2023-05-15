@@ -9,11 +9,13 @@ interface Props {
     createEvent: () => void,
     prevPage: () => void,
     eventDate: string,
-    eventTime: string,
+    eventStartTime: string,
+    eventEndTime: string,
     eventVenue: string,
     eventVisibility: string,
     handleEventDateChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
-    handleEventTimeChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    handleEventStartTimeChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    handleEventEndTimeChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     handleEventVenueChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     handleEventVisibilityChange: (e: React.ChangeEvent<HTMLSelectElement>) => void,
 }
@@ -22,11 +24,13 @@ export default function Page2({
     createEvent, 
     prevPage,
     eventDate,
-    eventTime,
+    eventStartTime,
+    eventEndTime,
     eventVenue,
     eventVisibility,
     handleEventDateChange,
-    handleEventTimeChange,
+    handleEventStartTimeChange,
+    handleEventEndTimeChange,
     handleEventVenueChange,
     handleEventVisibilityChange,
 } : Props ) {
@@ -62,11 +66,19 @@ export default function Page2({
                     />
                 </div>
                 <div className={styles.formItem}>
-                    <p>Time</p>
+                    <p>Start Time</p>
                     <input
                         type="time"
-                        value={eventTime}
-                        onChange={handleEventTimeChange}
+                        value={eventStartTime}
+                        onChange={handleEventStartTimeChange}
+                    />
+                </div>
+                <div className={styles.formItem}>
+                    <p>End Time</p>
+                    <input
+                        type="time"
+                        value={eventEndTime}
+                        onChange={handleEventEndTimeChange}
                     />
                 </div>
                 <div className={styles.formItem}>

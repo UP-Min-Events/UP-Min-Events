@@ -15,6 +15,8 @@ import EventNoteIcon from '@mui/icons-material/EventNote';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import InfoIcon from '@mui/icons-material/Info';
 import QueryStatsIcon from '@mui/icons-material/QueryStats';
+import { useContext } from 'react';
+import Status from './Status'
 
 const inter = Inter({ subsets: ['latin']})
 
@@ -27,7 +29,8 @@ interface Data {
     name: string;
     desc: string;
     date: string;
-    time: string;
+    startTime: string;
+    endTime: string;
     venue: string;
     host: string;
     visibility: string;
@@ -44,7 +47,8 @@ export default function Details({ id } : Props){
         name: "", 
         desc: "", 
         date: "", 
-        time: "", 
+        startTime: "", 
+        endTime: "", 
         venue: "", 
         host: "" , 
         visibility: "", 
@@ -87,7 +91,7 @@ export default function Details({ id } : Props){
                         </>
                     }
                 </div>
-                <p>Status: Status</p>
+                <Status date = {data?.date} startTime = {data?.startTime} endTime = {data?.endTime} />
                 <div className={styles.divider}></div>
             </div>
             <div className={styles.schedule}>
@@ -104,12 +108,22 @@ export default function Details({ id } : Props){
                         }
                     </div>
                     <div className={styles.infoItem}>
-                        <p className={styles.infoLabel}>Time</p>
-                        { data?.time === '' ? 
+                        <p className={styles.infoLabel}>Start Time</p>
+                        { data?.startTime === '' ? 
                             <Skeleton animation='wave' width={110} />
                             :
                             <div className={styles.infoData}>
-                                <p>{data?.time}</p>
+                                <p>{data?.startTime}</p>
+                            </div>
+                        }
+                    </div>
+                    <div className={styles.infoItem}>
+                        <p className={styles.infoLabel}>End Time</p>
+                        { data?.endTime === '' ? 
+                            <Skeleton animation='wave' width={110} />
+                            :
+                            <div className={styles.infoData}>
+                                <p>{data?.endTime}</p>
                             </div>
                         }
                     </div>
@@ -160,7 +174,10 @@ export default function Details({ id } : Props){
                             <b>Attendees</b> {data?.attendees.length}
                         </div>
                         <div className={styles.infoItem}>
-                            <b>Time</b> {data?.time}
+                            <b>Time</b> {data?.startTime}
+                        </div>
+                        <div className={styles.infoItem}>
+                            <b>Time</b> {data?.endTime}
                         </div>
                         <div className={styles.infoItem}>
                             <p className={styles.infoLabel}>Visibility</p>
