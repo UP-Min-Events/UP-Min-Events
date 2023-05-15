@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
-import { useUserTypeContext } from '../../UserTypeProvider'
+import { useUserTypeContext } from '../../providers/UserTypeProvider'
 
 import { auth, db } from '../../../firebaseConfig'
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
