@@ -43,7 +43,6 @@ export default function Feed() {
             })
         })
         setEvents(events)
-        console.log(events)
     }    
 
     useEffect(() => {
