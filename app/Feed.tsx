@@ -14,11 +14,9 @@ const inter = Inter({ subsets: ['latin']})
 
 interface Event {
     name: string;
-    desc: string;
     date: string;
     time: string;
     venue: string;
-    attendees: string[];
     id: string;
 }
 
