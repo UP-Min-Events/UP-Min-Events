@@ -15,7 +15,8 @@ interface Event {
     name: string;
     desc: string;
     date: string;
-    time: string;
+    startTime: string;
+    endTime: string;
     venue: string;
     attendees: string[];
     id: string;
@@ -37,7 +38,8 @@ export default function MyEvents() {
                 name: doc.data().name,
                 desc: doc.data().desc,
                 date: doc.data().date,
-                time: doc.data().time,
+                startTime: doc.data().startTime,
+                endTime: doc.data().endTime,
                 venue: doc.data().venue,
                 attendees: doc.data().attendees,
                 id: doc.id
@@ -61,7 +63,8 @@ export default function MyEvents() {
                     id={event.id}
                     name={event.name}
                     date={event.date}
-                    time={event.time}
+                    startTime={event.startTime}
+                    endTime={event.endTime}
                     venue={event.venue}
                 />
             ))}
