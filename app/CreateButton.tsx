@@ -1,13 +1,13 @@
 'use client'
 
-import styles from './page.module.css'
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import styles from './page.module.scss'
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 
 import Link from 'next/link'
 
 export default function CreateButton() {
     return(
-        <div className={styles.button}>
+        <div className={styles['button-wrapper']}>
             <Link href="/create">
                 <button className={styles.buttonL}> 
                     <AddCircleOutlineIcon /> 

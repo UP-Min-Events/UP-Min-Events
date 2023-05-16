@@ -1,0 +1,11 @@
+.page-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 3.125rem;
+
+    .events-container {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}

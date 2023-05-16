@@ -6,7 +6,7 @@ export default function Page({ params : { slug }}
     : { params : { slug : string }}) {
 
     return (
-        <div className={styles.page}>
+        <div className={styles['page-wrapper']}>
             <Navigation id={slug} />
             <EditForm id={slug} />
         </div>

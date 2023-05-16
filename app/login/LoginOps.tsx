@@ -2,7 +2,7 @@
 
 import styles from './page.module.css'
 import { Inter } from 'next/font/google'
-import { useUserTypeContext } from '../UserTypeProvider'
+import { useUserTypeContext } from '../providers/UserTypeProvider'
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 

@@ -3,9 +3,8 @@
     align-items: center;
 }
 
-.page {
-    height: 100vh;
-    padding: 2rem;
+.page-wrapper {
+    height: calc(100vh - 4rem);
 
     .navigation-wrapper {
         height: 2rem;

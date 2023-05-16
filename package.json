@@ -21,7 +21,7 @@
     "encoding": "^0.1.13",
     "firebase": "^9.19.1",
     "firebase-react-hooks": "^0.8.0",
-    "next": "^13.4.1",
+    "next": "^13.4.2",
     "qrcode": "^1.5.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
