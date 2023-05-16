@@ -1,7 +1,7 @@
 'use client'
 
 import styles from './page.module.scss'
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 
 import Link from 'next/link'
 
