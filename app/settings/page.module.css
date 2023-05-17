@@ -6,11 +6,19 @@
   justify-content: flex-start;
 }
 
+.headerContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
 .infoContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
+  gap: 1rem;
 }
 
 .nav {
@@ -27,15 +35,12 @@
   width: 100%;
   text-align: center;
   position: relative;
-  margin-bottom: 2em;
+  margin-bottom: 1rem;
 }
 
 .img {
   border-radius: 50%;
-  margin-top: 1.5em;
-  margin-bottom: 1.5em;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0.75rem auto;
 }
 
 .infoBox {
@@ -43,13 +48,13 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  margin-bottom: 1em;
   border-radius: 1em;
-  border: 1px solid lightgray;
-  box-shadow: 0 0 0.2em 0 rgba(0,0,0,0.2);
+  border: 1px solid rgba(0,0,0,0.1);
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.2);
+  
 }
 
-.infoBox .item {
+.item {
   width: 100%;
   font-weight: bold;
   display: flex;
@@ -59,4 +64,29 @@
   text-align: left;
   padding: 0.75em 1em 0.75em 1em;
   border-bottom: 1px solid lightgray;
+}
+
+.item-bottom {
+    width: 100%;
+  font-weight: bold;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  text-align: left;
+  padding: 0.75em 1em 0.75em 1em;
+}
+
+.buttonL {
+  display: flex;
+  background-color: #a70000;
+  color: white;
+  font-weight: bold;
+  width: 100%;
+  border-radius: 1rem;
+  height: 4em;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  margin-top: 2rem;
 }
