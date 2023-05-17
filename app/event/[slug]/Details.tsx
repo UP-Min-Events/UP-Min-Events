@@ -15,7 +15,6 @@ import EventNoteIcon from '@mui/icons-material/EventNote';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import InfoIcon from '@mui/icons-material/Info';
 import QueryStatsIcon from '@mui/icons-material/QueryStats';
-import { useContext } from 'react';
 import Status from './Status'
 
 const inter = Inter({ subsets: ['latin']})
@@ -139,7 +138,7 @@ export default function Details({ id } : Props){
                     </div>
                 </div> 
             </div>
-            <div className={styles.info}>
+            <div className={styles.schedule}>
                 <h3> <InfoIcon /> About this Event </h3>
                 <div className={styles.infoContainer}>
                     <div className={styles.infoItem}>

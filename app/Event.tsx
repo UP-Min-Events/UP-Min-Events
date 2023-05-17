@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import styles from './page.module.css'
+import styles from './page.module.scss'
 import { useState, useEffect } from 'react'
 
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
@@ -35,7 +35,7 @@ export default function Event({ id, name, date, startTime, endTime, venue } : Pr
         <Link className={styles.event} href={`/event/${id}`}>
             <div className={styles.eventDetails}>
                 <h2>{name}</h2>
-                <p>{date}, {startTime}</p>
+                <p className={styles['text-red']}>{date} {startTime}</p>
                 <p>{venue}</p>
                 <p>Status: {status}</p>
             </div>
