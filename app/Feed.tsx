@@ -54,7 +54,8 @@ export default function Feed() {
     return(
         <main>
             <div className={styles['header-wrapper']}>
-                <h1>Live Events</h1>    
+                <h1>Live Events</h1>  
+                <div className={styles.divider}></div>  
             </div>
             <div className={`${inter.className} ${styles.eventsContainer}`}>
                 {events.map((event) => (

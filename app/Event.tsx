@@ -53,7 +53,7 @@ export default function Event({ id, name, date, startTime, endTime, venue } : Pr
         <Link className={styles.event} href={`/event/${id}`}>
             <div className={styles.eventDetails}>
                 <h2>{name}</h2>
-                <p>{formattedDate}, {time12Hour}</p>
+                <p className={styles['text-red']}>{formattedDate} {time12Hour}</p>
                 <p>{venue}</p>
                 <p>Status: {status}</p>
             </div>
