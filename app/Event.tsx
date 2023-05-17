@@ -45,7 +45,6 @@ export default function Event({ id, name, date, startTime, endTime, venue }: Pro
 
     // Get event status
     useEffect(() => {
-        console.log(startTime, date);
 
         if (date !== undefined) {
             // Format date to Month Day, Year
