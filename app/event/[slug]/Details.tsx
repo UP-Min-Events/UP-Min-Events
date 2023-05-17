@@ -53,7 +53,8 @@ export default function Details({ id } : Props){
         visibility: "", 
         attendees: [], 
     })
-    
+
+    const [formattedDate, setFormattedDate] = useState<string>("");
     
     const getDetails = async () => {
         const docRef = doc(db, 'events', id)
@@ -68,9 +69,37 @@ export default function Details({ id } : Props){
         router.push("/")
     }
 
+    // Format date to Month Day, Year; OPTIMIZE this soon
+    const getDate = async () => {
+        // Format date to Month Day, Year
+        const formatDate = data.date;
+        const toFormatDate = new Date(data?.date)
+
+        const dateOptions: Intl.DateTimeFormatOptions = { month: "long", day: "numeric", year: "numeric" };
+        setFormattedDate(new Intl.DateTimeFormat("en-US", dateOptions).format(toFormatDate));
+    }
+
     useEffect(() => {
         getDetails()
+        getDate()
     }, [])
+    
+    // Format time to 12-hour format; OPTIMIZE this in the future
+    const formatTime = (time: string) => {
+
+        // Format time to 12-hour format
+        const hourOptions: Intl.DateTimeFormatOptions = {
+            hour: "numeric",
+            minute: "numeric",
+            hour12: true,
+        };
+
+        const date = new Date()
+        date.setHours(Number(time.split(":")[0]));
+        date.setMinutes(Number(time.split(":")[1]));
+        
+        return date.toLocaleTimeString("en-US", hourOptions);
+    }
 
     return (
         <div className={`${inter.className} ${styles.container}`}>    
@@ -102,7 +131,7 @@ export default function Details({ id } : Props){
                             <Skeleton animation='wave' width={110} />
                             :
                             <div className={styles.infoData}>
-                                <p>{data?.date}</p>
+                                <p>{formattedDate}</p>
                             </div>
                         }
                     </div>
@@ -112,7 +141,7 @@ export default function Details({ id } : Props){
                             <Skeleton animation='wave' width={110} />
                             :
                             <div className={styles.infoData}>
-                                <p>{data?.startTime}</p>
+                                <p>{formatTime(data?.startTime)}</p>
                             </div>
                         }
                     </div>
@@ -122,7 +151,7 @@ export default function Details({ id } : Props){
                             <Skeleton animation='wave' width={110} />
                             :
                             <div className={styles.infoData}>
-                                <p>{data?.endTime}</p>
+                                <p>{formatTime(data?.endTime)}</p>
                             </div>
                         }
                     </div>
@@ -171,12 +200,6 @@ export default function Details({ id } : Props){
                     <div className={styles.infoContainer}>
                         <div className={styles.infoItem}>
                             <b>Attendees</b> {data?.attendees.length}
-                        </div>
-                        <div className={styles.infoItem}>
-                            <b>Time</b> {data?.startTime}
-                        </div>
-                        <div className={styles.infoItem}>
-                            <b>Time</b> {data?.endTime}
                         </div>
                         <div className={styles.infoItem}>
                             <p className={styles.infoLabel}>Visibility</p>

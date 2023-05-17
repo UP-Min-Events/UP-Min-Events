@@ -22,6 +22,7 @@ export default function Event({ id, name, date, startTime, endTime, venue } : Pr
     const dateOptions: Intl.DateTimeFormatOptions = { month: "long", day: "numeric", year: "numeric" };
     const formattedDate = new Intl.DateTimeFormat("en-US", dateOptions).format(toFormatDate);
 
+    // Format time to 12-hour format
     const hourOptions: Intl.DateTimeFormatOptions = {
         hour: "numeric",
         minute: "numeric",
@@ -34,6 +35,7 @@ export default function Event({ id, name, date, startTime, endTime, venue } : Pr
     
     const time12Hour = time.toLocaleTimeString("en-US", hourOptions);
 
+    // Get event status
     useEffect(() => {
         const eventDate = new Date(date + " " + startTime);
         const currentDate = new Date();
