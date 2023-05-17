@@ -34,7 +34,7 @@ export default function UserDetails(){
                         <ArrowForwardIosIcon sx={{ color: '#a70000', scale: '0.75' }}/>
                     </Link>
                 </div>
-                <div className={styles.item}>
+                <div className={styles['item-bottom']}>
                     College
                     <Link href="/settings/college">
                         <ArrowForwardIosIcon sx={{ color: '#a70000', scale: '0.75' }}/>
@@ -54,7 +54,7 @@ export default function UserDetails(){
                         <ArrowForwardIosIcon sx={{ color: '#a70000', scale: '0.75' }}/>
                     </Link>
                 </div>
-                <div className={styles.item}>
+                <div className={styles['item-bottom']}>
                     Privacy and Safety
                     <Link href="/settings/privacy-safety">
                         <ArrowForwardIosIcon sx={{ color: '#a70000', scale: '0.75' }}/>

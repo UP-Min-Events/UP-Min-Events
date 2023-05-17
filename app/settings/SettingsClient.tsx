@@ -22,7 +22,7 @@ export default function SettingsClient() {
         <div className={styles.container}>
             <UserInfo />
             { userType === 'attendee' ? <UserDetails/> : <OrganizerDetails />}
-            <button onClick={SignOut}>Sign Out</button>
+            <button className={styles.buttonL} onClick={SignOut}>Sign Out</button>
         </div>
     )
 }
