@@ -121,7 +121,7 @@ export default function Details({ id } : Props){
                 <Status date = {data?.date} startTime = {data?.startTime} endTime = {data?.endTime} />
                 <div className={styles.divider}></div>
             </div>
-            <div className={styles.schedule}>
+            <div className={styles.section}>
                 <h3> <EventNoteIcon /> Schedule </h3>
                 <div className={styles.infoContainer}>
                     <div className={styles.infoItem}>
@@ -166,7 +166,7 @@ export default function Details({ id } : Props){
                     </div>
                 </div> 
             </div>
-            <div className={styles.schedule}>
+            <div className={styles.section}>
                 <h3> <InfoIcon /> About this Event </h3>
                 <div className={styles.infoContainer}>
                     <div className={styles.infoItem}>
@@ -194,7 +194,7 @@ export default function Details({ id } : Props){
                 </div>
             </div>
             { userType === 'organizer' && 
-                <div id={styles.stats}>
+                <div className={styles.section}>
                     <h3> <QueryStatsIcon /> Statistics </h3>
                     <div className={styles.infoContainer}>
                         <div className={styles.infoItem}>
@@ -210,9 +210,9 @@ export default function Details({ id } : Props){
                 </div>
             }
             { userType === 'organizer' && 
-                <div>
-                    <Link href={`/event/${id}/edit`}>Edit</Link>
-                    <button onClick={deleteEvent}>Delete</button>
+                <div className={styles['small-button-wrapper']}>
+                    <Link className={styles.buttonM} href={`/event/${id}/edit`}>Edit</Link>
+                    <button className={styles.buttonM} onClick={deleteEvent}>Delete</button>
                 </div>
             }
         </div>
