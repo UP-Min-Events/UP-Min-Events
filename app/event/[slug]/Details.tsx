@@ -1,7 +1,7 @@
 'use client'
 
 import styles from './page.module.css'
-import Link from 'next/link' 
+import Link from 'next/link'
 import { Inter } from 'next/font/google'
 
 import { useRouter } from 'next/navigation'
@@ -17,7 +17,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import Status from './Status'
 
-const inter = Inter({ subsets: ['latin']})
+const inter = Inter({ subsets: ['latin'] })
 
 interface Props {
     id: string,
@@ -36,41 +36,41 @@ interface Data {
     attendees: string[];
 }
 
-export default function Details({ id } : Props){
+export default function Details({ id }: Props) {
 
     const { userType } = useUserTypeContext()
     const router = useRouter()
 
-    const [data, setData] = useState<Data>({ 
-        id: "", 
-        name: "", 
-        desc: "", 
-        date: "", 
-        startTime: "", 
-        endTime: "", 
-        venue: "", 
-        host: "" , 
-        visibility: "", 
-        attendees: [], 
+    const [data, setData] = useState<Data>({
+        id: "",
+        name: "",
+        desc: "",
+        date: "",
+        startTime: "",
+        endTime: "",
+        venue: "",
+        host: "",
+        visibility: "",
+        attendees: [],
     })
 
     const [formattedDate, setFormattedDate] = useState<string>("");
-    
+
     const getDetails = async () => {
         const docRef = doc(db, 'events', id)
         const docSnap = await getDoc(docRef)
-        
-        setData(docSnap.data() as Data)
+
+        setData(docSnap.data() as Data);
     }
 
-    const deleteEvent = async () : Promise<void> => {
+    const deleteEvent = async (): Promise<void> => {
         const eventRef = doc(db, 'events', id)
         await deleteDoc(eventRef)
         router.push("/")
     }
 
     // Format date to Month Day, Year; OPTIMIZE this soon
-    const getDate = async () => {
+    const getDate = () => {
         // Format date to Month Day, Year
         const toFormatDate = new Date(data?.date)
 
@@ -80,9 +80,14 @@ export default function Details({ id } : Props){
 
     useEffect(() => {
         getDetails()
-        getDate()
     }, [])
-    
+
+    useEffect(() => {
+        if (data?.date !== "") {
+            getDate();
+        }
+    }, [data]);
+
     // Format time to 12-hour format; OPTIMIZE this in the future
     const formatTime = (time: string) => {
 
@@ -96,21 +101,21 @@ export default function Details({ id } : Props){
         const date = new Date()
         date.setHours(Number(time.split(":")[0]));
         date.setMinutes(Number(time.split(":")[1]));
-        
+
         return date.toLocaleTimeString("en-US", hourOptions);
     }
 
     return (
-        <div className={`${inter.className} ${styles.container}`}>    
+        <div className={`${inter.className} ${styles.container}`}>
             <div className={styles.nav}>
-                <Link href="/">        
-                    <ArrowBackIcon sx={{ scale: '150%', color: '#a70000', p: '0' }}/> 
+                <Link href="/">
+                    <ArrowBackIcon sx={{ scale: '150%', color: '#a70000', p: '0' }} />
                 </Link>
             </div>
-        
+
             <div className={styles.header}>
                 <div className={styles.eventNameContainer}>
-                    { data?.name === '' ?
+                    {data?.name === '' ?
                         <Skeleton animation='wave' width={220} height={70} />
                         :
                         <>
@@ -118,7 +123,7 @@ export default function Details({ id } : Props){
                         </>
                     }
                 </div>
-                <Status date = {data?.date} startTime = {data?.startTime} endTime = {data?.endTime} />
+                <Status date={data?.date} startTime={data?.startTime} endTime={data?.endTime} />
                 <div className={styles.divider}></div>
             </div>
             <div className={styles.schedule}>
@@ -126,7 +131,7 @@ export default function Details({ id } : Props){
                 <div className={styles.infoContainer}>
                     <div className={styles.infoItem}>
                         <p className={styles.infoLabel}>Date</p>
-                        { data?.date === '' ?
+                        {data?.date === '' ?
                             <Skeleton animation='wave' width={110} />
                             :
                             <div className={styles.infoData}>
@@ -136,7 +141,7 @@ export default function Details({ id } : Props){
                     </div>
                     <div className={styles.infoItem}>
                         <p className={styles.infoLabel}>Start Time</p>
-                        { data?.startTime === '' ? 
+                        {data?.startTime === '' ?
                             <Skeleton animation='wave' width={110} />
                             :
                             <div className={styles.infoData}>
@@ -146,7 +151,7 @@ export default function Details({ id } : Props){
                     </div>
                     <div className={styles.infoItem}>
                         <p className={styles.infoLabel}>End Time</p>
-                        { data?.endTime === '' ? 
+                        {data?.endTime === '' ?
                             <Skeleton animation='wave' width={110} />
                             :
                             <div className={styles.infoData}>
@@ -156,7 +161,7 @@ export default function Details({ id } : Props){
                     </div>
                     <div className={styles.infoItem}>
                         <p className={styles.infoLabel}>Venue</p>
-                        { data?.venue === '' ?
+                        {data?.venue === '' ?
                             <Skeleton animation='wave' width={110} />
                             :
                             <div className={styles.infoData}>
@@ -164,14 +169,14 @@ export default function Details({ id } : Props){
                             </div>
                         }
                     </div>
-                </div> 
+                </div>
             </div>
             <div className={styles.schedule}>
                 <h3> <InfoIcon /> About this Event </h3>
                 <div className={styles.infoContainer}>
                     <div className={styles.infoItem}>
                         <p className={styles.infoLabel}>Hosted by</p>
-                        { data?.host === '' ?
+                        {data?.host === '' ?
                             <Skeleton animation='wave' width={110} />
                             :
                             <div className={styles.infoData}>
@@ -183,7 +188,7 @@ export default function Details({ id } : Props){
                         <div className={styles.infoItem}>
                             <p className={styles.infoLabel}>Description</p>
                         </div>
-                        { data?.desc === '' ?
+                        {data?.desc === '' ?
                             <Skeleton animation='wave' width={220} height={300} />
                             :
                             <div>
@@ -193,7 +198,7 @@ export default function Details({ id } : Props){
                     </div>
                 </div>
             </div>
-            { userType === 'organizer' && 
+            {userType === 'organizer' &&
                 <div id={styles.stats}>
                     <h3> <QueryStatsIcon /> Statistics </h3>
                     <div className={styles.infoContainer}>
@@ -209,7 +214,7 @@ export default function Details({ id } : Props){
                     </div>
                 </div>
             }
-            { userType === 'organizer' && 
+            {userType === 'organizer' &&
                 <div>
                     <Link href={`/event/${id}/edit`}>Edit</Link>
                     <button onClick={deleteEvent}>Delete</button>
