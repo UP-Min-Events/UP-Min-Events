@@ -72,7 +72,6 @@ export default function Details({ id } : Props){
     // Format date to Month Day, Year; OPTIMIZE this soon
     const getDate = async () => {
         // Format date to Month Day, Year
-        const formatDate = data.date;
         const toFormatDate = new Date(data?.date)
 
         const dateOptions: Intl.DateTimeFormatOptions = { month: "long", day: "numeric", year: "numeric" };
