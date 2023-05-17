@@ -1,9 +1,8 @@
 .container {
-  margin: auto auto auto auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  height: calc(100vh - 4rem);
 }
 
 .headerContainer {
@@ -81,12 +80,13 @@
   display: flex;
   background-color: #a70000;
   color: white;
-  font-weight: bold;
   width: 100%;
   border-radius: 1rem;
-  height: 4em;
+  height: 3.5rem;
   align-items: center;
   justify-content: center;
   border: none;
-  margin-top: 2rem;
+  margin-top: auto;
+  font-size: 1.125rem;
+  font-weight: 600;
 }

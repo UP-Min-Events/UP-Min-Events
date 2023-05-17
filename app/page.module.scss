@@ -103,10 +103,11 @@
 
   .button-wrapper {
     width: 100%;
+    padding: 0 2rem;
     display: flex;
     position: fixed;
     justify-content: center;
-    bottom: 2em;
+    bottom: 2rem;
   }
 }
 
@@ -134,32 +135,39 @@
 }
 
 
-.buttonS {
+.button-menu {
   background-color: #a70000;
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 2rem;
   font-weight: bold;
-  width: 10vh;
-  height: 10vh;
-  border-radius: 1.5em;
+  width: 60%;
+  height: 3em; 
+  border-radius: 1em;
   border: none;
-  box-shadow: 0 0 5px 0 rgba(0,0,0,0.5);
 }
 
 .buttonL {
   display: flex;
   background-color: #a70000;
   color: white;
-  font-weight: bold;
-  width: 80vw;
-  border-radius: 1.75em;
-  height: 4em;
+  width: 100%;
+  border-radius: 1rem;
+  height: 3.5rem;
   align-items: center;
   justify-content: center;
   border: none;
-  box-shadow: 0 0 5px 0 rgba(0,0,0,0.5);
-  gap: 0.75em;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.2);
+  gap: 0.5rem;
 }
+
+.buttonL p {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+
+
 

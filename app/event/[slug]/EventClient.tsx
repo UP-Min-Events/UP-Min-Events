@@ -38,7 +38,7 @@ export default function EventClient({ id } : { id: string }) {
                 <div>
                     <Details id={id} />
                     { userType === 'organizer' && 
-                        <div className={styles.button}>
+                        <div className={styles['button-wrapper']}>
                             <button className={styles.buttonL} onClick={handleShowQR}>
                                 <QrCodeScannerIcon /> <h2> Show QR </h2>
                             </button> 
