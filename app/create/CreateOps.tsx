@@ -1,6 +1,5 @@
 'use client'
 
-import { Inter } from 'next/font/google'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { auth, db } from '../../firebaseConfig'
@@ -9,8 +8,6 @@ import { useAuthState } from 'react-firebase-hooks/auth'
 import Page1 from './Page1'
 import Page2 from './Page2'
 
-const inter = Inter({ subsets: ['latin'] })
-
 export default function Ops() {
 
     const router = useRouter()
@@ -18,6 +15,7 @@ export default function Ops() {
     const dbInstance = collection(db, 'events')
 
     const [page, setPage] = useState<number>(1)
+    const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false)
     const [eventName, setEventName] = useState<string>('')
     const [eventHost, setEventHost] = useState<string>('')
     const [eventDesc, setEventDesc] = useState<string>('')
@@ -34,7 +32,7 @@ export default function Ops() {
         setEventHost(e.target.value)
     }
 
-    const handleEventDescChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleEventDescChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setEventDesc(e.target.value)
     }
 
@@ -62,7 +60,17 @@ export default function Ops() {
         setPage(page + 1)
     }
 
+    const disableButton = () => {
+        setIsButtonDisabled(true)
+    }
+
     const createEvent = async () => {
+
+        if (eventName === '' || eventHost === '' || eventDesc === '' || eventDate === '' || eventTime === '' || eventVenue === '' || eventVisibility === '') {
+            alert('Please fill in all fields')
+            return
+        }
+
         const ref = await addDoc(dbInstance, {
             name: eventName,
             host: eventHost,
@@ -85,11 +93,12 @@ export default function Ops() {
         setEventVenue('')
         setEventVisibility('')
 
+        disableButton()
         router.push(`/event/${id}`)
     }
 
     return (
-        <div className={inter.className}>
+        <>
             {page === 1 ? 
                 <Page1 
                     nextPage={nextPage}
@@ -104,6 +113,7 @@ export default function Ops() {
                 <Page2 
                     createEvent={createEvent} 
                     prevPage={prevPage}
+                    isButtonDisabled={isButtonDisabled}
                     eventDate={eventDate}
                     eventTime={eventTime}
                     eventVenue={eventVenue}
@@ -114,6 +124,6 @@ export default function Ops() {
                     handleEventVisibilityChange={handleEventVisibilityChange}
                 />
             }
-        </div>
+        </>
     )
 }
