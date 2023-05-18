@@ -74,7 +74,6 @@ export default function Event({ id, name, date, startTime, endTime, venue }: Pro
         }
 
         // Get event status
-
         const eventDate = new Date(date + " " + startTime);
         const currentDate = new Date();
         const eventEndDate = new Date(date + " " + endTime);
