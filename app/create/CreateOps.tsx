@@ -20,7 +20,8 @@ export default function Ops() {
     const [eventHost, setEventHost] = useState<string>('')
     const [eventDesc, setEventDesc] = useState<string>('')
     const [eventDate, setEventDate] = useState<string>('')
-    const [eventTime, setEventTime] = useState<string>('')
+    const [eventStartTime, setEventStartTime] = useState<string>('')
+    const [eventEndTime, setEventEndTime] = useState<string>('')
     const [eventVenue, setEventVenue] = useState<string>('')
     const [eventVisibility, setEventVisibility] = useState<string>('')
 
@@ -40,8 +41,12 @@ export default function Ops() {
         setEventDate(e.target.value)
     }
 
-    const handleEventTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setEventTime(e.target.value)
+    const handleEventStartTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setEventStartTime(e.target.value)
+    }
+
+    const handleEventEndTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setEventEndTime(e.target.value)
     }
 
     const handleEventVenueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -76,7 +81,8 @@ export default function Ops() {
             host: eventHost,
             desc: eventDesc,
             date: eventDate,
-            time: eventTime,
+            startTime: eventStartTime,
+            endTime: eventEndTime,
             venue: eventVenue,
             visibility: eventVisibility,
             attendees: [],
@@ -89,7 +95,8 @@ export default function Ops() {
         setEventHost('')
         setEventDesc('')
         setEventDate('')
-        setEventTime('')
+        setEventStartTime('')
+        setEventEndTime('')
         setEventVenue('')
         setEventVisibility('')
 
@@ -115,11 +122,13 @@ export default function Ops() {
                     prevPage={prevPage}
                     isButtonDisabled={isButtonDisabled}
                     eventDate={eventDate}
-                    eventTime={eventTime}
+                    eventStartTime={eventStartTime}
+                    eventEndTime={eventEndTime}
                     eventVenue={eventVenue}
                     eventVisibility={eventVisibility}
                     handleEventDateChange={handleEventDateChange}
-                    handleEventTimeChange={handleEventTimeChange}
+                    handleEventStartTimeChange={handleEventStartTimeChange}
+                    handleEventEndTimeChange={handleEventEndTimeChange}
                     handleEventVenueChange={handleEventVenueChange}
                     handleEventVisibilityChange={handleEventVisibilityChange}
                 />

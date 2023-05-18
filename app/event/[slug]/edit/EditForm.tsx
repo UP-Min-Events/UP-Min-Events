@@ -16,7 +16,8 @@ interface Event {
     host: string;
     desc: string;
     date: string;
-    time: string;
+    startTime: string;
+    endTime: string;
     venue: string;
     visibility: string;
 }
@@ -29,7 +30,8 @@ export default function EditForm({ id } : { id : string }){
         host: '',
         desc: '',
         date: '',
-        time: '',
+        startTime: '',
+        endTime: '',
         venue: '',
         visibility: ''
     })
@@ -47,7 +49,8 @@ export default function EditForm({ id } : { id : string }){
                 host: data.host,
                 desc: data.desc,
                 date: data.date,
-                time: data.time,
+                startTime: data.startTime,
+                endTime: data.endTime,
                 venue: data.venue,
                 visibility: data.visibility
             }
@@ -138,7 +141,7 @@ export default function EditForm({ id } : { id : string }){
                 </div>
                 <div className={styles['item-wrapper']}>
                     <div className={styles.label}>
-                        <p>Time</p>
+                        <p>Start Time</p>
                     </div>
                     <div className={styles.input}>
                         { loading ? 
@@ -147,8 +150,25 @@ export default function EditForm({ id } : { id : string }){
                             <input 
                                 className={inter.className}
                                 type='time' 
-                                value={data.time}
-                                onChange={(e) => setData({ ...data, time: e.target.value })} 
+                                value={data.startTime}
+                                onChange={(e) => setData({ ...data, startTime: e.target.value })} 
+                            />
+                        }
+                    </div>
+                </div>
+                <div className={styles['item-wrapper']}>
+                    <div className={styles.label}>
+                        <p>End Time</p>
+                    </div>
+                    <div className={styles.input}>
+                        { loading ? 
+                            <Skeleton variant='text' width='100%' height='100%' animation='wave' />
+                            :
+                            <input 
+                                className={inter.className}
+                                type='time' 
+                                value={data.endTime}
+                                onChange={(e) => setData({ ...data, endTime: e.target.value })} 
                             />
                         }
                     </div>

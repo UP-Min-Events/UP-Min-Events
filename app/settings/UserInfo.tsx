@@ -53,7 +53,7 @@ export default function UserInfo(){
     return (
         <>
             {user && (
-                <div className={`${inter.className} ${styles.infoContainer}`}>
+                <div className={`${inter.className} ${styles.headerContainer}`}>
 
                     <div className={styles.nav}>
                         <Link href="/"> 
@@ -62,7 +62,6 @@ export default function UserInfo(){
                     </div>
 
                     <div className={styles.header}>
-                        <h2> Settings </h2>
                         <Image className={styles.img} src={user?.photoURL ?? ''} alt={user?.displayName || `User Avatar`} width="100" height="100" />
                         <h2> {fullName} </h2>
                         <p> {user.email} </p>

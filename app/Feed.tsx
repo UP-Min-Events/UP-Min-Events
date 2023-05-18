@@ -15,7 +15,8 @@ const inter = Inter({ subsets: ['latin']})
 interface Event {
     name: string;
     date: string;
-    time: string;
+    startTime: string;
+    endTime: string;
     venue: string;
     id: string;
 }
@@ -37,7 +38,8 @@ export default function Feed() {
             events.push({
                 name: doc.data().name,
                 date: doc.data().date,
-                time: doc.data().time,
+                startTime: doc.data().startTime,
+                endTime: doc.data().endTime,
                 venue: doc.data().venue,
                 id: doc.id
             })
@@ -52,7 +54,8 @@ export default function Feed() {
     return(
         <main>
             <div className={styles['header-wrapper']}>
-                <h1>Live Events</h1>    
+                <h1>Live Events</h1>  
+                <div className={styles.divider}></div>  
             </div>
             <div className={`${inter.className} ${styles.eventsContainer}`}>
                 {events.map((event) => (
@@ -61,7 +64,8 @@ export default function Feed() {
                         id={event.id}
                         name={event.name} 
                         date={event.date} 
-                        time={event.time}
+                        startTime={event.startTime}
+                        endTime={event.endTime}
                         venue={event.venue} 
                     />
                 ))}

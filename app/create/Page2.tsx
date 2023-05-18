@@ -10,11 +10,13 @@ interface Props {
     prevPage: () => void,
     isButtonDisabled: boolean,
     eventDate: string,
-    eventTime: string,
+    eventStartTime: string,
+    eventEndTime: string,
     eventVenue: string,
     eventVisibility: string,
     handleEventDateChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
-    handleEventTimeChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    handleEventStartTimeChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    handleEventEndTimeChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     handleEventVenueChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     handleEventVisibilityChange: (e: React.ChangeEvent<HTMLSelectElement>) => void,
 }
@@ -24,11 +26,13 @@ export default function Page2({
     prevPage,
     isButtonDisabled,
     eventDate,
-    eventTime,
+    eventStartTime,
+    eventEndTime,
     eventVenue,
     eventVisibility,
     handleEventDateChange,
-    handleEventTimeChange,
+    handleEventStartTimeChange,
+    handleEventEndTimeChange,
     handleEventVenueChange,
     handleEventVisibilityChange,
 } : Props ) {
@@ -71,14 +75,27 @@ export default function Page2({
                 </div>
                 <div className={styles.formItem}>
                     <div className={styles['label-wrapper']}>
-                        <p>Time</p>
+                        <p>Start Time</p>
+                    </div>
+                    <div className={styles['input-wrapper']}>
+                        <input
+                            className={styles['input-element']}
+                            type="time"
+                            value={eventStartTime}
+                            onChange={handleEventStartTimeChange}
+                        />
+                    </div>
+                </div>
+                <div className={styles.formItem}>
+                    <div className={styles['label-wrapper']}>
+                        <p>End Time</p>
                     </div>
                     <div className={styles['input-wrapper']}>
                         <input
                             className={`${styles['input-element']} ${inter.className}`}
                             type="time"
-                            value={eventTime}
-                            onChange={handleEventTimeChange}
+                            value={eventEndTime}
+                            onChange={handleEventEndTimeChange}
                         />
                     </div>
                 </div>

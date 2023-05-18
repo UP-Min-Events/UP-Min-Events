@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import styles from './page.module.scss'
+import { useState, useEffect } from 'react'
 
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 
@@ -7,17 +8,57 @@ interface Props {
     id: string,
     name: string,
     date: string,
-    time: string
+    startTime: string,
+    endTime: string,
     venue: string
 }
 
-export default function Event({ id, name, date, time, venue } : Props){
+export default function Event({ id, name, date, startTime, endTime, venue } : Props){
+    const [status, setStatus] = useState<string | null>(null);
+
+    // Format date to Month Day, Year
+    const toFormatDate = new Date(date)
+
+    const dateOptions: Intl.DateTimeFormatOptions = { month: "long", day: "numeric", year: "numeric" };
+    const formattedDate = new Intl.DateTimeFormat("en-US", dateOptions).format(toFormatDate);
+
+    // Format time to 12-hour format
+    const hourOptions: Intl.DateTimeFormatOptions = {
+        hour: "numeric",
+        minute: "numeric",
+        hour12: true,
+      };
+
+    const time = new Date()
+    time.setHours(Number(startTime.split(":")[0]));
+    time.setMinutes(Number(startTime.split(":")[1]));
+    
+    const time12Hour = time.toLocaleTimeString("en-US", hourOptions);
+
+    // Get event status
+    useEffect(() => {
+        console.log(startTime);
+        const eventDate = new Date(date + " " + startTime);
+        const currentDate = new Date();
+        const eventEndDate = new Date(date + " " + endTime);
+
+        if (currentDate >= eventDate && currentDate <= eventEndDate) {
+            setStatus("Ongoing");
+        } else if (currentDate < eventDate) {
+            setStatus("Upcoming");
+        } else {
+            setStatus("Finished");
+        } 
+        
+    }, [date, startTime, endTime]); 
+
     return (
         <Link className={styles.event} href={`/event/${id}`}>
             <div className={styles.eventDetails}>
                 <h2>{name}</h2>
-                <p>{date}, {time}</p>
+                <p className={styles['text-red']}>{formattedDate} {time12Hour}</p>
                 <p>{venue}</p>
+                <p>Status: {status}</p>
             </div>
 
             <div className={styles.eventAction}>
