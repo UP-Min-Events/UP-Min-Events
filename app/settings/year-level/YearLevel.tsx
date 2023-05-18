@@ -1,5 +1,8 @@
 'use client'
 
+import styles from '../page.module.css'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 
@@ -37,35 +40,44 @@ export default function YearLevel(){
 
     return (
         <div>
-            <div>
-                <Link href='/settings'>Back</Link>
-                <h1>Year Level</h1>
+            <div className={styles.nav}>
+                    <Link href="/settings"> 
+                        <ArrowBackIcon sx={{ scale: '125%', color: '#a70000', p: '0' }} /> 
+                    </Link> 
+                    <button className={styles['save-setting']}> Save </button>
             </div>
-            <div>
-                { toggle ?
-                    <div>
-                        <select value={input} onChange={e => setInput(e.target.value)} placeholder={input}>
-                            <option value='1'>1st Year</option>
-                            <option value='2'>2nd Year</option>
-                            <option value='3'>3rd Year</option>
-                            <option value='4'>4th Year</option>
-                        </select>
-                        <button onClick={() => {
-                            updateDetail()
-                            setToggle(false)
-                        }}>Save</button>
-                    </div>
-                    :
-                    <p onClick={() => setToggle(true)}>
-                        {
-                            input === '1' ? '1st Year' :
-                            input === '2' ? '2nd Year' :
-                            input === '3' ? '3rd Year' :
-                            input === '4' ? '4th Year' : 'No Data on Year Level'
+
+            <div className={styles['form-body']}>
+                <div className={styles['form-item']}>
+                    <p className={styles['input-label']}> Student Number </p>
+                    <div className={styles['input-wrapper']}>
+                        { toggle ?
+                            <div>
+                                <select className={styles['input-element']} value={input} onChange={e => setInput(e.target.value)} placeholder={input}>
+                                    <option value='1'>1st Year</option>
+                                    <option value='2'>2nd Year</option>
+                                    <option value='3'>3rd Year</option>
+                                    <option value='4'>4th Year</option>
+                                </select>
+                                <button onClick={() => {
+                                    updateDetail()
+                                    setToggle(false)
+                                }}>Save</button>
+                            </div>
+                            :
+                            <p onClick={() => setToggle(true)}>
+                                {
+                                    input === '1' ? '1st Year' :
+                                    input === '2' ? '2nd Year' :
+                                    input === '3' ? '3rd Year' :
+                                    input === '4' ? '4th Year' : 'No Data on Year Level'
+                                }
+                            </p>
                         }
-                    </p>
-                }
+                    </div>
+                </div>
             </div>
+
         </div>
     )
 }

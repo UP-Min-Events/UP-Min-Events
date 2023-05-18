@@ -1,5 +1,8 @@
 'use client'
 
+import styles from '../page.module.css'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { useUserTypeContext } from '../../providers/UserTypeProvider'
@@ -49,33 +52,42 @@ export default function College(){
  
     return (
         <div>
-            <div>
-                <Link href='/settings'>Back</Link>
-                <h1>College</h1>
+            <div className={styles.nav}>
+                    <Link href="/settings"> 
+                        <ArrowBackIcon sx={{ scale: '125%', color: '#a70000', p: '0' }} /> 
+                    </Link> 
+                    <button className={styles['save-setting']}> Save </button>
             </div>
-            <div>
-                { toggle ?
-                    <div>
-                        <select value={input} onChange={e => setInput(e.target.value)} placeholder={input}>
-                            <option value='csm'>College of Science and Mathematics</option>
-                            <option value='chss'>College of Humanities and Social Sciences</option>
-                            <option value='som'>School of Management</option>
-                        </select>
-                        <button onClick={() => {
-                            updateDetail()
-                            setToggle(false)
-                        }}>Save</button> 
-                    </div> 
-                    : 
-                    <p onClick={() => setToggle(true)}>
-                        {
-                            input === 'csm' ? 'College of Science and Mathematics' :
-                            input === 'chss' ? 'College of Humanities and Social Sciences' :
-                            input === 'som' ? 'School of Management' : 'No Data Available'
+
+            <div className={styles['form-body']}>
+                <div className={styles['form-item']}>
+                    <p className={styles['input-label']}> College </p>
+                    <div className={styles['input-wrapper']}>
+                        { toggle ?
+                            <div>
+                                <select className={styles['input-element']} value={input} onChange={e => setInput(e.target.value)} placeholder={input}>
+                                    <option value='csm'>College of Science and Mathematics</option>
+                                    <option value='chss'>College of Humanities and Social Sciences</option>
+                                    <option value='som'>School of Management</option>
+                                </select>
+                                <button onClick={() => {
+                                    updateDetail()
+                                    setToggle(false)
+                                }}>Save</button> 
+                            </div> 
+                            : 
+                            <p onClick={() => setToggle(true)}>
+                                {
+                                    input === 'csm' ? 'College of Science and Mathematics' :
+                                    input === 'chss' ? 'College of Humanities and Social Sciences' :
+                                    input === 'som' ? 'School of Management' : 'No Data Available'
+                                }
+                            </p> 
                         }
-                    </p> 
-                }
+                    </div>
+                </div>
             </div>
+
         </div>
     )
 }

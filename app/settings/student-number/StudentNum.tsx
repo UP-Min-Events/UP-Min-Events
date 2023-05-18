@@ -1,5 +1,8 @@
 'use client'
 
+import styles from '../page.module.css'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 
@@ -37,23 +40,32 @@ export default function StudentNum() {
 
     return (
         <div>
-            <div>
-                <Link href='/settings'>Back</Link>
-                <h1>Student Number</h1>
+            <div className={styles.nav}>
+                    <Link href="/settings"> 
+                        <ArrowBackIcon sx={{ scale: '125%', color: '#a70000', p: '0' }} /> 
+                    </Link> 
+                    <button className={styles['save-setting']}> Save </button>
             </div>
-            <div>
-                { toggle ?
-                    <div>
-                        <input value={input} onChange={e => setInput(e.target.value)} placeholder={input} />
-                        <button onClick={() => {
-                            updateDetail()
-                            setToggle(false)
-                        }}>Save</button>
+
+            <div className={styles['form-body']}>
+                <div className={styles['form-item']}>
+                    <p className={styles['input-label']}> Student Number </p>
+                    <div className={styles['input-wrapper']}>
+                        { toggle ?
+                            <div>
+                                <input className={styles['input-element']} value={input} onChange={e => setInput(e.target.value)} placeholder={input} />
+                                <button onClick={() => {
+                                    updateDetail()
+                                    setToggle(false)
+                                }}>Save</button>
+                            </div>
+                            :
+                            <p onClick={() => setToggle(true)}>{input}</p>
+                        }
                     </div>
-                    :
-                    <p onClick={() => setToggle(true)}>{input}</p>
-                }
+                </div>
             </div>
+
         </div>
     )
 }
