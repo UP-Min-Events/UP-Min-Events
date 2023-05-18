@@ -1,4 +1,4 @@
-import styles from './page.module.css'
+import styles from './page.module.scss'
 import { Inter } from 'next/font/google'
 import Link from 'next/link'
 
@@ -13,7 +13,7 @@ interface Props {
     eventDesc: string,
     handleEventNameChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     handleEventHostChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
-    handleEventDescChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    handleEventDescChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void,
 }
 
 export default function Page1({ 
@@ -29,47 +29,60 @@ export default function Page1({
     return(
         <div className={`${inter.className} ${styles.container}`}>
             <div className={styles.nav}>
-                <Link href="\">
+                <Link className={styles['button-container']} href="\">
                     <ArrowBackIcon sx={{ color: '#a70000', scale: '150%', p:'0' }}/>
                 </Link>
             </div>
-
             <div className={styles.header}>
                 <h1>Create Event</h1>
-                <div id={styles.progressBar}>
-                    <div id={styles.progress}> </div> <div id={styles.progress1}> </div> 
+                <div className={styles.progressBar}>
+                    <div className={styles.progress}></div>
+                    <div className={styles['progress-empty']}></div> 
                 </div>   
             </div>   
-
             <div className={styles.formBody}>
                 <div className={styles.formItem}>
-                    <p>Title</p>
-                    <input
-                        type="text"
-                        value={eventName}
-                        onChange={handleEventNameChange}
-                    />
+                    <div className={styles['label-wrapper']}>
+                        <p>Title</p>
+                    </div>
+                    <div className={styles['input-wrapper']}>
+                        <input
+                            className={styles['input-element']}
+                            type="text"
+                            value={eventName}
+                            onChange={handleEventNameChange}
+                        />
+                    </div>
                 </div>
                 <div className={styles.formItem}>
-                    <p>Host</p>
-                    <input
-                        type="text"
-                        value={eventHost}
-                        onChange={handleEventHostChange}
-                    />
+                    <div className={styles['label-wrapper']}>
+                        <p>Host</p>
+                    </div>
+                    <div className={styles['input-wrapper']}>
+                        <input
+                            className={styles['input-element']}
+                            type="text"
+                            value={eventHost}
+                            onChange={handleEventHostChange}
+                        />
+                    </div>
                 </div>
                 <div className={styles.formItem}>
-                    <p>Description</p>
-                    <input
-                        type="text"
-                        value={eventDesc}
-                        onChange={handleEventDescChange}
-                    />
+                    <div className={styles['label-wrapper']}>
+                        <p>Description</p>
+                    </div>
+                    <div className={styles['input-wrapper']}>
+                        <textarea
+                            className={`${styles['input-element']} ${inter.className}`}
+                            value={eventDesc}
+                            onChange={handleEventDescChange}
+                        />
+                    </div>
                 </div>
             </div>
 
-            <div className={styles.button}>
-                <button className={`${inter.className} ${styles.buttonM}`} onClick={nextPage}>NEXT</button>
+            <div className={styles['button-wrapper']}>
+                <button className={`${styles.button}`} onClick={nextPage}>NEXT</button>
             </div>
 
 
