@@ -55,6 +55,8 @@ export default function Details({ id }: Props) {
     })
 
     const [formattedDate, setFormattedDate] = useState<string>("");
+    const [formattedStartTime, setFormattedStartTime] = useState<string | undefined>(""); 
+    const [formattedEndTime, setFormattedEndTime] = useState<string | undefined>("");
 
     const getDetails = async () => {
         const docRef = doc(db, 'events', id)
@@ -78,16 +80,6 @@ export default function Details({ id }: Props) {
         setFormattedDate(new Intl.DateTimeFormat("en-US", dateOptions).format(toFormatDate));
     }
 
-    useEffect(() => {
-        getDetails()
-    }, [])
-
-    useEffect(() => {
-        if (data?.date !== "") {
-            getDate();
-        }
-    }, [data]);
-
     // Format time to 12-hour format; OPTIMIZE this in the future
     const formatTime = (time: string) => {
 
@@ -98,12 +90,33 @@ export default function Details({ id }: Props) {
             hour12: true,
         };
 
-        const date = new Date()
-        date.setHours(Number(time.split(":")[0]));
-        date.setMinutes(Number(time.split(":")[1]));
-
-        return date.toLocaleTimeString("en-US", hourOptions);
+        if (time && time !== "") {
+            const date = new Date()
+            date.setHours(Number(time.split(":")[0]));
+            date.setMinutes(Number(time.split(":")[1]));
+    
+            return date.toLocaleTimeString("en-US", hourOptions);
+        }
     }
+
+    useEffect(() => {
+        getDetails()
+    }, [])
+
+    useEffect(() => {
+        if (data && data?.date !== "") {
+            getDate();
+        }
+
+        if (data && data.startTime !== "") {
+            setFormattedStartTime(formatTime(data.startTime));
+        }
+
+        if (data && data.endTime !== "") {
+            setFormattedEndTime(formatTime(data.endTime));
+        }
+
+    }, [data]);
 
     return (
         <div className={`${inter.className} ${styles.container}`}>
@@ -145,7 +158,7 @@ export default function Details({ id }: Props) {
                             <Skeleton animation='wave' width={110} />
                             :
                             <div className={styles.infoData}>
-                                <p>{formatTime(data?.startTime)}</p>
+                                <p>{formattedStartTime}</p>
                             </div>
                         }
                     </div>
@@ -155,7 +168,7 @@ export default function Details({ id }: Props) {
                             <Skeleton animation='wave' width={110} />
                             :
                             <div className={styles.infoData}>
-                                <p>{formatTime(data?.endTime)}</p>
+                                <p>{formattedEndTime}</p>
                             </div>
                         }
                     </div>
