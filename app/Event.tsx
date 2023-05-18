@@ -72,10 +72,11 @@ export default function Event({ id, name, date, startTime, endTime, venue }: Pro
 
             setTime12Hour(time.toLocaleTimeString("en-US", hourOptions));
         }
+    }, []);
 
-        // Get event status
-        console.log(startTime, date);
-
+    // Get event status
+    useEffect(() => {
+        console.log(startTime);
         const eventDate = new Date(date + " " + startTime);
         const currentDate = new Date();
         const eventEndDate = new Date(date + " " + endTime);

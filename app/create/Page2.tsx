@@ -1,4 +1,4 @@
-import styles from './page.module.css'
+import styles from './page.module.scss'
 import { Inter } from 'next/font/google'
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
@@ -8,6 +8,7 @@ const inter = Inter({ subsets: ['latin'] })
 interface Props {
     createEvent: () => void,
     prevPage: () => void,
+    isButtonDisabled: boolean,
     eventDate: string,
     eventStartTime: string,
     eventEndTime: string,
@@ -23,6 +24,7 @@ interface Props {
 export default function Page2({ 
     createEvent, 
     prevPage,
+    isButtonDisabled,
     eventDate,
     eventStartTime,
     eventEndTime,
@@ -46,71 +48,95 @@ export default function Page2({
     return(
         <div className={`${inter.className} ${styles.container}`}>
             <div className={styles.nav}>
-                <ArrowBackIcon onClick={back} sx={{ color: '#a70000', scale: '150%', p:'0' }}/>
+                <div className={styles['button-container']}>
+                    <ArrowBackIcon onClick={back} sx={{ color: '#a70000', scale: '150%', p:'0' }}/>
+                </div>
             </div>
-
             <div className={styles.header}>
                 <h1>Create Event</h1>
-                <div id={styles.progressBar}>
-                    <div id={styles.progress}> </div> <div id={styles.progress}> </div> 
+                <div className={styles.progressBar}>
+                    <div className={styles.progress}></div> 
+                    <div className={styles.progress}></div>
                 </div>   
             </div>   
-
             <div className={styles.formBody}>
                 <div className={styles.formItem}>
-                    <p>Date</p>
-                    <input
-                        type="date"
-                        value={eventDate}
-                        onChange={handleEventDateChange}
-                    />
+                    <div className={styles['label-wrapper']}>
+                        <p>Date</p>
+                    </div>
+                    <div className={`${styles['input-wrapper']} ${inter.className}`}>
+                        <input
+                            className={styles['input-element']}
+                            type="date"
+                            value={eventDate}
+                            onChange={handleEventDateChange}
+                        />
+                    </div>
                 </div>
                 <div className={styles.formItem}>
-                    <p>Start Time</p>
-                    <input
-                        type="time"
-                        value={eventStartTime}
-                        onChange={handleEventStartTimeChange}
-                    />
+                    <div className={styles['label-wrapper']}>
+                        <p>Start Time</p>
+                    </div>
+                    <div className={styles['input-wrapper']}>
+                        <input
+                            className={styles['input-element']}
+                            type="time"
+                            value={eventStartTime}
+                            onChange={handleEventStartTimeChange}
+                        />
+                    </div>
                 </div>
                 <div className={styles.formItem}>
-                    <p>End Time</p>
-                    <input
-                        type="time"
-                        value={eventEndTime}
-                        onChange={handleEventEndTimeChange}
-                    />
+                    <div className={styles['label-wrapper']}>
+                        <p>End Time</p>
+                    </div>
+                    <div className={styles['input-wrapper']}>
+                        <input
+                            className={`${styles['input-element']} ${inter.className}`}
+                            type="time"
+                            value={eventEndTime}
+                            onChange={handleEventEndTimeChange}
+                        />
+                    </div>
                 </div>
                 <div className={styles.formItem}>
-                    <p>Venue</p>
-                    <input 
-                        type="text"
-                        value={eventVenue}
-                        onChange={handleEventVenueChange} 
-                    />
+                    <div className={styles['label-wrapper']}>
+                        <p>Venue</p>
+                    </div>
+                    <div className={styles['input-wrapper']}>
+                        <input
+                            className={styles['input-element']}
+                            type="text"
+                            value={eventVenue}
+                            onChange={handleEventVenueChange} 
+                        />
+                    </div>
                 </div>
                 <div className={styles.formItem}>
-                    <p>Population Limit</p>
-                    <input
-                        type="number"
-                    />
-                </div>
-                <div className={styles.formItem}>
-                    <p>Visibility</p>
-                    <select value={eventVisibility} onChange={handleEventVisibilityChange}>
-                        <option value="" selected disabled hidden></option>
-                        <option value="Public">Public</option>
-                        <option value="Private">Private</option>
-                    </select>
-                </div>
-                <div className={styles.formItem}>
-                    <p>Restrictions</p>
-                    <input type="text" />
+                    <div className={styles['label-wrapper']}>
+                        <p>Visibility</p>
+                    </div>
+                    <div className={styles['input-wrapper']}>
+                        <select
+                            className={styles['input-element']} 
+                            value={eventVisibility} 
+                            onChange={handleEventVisibilityChange}
+                        >
+                            <option value="Private" selected>Private</option>
+                            <option value="Public">Public</option>
+                        </select>
+                    </div>
                 </div>
             </div>
 
-            <div className={styles.button}>
-                <button className={`${inter.className} ${styles.buttonM}`} onClick={finish}>FINISH</button>
+            <div className={styles['button-wrapper']}>
+                <button 
+                    className={`${inter.className} ${styles.button}`} 
+                    onClick={finish}
+                    disabled={isButtonDisabled}
+                >
+                    FINISH
+                </button>
             </div>
 
 
