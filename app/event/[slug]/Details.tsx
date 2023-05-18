@@ -187,7 +187,7 @@ export default function Details({ id }: Props) {
             <div className={styles.section}>
                 <h3> <InfoIcon /> About this Event </h3>
                 <div className={styles.infoContainer}>
-                    <div className={styles.infoItem}>
+                    <div className={styles.infoItem}>   
                         <p className={styles.infoLabel}>Hosted by</p>
                         {data?.host === '' ?
                             <Skeleton animation='wave' width={110} />
@@ -197,19 +197,17 @@ export default function Details({ id }: Props) {
                             </div>
                         }
                     </div>
-                    <div>
-                        <div className={styles.infoItem}>
-                            <p className={styles.infoLabel}>Description</p>
+                    <div className={styles.infoItem}>
+                        <p className={styles.infoLabel}>Description</p>
                         </div>
                         {data?.desc === '' ?
                             <Skeleton animation='wave' width={220} height={300} />
                             :
                             <div>
-                                <p>{data?.desc}</p>
+                                <p className={styles.desc}>{data?.desc}</p>
                             </div>
                         }
                     </div>
-                </div>
             </div>
             { userType === 'organizer' && 
                 <div className={styles.section}>

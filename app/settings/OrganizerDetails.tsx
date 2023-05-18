@@ -29,6 +29,26 @@ export default function OrganizerDetails() {
                     </Link>
                 </div>
             </div>
+            <div className={styles.infoBox}>
+                <div className={styles.item}>
+                    About
+                    <Link href="/settings/about">
+                        <ArrowForwardIosIcon sx={{ color: '#a70000', scale: '0.75' }}/>
+                    </Link>
+                </div>
+                <div className={styles.item}>
+                    Notifications
+                    <Link href="/settings/notifications">
+                        <ArrowForwardIosIcon sx={{ color: '#a70000', scale: '0.75' }}/>
+                    </Link>
+                </div>
+                <div className={styles['item-bottom']}>
+                    Privacy and Safety
+                    <Link href="/settings/privacy-safety">
+                        <ArrowForwardIosIcon sx={{ color: '#a70000', scale: '0.75' }}/>
+                    </Link>
+                </div>
+            </div>
         </div>
     )
 }
