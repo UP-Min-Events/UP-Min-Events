@@ -49,6 +49,12 @@ export default function UserDetails(){
                     </Link>
                 </div>
                 <div className={styles.item}>
+                    Account Setting
+                    <Link href="/settings/account-setting">
+                        <ArrowForwardIosIcon sx={{ color: '#a70000', scale: '0.75' }}/>
+                    </Link>
+                </div>
+                <div className={styles.item}>
                     Notifications
                     <Link href="/settings/notifications">
                         <ArrowForwardIosIcon sx={{ color: '#a70000', scale: '0.75' }}/>

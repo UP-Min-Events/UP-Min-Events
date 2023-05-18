@@ -71,7 +71,7 @@ export default function Ops() {
 
     const createEvent = async () => {
 
-        if (eventName === '' || eventHost === '' || eventDesc === '' || eventDate === '' || eventTime === '' || eventVenue === '' || eventVisibility === '') {
+        if (eventName === '' || eventHost === '' || eventDesc === '' || eventDate === '' || eventStartTime === '' || eventEndTime === '' || eventVenue === '' || eventVisibility === '') {
             alert('Please fill in all fields')
             return
         }
