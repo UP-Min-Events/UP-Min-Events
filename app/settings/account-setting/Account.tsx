@@ -1,17 +1,23 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import styles from '../page.module.css'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import Link from 'next/link'
+
+import { useState } from 'react'
 import { auth, db } from '../../../firebaseConfig'
-import { collection, doc, getDoc, query, where, DocumentSnapshot, DocumentReference, DocumentData, deleteDoc, getDocs } from 'firebase/firestore'
+import { collection, doc, getDoc, query, DocumentSnapshot, DocumentReference, DocumentData, deleteDoc, getDocs } from 'firebase/firestore'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useUserTypeContext } from "../../providers/UserTypeProvider"
 import { useRouter } from 'next/navigation'
 
+
 const Account = () => {
-    const [user] = useAuthState(auth);  
+    const [user] = useAuthState(auth);
     const { userType } = useUserTypeContext();
     const router = useRouter();
-    
+    const id = user?.uid;
+
     const SignOut = () => {
         auth.signOut();
         router.push("/login")
@@ -23,7 +29,7 @@ const Account = () => {
         const querySnapshot = await getDocs(docRef);
 
         querySnapshot.forEach((doc) => {
-            if (doc.data().owner === user!.uid) {
+            if (doc.data().owner === id) {
                 deleteDoc(doc.ref);
             }
         });
@@ -32,11 +38,11 @@ const Account = () => {
     const deleteUserType = () => {
         localStorage.removeItem("userType");
     }
-    
+
     // Delete User
     const deleteUser = async (): Promise<void> => {
         const type = userType + "s";
-        const docRef: DocumentReference<DocumentData> = doc(db, type, user!.uid); 
+        const docRef: DocumentReference<DocumentData> = doc(db, type, `${id}`);
         await deleteDoc(docRef);
 
         type === "organizers" && deleteEvent();
@@ -44,13 +50,13 @@ const Account = () => {
         SignOut();
     };
 
-    useEffect(() => {
-        console.log(userType);
-        // console.log(getData());
-    }, [])
-
     return (
         <>
+            <div className={styles.nav}>
+                <Link href="/settings">
+                    <ArrowBackIcon sx={{ scale: '125%', color: '#a70000', p: '0' }} />
+                </Link>
+            </div>
             <button onClick={() => deleteUser()}>Delete Account</button>
         </>
     )
