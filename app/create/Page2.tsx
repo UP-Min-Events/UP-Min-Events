@@ -1,5 +1,6 @@
 import styles from './page.module.scss'
 import { Inter } from 'next/font/google'
+import Link from 'next/link'
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 
@@ -122,6 +123,7 @@ export default function Page2({
                             value={eventVisibility} 
                             onChange={handleEventVisibilityChange}
                         >
+                            <option value="" selected disabled hidden></option>
                             <option value="Private" selected>Private</option>
                             <option value="Public">Public</option>
                         </select>
@@ -129,15 +131,17 @@ export default function Page2({
                 </div>
             </div>
 
-            <div className={styles['button-wrapper']}>
-                <button 
-                    className={`${inter.className} ${styles.button}`} 
-                    onClick={finish}
-                    disabled={isButtonDisabled}
-                >
-                    FINISH
-                </button>
-            </div>
+            <Link href="/">
+                <div className={styles['button-wrapper']}>
+                    <button 
+                        className={`${inter.className} ${styles.button}`} 
+                        onClick={finish}
+                        disabled={isButtonDisabled}
+                    >
+                        FINISH
+                    </button>
+                </div>
+            </Link>
 
 
         </div>

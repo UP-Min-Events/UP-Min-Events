@@ -3,6 +3,7 @@
 import styles from './page.module.scss'
 import { Inter } from 'next/font/google'
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 
 import { db } from '../../../../firebaseConfig'
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
@@ -23,6 +24,8 @@ interface Event {
 }
 
 export default function EditForm({ id } : { id : string }){
+
+    const router = useRouter()
 
     const [loading, setLoading] = useState<boolean>(true)
     const [data, setData] = useState<Event>({
@@ -62,10 +65,7 @@ export default function EditForm({ id } : { id : string }){
     }, [])
 
     return (
-        <form 
-            className={`${styles['form-wrapper']} ${inter.className}`}
-            onSubmit={updateDetails}
-        >
+        <div className={`${styles['form-wrapper']} ${inter.className}`}>
             <section className={styles.section}> 
                 <div className={styles['item-wrapper']}>
                     <div className={styles.label}>
@@ -212,8 +212,11 @@ export default function EditForm({ id } : { id : string }){
                 </div>
             </section>
             <div className={styles['save-wrapper']}>
-                <button type='submit'>Save</button>
+                <button onClick={() => {
+                    updateDetails()
+                    router.push(`/event/${id}`)
+                }}>Save</button>
             </div>
-        </form>
+        </div>
     )
 }

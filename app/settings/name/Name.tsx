@@ -85,7 +85,6 @@ export default function Name() {
 
             <div className={styles['form-body']}>
                 <div className={styles['form-section']}>
-
                     <div className={styles['form-item']}>
                         <p className={styles['input-label']}> First Name </p>
                         <div className={styles['input-wrapper']}>

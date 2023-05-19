@@ -172,12 +172,12 @@ export default function Details({ id }: Props) {
                             </div>
                         }
                     </div>
-                    <div className={styles.infoItem}>
+                    <div className={styles.bottomInfoItem}>
                         <p className={styles.infoLabel}>Venue</p>
                         {data?.venue === '' ?
                             <Skeleton animation='wave' width={110} />
                             :
-                            <div className={styles.infoData}>
+                            <div className={styles.InfoData}>
                                 <p>{data?.venue}</p>
                             </div>
                         }
@@ -197,13 +197,13 @@ export default function Details({ id }: Props) {
                             </div>
                         }
                     </div>
-                    <div className={styles.infoItem}>
+                    <div className={styles.bottomInfoItem}>
                         <p className={styles.infoLabel}>Description</p>
                         </div>
                         {data?.desc === '' ?
                             <Skeleton animation='wave' width={220} height={300} />
                             :
-                            <div>
+                            <div className={styles.InfoData}>
                                 <p className={styles.desc}>{data?.desc}</p>
                             </div>
                         }
@@ -216,9 +216,9 @@ export default function Details({ id }: Props) {
                         <div className={styles.infoItem}>
                             <b>Attendees</b> {data?.attendees.length}
                         </div>
-                        <div className={styles.infoItem}>
+                        <div className={styles.bottomInfoItem}>
                             <p className={styles.infoLabel}>Visibility</p>
-                            <div className={styles.infoData}>
+                            <div className={styles.InfoData}>
                                 <p>{data?.visibility}</p>
                             </div>
                         </div>
@@ -228,7 +228,7 @@ export default function Details({ id }: Props) {
             { userType === 'organizer' && 
                 <div className={styles['small-button-wrapper']}>
                     <Link className={styles.buttonM} href={`/event/${id}/edit`}>Edit</Link>
-                    <button className={styles.buttonM} onClick={deleteEvent}>Delete</button>
+                    <button className={styles.buttonM} href="/" onClick={deleteEvent}>Delete</button>
                 </div>
             }
         </div>

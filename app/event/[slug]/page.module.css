@@ -79,6 +79,14 @@
     margin-bottom: 0.75em;
 }
 
+.bottomInfoItem {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: justify;
+    margin-bottom: none;
+}
+
 .infoLabel {
     font-weight: 700;
 }
