@@ -1,5 +1,5 @@
 import LoginOps from './LoginOps'
-import upLogo from '../../public/uplogo.png'
+import upLogo from '@/public/uplogo.png'
 import styles from './page.module.css'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
