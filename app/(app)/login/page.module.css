@@ -1,13 +1,4 @@
-.container {
-    margin: auto auto auto auto;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.loginHeader {
+.login-header {
     display: flex;
     flex-direction: column;
     position: relative;
@@ -16,9 +7,15 @@
     width: 100%;
 }
 
-.loginHeader p {
-    color: #a70000;
-}
+    .login-header h1 {
+        font-size: 2.5rem;
+        font-weight: 900;
+    }
+
+    .login-header p {
+        color: #a70000;
+        font-weight: 500;
+    }
 
 .logo {
     display: flex;
@@ -28,7 +25,7 @@
     margin-top: 20%;
 }
 
-.loginBody {
+.login-body {
     display: flex;
     flex-direction: column;
     gap: 0.5em;
@@ -40,21 +37,22 @@
     margin-top: 2.5em;
 }
 
-.loginBody p {
-    scale: 0.8;
-}
+    .login-body p {
+        font-size: 1rem;
+    }
 
-.buttonM {
+.login-button {
     display: flex;
     background-color: #a70000;
     color: white;
-    font-weight: bold;
     width: 60%;
     border-radius: 1em;
-    height: 3em;
+    height: 2.75rem;
     align-items: center;
     justify-content: center;
     border: none;
+    font-size: 1rem;
+    font-weight: 600;
 }
 
 
