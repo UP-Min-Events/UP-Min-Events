@@ -90,14 +90,16 @@ export default function Event({ id, name, date, startTime, endTime, venue }: Pro
 
     return (
         <Link className={styles.event} href={`/event/${id}`}>
-            <div className={styles.eventDetails}>
+            <div className={styles['event-details']}>
                 <h2>{name}</h2>
                 <p className={styles['text-red']}>{formattedDate} | {time12Hour}</p>
                 <p>{venue}</p>
-                <p>Status: {status}</p>
+                <p className={styles['status-wrapper']}> 
+                    <div className={styles['event-status']}> {status} </div>
+                </p>
             </div>
 
-            <div className={styles.eventAction}>
+            <div className={styles['event-arrow']}>
                 <KeyboardDoubleArrowRightIcon sx={{ scale: '250%', color: '#a70000' }} />
             </div>
         </Link>

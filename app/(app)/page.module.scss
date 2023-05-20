@@ -42,6 +42,36 @@
     }
   }
 
+  .filter-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: space-between;
+    width: 100%;
+    overflow-x: scroll;
+    
+    .filter-chip { 
+      width: 4.5rem;
+      padding: 0.25rem 0.5rem;
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 1rem;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    /* ayaw niya magwork if nest; for testing only */
+    .filter-chip-active {
+      width: 4.5rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 1rem;
+      text-align: center;
+      font-weight: 500;
+      background-color: #a70000;
+      color: white;
+    }
+    
+  }
+
   main {
     width: 100%;
 
@@ -62,7 +92,7 @@
       }
     }
 
-    .eventsContainer {
+    .event-feed-wrapper {
       display: flex;
       flex-direction: column;
       gap: 1rem;
@@ -78,7 +108,7 @@
         padding: 1rem;
         text-align: left;
 
-        .eventDetails {
+        .event-details {
           display: flex;
           flex-direction: column;
           width: 80%;
@@ -95,6 +125,15 @@
 
           p {
             height: 1.25rem;
+          }
+
+          .status-wrapper {
+            display: flex;
+            flex-direction: row;
+
+            .event-status {
+              font-weight: 500;
+            }
           }
         }
       }
@@ -116,7 +155,7 @@
   font-weight: 500;
 }
 
-.eventAction {
+.event-arrow {
   display: flex;
   position: relative;
   width: 20%;
@@ -134,17 +173,16 @@
   align-items: center;
 }
 
-
 .button-menu {
   background-color: #a70000;
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
+  gap: 3rem;
   font-weight: bold;
-  width: 60%;
-  height: 3em; 
+  width: 80%;
+  height: 3.75rem; 
   border-radius: 1em;
   border: none;
 }
