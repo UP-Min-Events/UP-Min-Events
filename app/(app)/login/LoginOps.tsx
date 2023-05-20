@@ -83,9 +83,9 @@ export default function LoginOps(){
             <div className={`${styles['login-header']} ${inter.className}`}>
                 { isLoading ?
                     <>
-                        <Skeleton animation='wave' width={175} height={142} />
-                        <Skeleton animation='wave' width={70} />
-                        <Skeleton animation='wave' width={110} />
+                        <Skeleton animation='wave' width={175} height={225} />
+                        <Skeleton animation='wave' width={125} height={80} />
+                        <Skeleton animation='wave' width={175} />
                     </> 
                  : 
                     <>
@@ -97,19 +97,29 @@ export default function LoginOps(){
             </div>
 
             <div className={`${styles['login-body']} ${inter.className}`}>
-                <p>Log in as:</p>
-                <button className={`${inter.className} ${styles['login-button']}`} onClick={() => {
-                    updateUserType('attendee')
-                    SignIn()
-                }}> 
-                    Attendee
-                </button>
-                <button className={`${inter.className} ${styles['login-button']}`} onClick={() => {
-                    updateUserType('organizer')
-                    SignIn()
-                }}> 
-                    Organizer
-                </button>
+                { isLoading ?
+                    <>
+                        <Skeleton animation='wave' width={80} />
+                        <Skeleton animation='wave' width={200} height={70} />
+                        <Skeleton animation='wave' width={200} height={70} />
+                    </>
+                : 
+                    <>
+                        <p>Log in as:</p>
+                        <button className={`${inter.className} ${styles['login-button']}`} onClick={() => {
+                            updateUserType('attendee')
+                            SignIn()
+                        }}> 
+                            Attendee
+                        </button>
+                        <button className={`${inter.className} ${styles['login-button']}`} onClick={() => {
+                            updateUserType('organizer')
+                            SignIn()
+                        }}> 
+                            Organizer
+                        </button>
+                    </>
+                }
             </div>
         </div>           
     )
