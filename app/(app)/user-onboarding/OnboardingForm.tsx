@@ -1,6 +1,6 @@
 'use client'
 
-import styles from './page.module.css'
+import styles from './page.module.scss'
 import Link from 'next/link'
 import Attendee from './Attendee'
 import { Inter } from 'next/font/google'
@@ -66,11 +66,9 @@ export default function OnboardingForm() {
                     <ArrowBackIcon sx={{ color: '#a70000', scale: '150%', p: '0', }}/>
                 </Link>
             </div>
-
             <div className={styles.header}>
                 <h2>Let&apos;s get to know you.</h2>
             </div>
-
             {userType === 'attendee' ?
                 <Attendee
                     firstName={firstName} setFirstName={setFirstName}
@@ -89,28 +87,32 @@ export default function OnboardingForm() {
                 />
 
             }
-
-            <button className={styles.buttonL} 
-                onClick={() => {
-                    const requiredFieldsAttendee = [firstName, lastName, studentNumber, yearLevel, college, program];
-                    const requiredFieldsOrganizer = [firstName, lastName, college];
-                    
-                    if (
-                        userType === 'attendee' && requiredFieldsAttendee.every(field => field.trim() !== '')
-                    ) {
-                        updateInfo();
-                    } else if (
-                        userType === 'organizer' && requiredFieldsOrganizer.every(field => field.trim() !== '') &&
-                        affiliatedOrganization.length > 0
-                    ) {
-                        updateInfo();
-                    } else {
-                        alert('Please fill in all the fields.');
-                    }
-                }}
-            >
-                Finish
-            </button>
+            <div className={styles['terms-cont']}>
+                <input type="checkbox" /> I agree with the Terms and Conditions.
+            </div>
+            <div className={styles['button-container']}>
+                <button className={styles.buttonL} 
+                    onClick={() => {
+                        const requiredFieldsAttendee = [firstName, lastName, studentNumber, yearLevel, college, program];
+                        const requiredFieldsOrganizer = [firstName, lastName, college];
+                        
+                        if (
+                            userType === 'attendee' && requiredFieldsAttendee.every(field => field.trim() !== '')
+                        ) {
+                            updateInfo();
+                        } else if (
+                            userType === 'organizer' && requiredFieldsOrganizer.every(field => field.trim() !== '') &&
+                            affiliatedOrganization.length > 0
+                        ) {
+                            updateInfo();
+                        } else {
+                            alert('Please fill in all the fields.');
+                        }
+                    }}
+                >
+                    Finish
+                </button>
+            </div>
 
         </div>
     )

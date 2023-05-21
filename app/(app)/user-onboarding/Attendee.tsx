@@ -1,4 +1,4 @@
-import styles from './page.module.css'
+import styles from './page.module.scss'
 
 interface Props {
     firstName: string;
@@ -118,9 +118,7 @@ export default function Attendee({
                     
                 </select>
             </div>
-            <div id={styles.terms}>
-                <input type="checkbox" /> I agree with the Terms and Conditions.
-            </div>
+            
         </div>
     )
 }
