@@ -1,8 +1,8 @@
 'use client'
 
 import styles from './page.module.scss'
-import Link from 'next/link'
 import Attendee from './Attendee'
+import Organizer from './Organizer'
 import { Inter } from 'next/font/google'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -12,8 +12,7 @@ import { auth, db } from '../../../firebaseConfig'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { doc, updateDoc } from 'firebase/firestore'
 
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import Organizer from './Organizer'
+import { Skeleton } from '@mui/material'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -61,34 +60,44 @@ export default function OnboardingForm() {
 
     return (
         <div className={`${inter.className} ${styles.form}`}>
-            <div className={styles.nav}>
-                <Link href="/">
-                    <ArrowBackIcon sx={{ color: '#a70000', scale: '150%', p: '0', }}/>
-                </Link>
-            </div>
             <div className={styles.header}>
-                <h2>Let&apos;s get to know you.</h2>
+                <h1>Let&apos;s get to know you.</h1>
             </div>
-            {userType === 'attendee' ?
-                <Attendee
-                    firstName={firstName} setFirstName={setFirstName}
-                    lastName={lastName} setLastName={setLastName}
-                    studentNumber={studentNumber} setStudentNumber={setStudentNumber}
-                    yearLevel={yearLevel} setYearLevel={setYearLevel}
-                    college={college} setCollege={setCollege}
-                    program={program} setProgram={setProgram}
-                />
-                :
-                <Organizer
-                    firstName={firstName} setFirstName={setFirstName}
-                    lastName={lastName} setLastName={setLastName}
-                    college={college} setCollege={setCollege}
-                    affiliatedOrganization={affiliatedOrganization} setAffiliatedOrganization={setAffiliatedOrganization}
-                />
+            <div className={styles.formBody}>
+                {!userType ? 
+                    <Skeleton variant="rectangular" animation='wave' width="100%" height="26.1rem" />
+                    :
+                    <>
+                        {userType === 'attendee' ?
+                            <Attendee
+                                firstName={firstName} setFirstName={setFirstName}
+                                lastName={lastName} setLastName={setLastName}
+                                studentNumber={studentNumber} setStudentNumber={setStudentNumber}
+                                yearLevel={yearLevel} setYearLevel={setYearLevel}
+                                college={college} setCollege={setCollege}
+                                program={program} setProgram={setProgram}
+                            />
+                            :
+                            <Organizer
+                                firstName={firstName} setFirstName={setFirstName}
+                                lastName={lastName} setLastName={setLastName}
+                                college={college} setCollege={setCollege}
+                                affiliatedOrganization={affiliatedOrganization} setAffiliatedOrganization={setAffiliatedOrganization}
+                            />
 
-            }
+                        }
+                    </>
+                }
+            </div>
             <div className={styles['terms-cont']}>
-                <input type="checkbox" /> I agree with the Terms and Conditions.
+                <div className={styles['input-cont']}>
+                    <input type="checkbox" /> 
+                </div>
+                <div className={styles['content-cont']}>
+                    <p>
+                        I agree with the Terms and Conditions.
+                    </p>
+                </div>
             </div>
             <div className={styles['button-container']}>
                 <button className={styles.buttonL} 

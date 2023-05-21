@@ -30,7 +30,7 @@ export default function Attendee({
     setProgram
 } : Props ){
     return (
-        <div className={styles.formBody}>
+        <>
             <div className={styles.formItem}>
                 <p>First Name</p>
                 <input 
@@ -119,6 +119,6 @@ export default function Attendee({
                 </select>
             </div>
             
-        </div>
+        </>
     )
 }

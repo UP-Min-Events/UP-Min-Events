@@ -49,7 +49,7 @@ export default function Organizer({
   };
 
   return (
-    <div className={`${inter.className} ${styles.formBody}`}>
+    <>
       <div className={styles.formItem}>
         <p>First Name</p>
         <input
@@ -103,6 +103,6 @@ export default function Organizer({
           <button onClick={handleAddOrganization}>Add Organization</button>
         </div>
       </div>
-    </div>
+    </>
   );
 }

@@ -2,18 +2,13 @@
     height: calc(100vh - 3rem);
     display: flex;
     flex-direction: column;
-    
-    .nav {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        width: 100%;
-        align-items: center;
-    }
 
     .header {
-        display: flex;
-        padding: 0.5rem;
+        padding: 1rem 0;
+
+        h1 {
+            font-size: 1.75rem;
+        }
     }
 
     .formBody {
@@ -21,13 +16,16 @@
         flex-direction: column;
         gap: 0.75rem;
         align-items: center;
-        padding: 0.5rem;
         
         .formItem {
             display: flex;
             flex-direction: column;
             width: 100%;
             gap: 0.25rem;
+
+            p {
+                font-weight: 500;
+            }
 
             input, select {
                 color: black;
@@ -57,21 +55,32 @@
 
     .terms-cont {
         display: flex;
-        gap: 0.25rem;
-        padding: 0.5rem;
+        align-content: center;
+        gap: 0.5rem;
+        margin-top: 1rem;
 
-        input {
-            height: 100%;
+        .input-cont {
+            display: flex;
+            align-items: center;
+
+            input {
+                height: 100;
+                transform: scale(1.2);
+            }
+
+            input:hover {
+                cursor: pointer;
+            }
         }
 
-        input:hover {
-            cursor: pointer;
+        .content-cont {
+
         }
     }
 
     .button-container {
         margin-top: auto;
-        padding: 0 0.5rem;
+        
         button {
             background-color: #a70000;
             color: white;
