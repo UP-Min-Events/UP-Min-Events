@@ -76,7 +76,7 @@
   padding: 0.75em 1em 0.75em 1em;
 }
 
-.buttonL {
+.button-signout {
   display: flex;
   background-color: #a70000;
   color: white;
@@ -89,6 +89,7 @@
   margin-top: auto;
   font-size: 1.125rem;
   font-weight: 600;
+  gap: 0.5rem;
 }
 
 .form-body {

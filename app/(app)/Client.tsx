@@ -86,20 +86,6 @@ export default function Client() {
                             }
                         </div>
                     </Link>
-                    <div className={styles['filter-wrapper']}>
-                        <div className={styles['filter-chip-active']}>
-                            All
-                        </div>
-                        <div className={styles['filter-chip']}>
-                            Live
-                        </div>
-                        <div className={styles['filter-chip']}>
-                            Future
-                        </div>
-                        <div className={styles['filter-chip']}>
-                            Past
-                        </div>
-                    </div>
                     <Feed />  
                     { userType === 'attendee' ? <ScanButton /> : <CreateButton /> }
 

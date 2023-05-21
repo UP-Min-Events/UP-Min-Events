@@ -103,19 +103,12 @@ export default function Scan(){
             <div className={styles['content-wrapper']}>
                 <div className={styles.nav}>
                     <Link href="/">
-                        <ArrowBackIcon /> 
+                        <ArrowBackIcon sx={{scale: '150%', p: '0'}} /> 
                     </Link>
                 </div>
                 <div className={styles['header-wrapper']}>
                     <h1>Scan a QR Code</h1>
-                </div>
-                <div className={styles.scanBody}>
-                    <div>
-                        <p>Log your attendance.</p>
-                    </div>
-                    <div>
-                        <h5>Position carefully.</h5>
-                    </div>
+                    <p>Log your attendance.</p>
                 </div>
             </div>
             <div className={styles['video-wrapper']}>

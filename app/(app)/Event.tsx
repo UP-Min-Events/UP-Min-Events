@@ -94,9 +94,6 @@ export default function Event({ id, name, date, startTime, endTime, venue }: Pro
                 <h2>{name}</h2>
                 <p className={styles['text-red']}>{formattedDate} | {time12Hour}</p>
                 <p>{venue}</p>
-                <p className={styles['status-wrapper']}> 
-                    <div className={styles['event-status']}> {status} </div>
-                </p>
             </div>
 
             <div className={styles['event-arrow']}>

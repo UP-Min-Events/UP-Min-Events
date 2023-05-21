@@ -34,6 +34,29 @@
     justify-content: center;
 }
 
+.status-wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+}
+
+.event-ongoing {
+    font-weight: 600;
+    color: #4FBC3D;
+}
+
+.event-upcoming {
+    font-weight: 600;
+    color: #a70000;
+}
+
+.event-finished {
+    font-weight: 600;
+    color: gray;
+}
+
 .divider {
     display: flex;
     margin-left: auto;

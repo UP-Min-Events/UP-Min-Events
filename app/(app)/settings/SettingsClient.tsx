@@ -1,6 +1,7 @@
 'use client'
 
 import styles from './page.module.css'
+import LogoutIcon from '@mui/icons-material/Logout';
 import UserInfo from './UserInfo'
 import UserDetails from './UserDetails'
 import OrganizerDetails from './OrganizerDetails'
@@ -22,7 +23,10 @@ export default function SettingsClient() {
         <div className={styles.container}>
             <UserInfo />
             { userType === 'attendee' ? <UserDetails/> : <OrganizerDetails />}
-            <button className={styles.buttonL} onClick={SignOut}>Sign Out</button>
+            <button className={styles['button-signout']} onClick={SignOut}>
+                <LogoutIcon />
+                Sign Out
+            </button>
         </div>
     )
 }

@@ -22,7 +22,7 @@ export default function OrganizerDetails() {
                         <ArrowForwardIosIcon sx={{ color: '#a70000', scale: '0.75' }}/>
                     </Link>
                 </div>
-                <div className={styles['item-bottom']}>
+                <div className={styles.item}>
                     Affliated Organization
                     <Link href="/settings/organization">
                         <ArrowForwardIosIcon sx={{ color: '#a70000', scale: '0.75' }}/>
