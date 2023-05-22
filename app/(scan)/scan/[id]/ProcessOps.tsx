@@ -11,10 +11,9 @@ export default function ProcessOps({ id } : { id: string }) {
 
     const [user] = useAuthState(auth)
     const router = useRouter()
-    const { isScanning, updateIsScanning, updateEventID, eventID} = useIsScanningContext()
+    const { updateIsScanning, updateEventID } = useIsScanningContext()
 
     const checkIfAlreadyAUser = async () => {
-        window.alert('function activated')
         const attendeeRef = doc(db, 'attendees', `${user?.uid}`)
         const attendeeDoc = await getDoc(attendeeRef)
 
@@ -56,15 +55,12 @@ export default function ProcessOps({ id } : { id: string }) {
 
     useEffect(() => {
         updateIsScanning(false)
-        window.alert('useEffect activated')
         checkIfAlreadyAUser()
     }, [])
 
     return (
         <div>
             <h1>Processing...</h1>
-            <p>{isScanning.toString()}</p>
-            <p>{eventID}</p>
         </div>
     )
 }
