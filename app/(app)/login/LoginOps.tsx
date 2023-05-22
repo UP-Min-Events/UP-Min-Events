@@ -74,25 +74,6 @@ export default function LoginOps(){
         }
     }
     
-    useEffect(() => {
-        if (user) {
-            setIsLoading(true) // Show skeleton while loading
-            if (userType === 'attendee') {
-
-                const attendeesdb = collection(db, 'attendees')
-                getAttendees(attendeesdb)
-                
-            } else if (userType === 'organizer') {
-
-                const organizersdb = collection(db, 'organizers')
-                getOrganizers(organizersdb)
-
-            } else {
-                router.push('/') 
-            }
-        }
-    }, [user])
-    
     return (
         <div>
 
