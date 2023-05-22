@@ -88,9 +88,6 @@ export default function Client() {
                             }
                         </div>
                     </Link>
-                    <button onClick={() => {
-                        updateIsScanning(!isScanning)
-                    }}>Toggle</button>
                     <Feed />  
                     { userType === 'attendee' ? <ScanButton /> : <CreateButton /> }
 
