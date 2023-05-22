@@ -7,6 +7,7 @@ interface IsScanningContextType {
     eventID: string;
     updateIsScanning: (isScanning: boolean) => void;
     updateEventID: (eventID: string) => void;
+    deleteLocalItem: () => void;
 }
 
 export const IsScanningContext = createContext<IsScanningContextType>({
@@ -16,6 +17,8 @@ export const IsScanningContext = createContext<IsScanningContextType>({
     updateIsScanning: (isScanning: boolean) => {},
     // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
     updateEventID: (eventID: string) => {},
+    // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
+    deleteLocalItem: () => {}
 })
 
 export const IsScanningProvider = ({ children } : {
@@ -27,10 +30,17 @@ export const IsScanningProvider = ({ children } : {
 
     const updateIsScanning = (isScanning: boolean): void => {
         setIsScanning(isScanning)
+        localStorage.setItem('isScanning', isScanning.toString())
     }
-
+    
     const updateEventID = (eventID: string): void => {
         setEventID(eventID)
+        localStorage.setItem('eventId', eventID)
+    }
+
+    const deleteLocalItem = (): void => {
+        localStorage.removeItem('eventId')
+        localStorage.removeItem('isScanning')
     }
 
     return (
@@ -41,6 +51,7 @@ export const IsScanningProvider = ({ children } : {
                     eventID: eventID,
                     updateIsScanning: updateIsScanning,
                     updateEventID: updateEventID,
+                    deleteLocalItem: deleteLocalItem
                 }
             }
         >

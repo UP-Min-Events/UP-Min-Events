@@ -54,7 +54,6 @@ export default function ProcessOps({ id } : { id: string }) {
     }
 
     useEffect(() => {
-        updateIsScanning(false)
         checkIfAlreadyAUser()
     }, [])
 

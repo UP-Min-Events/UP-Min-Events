@@ -22,7 +22,7 @@ export default function OnboardingForm() {
     const [user] = useAuthState(auth)
     const router = useRouter()
     const { userType } = useUserTypeContext()
-    const { isScanning, eventID } = useIsScanningContext()
+    const { isScanning, eventID, deleteLocalItem } = useIsScanningContext()
 
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
@@ -59,6 +59,7 @@ export default function OnboardingForm() {
 
         if (isScanning) {
             router.push(`/scan/${eventID}`)
+            deleteLocalItem()
         } else {
             router.push('/')
         }
