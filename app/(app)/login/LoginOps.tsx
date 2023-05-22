@@ -59,11 +59,11 @@ export default function LoginOps(){
         }
     }
 
-    const SignIn = async () => {
+    const SignIn = () => {
         const provider = new GoogleAuthProvider();
         provider.setCustomParameters({ hd: "up.edu.ph" });
         
-        await signInWithPopup(auth, provider)
+        signInWithPopup(auth, provider)
 
         if (userType === 'attendee') {
             const attendeesdb = collection(db, 'attendees')
