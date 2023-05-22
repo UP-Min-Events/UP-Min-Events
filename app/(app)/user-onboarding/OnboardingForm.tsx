@@ -7,6 +7,7 @@ import { Inter } from 'next/font/google'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useUserTypeContext } from '../providers/UserTypeProvider'
+import { useIsScanningContext } from '../providers/IsScanningProvider'
 
 import { auth, db } from '../../../firebaseConfig'
 import { useAuthState } from 'react-firebase-hooks/auth'
@@ -21,6 +22,7 @@ export default function OnboardingForm() {
     const [user] = useAuthState(auth)
     const router = useRouter()
     const { userType } = useUserTypeContext()
+    const { isScanning, updateIsScanning } = useIsScanningContext()
 
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
@@ -55,7 +57,12 @@ export default function OnboardingForm() {
             })
         }
 
-        router.push('/')
+        if (isScanning) {
+            router.push('/scan')
+            updateIsScanning(false)
+        } else {
+            router.push('/')
+        }
     }
 
     return (
