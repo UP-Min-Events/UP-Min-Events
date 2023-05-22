@@ -22,7 +22,7 @@ export default function OnboardingForm() {
     const [user] = useAuthState(auth)
     const router = useRouter()
     const { userType } = useUserTypeContext()
-    const { isScanning, updateIsScanning } = useIsScanningContext()
+    const { isScanning, updateIsScanning, eventID } = useIsScanningContext()
 
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
@@ -58,8 +58,7 @@ export default function OnboardingForm() {
         }
 
         if (isScanning) {
-            router.push('/scan')
-            updateIsScanning(false)
+            router.push(`/scan/${eventID}`)
         } else {
             router.push('/')
         }

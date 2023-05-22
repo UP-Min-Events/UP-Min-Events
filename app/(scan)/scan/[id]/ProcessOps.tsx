@@ -11,7 +11,7 @@ export default function ProcessOps({ id } : { id: string }) {
 
     const [user] = useAuthState(auth)
     const router = useRouter()
-    const { updateIsScanning } = useIsScanningContext()
+    const { updateIsScanning, updateEventID } = useIsScanningContext()
 
     const checkIfAlreadyAUser = async () => {
         const attendeeRef = doc(db, 'attendees', `${user?.uid}`)
@@ -21,6 +21,7 @@ export default function ProcessOps({ id } : { id: string }) {
             processAttendance(id)
         } else {
             updateIsScanning(true)
+            updateEventID(id)
             router.push('/login')
         }
     }
@@ -53,6 +54,7 @@ export default function ProcessOps({ id } : { id: string }) {
     }
 
     useEffect(() => {
+        updateIsScanning(false)
         checkIfAlreadyAUser()
     }, [])
 
