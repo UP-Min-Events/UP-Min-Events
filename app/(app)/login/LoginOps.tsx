@@ -64,6 +64,14 @@ export default function LoginOps(){
         provider.setCustomParameters({ hd: "up.edu.ph" });
         
         signInWithPopup(auth, provider)
+
+        if (userType === 'attendee') {
+            const attendeesdb = collection(db, 'attendees')
+            getAttendees(attendeesdb)
+        } else if (userType === 'organizer') {
+            const organizersdb = collection(db, 'organizers')
+            getOrganizers(organizersdb)
+        }
     }
     
     useEffect(() => {
