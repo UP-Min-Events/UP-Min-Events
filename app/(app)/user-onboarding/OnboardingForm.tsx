@@ -22,7 +22,7 @@ export default function OnboardingForm() {
     const [user] = useAuthState(auth)
     const router = useRouter()
     const { userType } = useUserTypeContext()
-    const { isScanning, updateIsScanning, eventID } = useIsScanningContext()
+    const { isScanning, eventID } = useIsScanningContext()
 
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')

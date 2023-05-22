@@ -1,7 +1,4 @@
 import LoginOps from './LoginOps'
-import { Inter } from 'next/font/google'
-
-const inter = Inter({ subsets: ['latin']})
 
 export const metadata = {
     title: 'Login',
@@ -9,7 +6,5 @@ export const metadata = {
 }
 
 export default function Auth(){
-    return (
-        <LoginOps />
-    )
+    return <LoginOps />
 }

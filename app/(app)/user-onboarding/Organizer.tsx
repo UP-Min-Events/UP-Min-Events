@@ -1,8 +1,5 @@
 import { useState } from 'react';
 import styles from './page.module.scss'
-import { Inter } from 'next/font/google'
-
-const inter = Inter({ subsets: ['latin'] })
 
 interface Props {
   firstName: string;

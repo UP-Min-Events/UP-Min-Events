@@ -3,7 +3,6 @@
 import styles from '../page.module.css'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 
 import { useState, useEffect } from 'react'
 import { auth, db } from '../../../../firebaseConfig'

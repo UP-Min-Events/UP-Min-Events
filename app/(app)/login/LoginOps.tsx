@@ -3,6 +3,7 @@
 import styles from './page.module.css'
 import { Inter } from 'next/font/google'
 import { useUserTypeContext } from '../providers/UserTypeProvider'
+import { useIsScanningContext } from '../providers/IsScanningProvider'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
@@ -23,6 +24,7 @@ export default function LoginOps(){
     const [user] = useAuthState(auth)
     const router = useRouter()
     const { userType, updateUserType } = useUserTypeContext()
+    const { isScanning, eventID } = useIsScanningContext()
     const [isLoading, setIsLoading] = useState(false)
 
     const getAttendees = async (attendeesdb : CollectionReference) => {
@@ -34,7 +36,12 @@ export default function LoginOps(){
             await setDoc(docRef, {})
             router.push('/user-onboarding')
         } else {
-            router.push('/')
+
+            if (isScanning) {
+                router.push(`/scan/${eventID}`)
+            } else {
+                router.push('/')
+            }
         } 
     }
     
