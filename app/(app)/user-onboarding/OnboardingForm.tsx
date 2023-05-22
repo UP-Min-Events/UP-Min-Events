@@ -52,7 +52,7 @@ export default function OnboardingForm() {
             await updateDoc(ref, {
                 firstName: firstName,
                 lastName: lastName,
-                college: college,
+                college: college,   
                 affiliatedOrganization: affiliatedOrganization,
             })
         }

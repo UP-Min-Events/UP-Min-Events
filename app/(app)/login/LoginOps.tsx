@@ -33,7 +33,7 @@ export default function LoginOps(){
         const userExists = attendees.docs.some(doc => doc.id === user?.uid)
         if (!attendees.docs || attendees.docs.length === 0 || !userExists) {
             const docRef = doc(db, 'attendees', `${user?.uid}`)
-            await setDoc(docRef, {})
+            await setDoc(docRef, { firstName: ''})
             router.push('/user-onboarding')
         } else {
 
