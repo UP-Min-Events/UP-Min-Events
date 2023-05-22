@@ -131,16 +131,14 @@ export default function Page2({
                 </div>
             </div>
 
-            <Link href="/">
-                <div className={styles['button-wrapper']}>
-                    <button 
-                        className={`${inter.className} ${styles.button}`} 
-                        onClick={finish}
-                        disabled={isButtonDisabled}
-                    >
-                        FINISH
-                    </button>
-                </div>
+            <Link className={styles['button-wrapper']} href="/">
+                <button
+                    className={`${inter.className} ${styles.button}`} 
+                    onClick={finish}
+                    disabled={isButtonDisabled}
+                >
+                    FINISH
+                </button>
             </Link>
 
 

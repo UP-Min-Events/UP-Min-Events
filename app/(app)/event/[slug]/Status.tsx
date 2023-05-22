@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import styles from './page.module.css'
 
 interface Props {
     date: string;
@@ -25,9 +26,18 @@ const Status = ({ date, startTime, endTime }: Props) => {
     }, [date, startTime, endTime]); 
 
     return (
-        <>
-            <p>Status: {status}</p>
-        </>
+        <div className={styles['status-wrapper']}>
+            <p>Status:&nbsp;</p>
+            {status === "Ongoing" ?
+                <div className={styles['event-ongoing']}> {status} </div>
+            : status === "Upcoming" ?
+                <div className={styles['event-upcoming']}> {status} </div>
+            : status === "Finished" ?
+                <div className={styles['event-finished']}> {status} </div>
+            :
+                <> Unknown Event Status. </>
+            }
+        </div>
     );
 }
 

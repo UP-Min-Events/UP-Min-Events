@@ -81,7 +81,7 @@ export default function Client() {
                                 :
                                 <>
                                     <h1 className={styles['profile-name']}>{name}</h1>
-                                    <p className={styles['profile-type']}>he/him</p>
+                                    <p className={styles['profile-type']}> { userType === 'attendee' ? "Attendee" : "Organizer" } </p>
                                 </>    
                             }
                         </div>
