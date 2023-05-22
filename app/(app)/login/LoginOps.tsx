@@ -24,7 +24,7 @@ export default function LoginOps(){
     const [user] = useAuthState(auth)
     const router = useRouter()
     const { userType, updateUserType } = useUserTypeContext()
-    const { isScanning, eventID, deleteLocalItem } = useIsScanningContext()
+    const { isScanning, eventID } = useIsScanningContext()
     const [isLoading, setIsLoading] = useState(false)
 
     const getAttendees = async (attendeesdb : CollectionReference) => {
@@ -39,11 +39,11 @@ export default function LoginOps(){
 
             if (isScanning) {
                 router.push(`/scan/${eventID}`)
-                deleteLocalItem()
             } else {
                 router.push('/')
             }
         } 
+
     }
     
     const getOrganizers = async (organizersdb : CollectionReference) => {
@@ -65,7 +65,7 @@ export default function LoginOps(){
         
         signInWithPopup(auth, provider)
     }
-
+    
     useEffect(() => {
         if (user) {
             setIsLoading(true) // Show skeleton while loading

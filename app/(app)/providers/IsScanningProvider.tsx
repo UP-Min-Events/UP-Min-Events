@@ -1,24 +1,21 @@
 'use client'
 
-import { useContext, createContext, useState } from "react";
+import { useContext, createContext, useState, useEffect } from "react";
 
 interface IsScanningContextType {
     isScanning: boolean;
-    eventID: string;
+    eventID: string | null;
     updateIsScanning: (isScanning: boolean) => void;
     updateEventID: (eventID: string) => void;
-    deleteLocalItem: () => void;
 }
 
 export const IsScanningContext = createContext<IsScanningContextType>({
     isScanning: false,
-    eventID: '',
+    eventID: null,
     // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
     updateIsScanning: (isScanning: boolean) => {},
     // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
     updateEventID: (eventID: string) => {},
-    // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
-    deleteLocalItem: () => {}
 })
 
 export const IsScanningProvider = ({ children } : {
@@ -26,21 +23,14 @@ export const IsScanningProvider = ({ children } : {
 }) => {
 
     const [isScanning, setIsScanning] = useState<boolean>(false);
-    const [eventID, setEventID] = useState<string>('');
+    const [eventID, setEventID] = useState<string | null>(null);
 
-    const updateIsScanning = (isScanning: boolean): void => {
-        setIsScanning(isScanning)
-        localStorage.setItem('isScanning', isScanning.toString())
+    const updateIsScanning = (arg: boolean): void => {
+        setIsScanning(arg)
     }
     
-    const updateEventID = (eventID: string): void => {
-        setEventID(eventID)
-        localStorage.setItem('eventId', eventID)
-    }
-
-    const deleteLocalItem = (): void => {
-        localStorage.removeItem('eventId')
-        localStorage.removeItem('isScanning')
+    const updateEventID = (id: string): void => {
+        setEventID(id)
     }
 
     return (
@@ -51,7 +41,6 @@ export const IsScanningProvider = ({ children } : {
                     eventID: eventID,
                     updateIsScanning: updateIsScanning,
                     updateEventID: updateEventID,
-                    deleteLocalItem: deleteLocalItem
                 }
             }
         >

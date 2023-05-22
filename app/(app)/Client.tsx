@@ -10,6 +10,7 @@ import CreateButton from './CreateButton'
 import Feed from "./Feed"
 
 import { useUserTypeContext } from "./providers/UserTypeProvider"
+import { useIsScanningContext } from "./providers/IsScanningProvider"
 import { useRouter } from "next/navigation"
 import { useState, useEffect } from "react"
 
@@ -31,6 +32,7 @@ export default function Client() {
     const [data, setData] = useState<Name>({ firstName: "", lastName: "" })
     const [user, loading] = useAuthState(auth)
     const { userType } = useUserTypeContext()
+    const { isScanning, updateIsScanning } = useIsScanningContext()
     const router = useRouter()
 
     const name = data.lastName + ", " + data.firstName
@@ -86,6 +88,9 @@ export default function Client() {
                             }
                         </div>
                     </Link>
+                    <button onClick={() => {
+                        updateIsScanning(!isScanning)
+                    }}>Toggle</button>
                     <Feed />  
                     { userType === 'attendee' ? <ScanButton /> : <CreateButton /> }
 

@@ -3,6 +3,7 @@
 import styles from './page.module.scss'
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation'
+import { useIsScanningContext } from '@/app/(app)/providers/IsScanningProvider';
 
 import { BrowserQRCodeReader } from '@zxing/library';
 
@@ -15,6 +16,7 @@ export default function Scan(){
     const [isCameraReady, setIsCameraReady] = useState(false);
     const videoRef = useRef<HTMLVideoElement>(null);
     const qrCodeReader = new BrowserQRCodeReader();
+    const { isScanning } = useIsScanningContext();
 
     const router = useRouter()
 
@@ -80,6 +82,7 @@ export default function Scan(){
                 <div className={styles['header-wrapper']}>
                     <h1>Scan a QR Code</h1>
                     <p>Log your attendance.</p>
+                    <p>{isScanning.toString()}</p>
                 </div>
             </div>
             <div className={styles['video-wrapper']}>

@@ -3,10 +3,10 @@ import { IsScanningProvider } from "./IsScanningProvider"
 
 export default function Providers({ children } : { children: React.ReactNode}) {
     return (
-        <UserTypeProvider>
-            <IsScanningProvider>
+        <IsScanningProvider>
+            <UserTypeProvider>
                 {children}
-            </IsScanningProvider>
-        </UserTypeProvider>       
+            </UserTypeProvider>       
+        </IsScanningProvider>
     )
 }
