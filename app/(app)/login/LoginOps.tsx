@@ -4,7 +4,7 @@ import styles from './page.module.css'
 import { Inter } from 'next/font/google'
 import { useUserTypeContext } from '../providers/UserTypeProvider'
 import { useIsScanningContext } from '../providers/IsScanningProvider'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 import upLogo from '@/public/uplogo.png'
@@ -75,8 +75,7 @@ export default function LoginOps(){
     }
     
     return (
-        <div>
-
+        <div className={styles['page-wrapper']}>
             <div className={`${styles['login-header']} ${inter.className}`}>
                 { isLoading ?
                     <>

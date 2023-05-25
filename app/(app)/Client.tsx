@@ -9,7 +9,6 @@ import ScanButton from './ScanButton'
 import CreateButton from './CreateButton'
 import Feed from "./Feed"
 
-import { useIsScanningContext } from "./providers/IsScanningProvider"
 import { useUserTypeContext } from "./providers/UserTypeProvider"
 import { useRouter } from "next/navigation"
 import { useState, useEffect } from "react"
@@ -32,7 +31,6 @@ export default function Client() {
     const [data, setData] = useState<Name>({ firstName: "", lastName: "" })
     const [user, loading] = useAuthState(auth)
     const { userType } = useUserTypeContext()
-    const { isScanning } = useIsScanningContext()
     const router = useRouter()
 
     const name = data.lastName + ", " + data.firstName
@@ -83,8 +81,7 @@ export default function Client() {
                                 :
                                 <>
                                     <h1 className={styles['profile-name']}>{name}</h1>
-                                    <p>{ isScanning.toString() }</p>
-                                    {/* <p className={styles['profile-type']}> { userType === 'attendee' ? "Attendee" : "Organizer" } </p> */}
+                                    <p className={styles['profile-type']}> { userType === 'attendee' ? "Attendee" : "Organizer" } </p>
                                 </>    
                             }
                         </div>
