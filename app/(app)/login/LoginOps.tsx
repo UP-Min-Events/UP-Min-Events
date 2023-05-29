@@ -2,16 +2,16 @@
 
 import styles from './page.module.css'
 import { Inter } from 'next/font/google'
-import { useUserTypeContext } from '../providers/UserTypeProvider'
-import { useIsScanningContext } from '../providers/IsScanningProvider'
-import { useState } from 'react'
+import { useUserTypeContext } from '../../providers/UserTypeProvider'
+import { useIsScanningContext } from '../../providers/IsScanningProvider'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 import upLogo from '@/public/uplogo.png'
 import Image from 'next/image'
 import { Skeleton } from '@mui/material'
 
-import { auth, db } from '../../../firebaseConfig'
+import { auth, db } from '@/firebaseConfig'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { collection, getDocs, doc, setDoc } from 'firebase/firestore'
@@ -22,6 +22,7 @@ const inter = Inter({ subsets: ['latin']})
 export default function LoginOps(){
     
     const [user] = useAuthState(auth)
+
     const router = useRouter()
     const { userType, updateUserType } = useUserTypeContext()
     const { isScanning, eventID } = useIsScanningContext()
@@ -36,14 +37,12 @@ export default function LoginOps(){
             await setDoc(docRef, { firstName: ''})
             router.push('/user-onboarding')
         } else {
-
             if (isScanning) {
                 router.push(`/scan/${eventID}`)
             } else {
                 router.push('/')
             }
         } 
-
     }
     
     const getOrganizers = async (organizersdb : CollectionReference) => {
@@ -59,20 +58,24 @@ export default function LoginOps(){
         }
     }
 
-    const SignIn = () => {
+    const SignIn = async () => {
         const provider = new GoogleAuthProvider();
         provider.setCustomParameters({ hd: "up.edu.ph" });
         
         signInWithPopup(auth, provider)
-
-        if (userType === 'attendee') {
-            const attendeesdb = collection(db, 'attendees')
-            getAttendees(attendeesdb)
-        } else if (userType === 'organizer') {
-            const organizersdb = collection(db, 'organizers')
-            getOrganizers(organizersdb)
-        }
     }
+
+    useEffect(() => {
+        if (user) {
+            if (userType === 'attendee') {
+                const attendeesdb = collection(db, 'attendees')
+                getAttendees(attendeesdb)
+            } else if (userType === 'organizer') {
+                const organizersdb = collection(db, 'organizers')
+                getOrganizers(organizersdb)
+            }
+        }
+    }, [user])
     
     return (
         <div className={styles['page-wrapper']}>

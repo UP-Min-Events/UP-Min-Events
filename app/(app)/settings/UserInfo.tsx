@@ -5,7 +5,7 @@ import { Inter } from 'next/font/google'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
-import { useUserTypeContext } from '../providers/UserTypeProvider'
+import { useUserTypeContext } from '../../providers/UserTypeProvider'
 
 import { auth, db } from "../../../firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";

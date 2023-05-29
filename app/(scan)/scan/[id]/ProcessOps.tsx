@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { auth, db } from '@/firebaseConfig'
 import { doc, getDoc, updateDoc} from 'firebase/firestore'
 import { useAuthState } from 'react-firebase-hooks/auth'
-import { useIsScanningContext } from '@/app/(app)/providers/IsScanningProvider'
+import { useIsScanningContext } from '@/app/providers/IsScanningProvider'
 
 export default function ProcessOps({ id } : { id: string }) {
 

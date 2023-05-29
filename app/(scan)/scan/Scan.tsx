@@ -3,7 +3,7 @@
 import styles from './page.module.scss'
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation'
-import { useIsScanningContext } from '@/app/(app)/providers/IsScanningProvider';
+import { useIsScanningContext } from '@/app/providers/IsScanningProvider';
 
 import { BrowserQRCodeReader } from '@zxing/library';
 

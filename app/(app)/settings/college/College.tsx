@@ -5,7 +5,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
-import { useUserTypeContext } from '@/app/(app)/providers/UserTypeProvider'
+import { useUserTypeContext } from '@/app/providers/UserTypeProvider'
 
 import { auth, db } from '@/firebaseConfig'
 import { doc, getDoc, updateDoc } from 'firebase/firestore'

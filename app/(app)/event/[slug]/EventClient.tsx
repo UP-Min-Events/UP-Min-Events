@@ -4,7 +4,7 @@ import Details from './Details'
 import QR from './QR'
 import styles from './page.module.css'
 
-import { useUserTypeContext } from '../../providers/UserTypeProvider'
+import { useUserTypeContext } from '../../../providers/UserTypeProvider'
 import { useState } from 'react'
 import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
 
