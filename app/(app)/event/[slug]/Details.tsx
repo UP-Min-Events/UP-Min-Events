@@ -140,7 +140,7 @@ export default function Details({ id }: Props) {
                 <div className={styles.divider}></div>
             </div>
             <div className={styles.section}>
-                <h3> <EventNoteIcon /> Schedule </h3>
+                <h3> <EventNoteIcon />&nbsp;Schedule </h3>
                 <div className={styles.infoContainer}>
                     <div className={styles.infoItem}>
                         <p className={styles.infoLabel}>Date</p>
@@ -185,7 +185,7 @@ export default function Details({ id }: Props) {
                 </div>
             </div>
             <div className={styles.section}>
-                <h3> <InfoIcon /> About this Event </h3>
+                <h3> <InfoIcon />&nbsp;About this Event </h3>
                 <div className={styles.infoContainer}>
                     <div className={styles.infoItem}>   
                         <p className={styles.infoLabel}>Hosted by</p>
@@ -211,7 +211,7 @@ export default function Details({ id }: Props) {
             </div>
             { userType === 'organizer' && 
                 <div className={styles.section}>
-                    <h3> <QueryStatsIcon /> Statistics </h3>
+                    <h3> <QueryStatsIcon />&nbsp;Statistics </h3>
                     <div className={styles.infoContainer}>
                         <div className={styles.infoItem}>
                             <b>Attendees</b> {data?.attendees.length}

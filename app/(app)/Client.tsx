@@ -2,9 +2,8 @@
 
 import styles from './page.module.scss'
 import { Inter } from 'next/font/google'
-import Image from 'next/image'
-import Link from 'next/link'
 
+import Header from './Header'
 import ScanButton from './ScanButton'
 import CreateButton from './CreateButton'
 import Feed from "./Feed"
@@ -68,24 +67,7 @@ export default function Client() {
         <>
             {user && (
                 <div className={`${inter.className} ${styles.container}`}>
-                    <Link href='/settings' className={styles.nav}>
-                        <div className={styles['photo-wrapper']}>
-                            <Image className={styles['profile-photo']} src={user?.photoURL ?? ''} width={56} height={56} alt='Profile Photo'/>
-                        </div>
-                        <div className={styles['info-wrapper']}>
-                            { data.firstName === '' ?
-                                <>
-                                    <Skeleton variant='text' animation='wave' width='100%' height='2.25rem' />
-                                    <Skeleton variant='text' animation='wave' width='100%' height='1.25rem' />
-                                </>
-                                :
-                                <>
-                                    <h1 className={styles['profile-name']}>{name}</h1>
-                                    <p className={styles['profile-type']}> { userType === 'attendee' ? "Attendee" : "Organizer" } </p>
-                                </>    
-                            }
-                        </div>
-                    </Link>
+                    <Header />
                     <Feed />  
                     { userType === 'attendee' ? <ScanButton /> : <CreateButton /> }
 

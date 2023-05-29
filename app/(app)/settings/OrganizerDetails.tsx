@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ['latin']})
 
 export default function OrganizerDetails() {
     return (
-        <div className={`${inter.className} ${styles.infoContainer}`}>
+        <div className={`${inter.className} ${styles['info-container']}`}>
             <div className={styles.infoBox}>
                 <div className={styles.item}>
                     Name

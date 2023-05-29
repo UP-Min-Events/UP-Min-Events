@@ -40,8 +40,8 @@ export default function Page1({
                     <div className={styles['progress-empty']}></div> 
                 </div>   
             </div>   
-            <div className={styles.formBody}>
-                <div className={styles.formItem}>
+            <div className={styles['form-body']}>
+                <div className={styles['form-item']}>
                     <div className={styles['label-wrapper']}>
                         <p>Title</p>
                     </div>
@@ -54,7 +54,7 @@ export default function Page1({
                         />
                     </div>
                 </div>
-                <div className={styles.formItem}>
+                <div className={styles['form-item']}>
                     <div className={styles['label-wrapper']}>
                         <p>Host</p>
                     </div>
@@ -67,7 +67,7 @@ export default function Page1({
                         />
                     </div>
                 </div>
-                <div className={styles.formItem}>
+                <div className={styles['form-item']}>
                     <div className={styles['label-wrapper']}>
                         <p>Description</p>
                     </div>

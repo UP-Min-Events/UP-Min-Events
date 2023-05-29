@@ -60,8 +60,8 @@ export default function Page2({
                     <div className={styles.progress}></div>
                 </div>   
             </div>   
-            <div className={styles.formBody}>
-                <div className={styles.formItem}>
+            <div className={styles['form-body']}>
+                <div className={styles['form-item']}>
                     <div className={styles['label-wrapper']}>
                         <p>Date</p>
                     </div>
@@ -74,7 +74,7 @@ export default function Page2({
                         />
                     </div>
                 </div>
-                <div className={styles.formItem}>
+                <div className={styles['form-item']}>
                     <div className={styles['label-wrapper']}>
                         <p>Start Time</p>
                     </div>
@@ -87,7 +87,7 @@ export default function Page2({
                         />
                     </div>
                 </div>
-                <div className={styles.formItem}>
+                <div className={styles['form-item']}>
                     <div className={styles['label-wrapper']}>
                         <p>End Time</p>
                     </div>
@@ -100,7 +100,7 @@ export default function Page2({
                         />
                     </div>
                 </div>
-                <div className={styles.formItem}>
+                <div className={styles['form-item']}>
                     <div className={styles['label-wrapper']}>
                         <p>Venue</p>
                     </div>
@@ -113,7 +113,7 @@ export default function Page2({
                         />
                     </div>
                 </div>
-                <div className={styles.formItem}>
+                <div className={styles['form-item']}>
                     <div className={styles['label-wrapper']}>
                         <p>Visibility</p>
                     </div>

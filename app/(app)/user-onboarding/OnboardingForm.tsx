@@ -69,7 +69,7 @@ export default function OnboardingForm() {
             <div className={styles.header}>
                 <h1>Let&apos;s get to know you.</h1>
             </div>
-            <div className={styles.formBody}>
+            <div className={styles['form-body']}>
                 {!userType ? 
                     <Skeleton variant="rectangular" animation='wave' width="100%" height="26.1rem" />
                     :
@@ -100,13 +100,11 @@ export default function OnboardingForm() {
                     <input type="checkbox" /> 
                 </div>
                 <div className={styles['content-cont']}>
-                    <p>
-                        I agree with the Terms and Conditions.
-                    </p>
+                        I agree with the&nbsp; <div className={styles['text-red']}> Terms and Conditions </div>.
                 </div>
             </div>
             <div className={styles['button-container']}>
-                <button className={styles.buttonL} 
+                <button className={styles.button} 
                     onClick={() => {
                         const requiredFieldsAttendee = [firstName, lastName, studentNumber, yearLevel, college, program];
                         const requiredFieldsOrganizer = [firstName, lastName, college];
