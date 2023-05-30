@@ -125,7 +125,7 @@ export default function Feed() {
                         }}
                         id='Upcoming'
                         className={`${styles['filter-chip']}`}>
-                        Upcoming
+                        Future
                     </button>
                     <button 
                         onClick={() => {

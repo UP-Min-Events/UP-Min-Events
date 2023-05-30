@@ -1,5 +1,5 @@
 .form {
-    height: calc(100vh - 3rem);
+    height: calc(100vh - 4rem);
     display: flex;
     flex-direction: column;
 
@@ -11,23 +11,23 @@
         }
     }
 
-    .formBody {
+    .form-body {
         display: flex;
         flex-direction: column;
-        gap: 0.75rem;
-        align-items: center;
+        gap: 1rem;
+        width: 100%;
         
-        .formItem {
+        .form-item {
             display: flex;
             flex-direction: column;
             width: 100%;
-            gap: 0.25rem;
+            gap: 0.5rem;
 
             p {
                 font-weight: 500;
             }
 
-            input, select {
+            input {
                 color: black;
                 background: transparent;
                 padding: 0.5rem;
@@ -35,21 +35,55 @@
                 border-radius: 0.75rem;
                 font-size: 1rem;
                 width: 100%;
+            }
 
-                option {
-                    position: relative;
-                    width: 2em;
+            .outline {
+                display: flex;
+                flex-direction: row;
+                color: black;
+                background: transparent;
+                padding: 0.5rem;
+                border: 1px solid lightgray;
+                border-radius: 0.75rem;
+                font-size: 1rem;
+                width: 100%;
+                
+                select {
                     color: black;
-                    background-color: white;
-                    margin-top: 0.25em;
-                    margin-bottom: 0.75em;
-                    padding: 0.5em;
-                    border: 1px solid gray;
-                    border-radius: 0.85em;
-                    font-size: 0.75em;
-                    overflow-x: hidden;
+                    background: transparent;
+                    border: none;
+                    font-size: 1rem;
+                    width: 100%;
+                    position: relative;
+
+                    option {
+                        display: flex;
+                        position: relative;
+                        font-size: 0.75rem;
+                        overflow-x: hidden;
+                    }
                 }
             }
+
+            .org-button {
+                display: flex;
+                align-items: center;
+                align-content: center;
+                margin: 0.25rem 0 0.25rem 0;
+                padding: 0.25rem;
+                text-align: center;
+                background: transparent;
+                color: black;
+                
+                button {
+                    background: transparent;
+                    border: none;
+                    color: black;
+                    font-weight: 600;
+                    font-size: 0.75rem;
+                }
+            }
+
         }
     }
 
@@ -72,22 +106,34 @@
                 cursor: pointer;
             }
         }
+
+        .content-cont {
+            display: flex;
+            flex-direction: row;
+            font-size: 0.75rem;
+
+            .text-red {
+                color: #a70000;
+                font-weight: 500;
+            }
+        }
     }
 
     .button-container {
         margin-top: auto;
         
         button {
+            display: flex;
             background-color: #a70000;
             color: white;
+            font-weight: bold;
             width: 100%;
-            height: 3rem;
-            display: flex;
+            border-radius: 1rem;
+            height: 3.25em;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            border-radius: 1rem;
             border: none;
+            font-size: 1.125rem;
         }
     }
     

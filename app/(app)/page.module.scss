@@ -5,8 +5,9 @@
   align-items: center;
   gap: 1rem;
   
-  .nav {
+  .nav-wrapper {
     display: flex;
+    height: 5rem;
     width: 100%;
     align-items: center;
     gap: 1rem;
@@ -16,13 +17,14 @@
     box-shadow: 0 2px 2px 0 rgba(0,0,0,0.2);
     padding: 1rem;
 
-    .photo-wrapper {
+    .logo-wrapper {
       display: flex;
       align-items: center;
       width: 3.5rem;
 
-      .profile-photo {
-        border-radius: 50%;
+      .logo {
+        display: flex;
+        margin: 0;
       }
     }
 
@@ -30,6 +32,16 @@
       flex: 1;
       width: calc(100% - 4.5rem);
       vertical-align: middle;
+      text-align: right;
+
+      .event-title {
+        font-size: 2rem;
+        font-weight: 700;
+      }
+
+      .event-subtitle {
+        font-size: 0.75rem;
+      }
 
       .profile-name {
         height: 2rem;
@@ -50,7 +62,7 @@
     overflow-x: scroll;
     
     .filter-chip { 
-      min-width: 3rem;
+      width: 5rem;
       padding: 0.5rem 0.5rem;
       border: 1px solid rgba(0,0,0,0.1);
       border-radius: 1rem;
@@ -61,9 +73,9 @@
       font-size: 1rem;
     }
 
-    /* ayaw niya magwork if nest; for testing only */
     .active {
       background: #a70000;
+      font-weight: 600;
       color: white;
     }
     
@@ -178,7 +190,7 @@
   border: none;
 }
 
-.buttonL {
+.button {
   display: flex;
   background-color: #a70000;
   color: white;

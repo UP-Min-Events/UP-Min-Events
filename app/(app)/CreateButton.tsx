@@ -8,7 +8,7 @@ import Link from 'next/link'
 export default function CreateButton() {
     return(
         <div className={styles['button-wrapper']}>
-            <Link className={styles.buttonL} href="/create">
+            <Link className={styles.button} href="/create">
                 <AddCircleOutlineIcon /> 
                 <p> Create Event </p>
             </Link>

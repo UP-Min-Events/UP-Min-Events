@@ -2,7 +2,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+<<<<<<< HEAD
   gap: 1rem;
+=======
+>>>>>>> 1d41b181fa3c463db33f0baf00760bb4be198316
 }
 
 .headerContainer {
@@ -12,12 +15,11 @@
   width: 100%;
 }
 
-.infoContainer {
+.info-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  gap: 1rem;
 }
 
 .nav {
@@ -50,7 +52,8 @@
   border-radius: 1rem;
   border: 1px solid rgba(0,0,0,0.1);
   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.2);
-  
+  margin-bottom: 1rem;
+
 }
 
 .item {
@@ -78,6 +81,7 @@
 
 .button-signout {
   display: flex;
+  positioN: relative;
   background-color: #a70000;
   color: white;
   width: 100%;
