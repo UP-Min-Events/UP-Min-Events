@@ -17,6 +17,9 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import Status from './Status'
 
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { auth } from '@/firebaseConfig'
+
 const inter = Inter({ subsets: ['latin'] })
 
 interface Props {
@@ -38,6 +41,7 @@ interface Data {
 
 export default function Details({ id }: Props) {
 
+    const [user] = useAuthState(auth)
     const { userType } = useUserTypeContext()
     const router = useRouter()
 
@@ -57,12 +61,19 @@ export default function Details({ id }: Props) {
     const [formattedDate, setFormattedDate] = useState<string>("");
     const [formattedStartTime, setFormattedStartTime] = useState<string | undefined>(""); 
     const [formattedEndTime, setFormattedEndTime] = useState<string | undefined>("");
+    const [isCoOwner, setIsCoOwner] = useState<boolean>(false);
 
     const getDetails = async () => {
         const docRef = doc(db, 'events', id)
         const docSnap = await getDoc(docRef)
 
         setData(docSnap.data() as Data);
+
+        if (docSnap.data()?.coOwners !== undefined) {
+            if (docSnap.data()?.coOwners.includes(user?.email)) {
+                setIsCoOwner(true);
+            }
+        }
     }
 
     const deleteEvent = async (): Promise<void> => {
@@ -234,7 +245,11 @@ export default function Details({ id }: Props) {
             { userType === 'organizer' && 
                 <div className={styles['small-button-wrapper']}>
                     <Link className={styles.buttonM} href={`/event/${id}/edit`}>Edit</Link>
-                    <button className={styles.buttonM} onClick={deleteEvent}>Delete</button>
+                    {
+                        isCoOwner === false &&
+                        <button className={styles.buttonM} onClick={deleteEvent}>Delete</button>
+                    }
+                    
                 </div>
             }
         </div>
