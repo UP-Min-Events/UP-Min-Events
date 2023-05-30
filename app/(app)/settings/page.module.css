@@ -2,10 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-<<<<<<< HEAD
   gap: 1rem;
-=======
->>>>>>> 1d41b181fa3c463db33f0baf00760bb4be198316
 }
 
 .headerContainer {
