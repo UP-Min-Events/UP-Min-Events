@@ -7,10 +7,10 @@ import { useState, useEffect } from 'react'
 import { useUserTypeContext } from '../providers/UserTypeProvider'
 
 import { db, auth } from '../../firebaseConfig'
-import { collection, getDocs } from 'firebase/firestore'
+import { collection, getDocs, query, where } from 'firebase/firestore'
 import { useAuthState } from 'react-firebase-hooks/auth'
 
-const inter = Inter({ subsets: ['latin']})
+const inter = Inter({ subsets: ['latin'] })
 
 interface Event {
     name: string;
@@ -28,7 +28,7 @@ export default function Feed() {
     const [user] = useAuthState(auth)
     const { userType } = useUserTypeContext()
     const [filter, setFilter] = useState<string>('')
-    
+
     const dateToday = new Date()
 
     const getEvents = async () => {
@@ -36,13 +36,25 @@ export default function Feed() {
         const events: Event[] = []
 
         querySnapshot.forEach((doc) => {
-            if (doc.data().visibility === 'Private') return
-            if ( filter === 'MyEvents') {
-                if (doc.data().owner !== user?.uid) return
+            if (doc.data().visibility === 'Private' && userType === 'attendee') return
+            if (filter === 'MyEvents') {
+                const coOwners = doc.data().coOwners;
+                if (coOwners !== undefined && coOwners.includes(user?.email)) {
+                    // The user is a co-owner of the event, display it
+                    events.push({
+                        name: doc.data().name,
+                        date: doc.data().date,
+                        startTime: doc.data().startTime,
+                        endTime: doc.data().endTime,
+                        venue: doc.data().venue,
+                        id: doc.id
+                    })
+                    return
+                } else if (doc.data().owner !== user?.uid) return
             } else if (filter === 'Live') {
                 const eventDate = new Date(doc.data().date);
                 dateToday.setHours(0, 0, 0, 0); // Set the time to 00:00:00 for accurate comparison
-            
+
                 if (eventDate.getFullYear() === dateToday.getFullYear() &&
                     eventDate.getMonth() === dateToday.getMonth() &&
                     eventDate.getDate() === dateToday.getDate()) {
@@ -59,7 +71,7 @@ export default function Feed() {
                 if (eventDate.getFullYear() === dateToday.getFullYear() &&
                     eventDate.getMonth() === dateToday.getMonth() &&
                     eventDate.getDate() === dateToday.getDate()) {
-                    return        
+                    return
                 }
             }
 
@@ -71,17 +83,32 @@ export default function Feed() {
                 venue: doc.data().venue,
                 id: doc.id
             })
+
+            // Displaying Co-Owned Events using firestore query
+            // const coOwnerQuery = query(dbInstance, where('coOwners', 'array-contains', user?.email))
+            // const coOwnerSnapshot = await getDocs(coOwnerQuery)
+      
+            // coOwnerSnapshot.forEach((doc) => {
+            //   events.push({
+            //     name: doc.data().name,
+            //     date: doc.data().date,
+            //     startTime: doc.data().startTime,
+            //     endTime: doc.data().endTime,
+            //     venue: doc.data().venue,
+            //     id: doc.id
+            //   })
+            // })
         })
 
         setEvents(events)
-    }    
+    }
 
     const changeFilter = (filter: string) => {
         const button = document.getElementById(filter)
         if (button) {
             button.classList.add(styles['active'])
         }
-        
+
         setFilter(filter)
     }
 
@@ -91,17 +118,17 @@ export default function Feed() {
         } else if (userType === 'attendee') {
             changeFilter('All')
         }
-    }, []) 
+    }, [])
 
     useEffect(() => {
         getEvents()
     }, [filter])
 
-    return(
+    return (
         <main>
             <div className={styles['header-wrapper']}>
                 <div className={`${styles['filter-wrapper']} ${inter.className}`}>
-                    { userType === 'organizer' &&
+                    {userType === 'organizer' &&
                         <>
                             <button
                                 onClick={() => {
@@ -114,20 +141,20 @@ export default function Feed() {
                                 My Events
                             </button>
                             <button
-                            onClick={() => {
-                                document.getElementById(filter)?.classList.remove(styles['active'])
-                                changeFilter('All')
-                            }}
-                            id='All'
-                            className={`${styles['filter-chip']}`}
+                                onClick={() => {
+                                    document.getElementById(filter)?.classList.remove(styles['active'])
+                                    changeFilter('All')
+                                }}
+                                id='All'
+                                className={`${styles['filter-chip']}`}
                             >
-                            Other Events
+                                Other Events
                             </button>
                         </>
                     }
-                    { userType === 'attendee' &&
+                    {userType === 'attendee' &&
                         <>
-                            <button 
+                            <button
                                 onClick={() => {
                                     document.getElementById(filter)?.classList.remove(styles['active'])
                                     changeFilter('All')
@@ -136,7 +163,7 @@ export default function Feed() {
                                 className={`${styles['filter-chip']}`}>
                                 All
                             </button>
-                            <button 
+                            <button
                                 onClick={() => {
                                     document.getElementById(filter)?.classList.remove(styles['active'])
                                     changeFilter('Live')
@@ -145,7 +172,7 @@ export default function Feed() {
                                 className={`${styles['filter-chip']}`}>
                                 Live
                             </button>
-                            <button 
+                            <button
                                 onClick={() => {
                                     document.getElementById(filter)?.classList.remove(styles['active'])
                                     changeFilter('Upcoming')
@@ -154,7 +181,7 @@ export default function Feed() {
                                 className={`${styles['filter-chip']}`}>
                                 Upcoming
                             </button>
-                            <button 
+                            <button
                                 onClick={() => {
                                     document.getElementById(filter)?.classList.remove(styles['active'])
                                     changeFilter('Past')
@@ -166,18 +193,18 @@ export default function Feed() {
                         </>
                     }
                 </div>
-                <div className={styles.divider}></div>  
+                <div className={styles.divider}></div>
             </div>
             <div className={`${inter.className} ${styles['event-feed-wrapper']}`}>
                 {events.map((event) => (
-                    <Event 
-                        key={event.id} 
+                    <Event
+                        key={event.id}
                         id={event.id}
-                        name={event.name} 
-                        date={event.date} 
+                        name={event.name}
+                        date={event.date}
                         startTime={event.startTime}
                         endTime={event.endTime}
-                        venue={event.venue} 
+                        venue={event.venue}
                     />
                 ))}
             </div>
