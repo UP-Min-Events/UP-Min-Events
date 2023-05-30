@@ -10,7 +10,8 @@ import { db, auth } from '../../firebaseConfig'
 import { collection, getDocs } from 'firebase/firestore'
 import { useAuthState } from 'react-firebase-hooks/auth'
 
-import CircleLoading from './loadingui/CircleLoading'
+import { Skeleton } from '@mui/material'
+import { get } from 'http'
 
 const inter = Inter({ subsets: ['latin']})
 
@@ -27,21 +28,22 @@ export default function Feed() {
 
     const dbInstance = collection(db, 'events')
     const [events, setEvents] = useState<Event[]>([])
-    const [filter, setFilter] = useState<string>('All')
     const [isPending, startTransition] = useTransition()
     const [user] = useAuthState(auth)
     const { userType } = useUserTypeContext()
-
+    const [filter, setFilter] = useState<string>('')
+    
     const dateToday = new Date()
 
     const getEvents = async () => {
         const querySnapshot = await getDocs(dbInstance)
         const events: Event[] = []
+
         querySnapshot.forEach((doc) => {
             if (doc.data().visibility === 'Private') return
-            if (userType === 'organizer' && doc.data().owner !== user?.uid) return
-            
-            if (filter === 'Live') {
+            if ( filter === 'MyEvents') {
+                if (doc.data().owner !== user?.uid) return
+            } else if (filter === 'Live') {
                 const eventDate = new Date(doc.data().date);
                 dateToday.setHours(0, 0, 0, 0); // Set the time to 00:00:00 for accurate comparison
             
@@ -52,14 +54,10 @@ export default function Feed() {
                 } else {
                     return; // Skip events that are not happening dateToday
                 }
-            }            
-
-            if (filter === 'Upcoming') {
+            } else if (filter === 'Upcoming') {
                 const eventDate = new Date(doc.data().date)
                 if (eventDate < dateToday) return
-            }
-
-            if (filter === 'Past') {
+            } else if (filter === 'Past') {
                 const eventDate = new Date(doc.data().date)
                 if (eventDate > dateToday) return
                 if (eventDate.getFullYear() === dateToday.getFullYear() &&
@@ -78,6 +76,7 @@ export default function Feed() {
                 id: doc.id
             })
         })
+
         setEvents(events)
     }    
 
@@ -86,11 +85,17 @@ export default function Feed() {
         if (button) {
             button.classList.add(styles['active'])
         }
-
-        startTransition(() => {
-            setFilter(filter)
-        })
+        
+        setFilter(filter)
     }
+
+    useEffect(() => {
+        if (userType === 'organizer') {
+            changeFilter('MyEvents')
+        } else if (userType === 'attendee') {
+            changeFilter('All')
+        }
+    }, []) 
 
     useEffect(() => {
         getEvents()
@@ -100,13 +105,25 @@ export default function Feed() {
         <main>
             <div className={styles['header-wrapper']}>
                 <div className={`${styles['filter-wrapper']} ${inter.className}`}>
+                    { userType === 'organizer' &&
+                        <button
+                            onClick={() => {
+                                document.getElementById(filter)?.classList.remove(styles['active'])
+                                changeFilter('MyEvents')
+                            }}
+                            id='MyEvents'
+                            className={`${styles['filter-chip']}`}
+                        >
+                            My Events
+                        </button>
+                    }
                     <button 
                         onClick={() => {
                             document.getElementById(filter)?.classList.remove(styles['active'])
                             changeFilter('All')
                         }}
                         id='All'
-                        className={`${styles['filter-chip']} ${styles['active']}`}>
+                        className={`${styles['filter-chip']}`}>
                         All
                     </button>
                     <button 
@@ -125,7 +142,7 @@ export default function Feed() {
                         }}
                         id='Upcoming'
                         className={`${styles['filter-chip']}`}>
-                        Future
+                        Upcoming
                     </button>
                     <button 
                         onClick={() => {
@@ -141,8 +158,12 @@ export default function Feed() {
             </div>
             <div className={`${inter.className} ${styles['event-feed-wrapper']}`}>
                 { isPending ?
-                    // <Skeleton variant="rectangular" animation='wave' width="100%" height="15rem" />
-                    <CircleLoading />
+                    <>
+                        <Skeleton variant="rectangular" animation='wave' width="100%" height="2rem" />
+                        <Skeleton variant="rectangular" animation='wave' width="100%" height="2rem" />
+                        <Skeleton variant="rectangular" animation='wave' width="100%" height="2rem" />
+                        <Skeleton variant="rectangular" animation='wave' width="100%" height="2rem" />
+                    </>
                     :
                     <>
                         {events.map((event) => (
