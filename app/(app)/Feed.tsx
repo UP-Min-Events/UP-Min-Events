@@ -10,8 +10,6 @@ import { db, auth } from '../../firebaseConfig'
 import { collection, getDocs } from 'firebase/firestore'
 import { useAuthState } from 'react-firebase-hooks/auth'
 
-import { Skeleton } from '@mui/material'
-
 const inter = Inter({ subsets: ['latin']})
 
 interface Event {
