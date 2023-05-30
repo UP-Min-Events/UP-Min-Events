@@ -20,6 +20,7 @@ const inter = Inter({ subsets: ['latin'] })
 export default function OnboardingForm() {
 
     const [user] = useAuthState(auth)
+    const emailAddress = user?.email;
     const router = useRouter()
     const { userType } = useUserTypeContext()
     const { isScanning, eventID } = useIsScanningContext()
@@ -52,6 +53,7 @@ export default function OnboardingForm() {
             await updateDoc(ref, {
                 firstName: firstName,
                 lastName: lastName,
+                emailAddress: emailAddress,
                 college: college,   
                 affiliatedOrganization: affiliatedOrganization,
             })

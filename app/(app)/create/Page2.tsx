@@ -15,15 +15,19 @@ interface Props {
     eventEndTime: string,
     eventVenue: string,
     eventVisibility: string,
+    coOwners: string[],
     handleEventDateChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     handleEventStartTimeChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     handleEventEndTimeChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     handleEventVenueChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     handleEventVisibilityChange: (e: React.ChangeEvent<HTMLSelectElement>) => void,
+    handleCoOwnerChange: (index: number, event: React.ChangeEvent<HTMLInputElement>) => void,
+    handleAddCoOwnerFields: () => void,
+    handleCoOwnerRemoveFields: (index: number) => void
 }
 
-export default function Page2({ 
-    createEvent, 
+export default function Page2({
+    createEvent,
     prevPage,
     isButtonDisabled,
     eventDate,
@@ -31,13 +35,17 @@ export default function Page2({
     eventEndTime,
     eventVenue,
     eventVisibility,
+    coOwners,
     handleEventDateChange,
     handleEventStartTimeChange,
     handleEventEndTimeChange,
     handleEventVenueChange,
     handleEventVisibilityChange,
-} : Props ) {
-    
+    handleCoOwnerChange,
+    handleAddCoOwnerFields,
+    handleCoOwnerRemoveFields
+}: Props) {
+
     const finish = () => {
         createEvent()
     }
@@ -46,20 +54,20 @@ export default function Page2({
         prevPage()
     }
 
-    return(
+    return (
         <div className={`${inter.className} ${styles.container}`}>
             <div className={styles.nav}>
                 <div className={styles['button-container']}>
-                    <ArrowBackIcon onClick={back} sx={{ color: '#a70000', scale: '150%', p:'0' }}/>
+                    <ArrowBackIcon onClick={back} sx={{ color: '#a70000', scale: '150%', p: '0' }} />
                 </div>
             </div>
             <div className={styles.header}>
                 <h1>Create Event</h1>
                 <div className={styles.progressBar}>
-                    <div className={styles.progress}></div> 
                     <div className={styles.progress}></div>
-                </div>   
-            </div>   
+                    <div className={styles.progress}></div>
+                </div>
+            </div>
             <div className={styles['form-body']}>
                 <div className={styles['form-item']}>
                     <div className={styles['label-wrapper']}>
@@ -109,7 +117,7 @@ export default function Page2({
                             className={styles['input-element']}
                             type="text"
                             value={eventVenue}
-                            onChange={handleEventVenueChange} 
+                            onChange={handleEventVenueChange}
                         />
                     </div>
                 </div>
@@ -119,8 +127,8 @@ export default function Page2({
                     </div>
                     <div className={styles['input-wrapper']}>
                         <select
-                            className={styles['input-element']} 
-                            value={eventVisibility} 
+                            className={styles['input-element']}
+                            value={eventVisibility}
                             onChange={handleEventVisibilityChange}
                         >
                             <option value="" selected disabled hidden></option>
@@ -129,11 +137,33 @@ export default function Page2({
                         </select>
                     </div>
                 </div>
+                <div className={styles['form-item']}>
+                    <div className={styles['label-wrapper']}>
+                        <p>Add Co-Owner (Optional)</p>
+                    </div>
+                    <div className={styles['input-wrapper']}>
+                        {coOwners.map((coOwner, index) => (
+                            <div key={index}>
+                                <input
+                                    type='email'
+                                    value={coOwner}
+                                    onChange={(event) => handleCoOwnerChange(index, event)}
+                                />
+                                <button type="button" onClick={() => handleCoOwnerRemoveFields(index)}>
+                                    Remove
+                                </button>
+                            </div>
+                        ))}
+                        <button type="button" onClick={handleAddCoOwnerFields}>
+                            Add Co-Owner
+                        </button>
+                    </div>
+                </div>
             </div>
 
             <Link className={styles['button-wrapper']} href="/">
                 <button
-                    className={`${inter.className} ${styles.button}`} 
+                    className={`${inter.className} ${styles.button}`}
                     onClick={finish}
                     disabled={isButtonDisabled}
                 >

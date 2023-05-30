@@ -24,6 +24,23 @@ export default function Ops() {
     const [eventEndTime, setEventEndTime] = useState<string>('')
     const [eventVenue, setEventVenue] = useState<string>('')
     const [eventVisibility, setEventVisibility] = useState<string>('')
+    const [coOwners, setCoOwners] = useState<string[]>([])
+
+    const handleCoOwnerChange = (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
+        const values = [...coOwners];
+        values[index] = event.target.value;
+        setCoOwners(values);
+    };
+
+    const handleAddCoOwnerFields = () => {
+        setCoOwners([...coOwners, '']);
+    };
+
+    const handleCoOwnerRemoveFields = (index: number) => {
+        const values = [...coOwners];
+        values.splice(index, 1);
+        setCoOwners(values);
+    };
 
     const handleEventNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEventName(e.target.value)
@@ -106,8 +123,8 @@ export default function Ops() {
 
     return (
         <>
-            {page === 1 ? 
-                <Page1 
+            {page === 1 ?
+                <Page1
                     nextPage={nextPage}
                     eventName={eventName}
                     eventHost={eventHost}
@@ -115,10 +132,10 @@ export default function Ops() {
                     handleEventNameChange={handleEventNameChange}
                     handleEventHostChange={handleEventHostChange}
                     handleEventDescChange={handleEventDescChange}
-                /> 
-                : 
-                <Page2 
-                    createEvent={createEvent} 
+                />
+                :
+                <Page2
+                    createEvent={createEvent}
                     prevPage={prevPage}
                     isButtonDisabled={isButtonDisabled}
                     eventDate={eventDate}
@@ -126,11 +143,15 @@ export default function Ops() {
                     eventEndTime={eventEndTime}
                     eventVenue={eventVenue}
                     eventVisibility={eventVisibility}
+                    coOwners={coOwners}
                     handleEventDateChange={handleEventDateChange}
                     handleEventStartTimeChange={handleEventStartTimeChange}
                     handleEventEndTimeChange={handleEventEndTimeChange}
                     handleEventVenueChange={handleEventVenueChange}
                     handleEventVisibilityChange={handleEventVisibilityChange}
+                    handleCoOwnerChange={handleCoOwnerChange}
+                    handleAddCoOwnerFields={handleAddCoOwnerFields}
+                    handleCoOwnerRemoveFields={handleCoOwnerRemoveFields}
                 />
             }
         </>
