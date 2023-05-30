@@ -102,53 +102,69 @@ export default function Feed() {
             <div className={styles['header-wrapper']}>
                 <div className={`${styles['filter-wrapper']} ${inter.className}`}>
                     { userType === 'organizer' &&
-                        <button
+                        <>
+                            <button
+                                onClick={() => {
+                                    document.getElementById(filter)?.classList.remove(styles['active'])
+                                    changeFilter('MyEvents')
+                                }}
+                                id='MyEvents'
+                                className={`${styles['filter-chip']}`}
+                            >
+                                My Events
+                            </button>
+                            <button
                             onClick={() => {
                                 document.getElementById(filter)?.classList.remove(styles['active'])
-                                changeFilter('MyEvents')
+                                changeFilter('All')
                             }}
-                            id='MyEvents'
+                            id='All'
                             className={`${styles['filter-chip']}`}
-                        >
-                            My Events
-                        </button>
+                            >
+                            Other Events
+                            </button>
+                        </>
                     }
-                    <button 
-                        onClick={() => {
-                            document.getElementById(filter)?.classList.remove(styles['active'])
-                            changeFilter('All')
-                        }}
-                        id='All'
-                        className={`${styles['filter-chip']}`}>
-                        All
-                    </button>
-                    <button 
-                        onClick={() => {
-                            document.getElementById(filter)?.classList.remove(styles['active'])
-                            changeFilter('Live')
-                        }}
-                        id='Live'
-                        className={`${styles['filter-chip']}`}>
-                        Live
-                    </button>
-                    <button 
-                        onClick={() => {
-                            document.getElementById(filter)?.classList.remove(styles['active'])
-                            changeFilter('Upcoming')
-                        }}
-                        id='Upcoming'
-                        className={`${styles['filter-chip']}`}>
-                        Upcoming
-                    </button>
-                    <button 
-                        onClick={() => {
-                            document.getElementById(filter)?.classList.remove(styles['active'])
-                            changeFilter('Past')
-                        }}
-                        id='Past'
-                        className={`${styles['filter-chip']}`}>
-                        Past
-                    </button>
+                    { userType === 'attendee' &&
+                        <>
+                            <button 
+                                onClick={() => {
+                                    document.getElementById(filter)?.classList.remove(styles['active'])
+                                    changeFilter('All')
+                                }}
+                                id='All'
+                                className={`${styles['filter-chip']}`}>
+                                All
+                            </button>
+                            <button 
+                                onClick={() => {
+                                    document.getElementById(filter)?.classList.remove(styles['active'])
+                                    changeFilter('Live')
+                                }}
+                                id='Live'
+                                className={`${styles['filter-chip']}`}>
+                                Live
+                            </button>
+                            <button 
+                                onClick={() => {
+                                    document.getElementById(filter)?.classList.remove(styles['active'])
+                                    changeFilter('Upcoming')
+                                }}
+                                id='Upcoming'
+                                className={`${styles['filter-chip']}`}>
+                                Upcoming
+                            </button>
+                            <button 
+                                onClick={() => {
+                                    document.getElementById(filter)?.classList.remove(styles['active'])
+                                    changeFilter('Past')
+                                }}
+                                id='Past'
+                                className={`${styles['filter-chip']}`}>
+                                Past
+                            </button>
+                        </>
+                    }
                 </div>
                 <div className={styles.divider}></div>  
             </div>

@@ -44,8 +44,8 @@ export default function QR({ id } : Props) {
             <div className={styles.qrcodecontainer}>
                 <canvas id="qrcode"></canvas>
             </div>
-            <div className={styles.button}>
-                <button className={styles.buttonL} onClick={() => saveQR()}><h2>Save QR</h2></button>
+            <div className={styles['small-button-wrapper']}>
+                <button className={styles.buttonM} onClick={() => saveQR()}> Save QR </button>
             </div>
         </div>
     )

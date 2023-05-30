@@ -56,7 +56,7 @@ export default function Event({ id, name, date, startTime, endTime, venue }: Pro
                 <p>{venue}</p>
             </div>
             <div className={styles['event-arrow']}>
-                <KeyboardDoubleArrowRightIcon sx={{ scale: '250%', color: '#a70000' }} />
+                <KeyboardDoubleArrowRightIcon sx={{ scale: '200%' }} />
             </div>
         </Link>
     )

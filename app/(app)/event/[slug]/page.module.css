@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 0.5rem;
   }
 
 .loading-container {
@@ -28,10 +29,11 @@
     position: relative;
 }
 
-.eventNameContainer {
-    margin-bottom: 0.25em;
+.event-name {
+    margin: 0.5rem 0 0.5rem 0;
     display: flex;
     justify-content: center;
+    line-height: 2rem;
 }
 
 .status-wrapper {
@@ -65,8 +67,8 @@
     height: 0.125em;
     background-color: #a70000;
     border-radius: 0.5rem;
-    margin-top: 1rem;
-    margin-bottom: 1.5rem;
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
   }
 
 .section {
@@ -76,33 +78,36 @@
     margin-bottom: 1rem;
 }
 
-.section h3 {
+.section-label {
+    font-weight: 600;
+    font-size: 1.25rem;
     display: flex;
     align-items: center;
-    text-align: left;
+    margin-bottom: 0.25rem;
 }
 
-.infoContainer {
+.info-section {
+    display: flex;
+    flex-direction: column;
     width: 100%;
     height: auto;
     text-align: center;
     position: relative;
-    margin-top: 0.25em;
     padding: 1.25rem;
-    border-radius: 1em;
+    border-radius: 1rem;
     border: 1px solid rgba(0,0,0,0.1);
-    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 0.5px 0.5px 0 rgba(0,0,0,0.2);
+    gap: 0.5rem;
 }
 
-.infoItem {
+.info-item {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     text-align: justify;
-    margin-bottom: 0.75rem;
 }
 
-.bottomInfoItem {
+.info-item-bottom {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -110,28 +115,12 @@
     margin-bottom: none;
 }
 
-.infoLabel {
-    font-weight: 700;
+.info-label {
+    font-weight: 600;
 }
 
 .infoData {
     display: flex;
-}
-
-.info {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 2em;
-}
-
-.info p {
-    text-align: justify;
-}
-
-.info h3 {
-    display: flex;
-    align-items: center;
-    text-align: left;
 }
 
 #stats {
@@ -146,24 +135,11 @@
     text-align: left;
 }
 
-.info #container {
-    height: auto;
-    text-align: center;
-    position: relative;
-    margin-top: 0.25em;
-    padding: 1.5em;
-    border-radius: 1em;
-    box-shadow: 0 0 0.25em 0.1em rgba(0, 0, 0, 0.25);
-}
-
-.info p {
-    margin-top: 0.75em;
-}
-
 .small-button-wrapper {
     width: 100%;
     display: flex;
     position: relative;
+    justify-content: center;
     bottom: 0;
     gap: 1rem;  
     margin-bottom: 1rem;
@@ -217,5 +193,4 @@
 .desc {
     text-indent: 2rem;
     text-align: justify;
-    margin-top: 0.375rem;
 }

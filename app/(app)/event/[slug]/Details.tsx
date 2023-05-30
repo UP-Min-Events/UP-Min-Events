@@ -13,7 +13,7 @@ import { doc, getDoc, deleteDoc } from 'firebase/firestore'
 import { Skeleton } from '@mui/material'
 import EventNoteIcon from '@mui/icons-material/EventNote';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import InfoIcon from '@mui/icons-material/Info';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import Status from './Status'
 
@@ -127,7 +127,7 @@ export default function Details({ id }: Props) {
             </div>
 
             <div className={styles.header}>
-                <div className={styles.eventNameContainer}>
+                <div className={styles['event-name']}>
                     {data?.name === '' ?
                         <Skeleton animation='wave' width={220} height={70} />
                         :
@@ -140,10 +140,12 @@ export default function Details({ id }: Props) {
                 <div className={styles.divider}></div>
             </div>
             <div className={styles.section}>
-                <h3> <EventNoteIcon />&nbsp;Schedule </h3>
-                <div className={styles.infoContainer}>
-                    <div className={styles.infoItem}>
-                        <p className={styles.infoLabel}>Date</p>
+                <div className={styles['section-label']}> 
+                    <EventNoteIcon sx={{ color: '#a70000', p: '0', scale: '0.8' }} /> Schedule
+                </div>
+                <div className={styles['info-section']}>
+                    <div className={styles['info-item']}>
+                        <p className={styles['info-label']}>Date</p>
                         {data?.date === '' ?
                             <Skeleton animation='wave' width={110} />
                             :
@@ -152,8 +154,8 @@ export default function Details({ id }: Props) {
                             </div>
                         }
                     </div>
-                    <div className={styles.infoItem}>
-                        <p className={styles.infoLabel}>Start Time</p>
+                    <div className={styles['info-item']}>
+                        <p className={styles['info-label']}>Start Time</p>
                         {data?.startTime === '' ?
                             <Skeleton animation='wave' width={110} />
                             :
@@ -162,8 +164,8 @@ export default function Details({ id }: Props) {
                             </div>
                         }
                     </div>
-                    <div className={styles.infoItem}>
-                        <p className={styles.infoLabel}>End Time</p>
+                    <div className={styles['info-item']}>
+                        <p className={styles['info-label']}>End Time</p>
                         {data?.endTime === '' ?
                             <Skeleton animation='wave' width={110} />
                             :
@@ -172,8 +174,8 @@ export default function Details({ id }: Props) {
                             </div>
                         }
                     </div>
-                    <div className={styles.bottomInfoItem}>
-                        <p className={styles.infoLabel}>Venue</p>
+                    <div className={styles['info-item-bottom']}>
+                        <p className={styles['info-label']}>Venue</p>
                         {data?.venue === '' ?
                             <Skeleton animation='wave' width={110} />
                             :
@@ -185,10 +187,12 @@ export default function Details({ id }: Props) {
                 </div>
             </div>
             <div className={styles.section}>
-                <h3> <InfoIcon />&nbsp;About this Event </h3>
-                <div className={styles.infoContainer}>
-                    <div className={styles.infoItem}>   
-                        <p className={styles.infoLabel}>Hosted by</p>
+                <div className={styles['section-label']}>
+                    <InfoOutlinedIcon sx={{ color: '#a70000', p: '0', scale: '0.8' }} /> About This Event  
+                </div>
+                <div className={styles['info-section']}>
+                    <div className={styles['info-item']}>   
+                        <p className={styles['info-label']}>Hosted by</p>
                         {data?.host === '' ?
                             <Skeleton animation='wave' width={110} />
                             :
@@ -197,8 +201,8 @@ export default function Details({ id }: Props) {
                             </div>
                         }
                     </div>
-                    <div className={styles.bottomInfoItem}>
-                        <p className={styles.infoLabel}>Description</p>
+                    <div className={styles['info-item-bottom']}>
+                        <p className={styles['info-label']}>Description</p>
                         </div>
                         {data?.desc === '' ?
                             <Skeleton animation='wave' width={220} height={300} />
@@ -208,16 +212,18 @@ export default function Details({ id }: Props) {
                             </div>
                         }
                     </div>
-            </div>
+            </div>  
             { userType === 'organizer' && 
                 <div className={styles.section}>
-                    <h3> <QueryStatsIcon />&nbsp;Statistics </h3>
-                    <div className={styles.infoContainer}>
-                        <div className={styles.infoItem}>
+                    <div className={styles['section-label']}> 
+                        <QueryStatsIcon sx={{ color: '#a70000', p: '0', scale: '8' }}/> Event Statistics 
+                    </div>
+                    <div className={styles['info-section']}>
+                        <div className={styles['info-item']}>
                             <b>Attendees</b> {data?.attendees.length}
                         </div>
-                        <div className={styles.bottomInfoItem}>
-                            <p className={styles.infoLabel}>Visibility</p>
+                        <div className={styles['info-item-bottom']}>
+                            <p className={styles['info-label']}>Visibility</p>
                             <div className={styles.InfoData}>
                                 <p>{data?.visibility}</p>
                             </div>

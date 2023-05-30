@@ -29,7 +29,7 @@ export default function OrganizerDetails() {
                     </Link>
                 </div>
                 <div className={styles['item-bottom']}>
-                    Account Setting
+                    Account
                     <Link href="/settings/account-setting">
                         <ArrowForwardIosIcon sx={{ color: '#a70000', scale: '0.75' }}/>
                     </Link>
