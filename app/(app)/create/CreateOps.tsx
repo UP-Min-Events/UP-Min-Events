@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { auth, db } from '../../../firebaseConfig'
-import { collection, addDoc } from 'firebase/firestore'
+import { collection, addDoc, query, where, getDocs } from 'firebase/firestore'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import Page1 from './Page1'
 import Page2 from './Page2'
@@ -24,23 +24,35 @@ export default function Ops() {
     const [eventEndTime, setEventEndTime] = useState<string>('')
     const [eventVenue, setEventVenue] = useState<string>('')
     const [eventVisibility, setEventVisibility] = useState<string>('')
-    const [coOwners, setCoOwners] = useState<string[]>([])
+    const [coOwners, setCoOwners] = useState<string[]>([]);
+    const [coOwnerPlaceholder, setCoOwnerPlaceholder] = useState<string>('')
 
-    const handleCoOwnerChange = (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
-        const values = [...coOwners];
-        values[index] = event.target.value;
-        setCoOwners(values);
-    };
-
-    const handleAddCoOwnerFields = () => {
-        setCoOwners([...coOwners, '']);
-    };
-
-    const handleCoOwnerRemoveFields = (index: number) => {
-        const values = [...coOwners];
-        values.splice(index, 1);
-        setCoOwners(values);
-    };
+    const handleCoOwnerChange = (index: number, value: string) => {
+        const updatedCoOwner = [...coOwners];
+        updatedCoOwner[index] = value;
+        setCoOwners(updatedCoOwner);
+      };
+    
+      const handleAddCoOwner = async () => {
+        if (coOwnerPlaceholder.trim() !== '') {
+            const q = query(collection(db, "organizers"), where("emailAddress", "==", coOwnerPlaceholder));
+            const querySnapshot = await getDocs(q);
+            if (querySnapshot.empty) {
+                alert('User does not exist')
+                return;
+            }
+            setCoOwners([...coOwners, coOwnerPlaceholder]);
+            setCoOwnerPlaceholder('');
+        }
+      };
+    
+      const handleRemoveCoOwner = (index: number) => {
+        const updatedCoOwner = coOwners.filter(
+          (_, i) => i !== index
+        );
+        setCoOwners(updatedCoOwner);
+      };
+    
 
     const handleEventNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEventName(e.target.value)
@@ -103,7 +115,8 @@ export default function Ops() {
             venue: eventVenue,
             visibility: eventVisibility,
             attendees: [],
-            owner: user?.uid
+            owner: user?.uid,
+            coOwners: coOwners
         })
 
         const id = ref.id
@@ -144,14 +157,16 @@ export default function Ops() {
                     eventVenue={eventVenue}
                     eventVisibility={eventVisibility}
                     coOwners={coOwners}
+                    coOwnerPlaceholder={coOwnerPlaceholder}
                     handleEventDateChange={handleEventDateChange}
                     handleEventStartTimeChange={handleEventStartTimeChange}
                     handleEventEndTimeChange={handleEventEndTimeChange}
                     handleEventVenueChange={handleEventVenueChange}
                     handleEventVisibilityChange={handleEventVisibilityChange}
                     handleCoOwnerChange={handleCoOwnerChange}
-                    handleAddCoOwnerFields={handleAddCoOwnerFields}
-                    handleCoOwnerRemoveFields={handleCoOwnerRemoveFields}
+                    handleAddCoOwner={handleAddCoOwner}
+                    handleRemoveCoOwner={handleRemoveCoOwner}
+                    setCoOwnerPlaceholder={setCoOwnerPlaceholder}
                 />
             }
         </>

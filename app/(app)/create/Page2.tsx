@@ -16,14 +16,16 @@ interface Props {
     eventVenue: string,
     eventVisibility: string,
     coOwners: string[],
+    coOwnerPlaceholder: string,
     handleEventDateChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     handleEventStartTimeChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     handleEventEndTimeChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     handleEventVenueChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     handleEventVisibilityChange: (e: React.ChangeEvent<HTMLSelectElement>) => void,
-    handleCoOwnerChange: (index: number, event: React.ChangeEvent<HTMLInputElement>) => void,
-    handleAddCoOwnerFields: () => void,
-    handleCoOwnerRemoveFields: (index: number) => void
+    handleCoOwnerChange: (index: number, value: string) => void,
+    handleAddCoOwner: () => void,
+    handleRemoveCoOwner: (index: number) => void,
+    setCoOwnerPlaceholder: (coOwnerPlaceholder: string) => void,
 }
 
 export default function Page2({
@@ -36,14 +38,16 @@ export default function Page2({
     eventVenue,
     eventVisibility,
     coOwners,
+    coOwnerPlaceholder,
     handleEventDateChange,
     handleEventStartTimeChange,
     handleEventEndTimeChange,
     handleEventVenueChange,
     handleEventVisibilityChange,
     handleCoOwnerChange,
-    handleAddCoOwnerFields,
-    handleCoOwnerRemoveFields
+    handleAddCoOwner,
+    handleRemoveCoOwner,
+    setCoOwnerPlaceholder
 }: Props) {
 
     const finish = () => {
@@ -139,24 +143,29 @@ export default function Page2({
                 </div>
                 <div className={styles['form-item']}>
                     <div className={styles['label-wrapper']}>
-                        <p>Add Co-Owner (Optional)</p>
+                        <p>Include Co-Owner (Optional)</p>
                     </div>
-                    <div className={styles['input-wrapper']}>
+                    <div>
+                        <input
+                            type="text"
+                            value={coOwnerPlaceholder}
+                            onChange={(e) => setCoOwnerPlaceholder(e.target.value)}
+                        />
+                        <div className={styles['org-button']}>
+                            <button onClick={handleAddCoOwner}> Add Co-owner </button>
+                        </div>
                         {coOwners.map((coOwner, index) => (
                             <div key={index}>
                                 <input
-                                    type='email'
+                                    type="text"
                                     value={coOwner}
-                                    onChange={(event) => handleCoOwnerChange(index, event)}
+                                    onChange={(e) => handleCoOwnerChange(index, e.target.value)}
                                 />
-                                <button type="button" onClick={() => handleCoOwnerRemoveFields(index)}>
-                                    Remove
-                                </button>
+                                <div className={styles['org-button']}>
+                                    <button onClick={() => handleRemoveCoOwner(index)}> Remove Co-owner </button>
+                                </div>
                             </div>
                         ))}
-                        <button type="button" onClick={handleAddCoOwnerFields}>
-                            Add Co-Owner
-                        </button>
                     </div>
                 </div>
             </div>
