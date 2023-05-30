@@ -1,5 +1,4 @@
 import styles from './page.module.scss'
-import { Inter } from 'next/font/google'
 import Link from 'next/link'
 
 import upLogo from '@/public/uplogo.png'
@@ -15,7 +14,7 @@ export default function Header() {
             </div>
             <div className={styles['info-wrapper']}>
                 <p className={styles['event-title']}> Events </p>
-                <p className={styles['event-subtitle']}> Know what's happening. </p>
+                <p className={styles['event-subtitle']}> Know what&apos;s happening. </p>
             </div>
         </div>
     )

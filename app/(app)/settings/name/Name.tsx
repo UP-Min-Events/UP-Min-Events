@@ -14,10 +14,6 @@ import { useAuthState } from 'react-firebase-hooks/auth'
 interface Name {
     firstName : string,
     lastName : string,
-    yearLevel : string,
-    studentNumber: string,
-    program: string,
-    college: string
 }
 
 export default function Name() {
@@ -28,12 +24,8 @@ export default function Name() {
 
     const [toggleFirst, setToggleFirst] = useState(false)
     const [toggleLast, setToggleLast] = useState(false)
-    const [toggleYear, setToggleYear] = useState(false)
-    const [toggleStudNum, setToggleStudNum] = useState(false)
-    const [toggleProgram, setToggleProgram] = useState(false)
-    const [toggleCollege, setToggleCollege] = useState(false)
     
-    const [input, setInput] = useState<Name>({ firstName: '', lastName: '', yearLevel: '', studentNumber: '', program: '', college: '' })
+    const [input, setInput] = useState<Name>({ firstName: '', lastName: ''})
 
     const getDetail = async () => {
         let collection
@@ -63,10 +55,6 @@ export default function Name() {
         await updateDoc(docRef, {
             firstName: input.firstName,
             lastName: input.lastName,
-            yearLevel: input.yearLevel,
-            studentNumber: input.studentNumber,
-            program: input.program,
-            college: input.college
         })
     }
 

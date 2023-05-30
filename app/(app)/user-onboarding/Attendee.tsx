@@ -1,5 +1,4 @@
 import styles from './page.module.scss'
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 interface Props {
     firstName: string;

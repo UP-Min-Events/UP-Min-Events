@@ -14,34 +14,8 @@ interface Props {
 }
 
 export default function Event({ id, name, date, startTime, endTime, venue }: Props) {
-    const [status, setStatus] = useState<string | null>(null);
     const [time12Hour, setTime12Hour] = useState<string | undefined>(undefined);
     const [formattedDate, setFormattedDate] = useState<string | undefined>(undefined);
-
-    // if (date !== undefined) {
-    //     // Format date to Month Day, Year
-    //     const toFormatDate = new Date(date)
-
-    //     const dateOptions: Intl.DateTimeFormatOptions = { month: "long", day: "numeric", year: "numeric" };
-    //     const formattedDate = new Intl.DateTimeFormat("en-US", dateOptions).format(toFormatDate);
-    // }
-
-
-
-    // // Format time to 12-hour format
-    // if (startTime !== undefined) {
-    //     const hourOptions: Intl.DateTimeFormatOptions = {
-    //         hour: "numeric",
-    //         minute: "numeric",
-    //         hour12: true,
-    //     };
-
-    //     const time = new Date()
-    //     time.setHours(Number(startTime.split(":")[0]));
-    //     time.setMinutes(Number(startTime.split(":")[1]));
-
-    //     setTime12Hour(time.toLocaleTimeString("en-US", hourOptions));
-    // }
 
     // Get event status
     useEffect(() => {
@@ -72,20 +46,6 @@ export default function Event({ id, name, date, startTime, endTime, venue }: Pro
 
             setTime12Hour(time.toLocaleTimeString("en-US", hourOptions));
         }
-
-        // Get event status
-        const eventDate = new Date(date + " " + startTime);
-        const currentDate = new Date();
-        const eventEndDate = new Date(date + " " + endTime);
-
-        if (currentDate >= eventDate && currentDate <= eventEndDate) {
-            setStatus("Ongoing");
-        } else if (currentDate < eventDate) {
-            setStatus("Upcoming");
-        } else {
-            setStatus("Finished");
-        }
-
     }, [date, startTime, endTime]);
 
     return (
@@ -95,7 +55,6 @@ export default function Event({ id, name, date, startTime, endTime, venue }: Pro
                 <p className={styles['text-red']}>{formattedDate} | {time12Hour}</p>
                 <p>{venue}</p>
             </div>
-
             <div className={styles['event-arrow']}>
                 <KeyboardDoubleArrowRightIcon sx={{ scale: '250%', color: '#a70000' }} />
             </div>
