@@ -3,7 +3,7 @@
 import Event from './Event'
 import styles from './page.module.scss'
 import { Inter } from 'next/font/google'
-import { useState, useEffect, useTransition } from 'react'
+import { useState, useEffect } from 'react'
 import { useUserTypeContext } from '../providers/UserTypeProvider'
 
 import { db, auth } from '../../firebaseConfig'
@@ -11,7 +11,6 @@ import { collection, getDocs } from 'firebase/firestore'
 import { useAuthState } from 'react-firebase-hooks/auth'
 
 import { Skeleton } from '@mui/material'
-import { get } from 'http'
 
 const inter = Inter({ subsets: ['latin']})
 
@@ -28,7 +27,6 @@ export default function Feed() {
 
     const dbInstance = collection(db, 'events')
     const [events, setEvents] = useState<Event[]>([])
-    const [isPending, startTransition] = useTransition()
     const [user] = useAuthState(auth)
     const { userType } = useUserTypeContext()
     const [filter, setFilter] = useState<string>('')
@@ -157,28 +155,17 @@ export default function Feed() {
                 <div className={styles.divider}></div>  
             </div>
             <div className={`${inter.className} ${styles['event-feed-wrapper']}`}>
-                { isPending ?
-                    <>
-                        <Skeleton variant="rectangular" animation='wave' width="100%" height="2rem" />
-                        <Skeleton variant="rectangular" animation='wave' width="100%" height="2rem" />
-                        <Skeleton variant="rectangular" animation='wave' width="100%" height="2rem" />
-                        <Skeleton variant="rectangular" animation='wave' width="100%" height="2rem" />
-                    </>
-                    :
-                    <>
-                        {events.map((event) => (
-                            <Event 
-                                key={event.id} 
-                                id={event.id}
-                                name={event.name} 
-                                date={event.date} 
-                                startTime={event.startTime}
-                                endTime={event.endTime}
-                                venue={event.venue} 
-                            />
-                        ))}
-                    </>
-                }
+                {events.map((event) => (
+                    <Event 
+                        key={event.id} 
+                        id={event.id}
+                        name={event.name} 
+                        date={event.date} 
+                        startTime={event.startTime}
+                        endTime={event.endTime}
+                        venue={event.venue} 
+                    />
+                ))}
             </div>
         </main>
     )
