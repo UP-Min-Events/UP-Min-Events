@@ -38,3 +38,4 @@ next-env.d.ts
 # PWA dependencies
 public/sw.js
 public/workbox-*.js
+sw.js.map

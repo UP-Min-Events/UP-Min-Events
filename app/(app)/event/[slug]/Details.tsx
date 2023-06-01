@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useUserTypeContext } from '@/app/providers/UserTypeProvider'
 import { db } from '../../../../firebaseConfig'
-import { doc, getDoc, deleteDoc } from 'firebase/firestore'
+import { doc, getDoc, deleteDoc, query, where, getDocs, collection, FieldPath, Firestore } from 'firebase/firestore'
 
 import { Skeleton } from '@mui/material'
 import EventNoteIcon from '@mui/icons-material/EventNote';
@@ -59,9 +59,10 @@ export default function Details({ id }: Props) {
     })
 
     const [formattedDate, setFormattedDate] = useState<string>("");
-    const [formattedStartTime, setFormattedStartTime] = useState<string | undefined>(""); 
+    const [formattedStartTime, setFormattedStartTime] = useState<string | undefined>("");
     const [formattedEndTime, setFormattedEndTime] = useState<string | undefined>("");
     const [isCoOwner, setIsCoOwner] = useState<boolean>(false);
+    const [attendeeList, setAttendeeList] = useState<{ fullName: string, degreeProgram: string }[]>([]);
 
     const getDetails = async () => {
         const docRef = doc(db, 'events', id)
@@ -74,7 +75,23 @@ export default function Details({ id }: Props) {
                 setIsCoOwner(true);
             }
         }
+
     }
+
+    const handleAttendeeList = async () => {
+        for (const id of data.attendees) {
+            const docSnap = await getDoc(doc(db, 'attendees', id));
+            setAttendeeList((prev: { fullName: string, degreeProgram: string }[]) => [
+                ...prev,
+                {
+                    fullName: `${docSnap.data()?.lastName}, ${docSnap.data()?.firstName}`,
+                    degreeProgram: docSnap.data()?.program
+                }
+            ]);
+            console.log(docSnap.data());
+        }
+    };
+
 
     const deleteEvent = async (): Promise<void> => {
         const eventRef = doc(db, 'events', id)
@@ -105,7 +122,7 @@ export default function Details({ id }: Props) {
             const date = new Date()
             date.setHours(Number(time.split(":")[0]));
             date.setMinutes(Number(time.split(":")[1]));
-    
+
             return date.toLocaleTimeString("en-US", hourOptions);
         }
     }
@@ -126,6 +143,8 @@ export default function Details({ id }: Props) {
         if (data && data.endTime !== "") {
             setFormattedEndTime(formatTime(data.endTime));
         }
+
+        handleAttendeeList();
 
     }, [data]);
 
@@ -151,7 +170,7 @@ export default function Details({ id }: Props) {
                 <div className={styles.divider}></div>
             </div>
             <div className={styles.section}>
-                <div className={styles['section-label']}> 
+                <div className={styles['section-label']}>
                     <EventNoteIcon sx={{ color: '#a70000', p: '0', scale: '0.8' }} /> Schedule
                 </div>
                 <div className={styles['info-section']}>
@@ -199,10 +218,10 @@ export default function Details({ id }: Props) {
             </div>
             <div className={styles.section}>
                 <div className={styles['section-label']}>
-                    <InfoOutlinedIcon sx={{ color: '#a70000', p: '0', scale: '0.8' }} /> About This Event  
+                    <InfoOutlinedIcon sx={{ color: '#a70000', p: '0', scale: '0.8' }} /> About This Event
                 </div>
                 <div className={styles['info-section']}>
-                    <div className={styles['info-item']}>   
+                    <div className={styles['info-item']}>
                         <p className={styles['info-label']}>Hosted by</p>
                         {data?.host === '' ?
                             <Skeleton animation='wave' width={110} />
@@ -214,20 +233,20 @@ export default function Details({ id }: Props) {
                     </div>
                     <div className={styles['info-item-bottom']}>
                         <p className={styles['info-label']}>Description</p>
-                        </div>
-                        {data?.desc === '' ?
-                            <Skeleton animation='wave' width={220} height={300} />
-                            :
-                            <div className={styles.InfoData}>
-                                <p className={styles.desc}>{data?.desc}</p>
-                            </div>
-                        }
                     </div>
-            </div>  
-            { userType === 'organizer' && 
+                    {data?.desc === '' ?
+                        <Skeleton animation='wave' width={220} height={300} />
+                        :
+                        <div className={styles.InfoData}>
+                            <p className={styles.desc}>{data?.desc}</p>
+                        </div>
+                    }
+                </div>
+            </div>
+            {userType === 'organizer' &&
                 <div className={styles.section}>
-                    <div className={styles['section-label']}> 
-                        <QueryStatsIcon sx={{ color: '#a70000', p: '0', scale: '0.8' }}/> Event Statistics 
+                    <div className={styles['section-label']}>
+                        <QueryStatsIcon sx={{ color: '#a70000', p: '0', scale: '0.8' }} /> Event Statistics
                     </div>
                     <div className={styles['info-section']}>
                         <div className={styles['info-item']}>
@@ -237,19 +256,28 @@ export default function Details({ id }: Props) {
                             <p className={styles['info-label']}>Visibility</p>
                             <div className={styles.InfoData}>
                                 <p>{data?.visibility}</p>
+                                {/* Display of Attendee name and degree program */}
+                                <div>
+                                    {attendeeList.map((attendee, index) => (
+                                        <div key={index}>
+                                            <p>{attendee.fullName}</p>
+                                            <p>{attendee.degreeProgram}</p>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             }
-            { userType === 'organizer' && 
+            {userType === 'organizer' &&
                 <div className={styles['small-button-wrapper']}>
                     <Link className={styles.buttonM} href={`/event/${id}/edit`}>Edit</Link>
                     {
                         isCoOwner === false &&
                         <button className={styles.buttonM} onClick={deleteEvent}>Delete</button>
                     }
-                    
+
                 </div>
             }
         </div>

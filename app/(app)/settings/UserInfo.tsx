@@ -48,6 +48,7 @@ export default function UserInfo(){
 
     useEffect(() => {
         getUserDetails()
+        console.log(user);
     }, [])
 
     return (
