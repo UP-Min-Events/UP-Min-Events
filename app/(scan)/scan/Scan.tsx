@@ -82,7 +82,6 @@ export default function Scan(){
                 <div className={styles['header-wrapper']}>
                     <h1>Scan a QR Code</h1>
                     <p>Log your attendance.</p>
-                    <p>{isScanning.toString()}</p>
                 </div>
             </div>
             <div className={styles['video-wrapper']}>
