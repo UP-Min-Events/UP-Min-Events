@@ -5,7 +5,7 @@ import Event from './Event'
 import { useEffect, useState } from 'react'
 
 import { db } from '@/firebaseConfig'
-import { collection, getDocs } from 'firebase/firestore'
+import { collection, getDocs, doc, deleteDoc } from 'firebase/firestore'
 
 interface Event {
     name: string;
@@ -16,6 +16,12 @@ export default function Events() {
 
     const eventsdb = collection(db, 'events')
     const [events, setEvents] = useState<Event[]>([])
+
+    const deleteItem = async (id: string): Promise<void> => {
+        const docRef = doc(db, 'events', id)
+        await deleteDoc(docRef)
+        getEvents()
+    }
 
     const getEvents = async () => {
         const querySnapshot = await getDocs(eventsdb)
@@ -44,6 +50,7 @@ export default function Events() {
                 {events.map((event) => {
                     return (
                         <Event
+                        deleteItem={deleteItem}
                         key={event.id} 
                         name={event.name} 
                         id={event.id} 
