@@ -3,10 +3,22 @@ import Link from 'next/link'
 import styles from './page.module.css'
 import { Inter } from 'next/font/google'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import LogoutIcon from '@mui/icons-material/Logout';
+
+import { auth } from "../../../firebaseConfig"
+import { useRouter } from 'next/navigation'
 
 const inter = Inter({ subsets: ['latin']})
 
 export default function OrganizerDetails() {
+
+    const router = useRouter()
+
+    const SignOut = () => {
+        auth.signOut();
+        router.push("/login")
+    }
+
     return (
         <div className={`${inter.className} ${styles['info-container']}`}>
             <div className={styles.infoBox}>
@@ -54,6 +66,11 @@ export default function OrganizerDetails() {
                         <ArrowForwardIosIcon sx={{ color: '#a70000', scale: '0.75' }}/>
                     </Link>
                 </div>
+            </div>
+            <div className={styles['button-wrapper']}>
+                <button className={styles['button-signout']} onClick={SignOut}>
+                    <LogoutIcon /> Sign Out
+                </button>
             </div>
         </div>
     )

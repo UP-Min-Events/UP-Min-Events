@@ -227,7 +227,7 @@ export default function Details({ id }: Props) {
             { userType === 'organizer' && 
                 <div className={styles.section}>
                     <div className={styles['section-label']}> 
-                        <QueryStatsIcon sx={{ color: '#a70000', p: '0', scale: '8' }}/> Event Statistics 
+                        <QueryStatsIcon sx={{ color: '#a70000', p: '0', scale: '0.8' }}/> Event Statistics 
                     </div>
                     <div className={styles['info-section']}>
                         <div className={styles['info-item']}>

@@ -1,4 +1,5 @@
 .container {
+  height: calc(100vh - 4rem);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -76,9 +77,15 @@
   padding: 0.75em 1em 0.75em 1em;
 }
 
+.button-wrapper {
+  width: 100%;
+  display: flex;
+  position: relative;
+  margin-top: auto;
+}
+
 .button-signout {
   display: flex;
-  positioN: relative;
   background-color: #a70000;
   color: white;
   width: 100%;
@@ -87,7 +94,6 @@
   align-items: center;
   justify-content: center;
   border: none;
-  margin-top: auto;
   font-size: 1.125rem;
   font-weight: 600;
   gap: 0.5rem;
