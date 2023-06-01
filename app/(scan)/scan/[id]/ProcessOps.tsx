@@ -37,6 +37,7 @@ export default function ProcessOps({ id } : { id: string }) {
 
             if (attendees.includes(attendee)) {
                 window.alert('You are already attending this event!')
+                router.push(`/event/${eventId}`)
                 return
             }
 
@@ -50,6 +51,7 @@ export default function ProcessOps({ id } : { id: string }) {
             router.push(`/event/${eventId}`)
         } else {
             window.alert('No such event!')
+            router.push('/')
         }
     }
 

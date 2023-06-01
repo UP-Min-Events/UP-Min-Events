@@ -1,3 +1,5 @@
+import styles from './page.module.scss'
+
 export default function Attendee({
     firstName,
     lastName,
@@ -15,10 +17,18 @@ export default function Attendee({
     }
 
     return(
-        <div>
-            <div>{firstName} {lastName}</div>
-            <div>{id}</div>
-            <button onClick={handleDelete}>Delete</button>
+        <div className={styles['info-feed-wrapper']}>
+            <div className={styles.info}>
+                <div className={styles['info-title']}>
+                    {firstName} {lastName}
+                </div>
+                <div className={styles['info-id']}>
+                    {id}
+                </div>
+                <button onClick={handleDelete}>
+                    Delete Organizer
+                </button>
+            </div>
         </div>
     )
 }
