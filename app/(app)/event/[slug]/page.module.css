@@ -107,14 +107,6 @@
     text-align: justify;
 }
 
-.info-item-bottom {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    text-align: justify;
-    margin-bottom: none;
-}
-
 .info-label {
     font-weight: 600;
 }
@@ -123,16 +115,13 @@
     display: flex;
 }
 
-#stats {
+.attendee-list {
+    width: 100%;
     display: flex;
-    flex-direction: column;
-    margin-bottom: 2em;
-}
-
-#stats h3 {
-    display: flex;
-    align-items: center;
-    text-align: left;
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: justify;
+    font-size: 0.9rem;
 }
 
 .small-button-wrapper {

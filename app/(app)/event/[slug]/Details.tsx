@@ -204,7 +204,7 @@ export default function Details({ id }: Props) {
                             </div>
                         }
                     </div>
-                    <div className={styles['info-item-bottom']}>
+                    <div className={styles['info-item']}>
                         <p className={styles['info-label']}>Venue</p>
                         {data?.venue === '' ?
                             <Skeleton animation='wave' width={110} />
@@ -231,7 +231,7 @@ export default function Details({ id }: Props) {
                             </div>
                         }
                     </div>
-                    <div className={styles['info-item-bottom']}>
+                    <div className={styles['info-item']}>
                         <p className={styles['info-label']}>Description</p>
                     </div>
                     {data?.desc === '' ?
@@ -250,22 +250,45 @@ export default function Details({ id }: Props) {
                     </div>
                     <div className={styles['info-section']}>
                         <div className={styles['info-item']}>
-                            <b>Attendees</b> {data?.attendees.length}
-                        </div>
-                        <div className={styles['info-item-bottom']}>
-                            <p className={styles['info-label']}>Visibility</p>
-                            <div className={styles.InfoData}>
+                            <b>Visibility</b>                             
+                            <div className={styles.infoData}>
                                 <p>{data?.visibility}</p>
-                                {/* Display of Attendee name and degree program */}
-                                <div>
-                                    {attendeeList.map((attendee, index) => (
-                                        <div key={index}>
-                                            <p>{attendee.fullName}</p>
-                                            <p>{attendee.degreeProgram}</p>
-                                        </div>
-                                    ))}
-                                </div>
                             </div>
+                        </div>
+
+                        <div className={styles['info-item']}>
+                            <b>Attendees</b> 
+                            <div className={styles.infoData}>
+                                <p>{data?.attendees.length}</p>
+                            </div>
+                        </div>
+
+                        <div className={styles['info-item']}>
+                        {/* Display of Attendee name and degree program */}
+                            {attendeeList.map((attendee, index) => (
+                                <div className={styles['attendee-list']} key={index}>
+                                    <div className={styles['attendee-name']}>
+                                        <p> {attendee.fullName} </p>
+                                    </div>
+                                    <div className={styles['attendee-course']}>
+                                        <p> 
+                                            {
+                                                attendee.degreeProgram  === 'cs' ? 'BSCS'
+                                                : attendee.degreeProgram  === 'amat' ? 'BSAM'
+                                                : attendee.degreeProgram  === 'bio' ? 'BSB'
+                                                : attendee.degreeProgram  === 'ft' ? 'BFT'
+                                                : attendee.degreeProgram  === 'bae' ? 'BAE'
+                                                : attendee.degreeProgram  === 'bacma' ? 'BACMA'
+                                                : attendee.degreeProgram === 'anthro' ? 'BAA'
+                                                : attendee.degreeProgram  === 'bsa' ? 'BSA'
+                                                : attendee.degreeProgram  === 'bss' ? 'BSS'
+                                                : attendee.degreeProgram  === 'abe' ? 'BSABE' 
+                                                : 'Select your degree program'
+                                            }
+                                        </p>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>
