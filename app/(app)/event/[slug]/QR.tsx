@@ -9,7 +9,6 @@ interface Props {
 }
 
 export default function QR({ id } : Props) {
-
     
     const saveQR = () => {
         const image = document.getElementById('qrcode') as HTMLCanvasElement 
@@ -24,7 +23,7 @@ export default function QR({ id } : Props) {
 
     const generateQR = async () => {
         QRCode.toCanvas(document.getElementById('qrcode'), 
-            `upmin-events-git-staging-nbryleibanez.vercel.app/scan/${id}`, 
+            `upmin-events.vercel.app/scan/${id}`, 
             { 
                 width: 250,
                 margin: 2,
