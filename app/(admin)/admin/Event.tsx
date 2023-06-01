@@ -1,3 +1,5 @@
+import styles from './page.module.scss'
+
 export default function Event({ 
     name, 
     id,
@@ -13,10 +15,18 @@ export default function Event({
     }
 
     return(
-        <div>
-            <div>{name}</div>
-            <div>{id}</div>
-            <button onClick={handleDelete}>Delete</button>
+        <div className={styles['info-feed-wrapper']}>
+            <div className={styles.info}>
+                <div className={styles['info-title']}>
+                    {name}
+                </div>
+                <div className={styles['info-id']}>
+                    <p> Event ID: {id} </p>
+                </div>
+                <button onClick={handleDelete}> 
+                    Delete Event
+                </button>
+            </div>
         </div>
     )
 }
