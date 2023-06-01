@@ -10,6 +10,7 @@ import { useUserTypeContext } from '@/app/providers/UserTypeProvider'
 import { auth } from "../../../firebaseConfig"
 import { useRouter } from 'next/navigation'
 import CircleLoading from '@/app/(app)/loadingui/CircleLoading'
+import LogoutIcon from '@mui/icons-material/Logout';
 
 export default function SettingsClient() {
 
@@ -31,6 +32,11 @@ export default function SettingsClient() {
                 <>    
                     <UserInfo />
                     { userType === 'attendee' ? <UserDetails/> : <OrganizerDetails />}
+                    <div className={styles['button-wrapper']}>
+                        <button className={styles['button-signout']} onClick={SignOut}>
+                            <LogoutIcon /> Sign Out
+                        </button>
+                    </div>
                 </>
             }
         </div>
