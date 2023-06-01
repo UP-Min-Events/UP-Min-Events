@@ -1,6 +1,11 @@
 import Providers from '@/app/providers/Providers'
 
-export default function RootLayout({children}: {children: React.ReactNode}){
+export const metadata = {
+    manifest: "/manifest.json",
+    themeColor: "#ffffff",
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang='en'>
             <Providers>
