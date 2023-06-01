@@ -3,6 +3,8 @@ import { Inter } from 'next/font/google'
 import Link from 'next/link'
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -79,7 +81,7 @@ export default function Page2({
                     </div>
                     <div className={`${styles['input-wrapper']} ${inter.className}`}>
                         <input
-                            className={styles['input-element']}
+                            className={`${styles['input-element']} ${inter.className}`}
                             type="date"
                             value={eventDate}
                             onChange={handleEventDateChange}
@@ -92,7 +94,7 @@ export default function Page2({
                     </div>
                     <div className={styles['input-wrapper']}>
                         <input
-                            className={styles['input-element']}
+                            className={`${styles['input-element']} ${inter.className}`}
                             type="time"
                             value={eventStartTime}
                             onChange={handleEventStartTimeChange}
@@ -143,33 +145,39 @@ export default function Page2({
                 </div>
                 <div className={styles['form-item']}>
                     <div className={styles['label-wrapper']}>
-                        <p>Include Co-Owner (Optional)</p>
+                        <p>Include Co-Owner [Optional]</p>
+                        <div className={styles.note}>
+                            Input email address of Co-Owner.
+                        </div>
                     </div>
-                    <div>
+                    <div className={`${styles['input-wrapper']} ${inter.className}`}>
                         <input
+                            className={styles['input-element']}
                             type="text"
                             value={coOwnerPlaceholder}
                             onChange={(e) => setCoOwnerPlaceholder(e.target.value)}
                         />
-                        <div className={styles['org-button']}>
-                            <button onClick={handleAddCoOwner}> Add Co-owner </button>
+                        <div className={styles['owner-button']}>
+                            <AddIcon sx={{ scale: '0.75', color: '#a70000', p: '0' }}/>
+                            <button onClick={handleAddCoOwner}> Add Co-Owner </button>
                         </div>
-                        {coOwners.map((coOwner, index) => (
-                            <div key={index}>
-                                <input
-                                    type="text"
-                                    value={coOwner}
-                                    onChange={(e) => handleCoOwnerChange(index, e.target.value)}
-                                />
-                                <div className={styles['org-button']}>
-                                    <button onClick={() => handleRemoveCoOwner(index)}> Remove Co-owner </button>
-                                </div>
-                            </div>
-                        ))}
                     </div>
+                    {coOwners.map((coOwner, index) => (
+                        <div className={`${styles['input-wrapper']} ${inter.className}`} key={index}>
+                            <input
+                                className={styles['input-element']}
+                                type="text"
+                                value={coOwner}
+                                onChange={(e) => handleCoOwnerChange(index, e.target.value)}
+                            />
+                            <div className={styles['owner-button']}>
+                                <RemoveIcon sx={{ scale: '0.75', color: '#a70000', p: '0' }}/>
+                                <button onClick={() => handleRemoveCoOwner(index)}> Remove Co-Owner </button>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
-
             <Link className={styles['button-wrapper']} href="/">
                 <button
                     className={`${inter.className} ${styles.button}`}
@@ -179,8 +187,6 @@ export default function Page2({
                     FINISH
                 </button>
             </Link>
-
-
         </div>
     )
 }

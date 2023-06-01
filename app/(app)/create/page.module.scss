@@ -64,6 +64,12 @@
           font-weight: 600;
           font-size: 1rem;
         }
+
+        .note {
+          font-size: 0.75rem;
+          font-weight: 400;
+          color: gray;
+        }
       }
 
       .input-wrapper {
@@ -85,6 +91,31 @@
         textarea {
           height: 15rem;
         }
+
+        .add-owner-option {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .owner-button {
+          display: flex;
+          align-items: center;
+          align-content: center;
+          margin: 0.25rem 0 0.25rem 0;
+          padding: 0.25rem;
+          text-align: center;
+          background: transparent;
+          color: black;
+          
+          button {
+              background: transparent;
+              border: none;
+              color: black;
+              font-weight: 600;
+              font-size: 0.75rem;
+          }
+      }
       }
 
 

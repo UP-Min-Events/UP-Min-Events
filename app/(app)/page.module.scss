@@ -146,8 +146,12 @@
             }
 
             p {
+              font-size: 0.9rem;
               position: relative;
               height: 1.25rem;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
             }
           }
         }
@@ -177,7 +181,8 @@
   height: 100%;
   align-items: center;
   align-content: center;
-  justify-content: center;
+  justify-content: flex-end;
+  padding-right: 1.5rem;
   margin-top: auto;
   margin-bottom: auto;
 }
