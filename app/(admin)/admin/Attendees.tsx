@@ -5,7 +5,7 @@ import Attendee from './Attendee'
 import { useEffect, useState } from 'react'
 
 import { db } from '@/firebaseConfig'
-import { collection, getDocs } from 'firebase/firestore'
+import { collection, getDocs, doc, deleteDoc } from 'firebase/firestore'
 
 interface Attendee {
     firstName: string
@@ -18,6 +18,13 @@ export default function Attendees() {
 
     const attendeesdb = collection(db, 'attendees')
     const [attendees, setAttendees] = useState<Attendee[]>([])
+
+    const deleteItem = async (id: string): Promise<void> => {
+        const docRef = doc(db, 'attendees', id)
+        await deleteDoc(docRef)
+        getAttendees()
+    }
+
 
     const getAttendees = async () => {
         const querySnapshot = await getDocs(attendeesdb)
@@ -48,11 +55,12 @@ export default function Attendees() {
                 {attendees.map((attendee) => {
                     return (
                         <Attendee
-                        key={attendee.id}
-                        firstName={attendee.firstName}
-                        lastName={attendee.lastName}
-                        studentNumber={attendee.studentNumber}
-                        id={attendee.id}
+                            key={attendee.id}
+                            firstName={attendee.firstName}
+                            lastName={attendee.lastName}
+                            studentNumber={attendee.studentNumber}
+                            id={attendee.id}
+                            deleteItem={deleteItem}
                         />
                         )
                     })}

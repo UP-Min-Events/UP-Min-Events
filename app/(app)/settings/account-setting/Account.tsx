@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { auth, db } from '../../../../firebaseConfig'
 import { collection, doc, DocumentReference, DocumentData, deleteDoc, getDocs } from 'firebase/firestore'
 import { useAuthState } from 'react-firebase-hooks/auth'
-import { useUserTypeContext } from "../../../providers/UserTypeProvider"
+import { useUserTypeContext } from '@/app/providers/UserTypeProvider'
 import { useRouter } from 'next/navigation'
 
 
