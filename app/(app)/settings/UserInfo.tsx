@@ -63,7 +63,6 @@ export default function UserInfo(){
                     </div>
 
                     <div className={styles.header}>
-                        <Image className={styles.img} src={user?.photoURL ?? ''} alt={user?.displayName || `User Avatar`} width="100" height="100" />
                         <h2> {fullName} </h2>
                         <p> {user.email} </p>
                         <p> {userDetails.studentNumber} </p>
