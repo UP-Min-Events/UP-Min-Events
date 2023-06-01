@@ -31,10 +31,6 @@ export default function SettingsClient() {
                 <>    
                     <UserInfo />
                     { userType === 'attendee' ? <UserDetails/> : <OrganizerDetails />}
-                    <button className={styles['button-signout']} onClick={SignOut}>
-                        <LogoutIcon />
-                        Sign Out
-                    </button>
                 </>
             }
         </div>
