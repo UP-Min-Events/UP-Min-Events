@@ -6,7 +6,7 @@ import UserDetails from './UserDetails'
 import OrganizerDetails from './OrganizerDetails'
 
 import { useState } from 'react'
-import { useUserTypeContext } from '../../providers/UserTypeProvider'
+import { useUserTypeContext } from '@/app/providers/UserTypeProvider'
 import { auth } from "../../../firebaseConfig"
 import { useRouter } from 'next/navigation'
 import CircleLoading from '@/app/(app)/loadingui/CircleLoading'

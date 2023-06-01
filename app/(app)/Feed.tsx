@@ -4,10 +4,10 @@ import Event from './Event'
 import styles from './page.module.scss'
 import { Inter } from 'next/font/google'
 import { useState, useEffect } from 'react'
-import { useUserTypeContext } from '../providers/UserTypeProvider'
+import { useUserTypeContext } from '@/app/providers/UserTypeProvider'
 
 import { db, auth } from '../../firebaseConfig'
-import { collection, getDocs, query, where } from 'firebase/firestore'
+import { collection, getDocs } from 'firebase/firestore'
 import { useAuthState } from 'react-firebase-hooks/auth'
 
 const inter = Inter({ subsets: ['latin'] })

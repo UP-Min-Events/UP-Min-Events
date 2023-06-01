@@ -9,7 +9,7 @@ import Feed from "./Feed"
 
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
-import { useUserTypeContext } from '../providers/UserTypeProvider'
+import { useUserTypeContext } from '@/app/providers/UserTypeProvider'
 
 import { auth, db } from "../../firebaseConfig"
 import { doc, getDoc } from "firebase/firestore"

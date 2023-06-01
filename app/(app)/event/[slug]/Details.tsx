@@ -6,7 +6,7 @@ import { Inter } from 'next/font/google'
 
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { useUserTypeContext } from '../../../providers/UserTypeProvider'
+import { useUserTypeContext } from '@/app/providers/UserTypeProvider'
 import { db } from '../../../../firebaseConfig'
 import { doc, getDoc, deleteDoc } from 'firebase/firestore'
 
