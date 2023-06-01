@@ -1,38 +1,28 @@
-// /** @type {import('next').NextConfig} */
-// const nextConfig = {
-//   experimental: {
-//     appDir: true,
-//   },
-//   images: {
-//     remotePatterns: [
-//       {
-//         protocol: 'https',
-//         hostname: 'api.qrserver.com',
-//         port: '',
-//         pathname: '/v1/create-qr-code/',
-//       },
-//       {
-//         protocol: 'https',
-//         hostname: 'lh3.googleusercontent.com',
-//         port: '',
-//         pathname: 'a/**',
-//       }
-//     ],
-//     domains: ['lh3.googleusercontent.com', 'api.qrserver.com']
-//   },
-//   reactStrictMode: true,
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  experimental: {
+    appDir: true,
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'api.qrserver.com',
+        port: '',
+        pathname: '/v1/create-qr-code/',
+      },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+        port: '',
+        pathname: 'a/**',
+      }
+    ],
+    domains: ['lh3.googleusercontent.com', 'api.qrserver.com']
+  }
+}
 
-//   swcMinify: true,
-
-//   compiler: {
-
-//     removeConsole: process.env.NODE_ENV !== "development",
-
-//   },
-
-// }
-
-// module.exports = nextConfig
+module.exports = nextConfig
 
 
 // const withPWA = require("next-pwa")({
@@ -118,8 +108,8 @@ if (process.env.NODE_ENV !== 'development') {
     });
   };
 
-  /** @type {import('next').NextConfig} */
-  const nextConfig = {
+  // /** @type {import('next').NextConfig} */
+  const config = {
     reactStrictMode: true,
     webpack: (config) => {
       const entry = generateAppDirEntry(config.entry);
@@ -128,6 +118,6 @@ if (process.env.NODE_ENV !== 'development') {
       return config;
     },
   };
-  module.exports = withPWA(nextConfig);
+  module.exports = withPWA(config);
 }
 

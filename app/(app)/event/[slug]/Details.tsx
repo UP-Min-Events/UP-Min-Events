@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useUserTypeContext } from '@/app/providers/UserTypeProvider'
 import { db } from '../../../../firebaseConfig'
-import { doc, getDoc, deleteDoc, query, where, getDocs, collection, FieldPath, Firestore } from 'firebase/firestore'
+import { doc, getDoc, deleteDoc } from 'firebase/firestore'
 
 import { Skeleton } from '@mui/material'
 import EventNoteIcon from '@mui/icons-material/EventNote';
