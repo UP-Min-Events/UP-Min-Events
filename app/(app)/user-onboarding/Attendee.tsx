@@ -59,7 +59,7 @@ export default function Attendee({
                 <p>Year Level</p>
                 <div className={styles.outline}>
                     <select value={yearLevel} onChange={(e) => setYearLevel(e.target.value)} >
-                        <option value="" selected disabled hidden></option>
+                        <option className={styles.hidden} value="" selected disabled></option>
                         <option value="1">1st Year</option>
                         <option value="2">2nd Year</option>
                         <option value="3">3rd Year</option>
@@ -71,7 +71,7 @@ export default function Attendee({
                 <p>College/Department</p>
                 <div className={styles.outline}>
                     <select value={college} onChange={(e) => setCollege(e.target.value)}>
-                        <option value="" selected disabled hidden></option>
+                        <option className={styles.hidden} value="" selected disabled></option>
                         <option value="csm">College of Science and Mathematics</option>
                         <option value="chss">College of Humanities and Social Sciences</option>
                         <option value="som">School of Management</option>
@@ -82,7 +82,7 @@ export default function Attendee({
                 <p>Degree Program</p>
                 <div className={styles.outline}>
                     <select value={program} onChange={(e) => setProgram(e.target.value)}>
-                        <option value="" selected disabled hidden></option>
+                        <option className={styles.hidden} value="" selected disabled></option>
                         {
                             college === 'csm' ? 
                             <>

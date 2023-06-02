@@ -20,6 +20,7 @@ export default function SettingsClient() {
 
     const SignOut = () => {
         auth.signOut();
+        setLoading(true)
         router.push("/login")
     }
 

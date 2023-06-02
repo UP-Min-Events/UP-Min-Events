@@ -69,7 +69,7 @@ export default function Organizer({
         <p>College/Department</p>
         <div className={styles.outline}>
           <select value={college} onChange={(e) => setCollege(e.target.value)}>
-            <option value="" disabled hidden></option>
+            <option className={styles.hidden} value="" selected disabled></option>
             <option value="csm">College of Science and Mathematics</option>
             <option value="chss">
               College of Humanities and Social Sciences

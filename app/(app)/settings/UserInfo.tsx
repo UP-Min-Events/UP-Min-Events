@@ -26,6 +26,7 @@ export default function UserInfo(){
     const [userDetails, setUserDetails] = useState<userDetails>({ firstName: '', lastName: '', studentNumber: '' })
     const [user] = useAuthState(auth)
     const { userType } = useUserTypeContext()
+    const url = user?.photoURL as string
 
     const fullName = userDetails.firstName + ' ' + userDetails.lastName
     
@@ -48,7 +49,6 @@ export default function UserInfo(){
 
     useEffect(() => {
         getUserDetails()
-        console.log(user);
     }, [])
 
     return (
@@ -63,6 +63,7 @@ export default function UserInfo(){
                     </div>
 
                     <div className={styles.header}>
+                        <Image className={styles.img} src={url} alt='user avatar' width='100' height='100' priority/> 
                         <h2> {fullName} </h2>
                         <p> {user.email} </p>
                         <p> {userDetails.studentNumber} </p>
