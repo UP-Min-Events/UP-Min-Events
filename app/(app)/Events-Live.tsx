@@ -9,7 +9,7 @@ import { collection, getDocs, where, query } from 'firebase/firestore'
 
 interface Event {
     name: string;
-    date: string;
+    date: Date;
     startTime: string;
     endTime: string;
     venue: string;
@@ -36,7 +36,7 @@ export default function Live() {
         querySnapshot.forEach((doc) => {
             events.push({
                 name: doc.data().name,
-                date: doc.data().date,
+                date: doc.data().date.toDate(),
                 startTime: doc.data().startTime,
                 endTime: doc.data().endTime,
                 venue: doc.data().venue,
