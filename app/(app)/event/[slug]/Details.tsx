@@ -30,12 +30,13 @@ interface Data {
     id: string;
     name: string;
     desc: string;
-    date: string;
+    date: Date;
     startTime: string;
     endTime: string;
     venue: string;
     host: string;
     visibility: string;
+    owner: string;
     attendees: string[];
 }
 
@@ -49,26 +50,49 @@ export default function Details({ id }: Props) {
         id: "",
         name: "",
         desc: "",
-        date: "",
+        date: new Date(),
         startTime: "",
         endTime: "",
         venue: "",
         host: "",
         visibility: "",
+        owner: "",
         attendees: [],
     })
 
-    const [formattedDate, setFormattedDate] = useState<string>("");
     const [formattedStartTime, setFormattedStartTime] = useState<string | undefined>("");
     const [formattedEndTime, setFormattedEndTime] = useState<string | undefined>("");
     const [isCoOwner, setIsCoOwner] = useState<boolean>(false);
     const [attendeeList, setAttendeeList] = useState<{ fullName: string, degreeProgram: string }[]>([]);
+
+    const date = data.date
+    const formattedDate = date.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    })
 
     const getDetails = async () => {
         const docRef = doc(db, 'events', id)
         const docSnap = await getDoc(docRef)
 
         setData(docSnap.data() as Data);
+
+        if (docSnap.exists()) {
+            setData({ 
+                id: docSnap.id,
+                name: docSnap.data().name,
+                desc: docSnap.data().desc,
+                date: docSnap.data().date.toDate(),
+                startTime: docSnap.data().startTime,
+                endTime: docSnap.data().endTime,
+                venue: docSnap.data().venue,
+                host: docSnap.data().host,
+                visibility: docSnap.data().visibility,
+                owner: docSnap.data().owner,
+                attendees: docSnap.data().attendees,
+            } as Data)
+        }
 
         if (docSnap.data()?.coOwners !== undefined) {
             if (docSnap.data()?.coOwners.includes(user?.email)) {
@@ -99,15 +123,6 @@ export default function Details({ id }: Props) {
         router.push("/")
     }
 
-    // Format date to Month Day, Year; OPTIMIZE this soon
-    const getDate = () => {
-        // Format date to Month Day, Year
-        const toFormatDate = new Date(data?.date)
-
-        const dateOptions: Intl.DateTimeFormatOptions = { month: "long", day: "numeric", year: "numeric" };
-        setFormattedDate(new Intl.DateTimeFormat("en-US", dateOptions).format(toFormatDate));
-    }
-
     // Format time to 12-hour format; OPTIMIZE this in the future
     const formatTime = (time: string) => {
 
@@ -132,10 +147,6 @@ export default function Details({ id }: Props) {
     }, [])
 
     useEffect(() => {
-        if (data && data?.date !== "") {
-            getDate();
-        }
-
         if (data && data.startTime !== "") {
             setFormattedStartTime(formatTime(data.startTime));
         }
@@ -176,7 +187,7 @@ export default function Details({ id }: Props) {
                 <div className={styles['info-section']}>
                     <div className={styles['info-item']}>
                         <p className={styles['info-label']}>Date</p>
-                        {data?.date === '' ?
+                        {data?.date === null ?
                             <Skeleton animation='wave' width={110} />
                             :
                             <div className={styles.infoData}>
@@ -293,7 +304,10 @@ export default function Details({ id }: Props) {
                     </div>
                 </div>
             }
-            {userType === 'organizer' &&
+            {
+                userType === 'organizer' &&
+                data?.owner === user?.uid &&
+
                 <div className={styles['small-button-wrapper']}>
                     <Link className={styles.buttonM} href={`/event/${id}/edit`}>Edit</Link>
                     {

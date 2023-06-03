@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import styles from './page.module.css'
 
 interface Props {
-    date: string;
+    date: Date;
     startTime: string;
     endTime: string;
 }
