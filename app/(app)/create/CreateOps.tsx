@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { auth, db } from '../../../firebaseConfig'
-import { collection, addDoc, query, where, getDocs } from 'firebase/firestore'
+import { collection, addDoc, query, where, getDocs, Timestamp } from 'firebase/firestore'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import Page1 from './Page1'
 import Page2 from './Page2'
@@ -19,7 +19,7 @@ export default function Ops() {
     const [eventName, setEventName] = useState<string>('')
     const [eventHost, setEventHost] = useState<string>('')
     const [eventDesc, setEventDesc] = useState<string>('')
-    const [eventDate, setEventDate] = useState<string>('')
+    const [eventDate, setEventDate] = useState<Date>(new Date())
     const [eventStartTime, setEventStartTime] = useState<string>('')
     const [eventEndTime, setEventEndTime] = useState<string>('')
     const [eventVenue, setEventVenue] = useState<string>('')
@@ -67,7 +67,7 @@ export default function Ops() {
     }
 
     const handleEventDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setEventDate(e.target.value)
+        setEventDate(new Date(e.target.value))
     }
 
     const handleEventStartTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -100,7 +100,7 @@ export default function Ops() {
 
     const createEvent = async () => {
 
-        if (eventName === '' || eventHost === '' || eventDesc === '' || eventDate === '' || eventStartTime === '' || eventEndTime === '' || eventVenue === '' || eventVisibility === '') {
+        if (eventName === '' || eventHost === '' || eventDesc === '' || eventDate === null || eventStartTime === '' || eventEndTime === '' || eventVenue === '' || eventVisibility === '') {
             alert('Please fill in all fields')
             return
         }
@@ -109,7 +109,7 @@ export default function Ops() {
             name: eventName,
             host: eventHost,
             desc: eventDesc,
-            date: eventDate,
+            date: Timestamp.fromDate(eventDate),
             startTime: eventStartTime,
             endTime: eventEndTime,
             venue: eventVenue,
@@ -124,7 +124,7 @@ export default function Ops() {
         setEventName('')
         setEventHost('')
         setEventDesc('')
-        setEventDate('')
+        setEventDate(new Date())
         setEventStartTime('')
         setEventEndTime('')
         setEventVenue('')

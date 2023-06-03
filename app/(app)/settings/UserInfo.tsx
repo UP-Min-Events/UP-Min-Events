@@ -44,7 +44,6 @@ export default function UserInfo(){
                 setUserDetails(docSnap.data() as userDetails)
             }
         }
-    
     }
 
     useEffect(() => {
@@ -55,13 +54,11 @@ export default function UserInfo(){
         <>
             {user && (
                 <div className={`${inter.className} ${styles.headerContainer}`}>
-
                     <div className={styles.nav}>
                         <Link href="/"> 
                             <ArrowBackIcon sx={{ scale: '125%', color: '#a70000', p: '0' }} /> 
                         </Link> 
                     </div>
-
                     <div className={styles.header}>
                         <Image className={styles.img} src={url} alt='user avatar' width='100' height='100' priority/> 
                         <h2> {fullName} </h2>

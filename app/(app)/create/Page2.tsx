@@ -12,7 +12,7 @@ interface Props {
     createEvent: () => void,
     prevPage: () => void,
     isButtonDisabled: boolean,
-    eventDate: string,
+    eventDate: Date,
     eventStartTime: string,
     eventEndTime: string,
     eventVenue: string,
@@ -83,7 +83,7 @@ export default function Page2({
                         <input
                             className={`${styles['input-element']} ${inter.className}`}
                             type="date"
-                            value={eventDate}
+                            value={eventDate.toISOString().slice(0, 10)}
                             onChange={handleEventDateChange}
                         />
                     </div>

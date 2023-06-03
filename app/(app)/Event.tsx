@@ -7,7 +7,7 @@ import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArro
 interface Props {
     id: string,
     name: string,
-    date: string,
+    date: Date,
     startTime: string,
     endTime: string,
     venue: string
@@ -15,22 +15,15 @@ interface Props {
 
 export default function Event({ id, name, date, startTime, endTime, venue }: Props) {
     const [time12Hour, setTime12Hour] = useState<string | undefined>(undefined);
-    const [formattedDate, setFormattedDate] = useState<string | undefined>(undefined);
 
+    const formattedDate = date.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    })
+    
     // Get event status
     useEffect(() => {
-
-        if (date !== undefined) {
-            // Format date to Month Day, Year
-            const toFormatDate = new Date(date);
-
-            const dateOptions: Intl.DateTimeFormatOptions = {
-                month: "long",
-                day: "numeric",
-                year: "numeric",
-            };
-            setFormattedDate(new Intl.DateTimeFormat("en-US", dateOptions).format(toFormatDate));
-        }
 
         // Format time to 12-hour format
         if (startTime && startTime !== undefined) {
@@ -48,7 +41,7 @@ export default function Event({ id, name, date, startTime, endTime, venue }: Pro
         }
     }, [date, startTime, endTime]);
 
-    return (
+    return ( 
         <Link className={styles.event} href={`/event/${id}`}>
             <div className={styles['details-wrapper']}>
                 <div className={styles['event-details']}>
