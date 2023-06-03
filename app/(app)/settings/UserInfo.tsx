@@ -12,6 +12,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import Loading from '@/app/(scan)/scan/loading'
 
 const inter = Inter({ subsets: ['latin']})
 
@@ -48,7 +49,7 @@ export default function UserInfo(){
 
     useEffect(() => {
         getUserDetails()
-    }, [])
+    }, [user, loading])
 
     return (
         <>
