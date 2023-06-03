@@ -24,7 +24,7 @@ interface userDetails {
 export default function UserInfo(){
 
     const [userDetails, setUserDetails] = useState<userDetails>({ firstName: '', lastName: '', studentNumber: '' })
-    const [user] = useAuthState(auth)
+    const [user, loading] = useAuthState(auth)
     const { userType } = useUserTypeContext()
     const url = user?.photoURL as string
 
@@ -52,7 +52,7 @@ export default function UserInfo(){
 
     return (
         <>
-            {user && (
+            {user && !loading && (
                 <div className={`${inter.className} ${styles.headerContainer}`}>
                     <div className={styles.nav}>
                         <Link href="/"> 
