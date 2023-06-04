@@ -14,7 +14,6 @@ import { Skeleton } from '@mui/material'
 import { auth, db } from '@/firebaseConfig'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { collection, getDocs, } from 'firebase/firestore'
-import { CollectionReference } from 'firebase/firestore'
 
 const inter = Inter({ subsets: ['latin']})
 
