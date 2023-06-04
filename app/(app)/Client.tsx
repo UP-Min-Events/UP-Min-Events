@@ -23,21 +23,23 @@ export default function Client() {
     const router = useRouter()
     const { userType } = useUserTypeContext()
 
-    const checkUser = async (): Promise<boolean> => {
+    const usrr = auth.currentUser
+
+    const checkUser = async () => {
         if (userType === 'attendee') {
-            const ref = doc(db, 'attendees', `${user?.uid}`)
+            
+            const ref = doc(db, 'attendees', `${usrr?.uid}`)
             const docSnap = await getDoc(ref)
+            console.log(docSnap.exists())
 
             if (docSnap.exists()) {
                 const data = docSnap.data()
 
-                if (data?.firstName && data?.lastName && data?.studentNumber && data?.yearLevel && data?.college && data?.program) {
-                    return true
-                } else {
-                    return false
-                }
+                if (!data?.firstName && !data?.lastName && !data?.studentNumber && !data?.yearLevel && !data?.college && !data?.program) {
+                    router.push("/login")
+                } 
             } else {
-                return false
+                router.push("/login")
             }
         } else if (userType === 'organizer') {
             const ref = doc(db, 'organizers', `${user?.uid}`)
@@ -46,17 +48,14 @@ export default function Client() {
             if (docSnap.exists()) {
                 const data = docSnap.data()
 
-                if (data?.firstName && data?.lastName && data?.emailAddress && data?.college && data?.affiliatedOrganization) {
-                    return true
-                } else {
-                    return false
-                }
+                if (!data?.firstName && !data?.lastName && !data?.emailAddress && !data?.college && !data?.affiliatedOrganization) {
+                    router.push("/login")
+                } 
             } else { 
-                return false
+                router.push("/login")
             }
         }
 
-        return false
     }
 
     useEffect(() => {
@@ -65,10 +64,7 @@ export default function Client() {
             router.push("/login")
         }
 
-        const userValid = checkUser()
-        if (!userValid) {
-            router.push("/onboarding")
-        }
+        checkUser()
 
     }, [user, loading])
 

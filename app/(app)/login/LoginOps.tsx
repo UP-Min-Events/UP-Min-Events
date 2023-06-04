@@ -25,8 +25,8 @@ export default function LoginOps(){
     const { isScanning, eventID } = useIsScanningContext()
     const [isLoading, setIsLoading] = useState(false)
 
-    const getAttendees = async ( attendeesdb : CollectionReference, userid : string ) => {
-        
+    const getAttendees = async (userid : string) => {
+        const attendeesdb = collection(db, 'attendees')
         const attendees = await getDocs(attendeesdb)
         const userExists = attendees.docs.some(doc => doc.id === userid)
         
@@ -41,7 +41,8 @@ export default function LoginOps(){
         } 
     }
     
-    const getOrganizers = async (organizersdb : CollectionReference, userid: string) => {
+    const getOrganizers = async (userid: string) => {
+        const organizersdb = collection(db, 'organizers')
         const organizers = await getDocs(organizersdb)
         const userExists = organizers.docs.some(doc => doc.id === userid)
         if (!organizers.docs || organizers.docs.length === 0 || !userExists) {
@@ -57,15 +58,12 @@ export default function LoginOps(){
             hd: "up.edu.ph",
         });
         
-        signInWithPopup(auth, provider)
-        .then((result) => {
+        signInWithPopup(auth, provider).then((result) => {
             const userid = result.user.uid;
             if (userType === 'attendee') {
-                const attendeesdb = collection(db, 'attendees');
-                getAttendees(attendeesdb, userid);
+                getAttendees(userid);
             } else if (userType === 'organizer') {
-                const organizersdb = collection(db, 'organizers');
-                getOrganizers(organizersdb, userid);
+                getOrganizers(userid)
             }
         }).catch((error) => {
             console.log(error)
