@@ -5,10 +5,11 @@ import Attendee from './Attendee'
 import Organizer from './Organizer'
 import { Inter } from 'next/font/google'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useUserTypeContext } from '../../providers/UserTypeProvider'
 import { useIsScanningContext } from '../../providers/IsScanningProvider'
 
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { auth, db } from '../../../firebaseConfig'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { doc, setDoc } from 'firebase/firestore'
@@ -66,6 +67,15 @@ export default function OnboardingForm() {
         }
     }
 
+    useEffect(() => {
+        if (!user) {
+            const provider = new GoogleAuthProvider();
+            provider.setCustomParameters({ hd: "up.edu.ph" });
+            
+            signInWithPopup(auth, provider)
+        }
+    }, [])
+
     return (
         <div className={`${inter.className} ${styles.form}`}>
             <div className={styles.header}>
@@ -73,7 +83,7 @@ export default function OnboardingForm() {
             </div>
             <div className={styles['form-body']}>
                 {!userType ? 
-                    <Skeleton variant="rectangular" animation='wave' width="100%" height="26.1rem" />
+                    <Skeleton sx={{ borderRadius: '1rem' }} variant="rectangular" animation='wave' width="100%" height="26.1rem" />
                     :
                     <>
                         {userType === 'attendee' ?
