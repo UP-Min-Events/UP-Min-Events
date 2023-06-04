@@ -4,7 +4,7 @@ import styles from './page.module.css'
 import { Inter } from 'next/font/google'
 import { useUserTypeContext } from '../../providers/UserTypeProvider'
 import { useIsScanningContext } from '../../providers/IsScanningProvider'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 
 import upLogo from '@/public/uplogo.png'
@@ -12,7 +12,7 @@ import Image from 'next/image'
 import { Skeleton } from '@mui/material'
 
 import { auth, db } from '@/firebaseConfig'
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
+import { GoogleAuthProvider, signInWithRedirect, getRedirectResult } from 'firebase/auth'
 import { collection, getDocs, } from 'firebase/firestore'
 import { CollectionReference } from 'firebase/firestore'
 
@@ -23,12 +23,13 @@ export default function LoginOps(){
     const router = useRouter()
     const { userType, updateUserType } = useUserTypeContext()
     const { isScanning, eventID } = useIsScanningContext()
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(true)
 
     const getAttendees = async ( attendeesdb : CollectionReference, userid : string ) => {
+        
         const attendees = await getDocs(attendeesdb)
         const userExists = attendees.docs.some(doc => doc.id === userid)
-
+        
         if (!attendees.docs || attendees.docs.length === 0 || !userExists) {
             router.push('/user-onboarding')
         } else {
@@ -50,26 +51,36 @@ export default function LoginOps(){
         }
     }
 
-    const SignIn = async () => {
+    const SignIn = () => {
         const provider = new GoogleAuthProvider();
-        provider.setCustomParameters({ hd: "up.edu.ph" });
+        provider.setCustomParameters({ 
+            hd: "up.edu.ph",
+            prompt: 'select_account'
+        });
         
-        signInWithPopup(auth, provider)
-            .then((result) => {
-                const user = result.user
-                const userid = user?.uid
-
-                if (userType === 'attendee') {
-                    const attendeesdb = collection(db, 'attendees')
-                    getAttendees(attendeesdb, userid)
-                } else if (userType === 'organizer'){
-                    const organizersdb = collection(db, 'organizers')
-                    getOrganizers(organizersdb, userid)
-                }
-            }).catch((error) => {
-                console.log(error)
-            })
+        signInWithRedirect(auth, provider)
     }
+
+    const checkRedirectResult = async () => {
+        const response = await getRedirectResult(auth)
+        
+        if (response) {
+            const userid = response.user.uid;
+            if (userType === 'attendee') {
+                const attendeesdb = collection(db, 'attendees');
+                getAttendees(attendeesdb, userid);
+            } else if (userType === 'organizer') {
+                const organizersdb = collection(db, 'organizers');
+                getOrganizers(organizersdb, userid);
+            }
+        } else {
+            setIsLoading(false)
+        }
+    }
+
+    useEffect(() => {
+        checkRedirectResult()
+    }, [])
     
     return (
         <div className={styles['page-wrapper']}>
