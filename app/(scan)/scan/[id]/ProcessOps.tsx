@@ -25,7 +25,7 @@ export default function ProcessOps({ id } : { id: string }) {
             updateIsScanning(true)
             updateEventID(id)
             updateUserType('attendee')
-            router.push('/user-onboarding')
+            router.push('/login')
         }
     }
 

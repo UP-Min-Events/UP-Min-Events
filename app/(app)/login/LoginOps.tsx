@@ -4,7 +4,7 @@ import styles from './page.module.css'
 import { Inter } from 'next/font/google'
 import { useUserTypeContext } from '../../providers/UserTypeProvider'
 import { useIsScanningContext } from '../../providers/IsScanningProvider'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 import upLogo from '@/public/uplogo.png'
@@ -12,7 +12,7 @@ import Image from 'next/image'
 import { Skeleton } from '@mui/material'
 
 import { auth, db } from '@/firebaseConfig'
-import { GoogleAuthProvider, signInWithRedirect, getRedirectResult } from 'firebase/auth'
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { collection, getDocs, } from 'firebase/firestore'
 import { CollectionReference } from 'firebase/firestore'
 
@@ -57,33 +57,20 @@ export default function LoginOps(){
             hd: "up.edu.ph",
         });
         
-        signInWithRedirect(auth, provider)
-    }
-
-    const checkRedirectResult = async () => {
-        await getRedirectResult(auth)
+        signInWithPopup(auth, provider)
         .then((result) => {
-            window.alert(result)
-            if (result) {
-                const userid = result.user.uid;
-                if (userType === 'attendee') {
-                    const attendeesdb = collection(db, 'attendees');
-                    getAttendees(attendeesdb, userid);
-                } else if (userType === 'organizer') {
-                    const organizersdb = collection(db, 'organizers');
-                    getOrganizers(organizersdb, userid);
-                }
-            } else {
-                setIsLoading(false)
+            const userid = result.user.uid;
+            if (userType === 'attendee') {
+                const attendeesdb = collection(db, 'attendees');
+                getAttendees(attendeesdb, userid);
+            } else if (userType === 'organizer') {
+                const organizersdb = collection(db, 'organizers');
+                getOrganizers(organizersdb, userid);
             }
         }).catch((error) => {
-            window.alert(error)
+            console.log(error)
         })
     }
-
-    useEffect(() => {
-        checkRedirectResult()
-    }, [])
     
     return (
         <div className={styles['page-wrapper']}>
