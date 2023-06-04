@@ -55,7 +55,6 @@ export default function LoginOps(){
         const provider = new GoogleAuthProvider();
         provider.setCustomParameters({ 
             hd: "up.edu.ph",
-            prompt: 'select_account'
         });
         
         signInWithRedirect(auth, provider)
