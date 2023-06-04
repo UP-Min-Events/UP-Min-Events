@@ -23,7 +23,7 @@ export default function LoginOps(){
     const router = useRouter()
     const { userType, updateUserType } = useUserTypeContext()
     const { isScanning, eventID } = useIsScanningContext()
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(false)
 
     const getAttendees = async ( attendeesdb : CollectionReference, userid : string ) => {
         
