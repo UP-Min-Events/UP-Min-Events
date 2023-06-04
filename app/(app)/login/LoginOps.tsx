@@ -61,22 +61,24 @@ export default function LoginOps(){
     }
 
     const checkRedirectResult = async () => {
-        const response = await getRedirectResult(auth)
-
-        window.alert(response)
-        
-        if (response) {
-            const userid = response.user.uid;
-            if (userType === 'attendee') {
-                const attendeesdb = collection(db, 'attendees');
-                getAttendees(attendeesdb, userid);
-            } else if (userType === 'organizer') {
-                const organizersdb = collection(db, 'organizers');
-                getOrganizers(organizersdb, userid);
+        await getRedirectResult(auth)
+        .then((result) => {
+            window.alert(result)
+            if (result) {
+                const userid = result.user.uid;
+                if (userType === 'attendee') {
+                    const attendeesdb = collection(db, 'attendees');
+                    getAttendees(attendeesdb, userid);
+                } else if (userType === 'organizer') {
+                    const organizersdb = collection(db, 'organizers');
+                    getOrganizers(organizersdb, userid);
+                }
+            } else {
+                setIsLoading(false)
             }
-        } else {
-            setIsLoading(false)
-        }
+        }).catch((error) => {
+            window.alert(error)
+        })
     }
 
     useEffect(() => {
