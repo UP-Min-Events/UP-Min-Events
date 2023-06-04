@@ -23,7 +23,7 @@ export default function QR({ id } : Props) {
 
     const generateQR = async () => {
         QRCode.toCanvas(document.getElementById('qrcode'), 
-            `upmin-events.vercel.app/scan/${id}`, 
+            `https://www.upmin-events.vercel.app/scan/${id}`, 
             { 
                 width: 250,
                 margin: 2,
