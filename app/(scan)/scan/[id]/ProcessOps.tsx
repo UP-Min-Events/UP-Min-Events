@@ -9,21 +9,23 @@ import { useIsScanningContext } from '@/app/providers/IsScanningProvider'
 
 export default function ProcessOps({ id } : { id: string }) {
 
-    const [user] = useAuthState(auth)
+    const [user, loading] = useAuthState(auth)
     const router = useRouter()
     const { updateIsScanning, updateEventID } = useIsScanningContext()
 
     const checkIfAlreadyAUser = async () => {
         const attendeeRef = doc(db, 'attendees', `${user?.uid}`)
-        const attendeeDoc = await getDoc(attendeeRef)
-
-        if (attendeeDoc.exists()) {
-            processAttendance(id)
-        } else {
-            updateIsScanning(true)
-            updateEventID(id)
-            router.push('/login')
-        }
+        await getDoc(attendeeRef).then(
+            (docSnap) => {
+                if (docSnap.exists()) {
+                    processAttendance(id)
+                } else {
+                    updateIsScanning(true)
+                    updateEventID(id)
+                    router.push('/login')
+                }
+            }
+        )
     }
 
     const processAttendance = async (eventId: string) => {
@@ -56,9 +58,11 @@ export default function ProcessOps({ id } : { id: string }) {
     }
 
     useEffect(() => {
-        updateIsScanning(false)
-        checkIfAlreadyAUser()
-    }, [])
+        if (user && !loading) {
+            updateIsScanning(false)
+            checkIfAlreadyAUser()
+        }
+    }, [loading])
 
     return (
         <div>
