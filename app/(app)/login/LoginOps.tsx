@@ -56,7 +56,6 @@ export default function LoginOps(){
         
         signInWithPopup(auth, provider)
             .then((result) => {
-                setIsLoading(true)
                 const user = result.user
                 const userid = user?.uid
 
@@ -102,12 +101,14 @@ export default function LoginOps(){
                         <p>Log in as:</p>
                         <button className={`${inter.className} ${styles['login-button']}`} onClick={() => {
                             updateUserType('attendee')
+                            setIsLoading(true)
                             SignIn()
                         }}> 
                             Attendee
                         </button>
                         <button className={`${inter.className} ${styles['login-button']}`} onClick={() => {
                             updateUserType('organizer')
+                            setIsLoading(true)
                             SignIn()
                         }}> 
                             Organizer
