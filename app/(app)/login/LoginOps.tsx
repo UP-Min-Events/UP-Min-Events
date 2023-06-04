@@ -26,7 +26,6 @@ export default function LoginOps(){
     const [isLoading, setIsLoading] = useState(false)
 
     const getAttendees = async ( attendeesdb : CollectionReference, userid : string ) => {
-        setIsLoading(true) // Show skeleton while loading
         const attendees = await getDocs(attendeesdb)
         const userExists = attendees.docs.some(doc => doc.id === userid)
 
@@ -42,7 +41,6 @@ export default function LoginOps(){
     }
     
     const getOrganizers = async (organizersdb : CollectionReference, userid: string) => {
-        setIsLoading(true) // Show skeleton while loading
         const organizers = await getDocs(organizersdb)
         const userExists = organizers.docs.some(doc => doc.id === userid)
         if (!organizers.docs || organizers.docs.length === 0 || !userExists) {
@@ -58,6 +56,7 @@ export default function LoginOps(){
         
         signInWithPopup(auth, provider)
             .then((result) => {
+                setIsLoading(true)
                 const user = result.user
                 const userid = user?.uid
 
