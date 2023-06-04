@@ -4,7 +4,7 @@ import styles from './page.module.css'
 import { Inter } from 'next/font/google'
 import { useUserTypeContext } from '../../providers/UserTypeProvider'
 import { useIsScanningContext } from '../../providers/IsScanningProvider'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 import upLogo from '@/public/uplogo.png'
@@ -59,19 +59,18 @@ export default function LoginOps(){
         provider.setCustomParameters({ hd: "up.edu.ph" });
         
         signInWithPopup(auth, provider)
+            .then(() => {
+                if (userType === 'attendee') {
+                    const attendeesdb = collection(db, 'attendees')
+                    getAttendees(attendeesdb)
+                } else if (userType === 'organizer'){
+                    const organizersdb = collection(db, 'organizers')
+                    getOrganizers(organizersdb)
+                }
+            }).catch((error) => {
+                console.log(error)
+            })
     }
-
-    useEffect(() => {
-        if (user) {
-            if (userType === 'attendee') {
-                const attendeesdb = collection(db, 'attendees')
-                getAttendees(attendeesdb)
-            } else if (userType === 'organizer') {
-                const organizersdb = collection(db, 'organizers')
-                getOrganizers(organizersdb)
-            }
-        }
-    }, [user])
     
     return (
         <div className={styles['page-wrapper']}>
