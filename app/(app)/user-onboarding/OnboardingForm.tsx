@@ -11,7 +11,7 @@ import { useIsScanningContext } from '../../providers/IsScanningProvider'
 
 import { auth, db } from '../../../firebaseConfig'
 import { useAuthState } from 'react-firebase-hooks/auth'
-import { doc, updateDoc } from 'firebase/firestore'
+import { doc, setDoc } from 'firebase/firestore'
 
 import { Skeleton } from '@mui/material'
 
@@ -35,27 +35,27 @@ export default function OnboardingForm() {
 
     const updateInfo = async () => {
         if (userType === 'attendee') {
-
             const ref = doc(db, 'attendees', `${user?.uid}`)
 
-            await updateDoc(ref, {
+            await setDoc(ref, {
                 firstName: firstName,
                 lastName: lastName,
                 studentNumber: studentNumber,
                 yearLevel: yearLevel,
                 college: college,
                 program: program,
+                events: [],
             })
         } else {
-
             const ref = doc(db, 'organizers', `${user?.uid}`)
 
-            await updateDoc(ref, {
+            await setDoc(ref, {
                 firstName: firstName,
                 lastName: lastName,
                 emailAddress: emailAddress,
                 college: college,   
                 affiliatedOrganization: affiliatedOrganization,
+                events: [],
             })
         }
 

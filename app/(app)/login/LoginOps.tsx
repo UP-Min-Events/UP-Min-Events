@@ -14,7 +14,7 @@ import { Skeleton } from '@mui/material'
 import { auth, db } from '@/firebaseConfig'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { useAuthState } from 'react-firebase-hooks/auth'
-import { collection, getDocs, doc, setDoc } from 'firebase/firestore'
+import { collection, getDocs, } from 'firebase/firestore'
 import { CollectionReference } from 'firebase/firestore'
 
 const inter = Inter({ subsets: ['latin']})
@@ -33,8 +33,6 @@ export default function LoginOps(){
         const attendees = await getDocs(attendeesdb)
         const userExists = attendees.docs.some(doc => doc.id === user?.uid)
         if (!attendees.docs || attendees.docs.length === 0 || !userExists) {
-            const docRef = doc(db, 'attendees', `${user?.uid}`)
-            await setDoc(docRef, { firstName: ''})
             router.push('/user-onboarding')
         } else {
             if (isScanning) {
@@ -50,8 +48,6 @@ export default function LoginOps(){
         const organizers = await getDocs(organizersdb)
         const userExists = organizers.docs.some(doc => doc.id === user?.uid)
         if (!organizers.docs || organizers.docs.length === 0 || !userExists) {
-            const docRef = doc(db, 'organizers', `${user?.uid}`)
-            await setDoc(docRef, { events: [] })
             router.push('/user-onboarding')
         } else {
             router.push('/')

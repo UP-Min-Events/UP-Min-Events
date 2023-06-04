@@ -22,7 +22,7 @@ export default function ProcessOps({ id } : { id: string }) {
         } else {
             updateIsScanning(true)
             updateEventID(id)
-            router.push('/login')
+            router.push('/user-onboarding')
         }
     }
 
