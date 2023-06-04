@@ -58,7 +58,6 @@ export default function LoginOps(){
         
         signInWithPopup(auth, provider)
             .then((result) => {
-                console.log(result)
                 const user = result.user
                 const userid = user?.uid
 
