@@ -8,7 +8,7 @@ import Menu from './Menu'
 import Feed from "./Feed"
 
 import { useRouter } from "next/navigation"
-import { useEffect } from "react"
+import { useState, useEffect } from "react"
 import { useUserTypeContext } from '@/app/providers/UserTypeProvider'
 
 import { auth, db } from "../../firebaseConfig"
@@ -20,24 +20,24 @@ const inter = Inter({ subsets: ['latin']})
 export default function Client() {
 
     const [user, loading] = useAuthState(auth)
+    const [show, setShow] = useState<boolean>(false)
     const router = useRouter()
     const { userType } = useUserTypeContext()
-
-    const usrr = auth.currentUser
 
     const checkUser = async () => {
         if (userType === 'attendee') {
             
-            const ref = doc(db, 'attendees', `${usrr?.uid}`)
+            const ref = doc(db, 'attendees', `${user?.uid}`)
             const docSnap = await getDoc(ref)
-            console.log(docSnap.exists())
 
             if (docSnap.exists()) {
                 const data = docSnap.data()
 
                 if (!data?.firstName && !data?.lastName && !data?.studentNumber && !data?.yearLevel && !data?.college && !data?.program) {
                     router.push("/login")
-                } 
+                } else {
+                    setShow(true)
+                }
             } else {
                 router.push("/login")
             }
@@ -50,7 +50,9 @@ export default function Client() {
 
                 if (!data?.firstName && !data?.lastName && !data?.emailAddress && !data?.college && !data?.affiliatedOrganization) {
                     router.push("/login")
-                } 
+                } else {
+                    setShow(true)
+                }
             } else { 
                 router.push("/login")
             }
@@ -59,18 +61,16 @@ export default function Client() {
     }
 
     useEffect(() => {
-
         if (!user && !loading) {
             router.push("/login")
         }
 
         checkUser()
-
     }, [user, loading])
 
     return (
         <>
-            {user && (
+            {user && show && (
                 <div className={`${inter.className} ${styles.container}`}>
                     <Header />
                     <Feed />  
