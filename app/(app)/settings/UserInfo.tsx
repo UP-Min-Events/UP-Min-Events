@@ -12,7 +12,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
-import Loading from '@/app/(scan)/scan/loading'
+import { Skeleton } from '@mui/material'
 
 const inter = Inter({ subsets: ['latin']})
 
@@ -27,7 +27,13 @@ export default function UserInfo(){
     const [userDetails, setUserDetails] = useState<userDetails>({ firstName: '', lastName: '', studentNumber: '' })
     const [user, loading] = useAuthState(auth)
     const { userType } = useUserTypeContext()
-    const url = user?.photoURL as string
+    
+    let url: string | null
+    if (user?.photoURL) {
+        url = user.photoURL
+    } else {
+        url = null
+    }
 
     const fullName = userDetails.firstName + ' ' + userDetails.lastName
     
@@ -49,7 +55,7 @@ export default function UserInfo(){
 
     useEffect(() => {
         getUserDetails()
-    }, [user, loading])
+    }, [])
 
     return (
         <>
@@ -61,7 +67,18 @@ export default function UserInfo(){
                         </Link> 
                     </div>
                     <div className={styles.header}>
-                        <Image className={styles.img} src={url} alt='user avatar' width='100' height='100' priority/> 
+                        { !url ?
+                            <Skeleton variant="circular" width={96} height={96} /> 
+                            : 
+                            <Image 
+                                className={styles.img} 
+                                src={url} 
+                                alt='user avatar' 
+                                width={96} 
+                                height={96} 
+                                priority={true}
+                            /> 
+                        }
                         <h2> {fullName} </h2>
                         <p> {user.email} </p>
                         <p> {userDetails.studentNumber} </p>
