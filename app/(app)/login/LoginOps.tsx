@@ -13,7 +13,6 @@ import { Skeleton } from '@mui/material'
 
 import { auth, db } from '@/firebaseConfig'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
-import { useAuthState } from 'react-firebase-hooks/auth'
 import { collection, getDocs, } from 'firebase/firestore'
 import { CollectionReference } from 'firebase/firestore'
 
@@ -21,17 +20,16 @@ const inter = Inter({ subsets: ['latin']})
 
 export default function LoginOps(){
     
-    const [user] = useAuthState(auth)
-
     const router = useRouter()
     const { userType, updateUserType } = useUserTypeContext()
     const { isScanning, eventID } = useIsScanningContext()
     const [isLoading, setIsLoading] = useState(false)
 
-    const getAttendees = async (attendeesdb : CollectionReference) => {
+    const getAttendees = async ( attendeesdb : CollectionReference, userid : string ) => {
         setIsLoading(true) // Show skeleton while loading
         const attendees = await getDocs(attendeesdb)
-        const userExists = attendees.docs.some(doc => doc.id === user?.uid)
+        const userExists = attendees.docs.some(doc => doc.id === userid)
+
         if (!attendees.docs || attendees.docs.length === 0 || !userExists) {
             router.push('/user-onboarding')
         } else {
@@ -43,10 +41,10 @@ export default function LoginOps(){
         } 
     }
     
-    const getOrganizers = async (organizersdb : CollectionReference) => {
+    const getOrganizers = async (organizersdb : CollectionReference, userid: string) => {
         setIsLoading(true) // Show skeleton while loading
         const organizers = await getDocs(organizersdb)
-        const userExists = organizers.docs.some(doc => doc.id === user?.uid)
+        const userExists = organizers.docs.some(doc => doc.id === userid)
         if (!organizers.docs || organizers.docs.length === 0 || !userExists) {
             router.push('/user-onboarding')
         } else {
@@ -59,13 +57,17 @@ export default function LoginOps(){
         provider.setCustomParameters({ hd: "up.edu.ph" });
         
         signInWithPopup(auth, provider)
-            .then(() => {
+            .then((result) => {
+                console.log(result)
+                const user = result.user
+                const userid = user?.uid
+
                 if (userType === 'attendee') {
                     const attendeesdb = collection(db, 'attendees')
-                    getAttendees(attendeesdb)
+                    getAttendees(attendeesdb, userid)
                 } else if (userType === 'organizer'){
                     const organizersdb = collection(db, 'organizers')
-                    getOrganizers(organizersdb)
+                    getOrganizers(organizersdb, userid)
                 }
             }).catch((error) => {
                 console.log(error)
