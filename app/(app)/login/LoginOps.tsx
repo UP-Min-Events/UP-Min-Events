@@ -62,6 +62,8 @@ export default function LoginOps(){
 
     const checkRedirectResult = async () => {
         const response = await getRedirectResult(auth)
+
+        window.alert(response)
         
         if (response) {
             const userid = response.user.uid;
