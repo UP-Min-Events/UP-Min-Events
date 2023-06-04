@@ -6,14 +6,12 @@ import { auth, db } from '@/firebaseConfig'
 import { doc, getDoc, updateDoc} from 'firebase/firestore'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useIsScanningContext } from '@/app/providers/IsScanningProvider'
-import { useUserTypeContext } from '@/app/providers/UserTypeProvider'
 
 export default function ProcessOps({ id } : { id: string }) {
 
     const [user] = useAuthState(auth)
     const router = useRouter()
     const { updateIsScanning, updateEventID } = useIsScanningContext()
-    const { updateUserType } = useUserTypeContext()
 
     const checkIfAlreadyAUser = async () => {
         const attendeeRef = doc(db, 'attendees', `${user?.uid}`)
@@ -24,7 +22,6 @@ export default function ProcessOps({ id } : { id: string }) {
         } else {
             updateIsScanning(true)
             updateEventID(id)
-            updateUserType('attendee')
             router.push('/login')
         }
     }
