@@ -38,6 +38,18 @@ export default function All() {
         })
 
         setEvents(events)
+        
+        // Sort events by date and time
+        const sortedEvents = [...events].sort((a, b) => {
+            const dateComparison = b.date.getTime() - a.date.getTime();
+            if (dateComparison === 0) {
+                // If dates are the same, compare start times
+                return a.startTime.localeCompare(b.startTime);
+            }
+            return dateComparison;
+        });
+
+        setEvents(sortedEvents)
     }
 
     useEffect(() => {

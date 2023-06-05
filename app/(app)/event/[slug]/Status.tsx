@@ -11,9 +11,9 @@ const Status = ({ date, startTime, endTime }: Props) => {
     const [status, setStatus] = useState<string | null>(null);
 
     useEffect(() => {
-        const eventDate = new Date(date + " " + startTime);
+        const eventDate = new Date(date.toDateString() + " " + startTime);
         const currentDate = new Date();
-        const eventEndDate = new Date(date + " " + endTime);
+        const eventEndDate = new Date(date.toDateString() + " " + endTime);
 
         if (currentDate >= eventDate && currentDate <= eventEndDate) {
             setStatus("Ongoing");
