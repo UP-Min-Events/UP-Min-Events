@@ -220,7 +220,7 @@ export default function Details({ id }: Props) {
                         <div className={styles['info-section']}>
                             <div className={styles['info-item']}>
                                 <p className={styles['info-label']}>Date</p>
-                                {data?.date === null ?
+                                {data?.date === '' ?
                                     <Skeleton animation='wave' width={110} />
                                     :
                                     <div className={styles.infoData}>
@@ -279,7 +279,7 @@ export default function Details({ id }: Props) {
                                 <p className={styles['info-label']}>Description</p>
                             </div>
                             {data?.desc === '' ?
-                                <Skeleton animation='wave' width={220} height={300} />
+                                <Skeleton animation='wave' width={300} height={200} />
                                 :
                                 <div className={styles.InfoData}>
                                     <p className={styles.desc}>{data?.desc}</p>
@@ -312,7 +312,12 @@ export default function Details({ id }: Props) {
                                     {attendeeList.map((attendee, index) => (
                                         <div className={styles['attendee-list']} key={index}>
                                             <div className={styles['attendee-name']}>
-                                                <p> {attendee.fullName} </p>
+                                                <p> 
+                                                    {
+                                                        attendee.firstName !== undefined ? attendee.fullName 
+                                                        : 'Unknown Attendee'
+                                                    }    
+                                                </p>
                                             </div>
                                             <div className={styles['attendee-course']}>
                                                 <p> 
@@ -320,14 +325,14 @@ export default function Details({ id }: Props) {
                                                         attendee.degreeProgram  === 'cs' ? 'BSCS'
                                                         : attendee.degreeProgram  === 'amat' ? 'BSAM'
                                                         : attendee.degreeProgram  === 'bio' ? 'BSB'
-                                                        : attendee.degreeProgram  === 'ft' ? 'BFT'
+                                                        : attendee.degreeProgram  === 'ft' ? 'BSFT'
                                                         : attendee.degreeProgram  === 'bae' ? 'BAE'
                                                         : attendee.degreeProgram  === 'bacma' ? 'BACMA'
                                                         : attendee.degreeProgram === 'anthro' ? 'BAA'
                                                         : attendee.degreeProgram  === 'bsa' ? 'BSA'
                                                         : attendee.degreeProgram  === 'bss' ? 'BSS'
                                                         : attendee.degreeProgram  === 'abe' ? 'BSABE' 
-                                                        : 'Select your degree program'
+                                                        : '-'
                                                     }
                                                 </p>
                                             </div>

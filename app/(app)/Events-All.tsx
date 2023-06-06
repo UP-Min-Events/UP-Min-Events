@@ -21,8 +21,14 @@ export default function All() {
     const eventscollection = collection(db, 'events')
     const [events, setEvents] = useState<Event[]>([])
 
+    const dateToday = new Date()
+    
     const getEvents = async () => {
-        const q = query(eventscollection, where('visibility', '==', 'Public'))
+        const q = query(
+            eventscollection, 
+            where('visibility', '==', 'Public'),
+            where('date', '>=', dateToday),
+        )
         const querySnapshot = await getDocs(q)
         const events: Event[] = []
 
