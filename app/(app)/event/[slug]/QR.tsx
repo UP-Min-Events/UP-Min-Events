@@ -9,7 +9,6 @@ import { db } from '../../../../firebaseConfig'
 
 interface Props {
     id: string,
-    name: string;
 }
 
 export default function QR({ id } : Props) {

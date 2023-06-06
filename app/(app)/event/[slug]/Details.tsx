@@ -220,7 +220,7 @@ export default function Details({ id }: Props) {
                         <div className={styles['info-section']}>
                             <div className={styles['info-item']}>
                                 <p className={styles['info-label']}>Date</p>
-                                {data?.date === '' ?
+                                {data?.date === undefined ?
                                     <Skeleton animation='wave' width={110} />
                                     :
                                     <div className={styles.infoData}>
@@ -314,7 +314,7 @@ export default function Details({ id }: Props) {
                                             <div className={styles['attendee-name']}>
                                                 <p> 
                                                     {
-                                                        attendee.firstName !== undefined ? attendee.fullName 
+                                                        attendee.fullName !== undefined ? attendee.fullName 
                                                         : 'Unknown Attendee'
                                                     }    
                                                 </p>
