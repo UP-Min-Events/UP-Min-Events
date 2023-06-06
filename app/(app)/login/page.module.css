@@ -1,5 +1,18 @@
 .page-wrapper {
     height: calc(100vh - 3rem);
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+
+.loading {
+    position: absolute;
+    align-self: center;
+    top: 50%;
+    width: 75%;
+    height: 0.25rem;
+    border-radius: 0.25rem;
+    z-index: 100;
 }
 
 .login-header {

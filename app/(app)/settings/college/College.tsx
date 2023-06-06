@@ -56,7 +56,7 @@ export default function College(){
                     <Link href="/settings"> 
                         <ArrowBackIcon sx={{ scale: '125%', color: '#a70000', p: '0' }} /> 
                     </Link> 
-                    <button className={styles['save-setting']}> Save </button>
+                    <button className={styles['save-setting']} onClick={() => { updateDetail() }}> Save </button>
             </div>
 
             <div className={styles['form-body']}>
@@ -70,13 +70,9 @@ export default function College(){
                                     <option value='chss'>College of Humanities and Social Sciences</option>
                                     <option value='som'>School of Management</option>
                                 </select>
-                                <button onClick={() => {
-                                    updateDetail()
-                                    setToggle(false)
-                                }}>Save</button> 
                             </div> 
                             : 
-                            <p onClick={() => setToggle(true)}>
+                            <p className={styles['input-element']} onClick={() => setToggle(true)}>
                                 {
                                     input === 'csm' ? 'College of Science and Mathematics' :
                                     input === 'chss' ? 'College of Humanities and Social Sciences' :

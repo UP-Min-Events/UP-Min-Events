@@ -23,18 +23,18 @@ export default function OrganizerDetails() {
                         <ArrowForwardIosIcon sx={{ color: '#a70000', scale: '0.75' }}/>
                     </Link>
                 </div>
-                <div className={styles.item}>
+                <div className={styles['item-bottom']}>
                     Affliated Organization
                     <Link href="/settings/organization">
                         <ArrowForwardIosIcon sx={{ color: '#a70000', scale: '0.75' }}/>
                     </Link>
                 </div>
-                <div className={styles['item-bottom']}>
+                {/* <div className={styles['item-bottom']}>
                     Account
                     <Link href="/settings/account-setting">
                         <ArrowForwardIosIcon sx={{ color: '#a70000', scale: '0.75' }}/>
                     </Link>
-                </div>
+                </div> */}
             </div>
             <div className={styles.infoBox}>
                 <div className={styles.item}>

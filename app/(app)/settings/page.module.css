@@ -115,16 +115,6 @@
     gap: 0.25rem;
   }
 
-.input-wrapper {
-  background-color: white;
-  width: 100%;
-  border: 1px solid lightgray;
-  border-radius: 0.5rem;
-  padding: 0.5rem;
-  font-size: 1rem;
-  color: black;
-}
-
   .input-label {
     font-weight: 600;
     font-size: 1rem;
@@ -133,9 +123,9 @@
   .input-element {
     background-color: white;
     width: 100%;
-    border: none;
+    border: 1px solid lightgray;
     border-radius: 0.5rem;
-    padding: 0.5rem 0 0.5rem 0;
+    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
     font-size: 1rem;
     color: black;
   }
@@ -163,9 +153,36 @@
     }
 
 .save-setting {
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   background-color: white;
   border: none;
   color: #a70000;
   font-weight: 600;
 }
+
+.content {
+  text-indent: 2rem;
+  text-align: justify;
+  line-height: 1.25;
+  padding: 1rem;
+}
+
+.org-button {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  margin: 0.25rem 0 0.25rem 0;
+  padding: 0.25rem;
+  text-align: center;
+  background: transparent;
+  color: black;
+}
+
+  .org-button button {
+      background: transparent;
+      border: none;
+      color: black;
+      font-weight: 600;
+      font-size: 0.75rem;
+  }
+
