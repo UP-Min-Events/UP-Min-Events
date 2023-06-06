@@ -1,4 +1,4 @@
-'use client'
+ 'use client'
 
 import styles from '../page.module.css'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
@@ -22,8 +22,10 @@ export default function Name() {
     const id = user?.uid
     const { userType } = useUserTypeContext()
 
-    const [toggleFirst, setToggleFirst] = useState(false)
-    const [toggleLast, setToggleLast] = useState(false)
+    // MUI Snackbar
+    const [open, setOpen] = useState(false)
+    const handleClick = () => setOpen(true)
+    const handleClose = () => setOpen(false)
     
     const [input, setInput] = useState<Name>({ firstName: '', lastName: ''})
 
@@ -68,45 +70,19 @@ export default function Name() {
                     <Link href="/settings"> 
                         <ArrowBackIcon sx={{ scale: '125%', color: '#a70000', p: '0' }} /> 
                     </Link> 
-                    <button className={styles['save-setting']}> Save </button>
+                    <button className={styles['save-setting']} onClick={() => { updateDetail() }}> Save </button>
             </div>
-
             <div className={styles['form-body']}>
                 <div className={styles['form-section']}>
                     <div className={styles['form-item']}>
                         <p className={styles['input-label']}> First Name </p>
-                        <div className={styles['input-wrapper']}>
-                            { toggleFirst ?
-                                <div>
-                                    <input className={styles['input-element']} value={input.firstName} onChange={e => setInput({ ...input, firstName: e.target.value })} placeholder={input.firstName} />
-                                    <button onClick={() => {
-                                        updateDetail()
-                                        setToggleFirst(false)
-                                    }}>Save</button>
-                                </div>
-                                :
-                                <p onClick={() => setToggleFirst(true)}>{input.firstName}</p>
-                            }
-                        </div>
+                            <input className={styles['input-element']} value={input.firstName} onChange={e => setInput({ ...input, firstName: e.target.value })} placeholder={input.firstName} />
                     </div>
 
                     <div className={styles['form-item']}>
                         <p className={styles['input-label']}> Last Name </p>
-                        <div className={styles['input-wrapper']}>
-                        { toggleLast ?
-                            <div>
-                                <input className={styles['input-element']} value={input.lastName} onChange={e => setInput({ ...input, lastName: e.target.value })} placeholder={input.lastName} />
-                                <button onClick={() => {
-                                    updateDetail()
-                                    setToggleLast(false)
-                                }}>Save</button>
-                            </div>
-                            :
-                            <p onClick={() => setToggleLast(true)}>{input.lastName}</p>
-                        }
-                        </div>
+                        <input className={styles['input-element']} value={input.lastName} onChange={e => setInput({ ...input, lastName: e.target.value })} placeholder={input.lastName} />
                     </div>
-                                    
                 </div>
             </div>
         </div>

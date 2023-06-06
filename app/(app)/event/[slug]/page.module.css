@@ -176,10 +176,55 @@
 .qrcodecontainer {
     display: flex;
     position: relative;
-    margin-top: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 
 .desc {
     text-indent: 2rem;
     text-align: justify;
+}
+
+.confirm-delete {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    width: 100%;
+}
+
+.confirm-delete h2 {
+    color: #a70000;
+    padding: 1rem 1rem 0 1rem;
+}
+.confirm-delete p {
+    padding: 1rem;
+}
+
+.cancel {
+    border: none;
+    padding: 0.25rem 0.75rem 0.25rem 0.75rem;
+    border-radius: 0.75rem;
+    font-size: 0.9rem;
+    background-color: lightgray;
+    color: black;
+}
+
+.delete {
+    border: none;
+    padding: 0.25rem 0.75rem 0.25rem 0.75rem;
+    border-radius: 0.75rem;
+    font-size: 0.9rem;
+    background-color: #a70000;
+    color: white;
+}
+
+.dialog-button-wrapper {
+    width: 100%;
+    display: flex;
+    position: relative;
+    gap: 1rem;
+    padding: 0 1rem 1rem 1rem;
+    justify-content: right;
 }

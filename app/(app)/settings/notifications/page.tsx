@@ -1,3 +1,5 @@
-export default function Page() {
-    return <h1>Notifications</h1>
+import Notifications from './Notifications'
+
+export default function Page(){
+    return <Notifications />
 }

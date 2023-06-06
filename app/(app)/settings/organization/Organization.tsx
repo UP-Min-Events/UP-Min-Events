@@ -4,6 +4,11 @@ import styles from '../page.module.css'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import Link from 'next/link'
 
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import Collapse from '@mui/material/Collapse';
+import { TransitionGroup } from 'react-transition-group';
+
 import { useState, useEffect } from 'react'
 import { auth, db } from '../../../../firebaseConfig'
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
@@ -58,7 +63,7 @@ export default function Organization() {
      };
 
      return (
-          <>
+          <div>
                <div className={styles.nav}>
                     <Link href="/settings">
                          <ArrowBackIcon sx={{ scale: '125%', color: '#a70000', p: '0' }} />
@@ -67,25 +72,39 @@ export default function Organization() {
                          Save
                     </button>
                </div>
-               <div>Organization</div>
-               {organizations.map((org, index) => (
-                    <div key={index}>
-                         <input
-                              type="text"
-                              value={org}
-                              onChange={(e) => handleOrganizationChange(index, e.target.value)}
-                         />
-                         <button onClick={() => handleDeleteOrganization(index)}>Delete</button>
+               <div className={styles['form-body']}>
+                    <div className={styles['form-item']}>
+                         <p className={styles['input-label']}>Organization</p>
+                         <TransitionGroup>
+                              {organizations.map((org, index) => (
+                                   <Collapse key={index}>
+                                        <input
+                                             className={styles['input-element']}
+                                             type="text"
+                                             value={org}
+                                             onChange={(e) => handleOrganizationChange(index, e.target.value)}
+                                        />
+                                        <div className={styles['org-button']}>
+                                             <RemoveIcon sx={{ scale: '0.75', color: '#a70000', p: '0' }} />
+                                             <button onClick={() => handleDeleteOrganization(index)}>Delete Organization</button>
+                                        </div>
+                                   </Collapse>
+                              ))}
+                         </TransitionGroup>
+                         <div>
+                              <input
+                                   className={styles['input-element']}
+                                   type="text"
+                                   value={newOrganization}
+                                   onChange={(e) => setNewOrganization(e.target.value)}
+                              />
+                              <div className={styles['org-button']}>
+                                   <AddIcon sx={{ scale: '0.75', color: '#a70000', p: '0' }} />
+                                   <button onClick={handleAddOrganization}>Add Organization</button>
+                              </div>
+                         </div>
                     </div>
-               ))}
-               <div>
-                    <input
-                         type="text"
-                         value={newOrganization}
-                         onChange={(e) => setNewOrganization(e.target.value)}
-                    />
-                    <button onClick={handleAddOrganization}>Add Organization</button>
                </div>
-          </>
+          </div>
      );
 }

@@ -1,15 +1,29 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './page.module.css'
 import QRCode from 'qrcode'
 
+import { doc, getDoc } from 'firebase/firestore'
+import { db } from '../../../../firebaseConfig'
+
 interface Props {
     id: string,
+    name: string;
 }
 
 export default function QR({ id } : Props) {
     
+    const [name, setName] = useState<string>("")
+    
+    const getEventTitle = async () => {
+        const docRef = doc(db, "events", id)
+        const docSnap = await getDoc(docRef)
+        if (docSnap.exists()) {
+            setName(docSnap.data().name)
+        }
+    }
+
     const saveQR = () => {
         const image = document.getElementById('qrcode') as HTMLCanvasElement 
         const a = document.createElement('a')
@@ -33,12 +47,13 @@ export default function QR({ id } : Props) {
 
     useEffect(() => {
         generateQR()
+        getEventTitle()
     }, [])
 
     return(
         <div className={styles.container}>
             <div className={styles.header}>
-                <h1>Event Title</h1>
+                <h1>{name}</h1>
             </div>
             <div className={styles.qrcodecontainer}>
                 <canvas id="qrcode"></canvas>

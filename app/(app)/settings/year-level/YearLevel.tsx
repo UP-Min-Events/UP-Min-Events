@@ -44,13 +44,12 @@ export default function YearLevel(){
                     <Link href="/settings"> 
                         <ArrowBackIcon sx={{ scale: '125%', color: '#a70000', p: '0' }} /> 
                     </Link> 
-                    <button className={styles['save-setting']}> Save </button>
+                    <button className={styles['save-setting']} onClick={() => { updateDetail() }}> Save </button>
             </div>
 
             <div className={styles['form-body']}>
                 <div className={styles['form-item']}>
                     <p className={styles['input-label']}> Student Number </p>
-                    <div className={styles['input-wrapper']}>
                         { toggle ?
                             <div>
                                 <select className={styles['input-element']} value={input} onChange={e => setInput(e.target.value)} placeholder={input}>
@@ -59,13 +58,9 @@ export default function YearLevel(){
                                     <option value='3'>3rd Year</option>
                                     <option value='4'>4th Year</option>
                                 </select>
-                                <button onClick={() => {
-                                    updateDetail()
-                                    setToggle(false)
-                                }}>Save</button>
                             </div>
                             :
-                            <p onClick={() => setToggle(true)}>
+                            <p className={styles['input-element']} onClick={() => setToggle(true)}>
                                 {
                                     input === '1' ? '1st Year' :
                                     input === '2' ? '2nd Year' :
@@ -74,7 +69,6 @@ export default function YearLevel(){
                                 }
                             </p>
                         }
-                    </div>
                 </div>
             </div>
 

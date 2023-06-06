@@ -15,7 +15,6 @@ export default function StudentNum() {
     const [user] = useAuthState(auth)
     const id = user?.uid
 
-    const [toggle, setToggle] = useState(false)
     const [input, setInput] = useState<string>('')
 
     const getDetail = async () => {
@@ -44,25 +43,13 @@ export default function StudentNum() {
                     <Link href="/settings"> 
                         <ArrowBackIcon sx={{ scale: '125%', color: '#a70000', p: '0' }} /> 
                     </Link> 
-                    <button className={styles['save-setting']}> Save </button>
+                    <button className={styles['save-setting']} onClick={() => { updateDetail() }}> Save </button>
             </div>
 
             <div className={styles['form-body']}>
                 <div className={styles['form-item']}>
                     <p className={styles['input-label']}> Student Number </p>
-                    <div className={styles['input-wrapper']}>
-                        { toggle ?
-                            <div>
-                                <input className={styles['input-element']} value={input} onChange={e => setInput(e.target.value)} placeholder={input} />
-                                <button onClick={() => {
-                                    updateDetail()
-                                    setToggle(false)
-                                }}>Save</button>
-                            </div>
-                            :
-                            <p onClick={() => setToggle(true)}>{input}</p>
-                        }
-                    </div>
+                    <input className={styles['input-element']} value={input} onChange={e => setInput(e.target.value)} placeholder={input} />
                 </div>
             </div>
 

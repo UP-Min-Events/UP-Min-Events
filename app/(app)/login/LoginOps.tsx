@@ -9,7 +9,6 @@ import { useRouter } from 'next/navigation'
 
 import upLogo from '@/public/uplogo.png'
 import Image from 'next/image'
-import { Skeleton } from '@mui/material'
 
 import { auth, db } from '@/firebaseConfig'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
@@ -72,47 +71,27 @@ export default function LoginOps(){
     return (
         <div className={styles['page-wrapper']}>
             <div className={`${styles['login-header']} ${inter.className}`}>
-                { isLoading ?
-                    <>
-                        <Skeleton animation='wave' width={175} height={225} />
-                        <Skeleton animation='wave' width={125} height={80} />
-                        <Skeleton animation='wave' width={175} />
-                    </> 
-                 : 
-                    <>
-                        <Image className={styles.logo} src={upLogo} alt="UPMin Logo" width={175} height={142} priority/>
-                        <h1>Events</h1>
-                        <p>Know what&apos;s happening.</p>
-                    </>
-                }
+                <Image className={styles.logo} src={upLogo} alt="UPMin Logo" width={175} height={142} priority/>
+                <h1>Events</h1>
+                <p>Know what&apos;s happening.</p>
             </div>
 
             <div className={`${styles['login-body']} ${inter.className}`}>
-                { isLoading ?
-                    <>
-                        <Skeleton animation='wave' width={80} />
-                        <Skeleton animation='wave' width={200} height={70} />
-                        <Skeleton animation='wave' width={200} height={70} />
-                    </>
-                : 
-                    <>
-                        <p>Log in as:</p>
-                        <button className={`${inter.className} ${styles['login-button']}`} onClick={() => {
-                            updateUserType('attendee')
-                            setIsLoading(true)
-                            SignIn()
-                        }}> 
-                            Attendee
-                        </button>
-                        <button className={`${inter.className} ${styles['login-button']}`} onClick={() => {
-                            updateUserType('organizer')
-                            setIsLoading(true)
-                            SignIn()
-                        }}> 
-                            Organizer
-                        </button>
-                    </>
-                }
+                <p>Log in as:</p>
+                <button className={`${inter.className} ${styles['login-button']}`} onClick={() => {
+                    updateUserType('attendee')
+                    setIsLoading(true)
+                    SignIn()
+                }}> 
+                    Attendee
+                </button>
+                <button className={`${inter.className} ${styles['login-button']}`} onClick={() => {
+                    updateUserType('organizer')
+                    setIsLoading(true)
+                    SignIn()
+                }}> 
+                    Organizer
+                </button>
             </div>
         </div>           
     )

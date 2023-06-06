@@ -6,6 +6,9 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
+import Collapse from '@mui/material/Collapse';
+import { TransitionGroup } from 'react-transition-group';
+
 const inter = Inter({ subsets: ['latin'] })
 
 interface Props {
@@ -162,20 +165,22 @@ export default function Page2({
                             <button onClick={handleAddCoOwner}> Add Co-Owner </button>
                         </div>
                     </div>
-                    {coOwners.map((coOwner, index) => (
-                        <div className={`${styles['input-wrapper']} ${inter.className}`} key={index}>
-                            <input
-                                className={styles['input-element']}
-                                type="text"
-                                value={coOwner}
-                                onChange={(e) => handleCoOwnerChange(index, e.target.value)}
-                            />
-                            <div className={styles['owner-button']}>
-                                <RemoveIcon sx={{ scale: '0.75', color: '#a70000', p: '0' }}/>
-                                <button onClick={() => handleRemoveCoOwner(index)}> Remove Co-Owner </button>
-                            </div>
-                        </div>
-                    ))}
+                    <TransitionGroup>
+                        {coOwners.map((coOwner, index) => (
+                            <Collapse className={`${styles['input-wrapper']} ${inter.className}`} key={index}>
+                                <input
+                                    className={styles['input-element']}
+                                    type="text"
+                                    value={coOwner}
+                                    onChange={(e) => handleCoOwnerChange(index, e.target.value)}
+                                />
+                                <div className={styles['owner-button']}>
+                                    <RemoveIcon sx={{ scale: '0.75', color: '#a70000', p: '0' }}/>
+                                    <button onClick={() => handleRemoveCoOwner(index)}> Remove Co-Owner </button>
+                                </div>
+                            </Collapse>
+                        ))}
+                    </TransitionGroup>
                 </div>
             </div>
             <Link className={styles['button-wrapper']} href="/">
