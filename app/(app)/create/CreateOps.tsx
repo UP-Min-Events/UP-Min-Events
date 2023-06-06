@@ -34,13 +34,18 @@ export default function Ops() {
       };
     
       const handleAddCoOwner = async () => {
+        if (coOwnerPlaceholder === user?.email) {
+            alert('You are already the owner of this event')
+            return;
+        }
+        
         if (coOwnerPlaceholder.trim() !== '') {
             const q = query(collection(db, "organizers"), where("emailAddress", "==", coOwnerPlaceholder));
             const querySnapshot = await getDocs(q);
             if (querySnapshot.empty) {
                 alert('User does not exist')
                 return;
-            }
+            } 
             setCoOwners([...coOwners, coOwnerPlaceholder]);
             setCoOwnerPlaceholder('');
         }

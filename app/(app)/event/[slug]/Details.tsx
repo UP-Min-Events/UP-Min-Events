@@ -306,7 +306,7 @@ export default function Details({ id }: Props) {
             }
             {
                 userType === 'organizer' &&
-                data?.owner === user?.uid &&
+                (data?.owner === user?.uid || isCoOwner === true) &&
 
                 <div className={styles['small-button-wrapper']}>
                     <Link className={styles.buttonM} href={`/event/${id}/edit`}>Edit</Link>
