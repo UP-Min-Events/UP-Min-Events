@@ -17,7 +17,7 @@ export default function PrivacySafety() {
             </div>
             <div className={styles.infoBox}> 
                 <div className={styles.content}>
-                    <p> For safety purposes, this app will not be made public and will only be used for the purposes of the course until affiliated with official university affairs. </p>
+                    <p> For safety purposes, this app will not be made public and will only be used for the purposes of the course until affiliated with official university affairs. </p> &nbsp;
                     <p> Any personal information will be kept with utmost privacy. </p>
                 </div>
             </div>

@@ -17,10 +17,10 @@ export default function About() {
             </div>
             <div className={styles.infoBox}> 
                 <div className={styles.content}>
-                    <p> UPMin Events is an event management app developed by Nhyl Bryle Iba&#241;ez, Anakin Skywalker Pactores, and Rafael Paderna. </p>
-                    <p> This app is developed as a final project for CMSC 127: File and Database Management Systems. The app's tech stack includes NextJS, Typescript, and Firebase. The development duration lasted 2 months.</p>
-                    <p> This project was managed by Mikaella Ba&#241;ez, Bea Totanes, Mark Valderrama, and Ron Vertudes.</p>
-                    <p> As of June 2023, this app is not affiliated with any official university affairs.</p>
+                    <p> UPMin Events is an event management app developed by Nhyl Bryle Iba&#241;ez, Anakin Skywalker Pactores, and Rafael Paderna. </p> &nbsp;
+                    <p> This app is developed as a final project for CMSC 127: File and Database Management Systems. The app's tech stack includes NextJS, Typescript, and Firebase. The development duration lasted 2 months.</p> &nbsp;
+                    <p> This project was managed by Mikaella Ba&#241;ez, Bea Totanes, Mark Valderrama, and Ron Vertudes.</p> &nbsp;
+                    <p> As of June 2023, this app is not affiliated with any official university affairs.</p> &nbsp;
                 </div>
             </div>
         </div>
