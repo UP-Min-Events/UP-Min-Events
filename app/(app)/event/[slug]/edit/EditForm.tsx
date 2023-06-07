@@ -5,10 +5,16 @@ import { Inter } from 'next/font/google'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 
-import { db } from '@/firebaseConfig'
-import { doc, getDoc, updateDoc } from 'firebase/firestore'
+import { db, auth } from '@/firebaseConfig'
+import { doc, getDoc, updateDoc, query, where, getDocs, collection } from 'firebase/firestore'
 
 import { Skeleton } from '@mui/material'
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import Collapse from '@mui/material/Collapse';
+import { TransitionGroup } from 'react-transition-group';
+
+import { useAuthState } from 'react-firebase-hooks/auth'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,10 +27,12 @@ interface Event {
     endTime: string;
     venue: string;
     visibility: string;
+    coOwners: string[];
 }
 
-export default function EditForm({ id } : { id : string }){
+export default function EditForm({ id }: { id: string }) {
 
+    const [user] = useAuthState(auth);
     const router = useRouter()
 
     const [loading, setLoading] = useState<boolean>(true)
@@ -36,17 +44,60 @@ export default function EditForm({ id } : { id : string }){
         startTime: '',
         endTime: '',
         venue: '',
-        visibility: ''
+        visibility: '',
+        coOwners: []
     })
 
+    const [coOwners, setCoOwners] = useState<string[]>([]);
+    const [coOwnerPlaceholder, setCoOwnerPlaceholder] = useState<string>('')
+
+    const handleCoOwnerChange = (index: number, value: string) => {
+        const updatedCoOwner = [...coOwners];
+        updatedCoOwner[index] = value;
+        setCoOwners(updatedCoOwner);
+    };
+
+    const handleDeleteCoOwner = (index: number) => {
+        const updatedCoOwner = [...coOwners];
+        updatedCoOwner.splice(index, 1);
+        setCoOwners(updatedCoOwner);
+    };
+
+    const handleAddCoOwner = async () => {
+        if (coOwnerPlaceholder.trim() === '') {
+            alert("Please input an email address");
+            return;
+        }
+
+        if (coOwnerPlaceholder === user?.email) {
+            alert('You are already the owner of this event')
+            return;
+        }
+        
+        if (coOwnerPlaceholder.trim() !== '') {
+            const q = query(collection(db, "organizers"), where("emailAddress", "==", coOwnerPlaceholder));
+            const querySnapshot = await getDocs(q);
+            if (querySnapshot.empty) {
+                alert('User does not exist')
+                return;
+            } 
+            setCoOwners([...coOwners, coOwnerPlaceholder]);
+            setCoOwnerPlaceholder('');
+        }
+    };
+
     const getDetails = async () => {
-        const docSnap = await getDoc(doc(db, 'events', id))
-        setData(docSnap.data() as Event)
-        setLoading(false)
-    }
+        const docSnap = await getDoc(doc(db, 'events', id));
+        const eventData = docSnap.data() as Event;
+        setData(eventData);
+        setLoading(false);
+        if (eventData && eventData.coOwners) {
+            setCoOwners(eventData.coOwners);
+        }
+    };
 
     const updateDetails = async () => {
-        await updateDoc(doc(db, 'events', id), 
+        await updateDoc(doc(db, 'events', id),
             {
                 name: data.name,
                 host: data.host,
@@ -55,7 +106,8 @@ export default function EditForm({ id } : { id : string }){
                 startTime: data.startTime,
                 endTime: data.endTime,
                 venue: data.venue,
-                visibility: data.visibility
+                visibility: data.visibility,
+                coOwners: coOwners
             }
         )
     }
@@ -64,23 +116,29 @@ export default function EditForm({ id } : { id : string }){
         getDetails()
     }, [])
 
+    useEffect(() => {
+        if (data && data.coOwners) {
+            setCoOwners(data.coOwners);
+        }
+    }, [data])
+
     return (
         <div className={`${styles['form-wrapper']} ${inter.className}`}>
-            <section className={styles.section}> 
+            <section className={styles.section}>
                 <div className={styles['item-wrapper']}>
                     <div className={styles.label}>
                         <p>Title</p>
                     </div>
                     <div className={styles.input}>
-                        { loading ?  
+                        {loading ?
                             <Skeleton variant='text' width='100%' height='100%' animation='wave' />
                             :
-                            <input 
+                            <input
                                 className={inter.className}
-                                type="text" 
+                                type="text"
                                 placeholder={data.name}
                                 value={data.name}
-                                onChange={(e) => setData({ ...data, name: e.target.value })} 
+                                onChange={(e) => setData({ ...data, name: e.target.value })}
                             />
                         }
                     </div>
@@ -90,14 +148,14 @@ export default function EditForm({ id } : { id : string }){
                         <p>Host</p>
                     </div>
                     <div className={styles.input}>
-                        { loading ? 
-                            <Skeleton variant='text' width='100%' height='100%' animation='wave' />  
+                        {loading ?
+                            <Skeleton variant='text' width='100%' height='100%' animation='wave' />
                             :
-                            <input 
+                            <input
                                 className={inter.className}
-                                type="text" 
+                                type="text"
                                 placeholder={data.host}
-                                value={data.host} 
+                                value={data.host}
                                 onChange={(e) => setData({ ...data, host: e.target.value })}
                             />
                         }
@@ -108,10 +166,10 @@ export default function EditForm({ id } : { id : string }){
                         <p>Description</p>
                     </div>
                     <div className={styles.input}>
-                        { loading ? 
+                        {loading ?
                             <Skeleton variant='rounded' width='100%' height='100%' animation='wave' />
                             :
-                            <textarea 
+                            <textarea
                                 className={inter.className}
                                 placeholder={data.desc}
                                 value={data.desc}
@@ -121,20 +179,20 @@ export default function EditForm({ id } : { id : string }){
                     </div>
                 </div>
             </section>
-            <section className={styles.section}> 
+            <section className={styles.section}>
                 <div className={styles['item-wrapper']}>
                     <div className={styles.label}>
                         <p>Date</p>
                     </div>
                     <div className={styles.input}>
-                        { loading ? 
+                        {loading ?
                             <Skeleton variant='text' width='100%' height='100%' animation='wave' />
                             :
-                            <input 
+                            <input
                                 className={inter.className}
-                                type='date' 
-                                value={data.date} 
-                                onChange={(e) => setData({ ...data, date: e.target.value })} 
+                                type='date'
+                                value={data.date}
+                                onChange={(e) => setData({ ...data, date: e.target.value })}
                             />
                         }
                     </div>
@@ -144,14 +202,14 @@ export default function EditForm({ id } : { id : string }){
                         <p>Start Time</p>
                     </div>
                     <div className={styles.input}>
-                        { loading ? 
+                        {loading ?
                             <Skeleton variant='text' width='100%' height='100%' animation='wave' />
                             :
-                            <input 
+                            <input
                                 className={inter.className}
-                                type='time' 
+                                type='time'
                                 value={data.startTime}
-                                onChange={(e) => setData({ ...data, startTime: e.target.value })} 
+                                onChange={(e) => setData({ ...data, startTime: e.target.value })}
                             />
                         }
                     </div>
@@ -161,14 +219,14 @@ export default function EditForm({ id } : { id : string }){
                         <p>End Time</p>
                     </div>
                     <div className={styles.input}>
-                        { loading ? 
+                        {loading ?
                             <Skeleton variant='text' width='100%' height='100%' animation='wave' />
                             :
-                            <input 
+                            <input
                                 className={inter.className}
-                                type='time' 
+                                type='time'
                                 value={data.endTime}
-                                onChange={(e) => setData({ ...data, endTime: e.target.value })} 
+                                onChange={(e) => setData({ ...data, endTime: e.target.value })}
                             />
                         }
                     </div>
@@ -178,15 +236,15 @@ export default function EditForm({ id } : { id : string }){
                         <p>Venue</p>
                     </div>
                     <div className={styles.input}>
-                        { loading ? 
+                        {loading ?
                             <Skeleton variant='text' width='100%' height='100%' animation='wave' />
                             :
-                            <input 
+                            <input
                                 className={inter.className}
-                                type="text" 
+                                type="text"
                                 placeholder={data.venue}
                                 value={data.venue}
-                                onChange={(e) => setData({ ...data, venue: e.target.value })} 
+                                onChange={(e) => setData({ ...data, venue: e.target.value })}
                             />
                         }
                     </div>
@@ -196,18 +254,52 @@ export default function EditForm({ id } : { id : string }){
                         <p>Visibility</p>
                     </div>
                     <div className={styles.input}>
-                        { loading ? 
+                        {loading ?
                             <Skeleton variant='text' width='100%' height='100%' animation='wave' />
                             :
-                            <select 
+                            <select
                                 className={inter.className}
                                 value={data.visibility}
-                                onChange={(e) => setData({ ...data, visibility: e.target.value })}    
+                                onChange={(e) => setData({ ...data, visibility: e.target.value })}
                             >
                                 <option value="Public" selected>Public</option>
                                 <option value="Private">Private</option>
                             </select>
                         }
+                    </div>
+                </div>
+                <div className={styles['item-wrapper']}>
+                    <div className={styles.label}>
+                        <p>Co-Owner</p>
+                    </div>
+                    <div className={styles.input}>
+                        {coOwners !== undefined && coOwners.map((coOwner, index) => (
+                            <>
+                                <input
+                                    className={styles['input-element']}
+                                    type="text"
+                                    placeholder={coOwner}
+                                    value={coOwner}
+                                    onChange={(e) => handleCoOwnerChange(index, e.target.value)}
+                                />
+                                <div className={styles['org-button']}>
+                                    <RemoveIcon sx={{ scale: '0.75', color: '#a70000', p: '0' }} />
+                                    <button onClick={() => handleDeleteCoOwner(index)}>Delete Organization</button>
+                                </div>
+                            </>
+                        ))}
+                    </div>
+                    <div>
+                        <input
+                            className={styles['input-element']}
+                            type="text"
+                            value={coOwnerPlaceholder}
+                            onChange={(e) => setCoOwnerPlaceholder(e.target.value)}
+                        />
+                        <div className={styles['org-button']}>
+                            <AddIcon sx={{ scale: '0.75', color: '#a70000', p: '0' }} />
+                            <button onClick={handleAddCoOwner}>Add CoOwner</button>
+                        </div>
                     </div>
                 </div>
             </section>
