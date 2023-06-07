@@ -276,29 +276,36 @@ export default function EditForm({ id }: { id: string }) {
                         {coOwners !== undefined && coOwners.map((coOwner, index) => (
                             <>
                                 <input
-                                    className={styles['input-element']}
+                                    className={inter.className}
                                     type="text"
                                     placeholder={coOwner}
                                     value={coOwner}
                                     onChange={(e) => handleCoOwnerChange(index, e.target.value)}
                                 />
                                 <div className={styles['org-button']}>
-                                    <RemoveIcon sx={{ scale: '0.75', color: '#a70000', p: '0' }} />
-                                    <button onClick={() => handleDeleteCoOwner(index)}>Delete Organization</button>
+                                    <button onClick={() => handleDeleteCoOwner(index)}>
+                                        <RemoveIcon sx={{ scale: '0.75', color: '#a70000', p: '0' }} />
+                                    </button>
                                 </div>
                             </>
                         ))}
                     </div>
-                    <div>
+                </div>
+                <div className={styles['item-wrapper']}>
+                    <div className={styles.label}>
+                        <p>Add Co-Owner</p>
+                    </div>
+                    <div className={styles.input}>
                         <input
-                            className={styles['input-element']}
+                            className={inter.className}
                             type="text"
                             value={coOwnerPlaceholder}
                             onChange={(e) => setCoOwnerPlaceholder(e.target.value)}
                         />
                         <div className={styles['org-button']}>
-                            <AddIcon sx={{ scale: '0.75', color: '#a70000', p: '0' }} />
-                            <button onClick={handleAddCoOwner}>Add CoOwner</button>
+                            <button onClick={handleAddCoOwner}>
+                                <AddIcon sx={{ scale: '0.75', color: '#a70000', p: '0' }} />
+                            </button>
                         </div>
                     </div>
                 </div>

@@ -47,6 +47,25 @@
                         color: #000;
                         font-size: 1rem;
                     }
+
+                    .org-button {
+                        display: flex;
+                        align-items: center;
+                        align-content: center;
+                        margin: 0.25rem 0 0.25rem 0;
+                        padding: 0.25rem;
+                        text-align: center;
+                        background: transparent;
+                        color: black;
+                        
+                        button {
+                            background: transparent;
+                            border: none;
+                            color: black;
+                            font-weight: 600;
+                            font-size: 0.75rem;
+                        }
+                    }
                 }
             }
 
