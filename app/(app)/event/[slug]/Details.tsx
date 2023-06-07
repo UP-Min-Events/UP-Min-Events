@@ -344,7 +344,7 @@ export default function Details({ id }: Props) {
                     }
                     {
                         userType === 'organizer' &&
-                        data?.owner === user?.uid &&
+                        (data?.owner === user?.uid || isCoOwner === true) &&
 
                         <>
                             <div className={styles['small-button-wrapper']}>
