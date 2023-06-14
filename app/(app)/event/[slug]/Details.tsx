@@ -13,6 +13,8 @@ import { doc, getDoc, deleteDoc } from 'firebase/firestore'
 import Dialog from '@mui/material/Dialog';
 
 import { Skeleton } from '@mui/material'
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import Collapse from '@mui/material/Collapse';
 import EventNoteIcon from '@mui/icons-material/EventNote';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
@@ -51,6 +53,7 @@ export default function Details({ id }: Props) {
     const router = useRouter()
     const [showQR, setShowQR] = useState(false)
     const [confirmDelete, setDelete] = useState(false)
+    const [showList, setShowList] = useState(false);
   
     const [data, setData] = useState<Data>({
         id: "",
@@ -81,6 +84,10 @@ export default function Details({ id }: Props) {
     const handleCancelDelete = () => {
         setDelete(false)
     }
+
+    const showAttendeeList = () => {
+        setShowList((prev => !prev));
+    };
 
     const [formattedStartTime, setFormattedStartTime] = useState<string | undefined>("");
     const [formattedEndTime, setFormattedEndTime] = useState<string | undefined>("");
@@ -301,14 +308,14 @@ export default function Details({ id }: Props) {
                                 </div>
 
                                 <div className={styles['info-item']}>
-                                    <b>Attendees</b> 
+                                    <p className={styles['attendee-dropdown']}> Attendees <ArrowDropDownIcon sx={{ color: '#a70000' }} onClick={showAttendeeList} /> </p> 
                                     <div className={styles.infoData}>
                                         <p>{data?.attendees.length}</p>
                                     </div>
                                 </div>
 
-                                <div className={styles['info-item']}>
                                 {/* Display of Attendee name and degree program */}
+                                <Collapse in={showList}>
                                     {attendeeList.map((attendee, index) => (
                                         <div className={styles['attendee-list']} key={index}>
                                             <div className={styles['attendee-name']}>
@@ -338,7 +345,7 @@ export default function Details({ id }: Props) {
                                             </div>
                                         </div>
                                     ))}
-                                </div>
+                                </Collapse>
                             </div>
                         </div>
                     }
