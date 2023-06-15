@@ -34,57 +34,67 @@ export default function ProcessOps({ id }: { id: string }) {
     }
 
     const getTime = () => {
-
         const currentDate = new Date();
-
+      
         // Get time components
-        const hours = currentDate.getHours();
+        let hours = currentDate.getHours();
         const minutes = currentDate.getMinutes();
+        let meridiem = "AM";
+      
+        // Convert to 12-hour format
+        if (hours > 12) {
+          hours -= 12;
+          meridiem = "PM";
+        }
+      
+        // Handle midnight (0 hours)
+        if (hours === 0) {
+          hours = 12;
+        }
+      
+        // Pad minutes with leading zero if necessary
+        const paddedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+      
+        return `${hours}:${paddedMinutes} ${meridiem}`;
+      };
 
-        return `${hours}:${minutes}`
-    }
-
-
+    const checkAttendeeExists = (attendees: AttendanceDetails[], name: string | undefined) => {
+        return attendees.some((details) => details.attendee === name);
+    };
 
     const processAttendance = async (eventId: string) => {
+        const attendee = user?.uid;
+        const eventRef = doc(db, 'events', eventId);
+        const eventDoc = await getDoc(eventRef);
 
-        const attendee = user?.uid
-        const eventRef = doc(db, 'events', eventId)
-        const eventDoc = await getDoc(eventRef)
         const attendanceDetails = {
             attendee: attendee,
             dateTime: getTime()
-        }
-
-        const checkAttendeeExists = (attendees: AttendanceDetails[], name: string | undefined) => {
-            return attendees.some((details) => details.attendee === name);
         };
-          
 
         if (eventDoc.exists()) {
-            const attendees = eventDoc.data().attendees
-            
+            const attendees = eventDoc.data().attendees || [];
 
             if (checkAttendeeExists(attendees, attendee)) {
-                window.alert('You are already attending this event!')
-                router.push(`/event/${eventId}`)
-                return
+                window.alert('You are already attending this event!');
+                router.push(`/event/${eventId}`);
+                return;
             }
 
-            attendees.push(attendanceDetails)
-            console.log(attendanceDetails)
+            attendees.push(attendanceDetails);
 
             await updateDoc(eventRef, {
                 attendees: attendees
-            })
+            });
 
-            window.alert('Attendance recorded!')
-            router.push(`/event/${eventId}`)
+            window.alert('Attendance recorded!');
+            router.push(`/event/${eventId}`);
         } else {
-            window.alert('No such event!')
-            router.push('/')
+            window.alert('No such event!');
+            router.push('/');
         }
-    }
+    };
+
 
     useEffect(() => {
         if (user && !loading) {

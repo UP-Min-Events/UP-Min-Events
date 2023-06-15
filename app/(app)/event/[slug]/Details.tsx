@@ -341,9 +341,8 @@ export default function Details({ id }: Props) {
                                                         : attendee.degreeProgram  === 'bss' ? 'BSS'
                                                         : attendee.degreeProgram  === 'abe' ? 'BSABE' 
                                                         : '-'
-                                                    }
+                                                    } | {attendee.attendanceDetails}
                                                 </p>
-                                                <p> {attendee.attendanceDetails} </p>
                                             </div>
                                         </div>
                                     ))}
