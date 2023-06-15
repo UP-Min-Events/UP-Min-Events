@@ -2,17 +2,21 @@
 
 import styles from './page.module.css'
 import Link from 'next/link'
-import { Inter } from 'next/font/google'
+import Status from './Status'
+import QR from './QR'
+
+import { inter } from '@/utils/font'
+import { getEvent, getAttendees } from '@/utils/getData'
+import { deleteEvent } from '@/utils/deleteData'
 
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useUserTypeContext } from '@/app/providers/UserTypeProvider'
-import { db } from '@/firebaseConfig'
-import { doc, getDoc, deleteDoc } from 'firebase/firestore'
-
-import Dialog from '@mui/material/Dialog';
+import { auth } from '@/firebaseConfig'
+import { useAuthState } from 'react-firebase-hooks/auth'
 
 import { Skeleton } from '@mui/material'
+import Dialog from '@mui/material/Dialog';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import Collapse from '@mui/material/Collapse';
 import EventNoteIcon from '@mui/icons-material/EventNote';
@@ -20,17 +24,6 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
-import Status from './Status'
-import QR from './QR'
-
-import { useAuthState } from 'react-firebase-hooks/auth'
-import { auth } from '@/firebaseConfig'
-
-const inter = Inter({ subsets: ['latin'] })
-
-interface Props {
-    id: string,
-}
 
 interface Data {
     id: string;
@@ -46,7 +39,25 @@ interface Data {
     attendees: { attendee: string; dateTime: string }[];
 }
 
-export default function Details({ id }: Props) {
+const formatTime = (time: string) => {
+
+    // Format time to 12-hour format
+    const hourOptions: Intl.DateTimeFormatOptions = {
+        hour: "numeric",
+        minute: "numeric",
+        hour12: true,
+    };
+
+    if (time && time !== "") {
+        const date = new Date()
+        date.setHours(Number(time.split(":")[0]));
+        date.setMinutes(Number(time.split(":")[1]));
+
+        return date.toLocaleTimeString("en-US", hourOptions);
+    }
+}
+
+export default function Details({ id } : { id: string }) {
 
     const [user] = useAuthState(auth)
     const { userType } = useUserTypeContext()
@@ -54,6 +65,10 @@ export default function Details({ id }: Props) {
     const [showQR, setShowQR] = useState(false)
     const [confirmDelete, setDelete] = useState(false)
     const [showList, setShowList] = useState(false);
+    const [formattedStartTime, setFormattedStartTime] = useState<string | undefined>("");
+    const [formattedEndTime, setFormattedEndTime] = useState<string | undefined>("");
+    const [isCoOwner, setIsCoOwner] = useState<boolean>(false);
+    const [attendeeList, setAttendeeList] = useState<{ fullName: string, degreeProgram: string, attendanceDetails: string }[]>([]);
   
     const [data, setData] = useState<Data>({
         id: "",
@@ -89,87 +104,25 @@ export default function Details({ id }: Props) {
         setShowList((prev => !prev));
     };
 
-    const [formattedStartTime, setFormattedStartTime] = useState<string | undefined>("");
-    const [formattedEndTime, setFormattedEndTime] = useState<string | undefined>("");
-    const [isCoOwner, setIsCoOwner] = useState<boolean>(false);
-    const [attendeeList, setAttendeeList] = useState<{ fullName: string, degreeProgram: string, attendanceDetails: string }[]>([]);
-
-    const date = data.date
-    const formattedDate = date.toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-    })
+    
 
     const getDetails = async () => {
-        const docRef = doc(db, 'events', id)
-        const docSnap = await getDoc(docRef)
+        const event = await getEvent(id)
+        const attendees = await getAttendees()
 
-        setData(docSnap.data() as Data);
+        setData(event as Data);
+        setAttendeeList(attendees as { fullName: string, degreeProgram: string, attendanceDetails: string }[]);
 
-        if (docSnap.exists()) {
-            setData({ 
-                id: docSnap.id,
-                name: docSnap.data().name,
-                desc: docSnap.data().desc,
-                date: docSnap.data().date.toDate(),
-                startTime: docSnap.data().startTime,
-                endTime: docSnap.data().endTime,
-                venue: docSnap.data().venue,
-                host: docSnap.data().host,
-                visibility: docSnap.data().visibility,
-                owner: docSnap.data().owner,
-                attendees: docSnap.data().attendees,
-            } as Data)
-        }
-
-        if (docSnap.data()?.coOwners !== undefined) {
-            if (docSnap.data()?.coOwners.includes(user?.email)) {
+        if (event?.coOwners !== undefined) {
+            if (event.coOwners.includes(user?.email)) {
                 setIsCoOwner(true);
             }
         }
-
     }
 
-    const handleAttendeeList = async () => {
-        for (const attendee of data.attendees) {
-            const docSnap = await getDoc(doc(db, 'attendees', attendee.attendee));
-            setAttendeeList((prev: { fullName: string, degreeProgram: string, attendanceDetails: string }[]) => [
-                ...prev,
-                {
-                    fullName: `${docSnap.data()?.lastName}, ${docSnap.data()?.firstName}`,
-                    degreeProgram: docSnap.data()?.program,
-                    attendanceDetails: attendee.dateTime
-                }
-            ]);
-            console.log(docSnap.data());
-        }
-    };
-
-
-    const deleteEvent = async (): Promise<void> => {
-        const eventRef = doc(db, 'events', id)
-        await deleteDoc(eventRef)
+    const Delete = async (): Promise<void> => {
+        await deleteEvent(id)
         router.push("/")
-    }
-
-    // Format time to 12-hour format; OPTIMIZE this in the future
-    const formatTime = (time: string) => {
-
-        // Format time to 12-hour format
-        const hourOptions: Intl.DateTimeFormatOptions = {
-            hour: "numeric",
-            minute: "numeric",
-            hour12: true,
-        };
-
-        if (time && time !== "") {
-            const date = new Date()
-            date.setHours(Number(time.split(":")[0]));
-            date.setMinutes(Number(time.split(":")[1]));
-
-            return date.toLocaleTimeString("en-US", hourOptions);
-        }
     }
 
     useEffect(() => {
@@ -184,8 +137,6 @@ export default function Details({ id }: Props) {
         if (data && data.endTime !== "") {
             setFormattedEndTime(formatTime(data.endTime));
         }
-
-        handleAttendeeList();
 
     }, [data]);
 
@@ -232,7 +183,14 @@ export default function Details({ id }: Props) {
                                     <Skeleton animation='wave' width={110} />
                                     :
                                     <div className={styles.infoData}>
-                                        <p>{formattedDate}</p>
+                                        <p>
+                                            { data.date.toLocaleDateString('en-US', {
+                                                year: 'numeric',
+                                                month: 'long',
+                                                day: 'numeric'
+                                            })
+                                            }
+                                        </p>
                                     </div>
                                 }
                             </div>
@@ -366,7 +324,7 @@ export default function Details({ id }: Props) {
                                         <p> This event will be gone forever. </p>
                                     <div className={styles['dialog-button-wrapper']}>
                                         <button className={styles.cancel} onClick={handleCancelDelete}>Cancel</button>
-                                        <button className={styles.delete} onClick={deleteEvent}>Delete</button>
+                                        <button className={styles.delete} onClick={Delete}>Delete</button>
                                     </div>
                                 </Dialog>
                             </div>
