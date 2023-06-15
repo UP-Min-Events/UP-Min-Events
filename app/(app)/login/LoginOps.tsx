@@ -30,8 +30,6 @@ export default function LoginOps(){
         const attendees = await getDocs(attendeesdb)
         const userExists = attendees.docs.some(doc => doc.id === userid)
         
-        window.alert(isScanning)
-        
         if (!attendees.docs || attendees.docs.length === 0 || !userExists) {
             router.push('/user-onboarding')
         } else {
@@ -70,7 +68,7 @@ export default function LoginOps(){
                 getOrganizers(userid)
             }
         } catch (error) {
-            window.alert(error)
+            window.alert('An error just occurred. Sorry for the inconvenience.')
         }
     }
     
