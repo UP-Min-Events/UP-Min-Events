@@ -3,11 +3,11 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { auth, db } from '@/firebaseConfig'
-import { doc, getDoc, updateDoc} from 'firebase/firestore'
+import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useIsScanningContext } from '@/app/providers/IsScanningProvider'
 
-export default function ProcessOps({ id } : { id: string }) {
+export default function ProcessOps({ id }: { id: string }) {
 
     const [user, loading] = useAuthState(auth)
     const router = useRouter()
@@ -28,22 +28,38 @@ export default function ProcessOps({ id } : { id: string }) {
         )
     }
 
+    const getTime = () => {
+
+        const currentDate = new Date();
+
+        // Get time components
+        const hours = currentDate.getHours();
+        const minutes = currentDate.getMinutes();
+
+        return `${hours}:${minutes}`
+    }
+
     const processAttendance = async (eventId: string) => {
 
         const attendee = user?.uid
         const eventRef = doc(db, 'events', eventId)
         const eventDoc = await getDoc(eventRef)
+        const attendanceDetails = {
+            attendee: attendee,
+            dateTime: getTime()
+        }
 
         if (eventDoc.exists()) {
             const attendees = eventDoc.data().attendees
 
-            if (attendees.includes(attendee)) {
+            if (attendees.attendee.includes(attendee)) {
                 window.alert('You are already attending this event!')
                 router.push(`/event/${eventId}`)
                 return
             }
 
-            attendees.push(attendee)
+            attendees.push(attendanceDetails)
+            console.log(attendanceDetails)
 
             await updateDoc(eventRef, {
                 attendees: attendees
