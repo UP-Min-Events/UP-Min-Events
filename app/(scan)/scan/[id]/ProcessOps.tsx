@@ -3,11 +3,16 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { auth, db } from '@/firebaseConfig'
-import { doc, getDoc, updateDoc} from 'firebase/firestore'
+import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useIsScanningContext } from '@/app/providers/IsScanningProvider'
 
-export default function ProcessOps({ id } : { id: string }) {
+interface AttendanceDetails {
+    attendee: string;
+    dateTime: string;
+}
+
+export default function ProcessOps({ id }: { id: string }) {
 
     const [user, loading] = useAuthState(auth)
     const router = useRouter()
@@ -28,34 +33,68 @@ export default function ProcessOps({ id } : { id: string }) {
         )
     }
 
-    const processAttendance = async (eventId: string) => {
+    const getTime = () => {
+        const currentDate = new Date();
+      
+        // Get time components
+        let hours = currentDate.getHours();
+        const minutes = currentDate.getMinutes();
+        let meridiem = "AM";
+      
+        // Convert to 12-hour format
+        if (hours > 12) {
+          hours -= 12;
+          meridiem = "PM";
+        }
+      
+        // Handle midnight (0 hours)
+        if (hours === 0) {
+          hours = 12;
+        }
+      
+        // Pad minutes with leading zero if necessary
+        const paddedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+      
+        return `${hours}:${paddedMinutes} ${meridiem}`;
+      };
 
-        const attendee = user?.uid
-        const eventRef = doc(db, 'events', eventId)
-        const eventDoc = await getDoc(eventRef)
+    const checkAttendeeExists = (attendees: AttendanceDetails[], name: string | undefined) => {
+        return attendees.some((details) => details.attendee === name);
+    };
+
+    const processAttendance = async (eventId: string) => {
+        const attendee = user?.uid;
+        const eventRef = doc(db, 'events', eventId);
+        const eventDoc = await getDoc(eventRef);
+
+        const attendanceDetails = {
+            attendee: attendee,
+            dateTime: getTime()
+        };
 
         if (eventDoc.exists()) {
-            const attendees = eventDoc.data().attendees
+            const attendees = eventDoc.data().attendees || [];
 
-            if (attendees.includes(attendee)) {
-                window.alert('You are already attending this event!')
-                router.push(`/event/${eventId}`)
-                return
+            if (checkAttendeeExists(attendees, attendee)) {
+                window.alert('You are already attending this event!');
+                router.push(`/event/${eventId}`);
+                return;
             }
 
-            attendees.push(attendee)
+            attendees.push(attendanceDetails);
 
             await updateDoc(eventRef, {
                 attendees: attendees
-            })
+            });
 
-            window.alert('Attendance recorded!')
-            router.push(`/event/${eventId}`)
+            window.alert('Attendance recorded!');
+            router.push(`/event/${eventId}`);
         } else {
-            window.alert('No such event!')
-            router.push('/')
+            window.alert('No such event!');
+            router.push('/');
         }
-    }
+    };
+
 
     useEffect(() => {
         if (user && !loading) {
