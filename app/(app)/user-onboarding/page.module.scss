@@ -1,7 +1,8 @@
 .form {
-    height: calc(100vh - 4rem);
+    height: calc(100vh - 3rem);
     display: flex;
     flex-direction: column;
+    overflow-y: scroll;
 
     .header {
         padding: 1rem 0;
@@ -92,6 +93,12 @@
                 }
             }
 
+            .org-items {
+                display: flex;
+                position: relative;
+                flex-direction: column;
+            }
+
         }
     }
 
@@ -130,6 +137,7 @@
 
     .button-container {
         margin-top: auto;
+        margin-bottom: 1.5rem;
         
         button {
             display: flex;

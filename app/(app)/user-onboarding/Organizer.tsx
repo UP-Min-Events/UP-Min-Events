@@ -93,7 +93,7 @@ export default function Organizer({
                         <AddIcon sx={{ scale: '0.75', color: '#a70000', p: '0' }} />
                         <button onClick={handleAddOrganization}> Add Organization </button>
                     </div>
-                    <TransitionGroup>
+                    <TransitionGroup className={styles['org-items']}>
                         {affiliatedOrganization.map((org, index) => (
                             <Collapse key={index}>
                                 <input
