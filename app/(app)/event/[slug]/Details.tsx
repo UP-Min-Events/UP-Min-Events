@@ -69,7 +69,7 @@ export default function Details({ id } : { id: string }) {
     const [formattedStartTime, setFormattedStartTime] = useState<string | undefined>("");
     const [formattedEndTime, setFormattedEndTime] = useState<string | undefined>("");
     const [isCoOwner, setIsCoOwner] = useState<boolean>(false);
-    const [attendeeList, setAttendeeList] = useState<{ fullName: string, degreeProgram: string, attendanceDetails: string }[]>([]);
+    const [attendeeList, setAttendeeList] = useState<{ firstName: string, lastName: string, degreeProgram: string, attendanceDetails: string }[]>([]);
 
     const [data, setData] = useState<Data>({
         id: "",
@@ -114,7 +114,7 @@ export default function Details({ id } : { id: string }) {
         const attendees = await getAttendees()
 
         setData(event as Data);
-        setAttendeeList(attendees as { fullName: string, degreeProgram: string, attendanceDetails: string }[]);
+        setAttendeeList(attendees as { firstName: string, lastName: string, degreeProgram: string, attendanceDetails: string }[]);
 
         if (event?.coOwners !== undefined) {
             if (event.coOwners.includes(user?.email)) {
@@ -283,8 +283,7 @@ export default function Details({ id } : { id: string }) {
                                             <div className={styles['attendee-name']}>
                                                 <p> 
                                                     {
-                                                        attendee.fullName !== undefined ? attendee.fullName 
-                                                        : 'Unknown Attendee'
+                                                        attendee.firstName && attendee.lastName && `${attendee.lastName}, ${attendee.firstName}`
                                                     }    
                                                 </p>
                                             </div>
