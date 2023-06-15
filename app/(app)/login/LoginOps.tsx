@@ -31,6 +31,7 @@ export default function LoginOps(){
         if (!attendees.docs || attendees.docs.length === 0 || !userExists) {
             router.push('/user-onboarding')
         } else {
+            console.log('isScanning', isScanning)
             if (isScanning) {
                 router.push(`/scan/${eventID}`)
             } else {

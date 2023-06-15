@@ -3,7 +3,7 @@
 import styles from './page.module.scss'
 import Attendee from './Attendee'
 import Organizer from './Organizer'
-import { Inter } from 'next/font/google'
+import { inter } from '@/utils/font'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useUserTypeContext } from '../../providers/UserTypeProvider'
@@ -15,8 +15,6 @@ import { doc, setDoc } from 'firebase/firestore'
 
 import { Skeleton } from '@mui/material'
 import CircleLoading from '../loadingui/CircleLoading'
-
-const inter = Inter({ subsets: ['latin'] })
 
 export default function OnboardingForm() {
 
