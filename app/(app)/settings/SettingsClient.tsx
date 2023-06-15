@@ -6,7 +6,7 @@ import UserDetails from './UserDetails'
 import OrganizerDetails from './OrganizerDetails'
 import LogoutIcon from '@mui/icons-material/Logout';
 
-import { auth } from "../../../firebaseConfig"
+import { auth } from "@/firebaseConfig"
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useUserTypeContext } from '@/app/providers/UserTypeProvider'

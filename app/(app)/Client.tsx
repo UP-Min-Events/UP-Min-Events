@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation"
 import { useState, useEffect } from "react"
 import { useUserTypeContext } from '@/app/providers/UserTypeProvider'
 
-import { auth, db } from "../../firebaseConfig"
+import { auth, db } from "@/firebaseConfig"
 import { doc, getDoc } from "firebase/firestore"
 import { useAuthState } from "react-firebase-hooks/auth"
 

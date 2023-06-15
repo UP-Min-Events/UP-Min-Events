@@ -4,7 +4,7 @@ import styles from '../page.module.css'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import Link from 'next/link'
 
-import { auth, db } from '../../../../firebaseConfig'
+import { auth, db } from '@/firebaseConfig'
 import { collection, doc, DocumentReference, DocumentData, deleteDoc, getDocs } from 'firebase/firestore'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useUserTypeContext } from '@/app/providers/UserTypeProvider'
