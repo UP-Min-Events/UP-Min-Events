@@ -30,10 +30,11 @@ export default function LoginOps(){
         const attendees = await getDocs(attendeesdb)
         const userExists = attendees.docs.some(doc => doc.id === userid)
         
+        window.alert(isScanning)
+        
         if (!attendees.docs || attendees.docs.length === 0 || !userExists) {
             router.push('/user-onboarding')
         } else {
-            window.alert(isScanning)
             if (isScanning) {
                 router.push(`/scan/${eventID}`)
             } else {
@@ -53,22 +54,24 @@ export default function LoginOps(){
         }
     }
 
-    const SignIn = () => {
+    const SignIn = async () => {
         const provider = new GoogleAuthProvider();
         provider.setCustomParameters({ 
             hd: "up.edu.ph",
         });
-        
-        signInWithPopup(auth, provider).then((result) => {
+
+        try {
+            const result = await signInWithPopup(auth, provider)
             const userid = result.user.uid;
+
             if (userType === 'attendee') {
                 getAttendees(userid);
             } else if (userType === 'organizer') {
                 getOrganizers(userid)
             }
-        }).catch((error) => {
-            console.log(error)
-        })
+        } catch (error) {
+            window.alert(error)
+        }
     }
     
     return (
