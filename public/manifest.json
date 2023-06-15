@@ -1,12 +1,12 @@
 {
-    "theme_color": "#f69435",
-    "background_color": "#f69435",
+    "theme_color": "#A70000",
+    "background_color": "#A70000",
     "display": "standalone",
     "scope": "/",
     "start_url": "/",
     "name": "UPMin Events",
     "short_name": "Events",
-    "description": "UPMin Events is an event management app.",
+    "description": "UPMin Events is an event management app which also serves as an attendance tracking tool for the event organizers.",
     "icons": [
         {
             "src": "/icon-192x192.png",
