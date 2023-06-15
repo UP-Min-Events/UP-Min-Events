@@ -14,6 +14,7 @@ import { useEffect, useState } from 'react'
 import { useUserTypeContext } from '@/app/providers/UserTypeProvider'
 import { auth } from '@/firebaseConfig'
 import { useAuthState } from 'react-firebase-hooks/auth'
+import { Timestamp } from '@firebase/firestore'
 
 import { Skeleton } from '@mui/material'
 import Dialog from '@mui/material/Dialog';
@@ -29,7 +30,7 @@ interface Data {
     id: string;
     name: string;
     desc: string;
-    date: Date;
+    date: Timestamp;
     startTime: string;
     endTime: string;
     venue: string;
@@ -69,12 +70,12 @@ export default function Details({ id } : { id: string }) {
     const [formattedEndTime, setFormattedEndTime] = useState<string | undefined>("");
     const [isCoOwner, setIsCoOwner] = useState<boolean>(false);
     const [attendeeList, setAttendeeList] = useState<{ fullName: string, degreeProgram: string, attendanceDetails: string }[]>([]);
-  
+
     const [data, setData] = useState<Data>({
         id: "",
         name: "",
         desc: "",
-        date: new Date(),
+        date: Timestamp.now(),
         startTime: "",
         endTime: "",
         venue: "",
@@ -83,6 +84,8 @@ export default function Details({ id } : { id: string }) {
         owner: "",
         attendees: [],
     })
+
+    const date = data.date.toDate()
 
     const handleShowQR = () => {
         setShowQR(true)
@@ -169,7 +172,7 @@ export default function Details({ id } : { id: string }) {
                                 </>
                             }
                         </div>
-                        <Status date={data?.date} startTime={data?.startTime} endTime={data?.endTime} />
+                        <Status date={data?.date.toDate()} startTime={data?.startTime} endTime={data?.endTime} />
                         <div className={styles.divider}></div>
                     </div>
                     <div className={styles.section}>
@@ -184,7 +187,7 @@ export default function Details({ id } : { id: string }) {
                                     :
                                     <div className={styles.infoData}>
                                         <p>
-                                            { data.date.toLocaleDateString('en-US', {
+                                            { date.toLocaleDateString('en-US', {
                                                 year: 'numeric',
                                                 month: 'long',
                                                 day: 'numeric'
