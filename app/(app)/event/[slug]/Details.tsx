@@ -43,7 +43,7 @@ interface Data {
     host: string;
     visibility: string;
     owner: string;
-    attendees: string[];
+    attendees: { attendee: string; dateTime: string }[];
 }
 
 export default function Details({ id }: Props) {
@@ -92,7 +92,7 @@ export default function Details({ id }: Props) {
     const [formattedStartTime, setFormattedStartTime] = useState<string | undefined>("");
     const [formattedEndTime, setFormattedEndTime] = useState<string | undefined>("");
     const [isCoOwner, setIsCoOwner] = useState<boolean>(false);
-    const [attendeeList, setAttendeeList] = useState<{ fullName: string, degreeProgram: string }[]>([]);
+    const [attendeeList, setAttendeeList] = useState<{ fullName: string, degreeProgram: string, attendanceDetails: string }[]>([]);
 
     const date = data.date
     const formattedDate = date.toLocaleDateString("en-US", {
@@ -132,13 +132,14 @@ export default function Details({ id }: Props) {
     }
 
     const handleAttendeeList = async () => {
-        for (const id of data.attendees) {
-            const docSnap = await getDoc(doc(db, 'attendees', id));
-            setAttendeeList((prev: { fullName: string, degreeProgram: string }[]) => [
+        for (const attendee of data.attendees) {
+            const docSnap = await getDoc(doc(db, 'attendees', attendee.attendee));
+            setAttendeeList((prev: { fullName: string, degreeProgram: string, attendanceDetails: string }[]) => [
                 ...prev,
                 {
                     fullName: `${docSnap.data()?.lastName}, ${docSnap.data()?.firstName}`,
-                    degreeProgram: docSnap.data()?.program
+                    degreeProgram: docSnap.data()?.program,
+                    attendanceDetails: attendee.dateTime
                 }
             ]);
             console.log(docSnap.data());
@@ -342,6 +343,7 @@ export default function Details({ id }: Props) {
                                                         : '-'
                                                     }
                                                 </p>
+                                                <p> {attendee.attendanceDetails} </p>
                                             </div>
                                         </div>
                                     ))}
