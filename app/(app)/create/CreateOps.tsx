@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { auth, db } from '../../../firebaseConfig'
+import { auth, db } from '@/firebaseConfig'
 import { collection, addDoc, query, where, getDocs, Timestamp } from 'firebase/firestore'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import Page1 from './Page1'

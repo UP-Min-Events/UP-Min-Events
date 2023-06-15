@@ -5,7 +5,7 @@ import styles from './page.module.css'
 import QRCode from 'qrcode'
 
 import { doc, getDoc } from 'firebase/firestore'
-import { db } from '../../../../firebaseConfig'
+import { db } from '@/firebaseConfig'
 
 interface Props {
     id: string,

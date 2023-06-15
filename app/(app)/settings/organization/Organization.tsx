@@ -10,7 +10,7 @@ import Collapse from '@mui/material/Collapse';
 import { TransitionGroup } from 'react-transition-group';
 
 import { useState, useEffect } from 'react'
-import { auth, db } from '../../../../firebaseConfig'
+import { auth, db } from '@/firebaseConfig'
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { useAuthState } from 'react-firebase-hooks/auth'
 

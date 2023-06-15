@@ -9,7 +9,7 @@ import { useState } from 'react'
 import { useUserTypeContext } from '../../providers/UserTypeProvider'
 import { useIsScanningContext } from '../../providers/IsScanningProvider'
 
-import { auth, db } from '../../../firebaseConfig'
+import { auth, db } from '@/firebaseConfig'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { doc, setDoc } from 'firebase/firestore'
 
