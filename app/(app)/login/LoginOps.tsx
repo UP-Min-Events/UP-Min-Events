@@ -68,7 +68,8 @@ export default function LoginOps(){
                 getOrganizers(userid)
             }
         } catch (error) {
-            window.alert('An error just occurred. Sorry for the inconvenience.')
+            console.log(error)
+            window.alert('An error occurred.')
         }
     }
     
