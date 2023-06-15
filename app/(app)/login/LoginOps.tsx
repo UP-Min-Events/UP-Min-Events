@@ -14,6 +14,8 @@ import { auth, db } from '@/firebaseConfig'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { collection, getDocs, } from 'firebase/firestore'
 
+import { LinearProgress } from '@mui/material'
+
 const inter = Inter({ subsets: ['latin']})
 
 export default function LoginOps(){
@@ -50,49 +52,56 @@ export default function LoginOps(){
         }
     }
 
-    const SignIn = () => {
+    const SignIn = async () => {
         const provider = new GoogleAuthProvider();
         provider.setCustomParameters({ 
             hd: "up.edu.ph",
         });
-        
-        signInWithPopup(auth, provider).then((result) => {
+
+        try {
+            const result = await signInWithPopup(auth, provider)
             const userid = result.user.uid;
+
             if (userType === 'attendee') {
                 getAttendees(userid);
             } else if (userType === 'organizer') {
                 getOrganizers(userid)
             }
-        }).catch((error) => {
-            console.log(error)
-        })
+        } catch (error) {
+            window.alert('An error just occurred. Sorry for the inconvenience.')
+        }
     }
     
     return (
         <div className={styles['page-wrapper']}>
-            <div className={`${styles['login-header']} ${inter.className}`}>
-                <Image className={styles.logo} src={upLogo} alt="UPMin Logo" width={175} height={142} priority/>
-                <h1>Events</h1>
-                <p>Know what&apos;s happening.</p>
-            </div>
+            { isLoading ? 
+                <LinearProgress /> :
+                <>
+                <div className={`${styles['login-header']} ${inter.className}`}>
+                    <Image className={styles.logo} src={upLogo} alt="UPMin Logo" width={175} height={142} priority/>
+                    <h1>Events</h1>
+                    <p>Know what&apos;s happening.</p>
+                </div>
 
-            <div className={`${styles['login-body']} ${inter.className}`}>
-                <p>Log in as:</p>
-                <button className={`${inter.className} ${styles['login-button']}`} onClick={() => {
-                    updateUserType('attendee')
-                    setIsLoading(true)
-                    SignIn()
-                }}> 
-                    Attendee
-                </button>
-                <button className={`${inter.className} ${styles['login-button']}`} onClick={() => {
-                    updateUserType('organizer')
-                    setIsLoading(true)
-                    SignIn()
-                }}> 
-                    Organizer
-                </button>
-            </div>
+                <div className={`${styles['login-body']} ${inter.className}`}>
+                    <p>Log in as:</p>
+                    <button className={`${inter.className} ${styles['login-button']}`} onClick={() => {
+                        updateUserType('attendee')
+                        setIsLoading(true)
+                        SignIn()
+                    }}> 
+                        Attendee
+                    </button>
+                    <button className={`${inter.className} ${styles['login-button']}`} onClick={() => {
+                        updateUserType('organizer')
+                        setIsLoading(true)
+                        SignIn()
+                    }}> 
+                        Organizer
+                    </button>
+                </div>
+                </>
+            }
         </div>           
     )
 }

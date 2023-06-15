@@ -18,21 +18,6 @@ export default function ProcessOps({ id }: { id: string }) {
     const router = useRouter()
     const { updateIsScanning, updateEventID } = useIsScanningContext()
 
-    const checkIfAlreadyAUser = async () => {
-        const attendeeRef = doc(db, 'attendees', `${user?.uid}`)
-        await getDoc(attendeeRef).then(
-            (docSnap) => {
-                if (docSnap.exists()) {
-                    processAttendance(id)
-                } else {
-                    updateIsScanning(true)
-                    updateEventID(id)
-                    router.push('/login')
-                }
-            }
-        )
-    }
-
     const getTime = () => {
         const currentDate = new Date();
       
@@ -61,6 +46,19 @@ export default function ProcessOps({ id }: { id: string }) {
     const checkAttendeeExists = (attendees: AttendanceDetails[], name: string | undefined) => {
         return attendees.some((details) => details.attendee === name);
     };
+
+    const checkIfAlreadyAUser = async () => {
+        const attendeeRef = doc(db, 'attendees', `${user?.uid}`)
+        const docSnap = await getDoc(attendeeRef)
+
+        if (docSnap.exists()) {
+            processAttendance(id)
+        } else {
+            updateIsScanning(true)
+            updateEventID(id)
+            router.push('/user-onboarding')
+        }
+    }
 
     const processAttendance = async (eventId: string) => {
         const attendee = user?.uid;
@@ -95,11 +93,12 @@ export default function ProcessOps({ id }: { id: string }) {
         }
     };
 
-
     useEffect(() => {
         if (user && !loading) {
             updateIsScanning(false)
             checkIfAlreadyAUser()
+        } else if (!user && !loading) {
+            router.push('/login')
         }
     }, [loading])
 
