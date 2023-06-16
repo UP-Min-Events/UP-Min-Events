@@ -14,8 +14,6 @@ import { auth, db } from '@/firebaseConfig'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { collection, getDocs, } from 'firebase/firestore'
 
-import { LinearProgress } from '@mui/material'
-
 const inter = Inter({ subsets: ['latin']})
 
 export default function LoginOps(){
@@ -76,7 +74,8 @@ export default function LoginOps(){
     return (
         <div className={styles['page-wrapper']}>
             { isLoading ? 
-                <LinearProgress /> :
+                <></>
+                :
                 <>
                 <div className={`${styles['login-header']} ${inter.className}`}>
                     <Image className={styles.logo} src={upLogo} alt="UPMin Logo" width={175} height={142} priority/>

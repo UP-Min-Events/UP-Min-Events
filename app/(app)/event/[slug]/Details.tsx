@@ -6,13 +6,14 @@ import Status from './Status'
 import QR from './QR'
 
 import { inter } from '@/utils/font'
-import { getEvent, getAttendees } from '@/utils/getData'
+import { getEvent } from '@/utils/getData'
 import { deleteEvent } from '@/utils/deleteData'
 
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useUserTypeContext } from '@/app/providers/UserTypeProvider'
-import { auth } from '@/firebaseConfig'
+import { db, auth } from '@/firebaseConfig'
+import { getDoc, doc } from 'firebase/firestore'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { Timestamp } from '@firebase/firestore'
 
@@ -69,7 +70,7 @@ export default function Details({ id } : { id: string }) {
     const [formattedStartTime, setFormattedStartTime] = useState<string | undefined>("");
     const [formattedEndTime, setFormattedEndTime] = useState<string | undefined>("");
     const [isCoOwner, setIsCoOwner] = useState<boolean>(false);
-    const [attendeeList, setAttendeeList] = useState<{ firstName: string, lastName: string, degreeProgram: string, attendanceDetails: string }[]>([]);
+    const [attendeeList, setAttendeeList] = useState<{ fullName: string, degreeProgram: string, attendanceDetails: string }[]>([]);
 
     const [data, setData] = useState<Data>({
         id: "",
@@ -111,10 +112,8 @@ export default function Details({ id } : { id: string }) {
 
     const getDetails = async () => {
         const event = await getEvent(id)
-        const attendees = await getAttendees()
 
         setData(event as Data);
-        setAttendeeList(attendees as { firstName: string, lastName: string, degreeProgram: string, attendanceDetails: string }[]);
 
         if (event?.coOwners !== undefined) {
             if (event.coOwners.includes(user?.email)) {
@@ -122,6 +121,21 @@ export default function Details({ id } : { id: string }) {
             }
         }
     }
+
+    const handleAttendeeList = async () => {
+        for (const attendee of data.attendees) {
+            const docSnap = await getDoc(doc(db, 'attendees', attendee.attendee));
+            setAttendeeList((prev: { fullName: string, degreeProgram: string, attendanceDetails: string }[]) => [
+                ...prev,
+                {
+                    fullName: `${docSnap.data()?.lastName}, ${docSnap.data()?.firstName}`,
+                    degreeProgram: docSnap.data()?.program,
+                    attendanceDetails: attendee.dateTime
+                }
+            ]);
+            console.log(docSnap.data());
+        }
+    };
 
     const Delete = async (): Promise<void> => {
         await deleteEvent(id)
@@ -142,6 +156,20 @@ export default function Details({ id } : { id: string }) {
         }
 
     }, [data]);
+
+    useEffect(() => {
+        if (data && data.startTime !== "") {
+            setFormattedStartTime(formatTime(data.startTime));
+        }
+
+        if (data && data.endTime !== "") {
+            setFormattedEndTime(formatTime(data.endTime));
+        }
+
+        handleAttendeeList();
+
+    }, [data]);
+
 
     return (
         <div className={`${inter.className} ${styles.container}`}>
@@ -278,12 +306,13 @@ export default function Details({ id } : { id: string }) {
 
                                 {/* Display of Attendee name and degree program */}
                                 <Collapse in={showList}>
-                                    {attendeeList.map((attendee, index) => (
+                                {attendeeList.map((attendee, index) => (
                                         <div className={styles['attendee-list']} key={index}>
                                             <div className={styles['attendee-name']}>
                                                 <p> 
                                                     {
-                                                        attendee.firstName && attendee.lastName && `${attendee.lastName}, ${attendee.firstName}`
+                                                        attendee.fullName !== undefined ? attendee.fullName 
+                                                        : 'Unknown Attendee'
                                                     }    
                                                 </p>
                                             </div>
@@ -301,8 +330,9 @@ export default function Details({ id } : { id: string }) {
                                                         : attendee.degreeProgram  === 'bss' ? 'BSS'
                                                         : attendee.degreeProgram  === 'abe' ? 'BSABE' 
                                                         : '-'
-                                                    } | {attendee.attendanceDetails}
+                                                    }
                                                 </p>
+                                                <p> {attendee.attendanceDetails} </p>
                                             </div>
                                         </div>
                                     ))}
