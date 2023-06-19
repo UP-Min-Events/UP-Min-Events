@@ -1,6 +1,6 @@
 'use client'
 
-import styles from './page.module.css'
+import styles from './page.module.scss'
 import { Inter } from 'next/font/google'
 import { useUserTypeContext } from '../../providers/UserTypeProvider'
 import { useIsScanningContext } from '../../providers/IsScanningProvider'

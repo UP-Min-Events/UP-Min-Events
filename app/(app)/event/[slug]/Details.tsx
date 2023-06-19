@@ -1,6 +1,6 @@
 'use client'
 
-import styles from './page.module.css'
+import styles from './page.module.scss'
 import Link from 'next/link'
 import Status from './Status'
 import QR from './QR'
@@ -346,22 +346,22 @@ export default function Details({ id } : { id: string }) {
 
                         <>
                             <div className={styles['small-button-wrapper']}>
-                                <Link className={styles.buttonM} href={`/event/${id}/edit`}>Edit</Link>
+                                <Link className={styles['button-small']} href={`/event/${id}/edit`}>Edit</Link>
                                 {
                                     isCoOwner === false &&
-                                    <button className={styles.buttonM} onClick={handleDelete}>Delete</button>
+                                    <button className={styles['button-small']} onClick={handleDelete}>Delete</button>
                                 }
                                 <Dialog className={styles['confirm-delete']} open={confirmDelete} onClose={handleCancelDelete}>
                                     <h2> Delete this event? </h2>
                                         <p> This event will be gone forever. </p>
                                     <div className={styles['dialog-button-wrapper']}>
-                                        <button className={styles.cancel} onClick={handleCancelDelete}>Cancel</button>
-                                        <button className={styles.delete} onClick={Delete}>Delete</button>
+                                        <button className={styles['cancel-button']} onClick={handleCancelDelete}>Cancel</button>
+                                        <button className={styles['delete-button']} onClick={Delete}>Delete</button>
                                     </div>
                                 </Dialog>
                             </div>
                             <div className={styles['button-wrapper']}>
-                                <button className={styles.buttonL} onClick={handleShowQR}>
+                                <button className={styles['button-large']} onClick={handleShowQR}>
                                     <QrCodeScannerIcon /> <h2> Show QR </h2>
                                 </button> 
                             </div>

@@ -1,6 +1,6 @@
 'use client'
 
-import styles from './page.module.css'
+import styles from './page.module.scss'
 import UserInfo from './UserInfo'
 import UserDetails from './UserDetails'
 import OrganizerDetails from './OrganizerDetails'
@@ -33,7 +33,7 @@ export default function SettingsClient() {
                     <UserInfo />
                     { userType === 'attendee' ? <UserDetails/> : <OrganizerDetails />}
                     <div className={styles['button-wrapper']}>
-                        <button className={styles['button-signout']} onClick={SignOut}>
+                        <button className={styles['signout-button']} onClick={SignOut}>
                             <LogoutIcon /> Sign Out
                         </button>
                     </div>

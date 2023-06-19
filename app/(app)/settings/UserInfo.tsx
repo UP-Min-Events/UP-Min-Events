@@ -1,6 +1,6 @@
 'use client'
 
-import styles from './page.module.css'
+import styles from './page.module.scss'
 import { Inter } from 'next/font/google'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -60,13 +60,13 @@ export default function UserInfo(){
     return (
         <>
             {user && !loading && (
-                <div className={`${inter.className} ${styles.headerContainer}`}>
+                <div className={`${inter.className} ${styles['settings-header']}`}>
                     <div className={styles.nav}>
                         <Link href="/"> 
                             <ArrowBackIcon sx={{ scale: '125%', color: '#a70000', p: '0' }} /> 
                         </Link> 
                     </div>
-                    <div className={styles.header}>
+                    <div className={styles['header-info']}>
                         { !url ?
                             <Skeleton variant="circular" width={96} height={96} /> 
                             : 

@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import styles from './page.module.css'
+import styles from './page.module.scss'
 import QRCode from 'qrcode'
 
 import { doc, getDoc } from 'firebase/firestore'
@@ -54,11 +54,11 @@ export default function QR({ id } : Props) {
             <div className={styles.header}>
                 <h1>{name}</h1>
             </div>
-            <div className={styles.qrcodecontainer}>
+            <div className={styles['qr-code-wrapper']}>
                 <canvas id="qrcode"></canvas>
             </div>
             <div className={styles['small-button-wrapper']}>
-                <button className={styles.buttonM} onClick={() => saveQR()}> Save QR </button>
+                <button className={styles['button-small']} onClick={() => saveQR()}> Save QR </button>
             </div>
         </div>
     )

@@ -1,0 +1,64 @@
+.page-wrapper {
+    height: calc(100vh - 3rem);
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+
+    .login-header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        position: relative;
+        padding: 1em;
+        text-align: center;
+        width: 100%;
+
+        .logo {
+            display: flex;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 3.5em;
+            margin-top: 20%;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+        }
+        
+        p {
+            color: #a70000;
+            font-weight: 500;
+        }
+    }
+
+    .login-body {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        position: relative;
+        width: 100%;
+        text-align: center;
+        align-items: center;
+        margin-top: 2.5em;
+
+        p {
+            font-size: 1rem;
+        }
+
+        .login-button {
+            display: flex;
+            background-color: #a70000;
+            color: white;
+            width: 60%;
+            border-radius: 1em;
+            height: 2.75rem;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+    }
+}
