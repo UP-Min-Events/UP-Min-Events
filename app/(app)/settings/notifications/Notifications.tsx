@@ -15,7 +15,7 @@ export default function Notifications() {
             <div className={styles.headerContainer}>
                 <h2 className={styles.header}> Notifications </h2>
             </div>
-            <div className={styles['info-item']}> 
+            <div className={styles['info-container']}> 
                 <div className={styles.content}>
                     <p> no official app = no notifs :^) enjoy discovering the app! </p>
                 </div>
