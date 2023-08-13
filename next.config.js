@@ -15,7 +15,7 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'lh3.googleusercontent.com',
         port: '',
-        pathname: 'fife/**',
+        pathname: 'a/**',
       }
     ],
     domains: ['lh3.googleusercontent.com', 'api.qrserver.com']

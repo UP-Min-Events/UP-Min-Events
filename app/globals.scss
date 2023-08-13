@@ -1,7 +1,8 @@
 :root {
-  --background-white: #ffffff;
-  --accent-maroon: #a70000;
+  $background: #ffffff;
+  $primary: #a70000;
 }
+
 
 @media (prefers-color-scheme: dark) {
   :root {
