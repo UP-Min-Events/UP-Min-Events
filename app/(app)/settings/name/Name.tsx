@@ -1,6 +1,6 @@
  'use client'
 
-import styles from '../page.module.css'
+import styles from '../page.module.scss'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 
 import Link from 'next/link'
@@ -67,22 +67,20 @@ export default function Name() {
     return (
         <div>
             <div className={styles.nav}>
-                    <Link href="/settings"> 
-                        <ArrowBackIcon sx={{ scale: '125%', color: '#a70000', p: '0' }} /> 
-                    </Link> 
-                    <button className={styles['save-setting']} onClick={() => { updateDetail() }}> Save </button>
+                <Link href="/settings"> 
+                    <ArrowBackIcon sx={{ scale: '125%', color: '#a70000', p: '0' }} /> 
+                </Link> 
+                <button className={styles['save-setting']} onClick={() => { updateDetail() }}> Save </button>
             </div>
             <div className={styles['form-body']}>
-                <div className={styles['form-section']}>
-                    <div className={styles['form-item']}>
-                        <p className={styles['input-label']}> First Name </p>
-                            <input className={styles['input-element']} value={input.firstName} onChange={e => setInput({ ...input, firstName: e.target.value })} placeholder={input.firstName} />
-                    </div>
+                <div className={styles['form-item']}>
+                    <p className={styles['input-label']}> First Name </p>
+                        <input className={styles['input-element']} value={input.firstName} onChange={e => setInput({ ...input, firstName: e.target.value })} placeholder={input.firstName} />
+                </div>
 
-                    <div className={styles['form-item']}>
-                        <p className={styles['input-label']}> Last Name </p>
-                        <input className={styles['input-element']} value={input.lastName} onChange={e => setInput({ ...input, lastName: e.target.value })} placeholder={input.lastName} />
-                    </div>
+                <div className={styles['form-item']}>
+                    <p className={styles['input-label']}> Last Name </p>
+                    <input className={styles['input-element']} value={input.lastName} onChange={e => setInput({ ...input, lastName: e.target.value })} placeholder={input.lastName} />
                 </div>
             </div>
         </div>

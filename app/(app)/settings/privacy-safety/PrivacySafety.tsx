@@ -1,6 +1,6 @@
 'use client'
 
-import styles from '../page.module.css'
+import styles from '../page.module.scss'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import Link from 'next/link'
 
@@ -15,7 +15,7 @@ export default function PrivacySafety() {
             <div className={styles.headerContainer}>
                 <h2 className={styles.header}> Privacy and Safety </h2>
             </div>
-            <div className={styles.infoBox}> 
+            <div className={styles['info-item']}> 
                 <div className={styles.content}>
                     <p> For safety purposes, this app will not be made public and will only be used for the purposes of the course until affiliated with official university affairs. </p> &nbsp;
                     <p> Any personal information will be kept with utmost privacy. </p>

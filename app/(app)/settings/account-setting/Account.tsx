@@ -1,6 +1,6 @@
 'use client'
 
-import styles from '../page.module.css'
+import styles from '../page.module.scss'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import Link from 'next/link'
 

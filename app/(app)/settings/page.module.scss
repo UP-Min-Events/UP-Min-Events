@@ -1,0 +1,188 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+
+  .settings-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    .nav {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      justify-content: space-between;
+      align-content: center;
+    }
+  }
+
+  .settings-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    .info-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      border-radius: 1rem;
+      border: 1px solid rgba(0,0,0,0.1);
+      box-shadow: 0 2px 2px 0 rgba(0,0,0,0.2);
+      margin-bottom: 1rem;
+
+      .info-item {
+        width: 100%;
+        font-weight: bold;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+        padding: 0.75em 1em 0.75em 1em;
+        border-bottom: 1px solid lightgray;
+      }
+
+      .info-item-bottom {
+          width: 100%;
+        font-weight: bold;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+        padding: 0.75em 1em 0.75em 1em;
+      }
+    }
+  }
+
+  .button-wrapper {
+    width: 100%;
+    display: flex;
+    position: relative;
+    margin-top: auto;
+  }
+
+  .signout-button {
+    display: flex;
+    background-color: #a70000;
+    color: white;
+    width: 100%;
+    border-radius: 1rem;
+    height: 3.5rem;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    font-size: 1.125rem;
+    font-weight: 600;
+    gap: 0.5rem;
+  }
+
+}
+
+.form-body {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  gap: 1rem;
+
+    .form-item {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      gap: 0.25rem;
+
+      .input-label {
+        font-weight: 600;
+        font-size: 1rem;
+
+        .org-button {
+          display: flex;
+          align-items: center;
+          align-content: center;
+          margin: 0.25rem 0 0.25rem 0;
+          padding: 0.25rem;
+          text-align: center;
+          background: transparent;
+          color: black;
+
+          button {
+            background: transparent;
+            border: none;
+            color: black;
+            font-weight: 600;
+            font-size: 0.75rem;
+          }
+        }
+      }
+    }
+
+    .input-element {
+      background-color: white;
+      width: 100%;
+      border: 1px solid lightgray;
+      border-radius: 0.5rem;
+      padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+      font-size: 1rem;
+      color: black;
+    
+      input {
+        height: 2.5rem;
+        background-color: white;
+        color: black;
+        border: none;
+      }
+      
+      input:focus {
+        border: none;
+      }
+      
+      select {
+        height: 2.5rem;
+      }
+    }
+}
+
+
+.header-info {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  margin-bottom: 1rem;
+  
+  .img {
+    border-radius: 50%;
+    margin: 0.75rem auto;
+  }
+}
+
+.nav {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-content: center;
+  
+  .save-setting {
+    font-size: 1.125rem;
+    background-color: white;
+    border: none;
+    color: #a70000;
+    font-weight: 600;
+  }
+}
+
+
+.content {
+  text-indent: 2rem;
+  text-align: justify;
+  line-height: 1.25;
+  padding: 1rem;
+}
+
